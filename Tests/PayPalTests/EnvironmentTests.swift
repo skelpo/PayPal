@@ -12,9 +12,14 @@ final class EnvironmentTests: XCTestCase {
         XCTAssertEqual(Environment.sandbox.domain, "https://api.sandbox.paypal.com")
     }
     
+    func testAllCase() {
+        XCTAssertEqual(Environment.allCases, [.production, .sandbox])
+    }
+    
     static var allTests: [(String, (EnvironmentTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
-        ("testCaseDomains", testCaseDomains)
+        ("testCaseDomains", testCaseDomains),
+        ("testAllCase", testAllCase)
     ]
 }
 
