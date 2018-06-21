@@ -1,11 +1,23 @@
 import Vapor
 
+typealias Env = Vapor.Environment
+
 public final class Provider: Vapor.Provider {
     public func register(_ services: inout Services) throws {
-        services.register(Configuration(id: "", secret: "", environment: .sandbox))
+        guard let id = Env.get("PAYPAL_CLIENT_ID") else {
+            throw PayPalError(identifier: "envVarNotFound", reason: "Environment variable 'PAYPAL_CLIENT_ID' was not found")
+        }
+        guard let secret = Env.get("PAYPAL_CLIENT_SECRET") else {
+            throw PayPalError(identifier: "envVarNotFound", reason: "Environment variable 'PAYPAL_SECRET_ID' was not found")
+        }
+        
+        services.register(Configuration(id: id, secret: secret))
     }
     
     public func didBoot(_ container: Container) throws -> EventLoopFuture<Void> {
+        let config = try container.make(Configuration.self)
+        config.environment = container.environment.isRelease ? .production : .sandbox
+        
         return container.future()
     }
 }
@@ -24,11 +36,11 @@ public final class Configuration: Service {
     ///
     /// If the app was boot in the a release environment, it will
     /// be `.production`, otherwise it will be `.sandbox`.
-    public let environment: PayPal.Environment
+    public internal(set) var environment: PayPal.Environment!
     
-    init(id: String, secret: String, environment: Environment) {
+    init(id: String, secret: String) {
         self.id = id
         self.secret = secret
-        self.environment = environment
+        self.environment = nil
     }
 }
