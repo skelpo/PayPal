@@ -16,11 +16,13 @@ final class ProviderTests: XCTestCase {
         try! services.register(PayPal.Provider())
         
         let app = try! Application(config: config, environment: environment, services: services)
-        try! app.asyncRun().wait()
         self.app = app
     }
     
-    func testBootSucceeds()throws {}
+    func testBootSucceeds()throws {
+        try app.asyncRun().wait()
+        try app.syncShutdownGracefully()
+    }
     
     func testConfigurationRegistered()throws {
         _ = try app.make(PayPal.Configuration.self)
