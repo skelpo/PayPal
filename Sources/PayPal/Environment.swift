@@ -1,5 +1,5 @@
 /// The PayPal environment to use when making request's to the API.
-public enum Environment: String, Codable {
+public enum Environment: String, Codable, CaseIterable {
     
     /// For testing environments; to make sure you app is working as expected.
     case sandbox
