@@ -22,8 +22,13 @@ final class ProviderTests: XCTestCase {
     
     func testBootSucceeds()throws {}
     
+    func testConfigurationRegistered()throws {
+        _ = try app.make(PayPal.Configuration.self)
+    }
+    
     static var allTests: [(String, (ProviderTests) -> ()throws -> ())] = [
-        ("testBootSucceeds", testBootSucceeds)
+        ("testBootSucceeds", testBootSucceeds),
+        ("testConfigurationRegistered", testConfigurationRegistered)
     ]
 }
 
