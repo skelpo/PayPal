@@ -4,10 +4,11 @@ import Vapor
 
 final class ProviderTests: XCTestCase {
     func testBootSucceeds()throws {
-        var services = Services.default()
         let config = Config.default()
-        let environment = Environment.development
+        var services = Services.default()
+        var environment = Environment.testing
         
+        environment.arguments = ["vapor", "serve"]
         try services.register(PayPal.Provider())
         
         try Application(config: config, environment: environment, services: services).asyncRun().wait()
