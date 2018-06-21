@@ -2,7 +2,7 @@ import Vapor
 
 public final class Provider: Vapor.Provider {
     public func register(_ services: inout Services) throws {
-        
+        services.register(Configuration(id: "", secret: "", environment: .sandbox))
     }
     
     public func didBoot(_ container: Container) throws -> EventLoopFuture<Void> {
