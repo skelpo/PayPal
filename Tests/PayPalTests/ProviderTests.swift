@@ -9,6 +9,9 @@ final class ProviderTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
+        setenv("PAYPAL_CLIENT_ID", "fake_paypal_id", 1)
+        setenv("PAYPAL_CLIENT_SECRET", "fake_paypal_secret", 1)
+        
         let config = Config.default()
         var services = Services.default()
         
@@ -29,7 +32,7 @@ final class ProviderTests: XCTestCase {
     }
     
     func testConfigurationHasExpectedValues()throws {
-        let config = try app.make(PayPal.Configuration.self)
+        var config = try app.make(PayPal.Configuration.self)
         
         XCTAssertEqual(config.environment, .sandbox)
         XCTAssertEqual(config.id, "fake_paypal_id")
@@ -38,6 +41,7 @@ final class ProviderTests: XCTestCase {
         self.environment = .production
         self.tearDown()
         self.setUp()
+        config = try app.make(PayPal.Configuration.self)
         
         XCTAssertEqual(config.environment, .production)
         self.environment = .testing
