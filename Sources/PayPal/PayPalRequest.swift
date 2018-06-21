@@ -1,6 +1,6 @@
 import Vapor
 
-extension Request {
+extension Container {
     func paypal<Body>(_ method: HTTPMethod, _ path: String, headers: HTTPHeaders = [:], auth: Bool = true, body: Body? = nil)throws -> Request where Body: Content {
         let config = try self.make(Configuration.self)
         
