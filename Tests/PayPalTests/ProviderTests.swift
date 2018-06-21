@@ -3,6 +3,7 @@ import Vapor
 @testable import PayPal
 
 final class ProviderTests: XCTestCase {
+    var environment: Vapor.Environment = .testing
     var app: Application!
     
     override func setUp() {
@@ -10,7 +11,6 @@ final class ProviderTests: XCTestCase {
         
         let config = Config.default()
         var services = Services.default()
-        var environment = Environment.testing
         
         environment.arguments = ["vapor", "serve"]
         try! services.register(PayPal.Provider())
@@ -26,6 +26,21 @@ final class ProviderTests: XCTestCase {
     
     func testConfigurationRegistered()throws {
         _ = try app.make(PayPal.Configuration.self)
+    }
+    
+    func testConfigurationHasExpectedValues()throws {
+        let config = try app.make(PayPal.Configuration.self)
+        
+        XCTAssertEqual(config.environment, .sandbox)
+        XCTAssertEqual(config.id, "fake_paypal_id")
+        XCTAssertEqual(config.secret, "fake_paypal_secret")
+        
+        self.environment = .production
+        self.tearDown()
+        self.setUp()
+        
+        XCTAssertEqual(config.environment, .production)
+        self.environment = .testing
     }
     
     static var allTests: [(String, (ProviderTests) -> ()throws -> ())] = [
