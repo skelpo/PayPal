@@ -3,16 +3,24 @@ import Vapor
 @testable import PayPal
 
 final class ProviderTests: XCTestCase {
-    func testBootSucceeds()throws {
+    var app: Application!
+    
+    override func setUp() {
+        super.setUp()
+        
         let config = Config.default()
         var services = Services.default()
         var environment = Environment.testing
         
         environment.arguments = ["vapor", "serve"]
-        try services.register(PayPal.Provider())
+        try! services.register(PayPal.Provider())
         
-        try Application(config: config, environment: environment, services: services).asyncRun().wait()
+        let app = try! Application(config: config, environment: environment, services: services)
+        try! app.asyncRun().wait()
+        self.app = app
     }
+    
+    func testBootSucceeds()throws {}
     
     static var allTests: [(String, (ProviderTests) -> ()throws -> ())] = [
         ("testBootSucceeds", testBootSucceeds)
