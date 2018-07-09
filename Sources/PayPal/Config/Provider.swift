@@ -5,6 +5,7 @@ typealias Env = Vapor.Environment
 /// Configures services required for PayPal API interaction
 ///
 /// - `Configuration`
+/// - `AuthInfo`
 /// - `PayPalClient`
 ///
 /// This provider needs 2 environment variables:
@@ -23,6 +24,7 @@ public final class Provider: Vapor.Provider {
         }
         
         services.register(Configuration(id: id, secret: secret))
+        services.register(AuthInfo())
         services.register(PayPalClient.self)
     }
     
