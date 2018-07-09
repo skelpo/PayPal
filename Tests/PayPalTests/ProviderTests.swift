@@ -8,9 +8,7 @@ final class ProviderTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
-        setenv("PAYPAL_CLIENT_ID", "fake_paypal_id", 1)
-        setenv("PAYPAL_CLIENT_SECRET", "fake_paypal_secret", 1)
+        setPaypalVars()
         
         var services = Services.default()
         try! services.register(PayPal.Provider())
@@ -33,8 +31,8 @@ final class ProviderTests: XCTestCase {
         _ = try app.make(AuthInfo.self)
         
         XCTAssertEqual(config.environment, .sandbox)
-        XCTAssertEqual(config.id, "fake_paypal_id")
-        XCTAssertEqual(config.secret, "fake_paypal_secret")
+        XCTAssertEqual(config.id, id)
+        XCTAssertEqual(config.secret, secret)
         
         self.environment = .production
         self.tearDown()
