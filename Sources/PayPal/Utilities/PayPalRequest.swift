@@ -16,7 +16,8 @@ extension Container {
         
         let request = Request(http: http, using: self)
         if let body = body {
-            try request.content.encode(body, as: .urlEncodedForm)
+            let contentType: MediaType = auth ? .json : .urlEncodedForm
+            try request.content.encode(body, as: contentType)
         }
         return request
     }
