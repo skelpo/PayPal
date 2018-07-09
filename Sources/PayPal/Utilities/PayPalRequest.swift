@@ -6,9 +6,12 @@ extension Container {
         
         var http = HTTPRequest(method: method, url: config.environment.domain + "/" + path, headers: headers)
         if auth {
-            let credentials = "\(config.id):\(config.secret)"
-            let encoded = Data(credentials.utf8).base64EncodedString()
-            http.headers.replaceOrAdd(name: .authorization, value: "Basic \(encoded)")
+            let auth = try self.make(AuthInfo.self)
+            guard let type = auth.type, let token = auth.token else {
+                throw Abort(.internalServerError, reason: "Attempted to make a PayPal request that requires auth before authenticating.")
+            }
+            
+            http.headers.replaceOrAdd(name: .authorization, value: type + " " + token)
         }
         
         let request = Request(http: http, using: self)
