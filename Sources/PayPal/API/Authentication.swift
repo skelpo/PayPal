@@ -34,6 +34,6 @@ public final class AuthInfo: Service {
 
 extension PayPalClient {
     public func authenticate() -> Future<Void> {
-        fatalError()
+        return self.container.future()
     }
 }
