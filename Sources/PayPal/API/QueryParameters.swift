@@ -61,7 +61,7 @@ public struct QueryParamaters: Content {
         page: Int? = nil,
         pageSize: Int? = nil,
         totalCountRequired: Bool? = nil,
-        sortBy: String?,
+        sortBy: String? = nil,
         sortOrder: ResponseSortOrder? = nil,
         startID: String? = nil,
         startIndex: Int? = nil,
@@ -77,6 +77,25 @@ public struct QueryParamaters: Content {
         self.startID = startID
         self.startIndex = startIndex
         self.startTime = startTime
+    }
+    
+    /// Converts the query's properties to a query string representation.
+    ///
+    ///     QueryParamaters(page: 0, pageSize: 25, sortOrder: .ascending).encode()
+    ///
+    ///     // "page=0&page_size=25&sort_order=ascending"
+    public func encode() -> String {
+        let values: [String: CustomStringConvertible?] = [
+            "count": self.count, "end_time": self.endTime, "page": self.page, "page_size": self.pageSize,
+            "total_count_required": self.totalCountRequired, "sort_by": self.sortBy, "sort_order": self.sortOrder,
+            "start_id": self.startID, "start_index": self.startIndex, "start_time": self.startTime
+        ]
+        
+        return values.reduce(into: []) { query, parameter in
+            if let value = parameter.value {
+                query.append("\(parameter.key)=\(value.description)")
+            }
+        }.joined(separator: "&")
     }
 }
 
