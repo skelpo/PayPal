@@ -31,9 +31,9 @@ func setPaypalVars() {
     }
     
     if let clientID = Environment.get("PAYPAL_CLIENT_SECRET") {
-        id = clientID
+        secret = clientID
     } else {
-        id = "fake_paypal_secret"
-        setenv("PAYPAL_CLIENT_SECRET", id, 1)
+        secret = "fake_paypal_secret"
+        setenv("PAYPAL_CLIENT_SECRET", secret, 1)
     }
 }
