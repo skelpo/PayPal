@@ -2,6 +2,13 @@ import XCTest
 @testable import PayPal
 
 final class AuthenticationTests: XCTestCase {
-    static var allTests: [(String, (AuthenticationTests) -> ()throws -> ())] = []
+    func testTokenExpired() {
+        let info = AuthInfo()
+        XCTAssert(info.tokenExpired == false)
+    }
+    
+    static var allTests: [(String, (AuthenticationTests) -> ()throws -> ())] = [
+        ("testTokenExpired", testTokenExpired)
+    ]
 }
 
