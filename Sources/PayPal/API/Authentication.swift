@@ -31,3 +31,9 @@ public final class AuthInfo: Service {
         return self.expiresAt == nil ? true : Date() <= self.expiresAt!
     }
 }
+
+extension PayPalClient {
+    public func authenticate() -> Future<Void> {
+        fatalError()
+    }
+}
