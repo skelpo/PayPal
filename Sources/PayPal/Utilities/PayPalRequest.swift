@@ -29,7 +29,13 @@ extension Container {
         body: Body?,
         as response: Result.Type = Result.self
     ) -> Future<Result> where Body: Content, Result: Content {
-        return Future.flatMap(on: self) { () -> Future<Response> in
+        return Future.flatMap(on: self) { () -> Future<Void> in
+            if try self.make(AuthInfo.self).tokenExpired == true {
+                return try self.make(PayPalClient.self).authenticate()
+            } else {
+                return self.future()
+            }
+        }.flatMap(to: Response.self) {
             let request = try self.paypal(method, path, headers: headers, auth: true, body: body)
             return try self.client().send(request)
         }.flatMap(to: Result.self) { response in
