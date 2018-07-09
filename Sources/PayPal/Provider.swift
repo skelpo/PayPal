@@ -12,6 +12,7 @@ public final class Provider: Vapor.Provider {
         }
         
         services.register(Configuration(id: id, secret: secret))
+        services.register(PayPalClient.self)
     }
     
     public func didBoot(_ container: Container) throws -> EventLoopFuture<Void> {
