@@ -45,7 +45,8 @@ final class ProviderTests: XCTestCase {
     
     static var allTests: [(String, (ProviderTests) -> ()throws -> ())] = [
         ("testBootSucceeds", testBootSucceeds),
-        ("testConfigurationRegistered", testConfigurationRegistered)
+        ("testConfigurationRegistered", testConfigurationRegistered),
+        ("testConfigurationHasExpectedValues", testConfigurationHasExpectedValues)
     ]
 }
 
