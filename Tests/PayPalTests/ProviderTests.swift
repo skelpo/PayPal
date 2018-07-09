@@ -30,6 +30,7 @@ final class ProviderTests: XCTestCase {
     func testConfigurationHasExpectedValues()throws {
         var config = try app.make(PayPal.Configuration.self)
         _ = try app.make(PayPalClient.self)
+        _ = try app.make(AuthInfo.self)
         
         XCTAssertEqual(config.environment, .sandbox)
         XCTAssertEqual(config.id, "fake_paypal_id")
