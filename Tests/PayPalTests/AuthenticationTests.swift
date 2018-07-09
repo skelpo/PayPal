@@ -4,7 +4,7 @@ import XCTest
 final class AuthenticationTests: XCTestCase {
     func testTokenExpired() {
         let info = AuthInfo()
-        XCTAssert(info.tokenExpired == false)
+        XCTAssert(info.tokenExpired == true)
     }
     
     static var allTests: [(String, (AuthenticationTests) -> ()throws -> ())] = [

@@ -28,6 +28,6 @@ public final class AuthInfo: Service {
     
     /// Whether or not the value in the `token` property is expired.
     public var tokenExpired: Bool {
-        return self.expiresAt == nil ? false : Date() <= self.expiresAt!
+        return self.expiresAt == nil ? true : Date() <= self.expiresAt!
     }
 }
