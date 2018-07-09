@@ -19,10 +19,7 @@ final class APITests: XCTestCase {
     func testAPIHelper()throws {
         let response = try app.paypal(.GET, "v1/oauth2/token/userinfo?schema=openid", as: [String: String].self).wait()
         
-        XCTAssertEqual(response["street_address"], "1 Main St San Jose")
-        XCTAssertEqual(response["region"], "CA")
-        XCTAssertEqual(response["postal_code"], "95131")
-        XCTAssertEqual(response["country"], "US")
+        XCTAssertEqual(response["user_id"], "https://www.paypal.com/webapps/auth/identity/user/eEp3Op59PkxkjwQsK0LkDnv5d7JHwToZs0OkwVcjAZM")
     }
     
     static var allTests: [(String, (APITests) -> ()throws -> ())] = [
