@@ -21,4 +21,28 @@ extension Container {
         }
         return request
     }
+    
+    func paypal<Body, Result>(
+        _ method: HTTPMethod,
+        _ path: String,
+        headers: HTTPHeaders = [:],
+        body: Body?,
+        as response: Result.Type = Result.self
+    ) -> Future<Result> where Body: Content, Result: Content {
+        return Future.flatMap(on: self) { () -> Future<Response> in
+            let request = try self.paypal(method, path, headers: headers, auth: true, body: body)
+            return try self.client().send(request)
+        }.flatMap(to: Result.self) { response in
+            return try response.content.decode(Result.self)
+        }
+    }
+    
+    func paypal<Result>(
+        _ method: HTTPMethod,
+        _ path: String,
+        headers: HTTPHeaders = [:],
+        as response: Result.Type = Result.self
+    ) -> Future<Result> where Result: Content {
+        return self.paypal(method, path, headers: headers, body: nil as [String: String]?, as: Result.self)
+    }
 }
