@@ -81,11 +81,16 @@ public struct QueryParamaters: Content {
 }
 
 /// To specify which order the items in a response should be received from the PayPal API.
-public enum ResponseSortOrder: String, Codable {
+public enum ResponseSortOrder: String, Codable, CustomStringConvertible {
     
     ///
     case ascending
     
     ///
     case descending
+    
+    /// The raw value of the case.
+    public var description: String {
+        return self.rawValue
+    }
 }
