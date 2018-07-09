@@ -2,7 +2,7 @@ import Vapor
 
 extension Application {
     static func testable(
-        services: Services = .default()
+        services: Services = .default(),
         environment: Environment = .testing,
         environmentArguments: [String]? = nil
     )throws -> Application {
