@@ -38,9 +38,13 @@ public final class Configuration: Service {
     /// be `.production`, otherwise it will be `.sandbox`.
     public internal(set) var environment: PayPal.Environment!
     
+    /// The access token to send with a request that requires authentication.
+    public internal(set) var token: String?
+    
     init(id: String, secret: String) {
         self.id = id
         self.secret = secret
         self.environment = nil
+        self.token = nil
     }
 }
