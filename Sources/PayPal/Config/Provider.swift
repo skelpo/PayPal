@@ -14,6 +14,24 @@ typealias Env = Vapor.Environment
 /// - `PAYPAL_CLIENT_SECRET`: Your PayPal client secret.
 public final class Provider: Vapor.Provider {
     
+    let version: Float
+    
+    /// Creates a new `PayPal.Provider` instance to register with an
+    /// application's `Services`.
+    ///
+    ///      try services.register(PayPal.Provider())
+    ///
+    /// - Parameter version: The version of the PayPal API to use when making requests.
+    public init(version: Float = 1)throws {
+        let validVersions: [Float] = [1]
+        
+        guard validVersions.contains(version) else {
+            throw Abort(.internalServerError, reason: "API version \(version) is not supported.")
+        }
+        
+        self.version = version
+    }
+    
     /// Registers all services to the app's services.
     public func register(_ services: inout Services) throws {
         guard let id = Env.get("PAYPAL_CLIENT_ID") else {
@@ -23,7 +41,7 @@ public final class Provider: Vapor.Provider {
             throw PayPalError(identifier: "envVarNotFound", reason: "Environment variable 'PAYPAL_SECRET_ID' was not found")
         }
         
-        services.register(Configuration(id: id, secret: secret))
+        services.register(Configuration(id: id, secret: secret, version: self.version))
         services.register(AuthInfo())
         services.register(PayPalClient.self)
     }
@@ -46,6 +64,9 @@ public final class Configuration: Service {
     /// Your PayPal client secret value.
     public let secret: String
     
+    /// The version of the PayPal API being used.
+    public let version: Float
+    
     /// The PayPal environment to send requests to.
     /// This value is based on the app current environment.
     ///
@@ -53,9 +74,10 @@ public final class Configuration: Service {
     /// be `.production`, otherwise it will be `.sandbox`.
     public internal(set) var environment: PayPal.Environment!
     
-    init(id: String, secret: String) {
+    init(id: String, secret: String, version: Float) {
         self.id = id
         self.secret = secret
         self.environment = nil
+        self.version = version
     }
 }
