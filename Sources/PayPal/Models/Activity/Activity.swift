@@ -14,7 +14,7 @@ public final class Activity: Content {
     public var type: ActivityType
     
     /// The sub-type of the activity, if the head `type` supports it.
-    public var subType: ActivitySubType?
+    public var subtype: ActivitySubType?
     
     /// The current status of the activity.
     public var status: ActivityStatus?
@@ -44,7 +44,7 @@ public final class Activity: Content {
         id: String,
         timeCreated: String,
         type: ActivityType,
-        subType: ActivitySubType?,
+        subtype: ActivitySubType?,
         status: ActivityStatus?,
         counterparty: CounterParty?,
         fee: Money?,
@@ -56,7 +56,7 @@ public final class Activity: Content {
         self.id = id
         self.timeCreated = timeCreated
         self.type = type
-        self.subType = subType
+        self.subtype = subtype
         self.status = status
         self.counterparty = counterparty
         self.fee = fee
@@ -64,5 +64,12 @@ public final class Activity: Content {
         self.net = net
         self.partnerFee = partnerFee
         self.extensions = extensions
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, subtype, status, counterparty, fee, gross, net, extensions
+        case timeCreated = "time_created"
+        case type = "activity_type"
+        case partnerFee = "partner_fee"
     }
 }
