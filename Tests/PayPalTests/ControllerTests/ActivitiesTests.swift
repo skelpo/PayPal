@@ -16,6 +16,12 @@ final class ActivitiesTests: XCTestCase {
         app = try! Application.testable(services: services)
     }
     
-    static var allTests: [(String, (ActivitiesTests) -> ()throws -> ())] = []
+    func testServiceExists()throws {
+        _ = try app.make(Activities.self)
+    }
+    
+    static var allTests: [(String, (ActivitiesTests) -> ()throws -> ())] = [
+        ("testServiceExists", testServiceExists)
+    ]
 }
 
