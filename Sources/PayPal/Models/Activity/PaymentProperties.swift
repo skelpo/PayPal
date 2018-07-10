@@ -71,4 +71,13 @@ public final class PaymentProperties: Content {
         ///
         case purchaseWithCashback = "PURCHASE_WITH_CASHBACK"
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case creditDebitCode = "credit_debit_code"
+        case buyerNotes = "buyer_notes"
+        case orderID = "order_id"
+        case billingAgreementID = "billing_agreement_id"
+        case externalSubType = "external_sub_type"
+        case invoiceNumber = "invoice_number"
+    }
 }
