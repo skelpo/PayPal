@@ -68,4 +68,9 @@ public final class Money: Content {
         }
         self.value = value
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case value
+        case currency = "currency_code"
+    }
 }
