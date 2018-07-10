@@ -27,4 +27,11 @@ public final class Extensions: Content {
         self.invoiceProperties = invoiceProperties
         self.orderProperties = orderProperties
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case paymentProperties = "payment_properties"
+        case requestMoneyProperties = "request_money_properties"
+        case invoiceProperties = "invoice_properties"
+        case orderProperties = "order_properties"
+    }
 }
