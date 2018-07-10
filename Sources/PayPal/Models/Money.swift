@@ -21,6 +21,14 @@ public final class Money: Content {
         self.value = value
     }
     
+    public convenience init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        try self.init(
+            currencyCode: container.decode(String.self, forKey: .currencyCode),
+            value: container.decode(String.self, forKey: .value)
+        )
+    }
+    
     public func setValue(to value: String)throws {
         guard
             value.range(of: moneyValuePattern, options: .regularExpression, range: nil, locale: nil) != nil &&
