@@ -20,6 +20,29 @@ public struct Currency: Content, Equatable {
         self = currency
     }
     
+    public init(from decoder: Decoder)throws {
+        if let container = try? decoder.container(keyedBy: CodingKeys.self) {
+            self.code = try container.decode(String.self, forKey: .code)
+            self.number = try container.decode(Int.self, forKey: .number)
+            self.e = try container.decodeIfPresent(Int.self, forKey: .e)
+            self.name = try container.decode(String.self, forKey: .name)
+        } else {
+            let container = try decoder.singleValueContainer()
+            let code = try container.decode(String.self)
+            if let currency = Currency(code: code) {
+                self = currency
+            } else {
+                throw Abort(.badRequest, reason: "Unknown currency code \(code), please supply a 'name', 'number', and 'e' value to create the currency")
+            }
+        }
+        
+    }
+    
+    public func encode(to encoder: Encoder)throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.code)
+    }
+    
     public static let aed = Currency(code: "AED", number: 784, e: 2, name: "United Arab Emirates dirham")
     public static let afn = Currency(code: "AFN", number: 971, e: 2, name: "Afghan afghani")
     public static let all = Currency(code: "ALL", number: 8, e: 2, name: "Albanian lek")
@@ -219,6 +242,10 @@ public struct Currency: Content, Equatable {
         "xba": xba, "xbb": xbb, "xbc": xbc, "xbd": xbd, "xcd": xcd, "xdr": xdr, "xof": xof, "xpd": xpd, "xpf": xpf, "xpt": xpt,
         "xsu": xsu, "xts": xts, "xua": xua, "xxx": xxx, "yer": yer, "zar": zar, "zmw": zmw, "zwl": zwl,
     ]
+    
+    enum CodingKeys: String, CodingKey {
+        case code, number, e, name
+    }
 }
 
 extension Currency: CaseIterable {
