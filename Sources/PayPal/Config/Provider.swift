@@ -44,6 +44,9 @@ public final class Provider: Vapor.Provider {
         services.register(Configuration(id: id, secret: secret, version: self.version))
         services.register(AuthInfo())
         services.register(PayPalClient.self)
+        
+        // Register API Controllers
+        services.register(Activities.self)
     }
     
     /// Gets the current app environment and registers the proper PayPal environment to the configuration.
