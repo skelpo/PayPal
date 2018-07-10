@@ -20,4 +20,9 @@ public final class CounterParty: Content {
         self.phoneNumber = phoneNumber
         self.name = name
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case email, name
+        case phoneNumber = "phone_number"
+    }
 }
