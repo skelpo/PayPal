@@ -1,10 +1,24 @@
 import Vapor
 
-public struct Currency: Content {
+public struct Currency: Content, Equatable {
     public let code: String
     public let number: Int
     public let e: Int?
     public let name: String
+    
+    init(code: String, number: Int, e: Int?, name: String) {
+        self.code = code
+        self.number = number
+        self.e = e
+        self.name = name
+    }
+    
+    init?(code: String) {
+        guard let currency = Currency.allCases.filter({ $0.code == code }).first else {
+            return nil
+        }
+        self = currency
+    }
     
     public static let aed = Currency(code: "AED", number: 784, e: 2, name: "United Arab Emirates dirham")
     public static let afn = Currency(code: "AFN", number: 971, e: 2, name: "Afghan afghani")
