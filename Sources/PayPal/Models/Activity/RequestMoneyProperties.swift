@@ -1,12 +1,18 @@
 import Vapor
 
-/// Additional information for a money request transaction.
-public final class RequestMoneyProperties: Content {
+/// Additional information for an order activity.
+public typealias OrderProperties = RoleObjectProperties
+
+/// Additional information for a money request activity
+public typealias MoneyRequestProperties = RoleObjectProperties
+
+/// Additional information for an object in transaction that only has a `role`.
+public final class RoleObjectProperties: Content {
     
-    /// The role of the user in the money request transaction.
+    /// The role of the user in the transaction.
     public var role: Role?
     
-    /// Creates a new `RequestMoneyProperties` instance.
+    /// Creates a new `RoleObjectProperties` instance.
     public init(role: Role?) {
         self.role = role
     }
