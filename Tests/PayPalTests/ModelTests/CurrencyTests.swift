@@ -14,7 +14,16 @@ final class CurrencyTests: XCTestCase {
         }
     }
     
+    func testAllCasesSpeed() {
+        measure {
+            for _ in 0...1_000_000 {
+                _ = Currency.allCases
+            }
+        }
+    }
+    
     static var allTests: [(String, (CurrencyTests) -> ()throws -> ())] = [
-        ("testFindByCode", testFindByCode)
+        ("testFindByCode", testFindByCode),
+        ("testAllCasesSpeed", testAllCasesSpeed)
     ]
 }

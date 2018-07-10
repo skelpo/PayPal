@@ -222,7 +222,5 @@ public struct Currency: Content, Equatable {
 }
 
 extension Currency: CaseIterable {
-    public static var allCases: [Currency]  {
-        return Array(self.allKeyedCases.values)
-    }
+    public static let allCases: [Currency] = Array(Currency.allKeyedCases.values)
 }
