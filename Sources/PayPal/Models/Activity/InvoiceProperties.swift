@@ -16,4 +16,9 @@ public final class InvoiceProperties: Content {
         self.role = role
         self.invoiceNumber = invoiceNumber
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case role
+        case invoiceNumber = "invoice_number"
+    }
 }
