@@ -25,7 +25,11 @@ public protocol PayPalController: ServiceType {
 
 extension PayPalController {
     
-    func path()throws -> String {
+    public static func makeService(for worker: Container) throws -> Self {
+        return Self.init(container: worker)
+    }
+    
+    public func path()throws -> String {
         let config = try self.container.make(Configuration.self)
         return "v" + String(describing: config.version) + "/" + resource + "/"
     }
