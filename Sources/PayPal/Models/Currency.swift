@@ -14,7 +14,7 @@ public struct Currency: Content, Equatable {
     }
     
     init?(code: String) {
-        guard let currency = Currency.allCases.filter({ $0.code == code }).first else {
+        guard let currency = Currency.allKeyedCases[code.lowercased()] else {
             return nil
         }
         self = currency
@@ -198,18 +198,31 @@ public struct Currency: Content, Equatable {
     public static let zar = Currency(code: "ZAR", number: 710, e: 2, name: "South African rand")
     public static let zmw = Currency(code: "ZMW", number: 967, e: 2, name: "Zambian kwacha")
     public static let zwl = Currency(code: "ZWL", number: 932, e: 2, name: "Zimbabwean dollar A/10")
+    
+    public static let allKeyedCases: [String: Currency] = [
+        "aed": aed, "afn": afn, "all": all, "amd": amd, "ang": ang, "aoa": aoa, "ars": ars, "aud": aud, "awg": awg, "azn": azn,
+        "bam": bam, "bbd": bbd, "bdt": bdt, "bgn": bgn, "bhd": bhd, "bif": bif, "bmd": bmd, "bnd": bnd, "bob": bob, "bov": bov,
+        "brl": brl, "bsd": bsd, "btn": btn, "bwp": bwp, "byn": byn, "bzd": bzd, "cad": cad, "cdf": cdf, "che": che, "chf": chf,
+        "chw": chw, "clf": clf, "clp": clp, "cny": cny, "cop": cop, "cou": cou, "crc": crc, "cuc": cuc, "cup": cup, "cve": cve,
+        "czk": czk, "djf": djf, "dkk": dkk, "dop": dop, "dzd": dzd, "egp": egp, "ern": ern, "etb": etb, "eur": eur, "fjd": fjd,
+        "fkp": fkp, "gbp": gbp, "gel": gel, "ghs": ghs, "gip": gip, "gmd": gmd, "gnf": gnf, "gtq": gtq, "gyd": gyd, "hkd": hkd,
+        "hnl": hnl, "hrk": hrk, "htg": htg, "huf": huf, "idr": idr, "ils": ils, "inr": inr, "iqd": iqd, "irr": irr, "isk": isk,
+        "jmd": jmd, "jod": jod, "jpy": jpy, "kes": kes, "kgs": kgs, "khr": khr, "kmf": kmf, "kpw": kpw, "krw": krw, "kwd": kwd,
+        "kyd": kyd, "kzt": kzt, "lak": lak, "lbp": lbp, "lkr": lkr, "lrd": lrd, "lsl": lsl, "lyd": lyd, "mad": mad, "mdl": mdl,
+        "mga": mga, "mkd": mkd, "mmk": mmk, "mnt": mnt, "mop": mop, "mru": mru, "mur": mur, "mvr": mvr, "mwk": mwk, "mxn": mxn,
+        "mxv": mxv, "myr": myr, "mzn": mzn, "nad": nad, "ngn": ngn, "nio": nio, "nok": nok, "npr": npr, "nzd": nzd, "omr": omr,
+        "pab": pab, "pen": pen, "pgk": pgk, "php": php, "pkr": pkr, "pln": pln, "pyg": pyg, "qar": qar, "ron": ron, "rsd": rsd,
+        "rub": rub, "rwf": rwf, "sar": sar, "sbd": sbd, "scr": scr, "sdg": sdg, "sek": sek, "sgd": sgd, "shp": shp, "sll": sll,
+        "sos": sos, "srd": srd, "ssp": ssp, "stn": stn, "svc": svc, "syp": syp, "szl": szl, "thb": thb, "tjs": tjs, "tmt": tmt,
+        "tnd": tnd, "top": top, "try": `try`, "ttd": ttd, "twd": twd, "tzs": tzs, "uah": uah, "ugx": ugx, "usd": usd, "usn": usn,
+        "uyi": uyi, "uyu": uyu, "uzs": uzs, "vef": vef, "vnd": vnd, "vuv": vuv, "wst": wst, "xaf": xaf, "xag": xag, "xau": xau,
+        "xba": xba, "xbb": xbb, "xbc": xbc, "xbd": xbd, "xcd": xcd, "xdr": xdr, "xof": xof, "xpd": xpd, "xpf": xpf, "xpt": xpt,
+        "xsu": xsu, "xts": xts, "xua": xua, "xxx": xxx, "yer": yer, "zar": zar, "zmw": zmw, "zwl": zwl,
+    ]
 }
 
 extension Currency: CaseIterable {
-    public static var allCases: [Currency]  = [
-        aed, afn, all, amd, ang, aoa, ars, aud, awg, azn, bam, bbd, bdt, bgn, bhd, bif, bmd, bnd, bob, bov, brl,
-        bsd, btn, bwp, byn, bzd, cad, cdf, che, chf, chw, clf, clp, cny, cop, cou, crc, cuc, cup, cve, czk, djf,
-        dkk, dop, dzd, egp, ern, etb, eur, fjd, fkp, gbp, gel, ghs, gip, gmd, gnf, gtq, gyd, hkd, hnl, hrk, htg,
-        huf, idr, ils, inr, iqd, irr, isk, jmd, jod, jpy, kes, kgs, khr, kmf, kpw, krw, kwd, kyd, kzt, lak, lbp,
-        lkr, lrd, lsl, lyd, mad, mdl, mga, mkd, mmk, mnt, mop, mru, mur, mvr, mwk, mxn, mxv, myr, mzn, nad, ngn,
-        nio, nok, npr, nzd, omr, pab, pen, pgk, php, pkr, pln, pyg, qar, ron, rsd, rub, rwf, sar, sbd, scr, sdg,
-        sek, sgd, shp, sll, sos, srd, ssp, stn, svc, syp, szl, thb, tjs, tmt, tnd, top, `try`, ttd, twd, tzs, uah,
-        ugx, usd, usn, uyi, uyu, uzs, vef, vnd, vuv, wst, xaf, xag, xau, xba, xbb, xbc, xbd, xcd, xdr, xof, xpd,
-        xpf, xpt, xsu, xts, xua, xxx, yer, zar, zmw, zwl
-    ]
+    public static var allCases: [Currency]  {
+        return Array(self.allKeyedCases.values)
+    }
 }
