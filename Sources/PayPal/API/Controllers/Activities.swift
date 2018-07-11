@@ -1,10 +1,10 @@
 import Vapor
 
-/// An interface for the PayPal Activities API.
-///
-/// Activities are records for all payments, currency transfers,
-/// money conversions, requests for payments, and promises of payments.
-/// [Further reading](https://developer.paypal.com/docs/api/activities/v1/).
+/// Use the Activities API to list the financial activities for a user.
+/// Activities are records for all payments, currency transfers, money conversions,
+/// requests for payments, and promises of payments. To filter or limit the size of the list,
+/// you can specify one or more query parameters.
+/// For more information, see the [Activities Integration Guide](https://developer.paypal.com/docs/integration/direct/activities/).
 public final class Activities: PayPalController {
     public var container: Container
     public var resource: String
