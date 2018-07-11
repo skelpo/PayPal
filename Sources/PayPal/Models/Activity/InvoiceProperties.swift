@@ -1,7 +1,7 @@
 import Vapor
 
 /// Additional information about an invoice activity object.
-public final class InvoiceProperties: Content {
+public final class InvoiceProperties: Content, Equatable {
     
     /// The invoice role.
     public var role: Role?
@@ -15,6 +15,11 @@ public final class InvoiceProperties: Content {
     public init(role: Role?, invoiceNumber: String?) {
         self.role = role
         self.invoiceNumber = invoiceNumber
+    }
+    
+    /// Compares two `InvoiceProperties` objects, checking that the `role` and `invoiceNumber` properties are the same
+    public static func == (lhs: InvoiceProperties, rhs: InvoiceProperties) -> Bool {
+        return (lhs.role == rhs.role) && (lhs.invoiceNumber == rhs.invoiceNumber)
     }
     
     enum CodingKeys: String, CodingKey {
