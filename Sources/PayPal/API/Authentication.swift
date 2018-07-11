@@ -62,8 +62,11 @@ extension PayPalClient {
             
             let request = try self.container.paypal(.POST, "v1/oauth2/token", headers: headers, auth: false, body: ["grant_type": "client_credentials"])
             return try self.container.client().send(request)
-            
         }.flatMap(to: AuthResponse.self) { response in
+            if !(200...299).contains(response.http.status.code) {
+                return try response.content.decode(PayPalAPIError.self).map { error in throw error }
+            }
+            
             return try response.content.decode(AuthResponse.self)
             
         }.map(to: Void.self) { data in

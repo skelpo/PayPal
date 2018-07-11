@@ -39,6 +39,10 @@ extension Container {
             let request = try self.paypal(method, path, headers: headers, auth: true, body: body)
             return try self.client().send(request)
         }.flatMap(to: Result.self) { response in
+            if !(200...299).contains(response.http.status.code) {
+                return try response.content.decode(PayPalAPIError.self).map { error in throw error }
+            }
+            
             return try response.content.decode(Result.self)
         }
     }
