@@ -54,7 +54,7 @@ final class MoneyTests: XCTestCase {
     }
     
     static var allTests: [(String, (MoneyTests) -> ()throws -> ())] = [
-        ("testValueValidation", testValueValidation)
+        ("testValueValidation", testValueValidation),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)
     ]
