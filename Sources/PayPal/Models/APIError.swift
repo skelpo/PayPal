@@ -1,9 +1,9 @@
 import Vapor
 
-/// Represents an error response returned by a PayPal API endpoint.
-public final class PayPalAPIError: Error, AbortError, Content {
+/// Represents an Identity error response returned by a PayPal API endpoint.
+public final class PayPalAPIIdentityError: Error, AbortError, Content {
     
-    /// The HTTP status that will used if a `PayPalAPIError` is
+    /// The HTTP status that will used if a `PayPalAPIIdentityError` is
     /// returned or thrown from a service route.
     /// This status is always [424 (Failed Dependency)](https://tools.ietf.org/html/rfc2518#section-10.5).
     public let status: HTTPResponseStatus = .failedDependency
@@ -16,9 +16,9 @@ public final class PayPalAPIError: Error, AbortError, Content {
     /// The `CodingKey` string value for this property is `error`.
     public var identifier: String
     
-    /// Creates a new `PayPalAPIError` instance.
+    /// Creates a new `PayPalAPIIdentityError` instance.
     ///
-    ///     PayPalAPIError(identifier: "invalid_client", reason: "Client Authentication failed")
+    ///     PayPalAPIIdentityError(identifier: "invalid_client", reason: "Client Authentication failed")
     public init(identifier: String, reason: String) {
         self.reason = reason
         self.identifier = identifier

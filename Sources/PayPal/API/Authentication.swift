@@ -64,7 +64,7 @@ extension PayPalClient {
             return try self.container.client().send(request)
         }.flatMap(to: AuthResponse.self) { response in
             if !(200...299).contains(response.http.status.code) {
-                return try response.content.decode(PayPalAPIError.self).map { error in throw error }
+                return try response.content.decode(PayPalAPIIdentityError.self).map { error in throw error }
             }
             
             return try response.content.decode(AuthResponse.self)
