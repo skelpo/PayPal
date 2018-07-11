@@ -35,11 +35,12 @@ public final class PayPalClient: ServiceType {
     public func send<Body, Result>(
         _ method: HTTPMethod,
         _ path: String,
+        parameters: QueryParamaters = QueryParamaters(),
         headers: HTTPHeaders = [:],
         body: Body?,
         as response: Result.Type = Result.self
     ) -> Future<Result> where Body: Content, Result: Content {
-        return self.container.paypal(method, path, headers: headers, body: body, as: Result.self)
+        return self.container.paypal(method, path, parameters: parameters, headers: headers, body: body, as: Result.self)
     }
     
     /// Sends a request to the PayPal REST API, using the configured environment.
@@ -54,10 +55,11 @@ public final class PayPalClient: ServiceType {
     public func send<Result>(
         _ method: HTTPMethod,
         _ path: String,
+        parameters: QueryParamaters = QueryParamaters(),
         headers: HTTPHeaders = [:],
         as response: Result.Type = Result.self
     ) -> Future<Result> where Result: Content {
-        return self.container.paypal(method, path, headers: headers, as: Result.self)
+        return self.container.paypal(method, path, parameters: parameters, headers: headers, as: Result.self)
     }
     
     /// Sends a `GET` request to the PayPal REST API, using the configured environment.
@@ -71,9 +73,9 @@ public final class PayPalClient: ServiceType {
     ///   - response: The type that the response JSON should be decoded to.
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func get<Body, Result>(
-        _ path: String, headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
+        _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
     ) -> Future<Result> where Body: Content, Result: Content {
-        return self.send(.GET, path, headers: headers, body: body, as: Result.self)
+        return self.send(.GET, path, parameters: parameters, headers: headers, body: body, as: Result.self)
     }
     
     /// Sends a `GET` request to the PayPal REST API, using the configured environment.
@@ -85,9 +87,9 @@ public final class PayPalClient: ServiceType {
     ///   - response: The type that the response JSON should be decoded to.
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func get<Result>(
-        _ path: String, headers: HTTPHeaders = [:], as response: Result.Type = Result.self
+        _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], as response: Result.Type = Result.self
     ) -> Future<Result> where Result: Content {
-        return self.send(.GET, path, headers: headers, as: Result.self)
+        return self.send(.GET, path, parameters: parameters, headers: headers, as: Result.self)
     }
     
     /// Sends a `POST` request to the PayPal REST API, using the configured environment.
@@ -101,9 +103,9 @@ public final class PayPalClient: ServiceType {
     ///   - response: The type that the response JSON should be decoded to.
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func post<Body, Result>(
-        _ path: String, headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
+        _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
     ) -> Future<Result> where Body: Content, Result: Content {
-        return self.send(.POST, path, headers: headers, body: body, as: Result.self)
+        return self.send(.POST, path, parameters: parameters, headers: headers, body: body, as: Result.self)
     }
     
     /// Sends a `POST` request to the PayPal REST API, using the configured environment.
@@ -115,9 +117,9 @@ public final class PayPalClient: ServiceType {
     ///   - response: The type that the response JSON should be decoded to.
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func post<Result>(
-        _ path: String, headers: HTTPHeaders = [:], as response: Result.Type = Result.self
+        _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], as response: Result.Type = Result.self
     ) -> Future<Result> where Result: Content {
-        return self.send(.POST, path, headers: headers, as: Result.self)
+        return self.send(.POST, path, parameters: parameters, headers: headers, as: Result.self)
     }
     
     /// Sends a `PUT` request to the PayPal REST API, using the configured environment.
@@ -131,9 +133,9 @@ public final class PayPalClient: ServiceType {
     ///   - response: The type that the response JSON should be decoded to.
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func put<Body, Result>(
-        _ path: String, headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
+        _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
     ) -> Future<Result> where Body: Content, Result: Content {
-        return self.send(.PUT, path, headers: headers, body: body, as: Result.self)
+        return self.send(.PUT, path, parameters: parameters, headers: headers, body: body, as: Result.self)
     }
     
     /// Sends a `PUT` request to the PayPal REST API, using the configured environment.
@@ -145,9 +147,9 @@ public final class PayPalClient: ServiceType {
     ///   - response: The type that the response JSON should be decoded to.
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func PUT<Result>(
-        _ path: String, headers: HTTPHeaders = [:], as response: Result.Type = Result.self
+        _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], as response: Result.Type = Result.self
     ) -> Future<Result> where Result: Content {
-        return self.send(.PUT, path, headers: headers, as: Result.self)
+        return self.send(.PUT, path, parameters: parameters, headers: headers, as: Result.self)
     }
     
     /// Sends a `PATCH` request to the PayPal REST API, using the configured environment.
@@ -161,9 +163,9 @@ public final class PayPalClient: ServiceType {
     ///   - response: The type that the response JSON should be decoded to.
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func patch<Body, Result>(
-        _ path: String, headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
+        _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
     ) -> Future<Result> where Body: Content, Result: Content {
-        return self.send(.PATCH, path, headers: headers, body: body, as: Result.self)
+        return self.send(.PATCH, path, parameters: parameters, headers: headers, body: body, as: Result.self)
     }
     
     /// Sends a `PATCH` request to the PayPal REST API, using the configured environment.
@@ -175,9 +177,9 @@ public final class PayPalClient: ServiceType {
     ///   - response: The type that the response JSON should be decoded to.
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func patch<Result>(
-        _ path: String, headers: HTTPHeaders = [:], as response: Result.Type = Result.self
+        _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], as response: Result.Type = Result.self
     ) -> Future<Result> where Result: Content {
-        return self.send(.PATCH, path, headers: headers, as: Result.self)
+        return self.send(.PATCH, path, parameters: parameters, headers: headers, as: Result.self)
     }
     
     /// Sends a `DELETE` request to the PayPal REST API, using the configured environment.
@@ -191,9 +193,9 @@ public final class PayPalClient: ServiceType {
     ///   - response: The type that the response JSON should be decoded to.
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func delete<Body, Result>(
-        _ path: String, headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
+        _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
     ) -> Future<Result> where Body: Content, Result: Content {
-        return self.send(.DELETE, path, headers: headers, body: body, as: Result.self)
+        return self.send(.DELETE, path, parameters: parameters, headers: headers, body: body, as: Result.self)
     }
     
     /// Sends a `DELETE` request to the PayPal REST API, using the configured environment.
@@ -205,8 +207,8 @@ public final class PayPalClient: ServiceType {
     ///   - response: The type that the response JSON should be decoded to.
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func delete<Result>(
-        _ path: String, headers: HTTPHeaders = [:], as response: Result.Type = Result.self
+        _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], as response: Result.Type = Result.self
     ) -> Future<Result> where Result: Content {
-        return self.send(.DELETE, path, headers: headers, as: Result.self)
+        return self.send(.DELETE, path, parameters: parameters, headers: headers, as: Result.self)
     }
 }

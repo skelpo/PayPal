@@ -23,7 +23,7 @@ public final class Activities: PayPalController {
     public func activities(parameters: QueryParamaters = QueryParamaters()) -> Future<ActivitiesResponse> {
         return Future.flatMap(on: self.container) { () -> Future<ActivitiesResponse> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + "activities?" + parameters.encode())
+            return try client.get(self.path() + "activities", parameters: parameters)
         }
     }
 }

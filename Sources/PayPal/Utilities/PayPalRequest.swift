@@ -1,10 +1,18 @@
 import Vapor
 
 extension Container {
-    func paypal<Body>(_ method: HTTPMethod, _ path: String, headers: HTTPHeaders = [:], auth: Bool = true, body: Body? = nil)throws -> Request where Body: Content {
+    func paypal<Body>(
+        _ method: HTTPMethod,
+        _ path: String,
+        parameters: QueryParamaters = QueryParamaters(),
+        headers: HTTPHeaders = [:],
+        auth: Bool = true,
+        body: Body? = nil
+    )throws -> Request where Body: Content {
         let config = try self.make(Configuration.self)
+        let path = config.environment.domain + "/" + path + "?" + parameters.encode()
         
-        var http = HTTPRequest(method: method, url: config.environment.domain + "/" + path, headers: headers)
+        var http = HTTPRequest(method: method, url: path, headers: headers)
         if auth {
             let auth = try self.make(AuthInfo.self)
             guard let type = auth.type, let token = auth.token else {
@@ -25,6 +33,7 @@ extension Container {
     func paypal<Body, Result>(
         _ method: HTTPMethod,
         _ path: String,
+        parameters: QueryParamaters = QueryParamaters(),
         headers: HTTPHeaders = [:],
         body: Body?,
         as response: Result.Type = Result.self
@@ -36,7 +45,7 @@ extension Container {
                 return self.future()
             }
         }.flatMap(to: Response.self) {
-            let request = try self.paypal(method, path, headers: headers, auth: true, body: body)
+            let request = try self.paypal(method, path, parameters: parameters, headers: headers, auth: true, body: body)
             return try self.client().send(request)
         }.flatMap(to: Result.self) { response in
             if !(200...299).contains(response.http.status.code) {
@@ -50,9 +59,10 @@ extension Container {
     func paypal<Result>(
         _ method: HTTPMethod,
         _ path: String,
+        parameters: QueryParamaters = QueryParamaters(),
         headers: HTTPHeaders = [:],
         as response: Result.Type = Result.self
     ) -> Future<Result> where Result: Content {
-        return self.paypal(method, path, headers: headers, body: nil as [String: String]?, as: Result.self)
+        return self.paypal(method, path, parameters: parameters, headers: headers, body: nil as [String: String]?, as: Result.self)
     }
 }
