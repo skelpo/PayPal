@@ -3,7 +3,7 @@ import Vapor
 internal let moneyValuePattern = "^((-?[0-9]+)|(-?([0-9]+)?[.][0-9]+))$"
 
 /// An amount of a specified currency.
-public final class Money: Content {
+public final class Money: Content, Equatable {
     
     /// The currency that the `Money` instance represents.
     public var currency: Currency
@@ -29,10 +29,7 @@ public final class Money: Content {
     /// - Throws:
     ///   - `Abort(.badRequest, "Attempted to use invalid currency code '{code}'")`
     ///   - `Abort(.badRequest, "Attempted to use malformed mony amount value '{value}'")`
-    public init(code: String, value: String)throws {
-        guard let currency = Currency(code: code) else {
-            throw Abort(.badRequest, reason: "Attempted to use invalid currency code '\(code)'")
-        }
+    public init(currency: Currency, value: String)throws {
         guard
             value.range(of: moneyValuePattern, options: .regularExpression, range: nil, locale: nil) != nil &&
             value.count <= 32
@@ -50,7 +47,7 @@ public final class Money: Content {
     public convenience init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         try self.init(
-            code: container.decode(String.self, forKey: .currency),
+            currency: container.decode(Currency.self, forKey: .currency),
             value: container.decode(String.self, forKey: .value)
         )
     }
@@ -67,6 +64,12 @@ public final class Money: Content {
                 throw Abort(.badRequest, reason: "Attempted to use malformed mony amount value '\(value)'")
         }
         self.value = value
+    }
+    
+    /// Compares two `Money` objects, checking that the `currency`
+    /// and `value` properties are equal.
+    public static func == (lhs: Money, rhs: Money) -> Bool {
+        return (lhs.currency == rhs.currency) && (lhs.value == rhs.value)
     }
     
     enum CodingKeys: String, CodingKey {

@@ -11,6 +11,7 @@ public func allTests() -> [XCTestCaseEntry] {
         
         // Model Tests
         testCase(CurrencyTests.allTests),
+        testCase(MoneyTests.allTests),
         
         // Controller Tests
         testCase(APITests.allTests),
