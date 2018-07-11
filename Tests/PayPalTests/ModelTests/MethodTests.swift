@@ -2,6 +2,10 @@ import XCTest
 @testable import PayPal
 
 final class MethodTests: XCTestCase {
+    struct Request: Codable {
+        let method: PayPal.Method
+    }
+    
     func testCaseRawValues() {
         XCTAssertEqual(Method.GET.rawValue, "GET")
         XCTAssertEqual(Method.POST.rawValue, "POST")
@@ -18,9 +22,37 @@ final class MethodTests: XCTestCase {
         XCTAssertEqual(Method.allCases, [.GET, .POST, .PUT, .DELETE, .HEAD, .CONNECT, .OPTIONS, .PATCH])
     }
     
+    func testEncoding()throws {
+        let encoder = JSONEncoder()
+        let get = try String(data: encoder.encode(Request(method: .GET)), encoding: .utf8)
+        let post = try String(data: encoder.encode(Request(method: .POST)), encoding: .utf8)
+        
+        XCTAssertEqual(get, "{\"method\":\"GET\"}")
+        XCTAssertEqual(post, "{\"method\":\"POST\"}")
+    }
+    
+    func testDecoding()throws {
+        let decoder = JSONDecoder()
+        let put = """
+        {
+            "method": "PUT"
+        }
+        """.data(using: .utf8)!
+        let delete = """
+        {
+            "method": "DELETE"
+        }
+        """
+        
+        try XCTAssertEqual(decoder.decode(Request.self, from: put).method, .PUT)
+        try XCTAssertEqual(decoder.decode(Request.self, from: delete).method, .DELETE)
+    }
+    
     static var allTests: [(String, (MethodTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
-        ("testAllCase", testAllCase)
+        ("testAllCase", testAllCase),
+        ("testEncoding", testEncoding),
+        ("testDecoding", testDecoding)
     ]
 }
 
