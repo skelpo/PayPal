@@ -1,7 +1,7 @@
 import Vapor
 
 /// The extension properties for an `Activity` object.
-public final class Extensions: Content {
+public final class Extensions: Content, Equatable {
     
     /// The properties for a payment activity.
     public var paymentProperties: PaymentProperties?
@@ -26,6 +26,16 @@ public final class Extensions: Content {
         self.requestMoneyProperties = requestMoneyProperties
         self.invoiceProperties = invoiceProperties
         self.orderProperties = orderProperties
+    }
+    
+    /// Compares two `Extensions` objects, checking that the `paymentProperties`, `requestMoneyProperties`,
+    /// `invoiceProperties`, and `orderProperties` properties are the same
+    public static func == (lhs: Extensions, rhs: Extensions) -> Bool {
+        return
+            (lhs.paymentProperties == rhs.paymentProperties) &&
+            (lhs.requestMoneyProperties == rhs.requestMoneyProperties) &&
+            (lhs.invoiceProperties == rhs.invoiceProperties) &&
+            (lhs.orderProperties == rhs.orderProperties)
     }
     
     enum CodingKeys: String, CodingKey {
