@@ -1,7 +1,7 @@
 import Vapor
 
 /// The response structure returned from the `GET /v1/activities/activities` endpoint
-/// and `Activities.activities()` client method.
+/// and `Activities.activities(parameters:)` client method.
 public final class ActivitiesResponse: Content {
     
     /// A list of the financial activities for a user.
