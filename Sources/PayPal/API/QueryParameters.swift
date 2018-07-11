@@ -16,7 +16,7 @@ public struct QueryParamaters: Content {
     /// The end date and time for the range to show in the response,
     /// in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
     /// For example, `end_time=2016-03-06T11:00:00Z`.
-    public var endTime: String?
+    public var endTime: Date?
     
     /// The zero-relative start index of the entire list of items that are returned in the response.
     /// So, the combination of `page=0` and `page_size=20` returns the first 20 items.
@@ -47,7 +47,7 @@ public struct QueryParamaters: Content {
     /// The start date and time for the range to show in the response,
     /// in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
     /// For example, `start_time=2016-03-06T11:00:00Z`.
-    public var startTime: String?
+    public var startTime: Date?
     
     /// Creates a new `QueryParamaters` instance
     ///
@@ -57,7 +57,7 @@ public struct QueryParamaters: Content {
     ///     QueryParamaters(page: 0, pageSize: 25, sortOrder: .ascending)
     public init(
         count: Int? = nil,
-        endTime: String? = nil,
+        endTime: Date? = nil,
         page: Int? = nil,
         pageSize: Int? = nil,
         totalCountRequired: Bool? = nil,
@@ -65,7 +65,7 @@ public struct QueryParamaters: Content {
         sortOrder: ResponseSortOrder? = nil,
         startID: String? = nil,
         startIndex: Int? = nil,
-        startTime: String? = nil
+        startTime: Date? = nil
     ) {
         self.count = count
         self.endTime = endTime
@@ -86,9 +86,9 @@ public struct QueryParamaters: Content {
     ///     // "page=0&page_size=25&sort_order=ascending"
     public func encode() -> String {
         let values: [String: CustomStringConvertible?] = [
-            "count": self.count, "end_time": self.endTime, "page": self.page, "page_size": self.pageSize,
+            "count": self.count, "end_time": self.endTime?.iso8601, "next_page_token": self.page, "page_size": self.pageSize,
             "total_count_required": self.totalCountRequired, "sort_by": self.sortBy, "sort_order": self.sortOrder,
-            "start_id": self.startID, "start_index": self.startIndex, "start_time": self.startTime
+            "start_id": self.startID, "start_index": self.startIndex, "start_time": self.startTime?.iso8601
         ]
         
         return values.reduce(into: []) { query, parameter in
