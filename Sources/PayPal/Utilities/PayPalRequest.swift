@@ -49,7 +49,11 @@ extension Container {
             return try self.client().send(request)
         }.flatMap(to: Result.self) { response in
             if !(200...299).contains(response.http.status.code) {
-                return try response.content.decode(PayPalAPIIdentityError.self).map { error in throw error }
+                return try response.content.decode(PayPalAPIError.self).catchFlatMap { _ in
+                    return try response.content.decode(PayPalAPIIdentityError.self).map { error in throw error }
+                }.map { error in
+                    throw error
+                }
             }
             
             return try response.content.decode(Result.self)

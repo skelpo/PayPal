@@ -3,16 +3,6 @@ import Vapor
 /// Represents a standard error response returned by a PayPal API endpoint.
 public struct PayPalAPIError: Error, AbortError, Content {
     
-    /// An additional piece of information about the error.
-    public struct Detail: Codable {
-        
-        ///
-        public let field: String
-        
-        ///
-        public let issue: String
-    }
-    
     /// The HTTP status that will used if a `PayPalAPIError` is
     /// returned or thrown from a service route.
     /// This status is always [424 (Failed Dependency)](https://tools.ietf.org/html/rfc2518#section-10.5).
@@ -29,23 +19,17 @@ public struct PayPalAPIError: Error, AbortError, Content {
     /// A link to the error's documentation.
     public var informationLink: String?
     
-    /// Additional information about the error.
-    public var details: [Detail]?
-    
-    
     /// Creates a new `PayPalAPIError` instance.
     ///
     ///     PayPalAPIError(
     ///         identifier: "PERMISSION_DENIED",
     ///         message: "No permission for the requested operation"
-    ///         informationLink: nil,
-    ///         details: nil
+    ///         informationLink: nil
     ///     )
-    public init(identifier: String, reason: String, informationLink: String?, details: [Detail]?) {
+    public init(identifier: String, reason: String, informationLink: String?) {
         self.identifier = identifier
         self.reason = reason
         self.informationLink = informationLink
-        self.details = details
     }
     
     
@@ -60,7 +44,6 @@ public struct PayPalAPIError: Error, AbortError, Content {
         case reason = "message"
         case identifier = "name"
         case informationLink = "information_link"
-        case details
     }
 }
 
