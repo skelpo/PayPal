@@ -41,7 +41,12 @@ public final class Provider: Vapor.Provider {
             throw PayPalError(identifier: "envVarNotFound", reason: "Environment variable 'PAYPAL_SECRET_ID' was not found")
         }
         
-        services.register(Configuration(id: id, secret: secret, version: self.version))
+        if Float(Int(self.version)) == self.version {
+            services.register(Configuration(id: id, secret: secret, version: String(describing: Int(self.version))))
+        } else {
+            services.register(Configuration(id: id, secret: secret, version: String(describing: self.version)))
+        }
+        
         services.register(AuthInfo())
         services.register(PayPalClient.self)
         
@@ -68,7 +73,7 @@ public final class Configuration: Service {
     public let secret: String
     
     /// The version of the PayPal API being used.
-    public let version: Float
+    public let version: String
     
     /// The PayPal environment to send requests to.
     /// This value is based on the app current environment.
@@ -77,7 +82,7 @@ public final class Configuration: Service {
     /// be `.production`, otherwise it will be `.sandbox`.
     public internal(set) var environment: PayPal.Environment!
     
-    init(id: String, secret: String, version: Float) {
+    init(id: String, secret: String, version: String) {
         self.id = id
         self.secret = secret
         self.environment = nil
