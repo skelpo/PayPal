@@ -1,7 +1,7 @@
 import Vapor
 
 /// The opposite party in a transaction.
-public final class CounterParty: Content {
+public final class CounterParty: Content, Equatable {
     
     /// The other party's email address. For unregistered users only.
     public var email: String?
@@ -19,6 +19,11 @@ public final class CounterParty: Content {
         self.email = email
         self.phoneNumber = phoneNumber
         self.name = name
+    }
+    
+    /// Compares two `CounterParty` objects, checking that the `email`, `phoneNumber`, and `name` properties are equal.
+    public static func == (lhs: CounterParty, rhs: CounterParty) -> Bool {
+        return (lhs.email == rhs.email) && (lhs.phoneNumber == rhs.phoneNumber) && (lhs.name == rhs.name)
     }
     
     enum CodingKeys: String, CodingKey {
