@@ -14,10 +14,10 @@ public final class Activity: Content {
     public var type: ActivityType
     
     /// The sub-type of the activity, if the head `type` supports it.
-    public var subtype: ActivitySubType?
+    public var subtype: SubType?
     
     /// The current status of the activity.
-    public var status: ActivityStatus?
+    public var status: Status?
     
     /// The transaction's counter-party. A single-party transaction does not have
     /// counter-party information. For example, a single-party transaction might
@@ -44,8 +44,8 @@ public final class Activity: Content {
         id: String,
         timeCreated: String,
         type: ActivityType,
-        subtype: ActivitySubType?,
-        status: ActivityStatus?,
+        subtype: SubType?,
+        status: Status?,
         counterparty: CounterParty?,
         fee: Money?,
         gross: Money?,
