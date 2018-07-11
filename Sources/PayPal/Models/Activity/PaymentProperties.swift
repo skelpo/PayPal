@@ -1,7 +1,7 @@
 import Vapor
 
 /// Additional information about a payment activity.
-public final class PaymentProperties: Content {
+public final class PaymentProperties: Content, Equatable {
     
     /// The direction of the money transfer for the transaction.
     public var creditDebitCode: CreditDebitCode?
@@ -36,6 +36,18 @@ public final class PaymentProperties: Content {
         self.billingAgreementID = billingAgreementID
         self.externalSubType = externalSubType
         self.invoiceNumber = invoiceNumber
+    }
+    
+    /// Compares two `PaymentProperties` objects, checking that the `creditDebitCode`, `buyerNotes`,
+    /// `billingAgreementID`, `externalSubType`, and `invoiceNumber` properties are the same
+    public static func == (lhs: PaymentProperties, rhs: PaymentProperties) -> Bool {
+        return
+            (lhs.creditDebitCode == rhs.creditDebitCode) &&
+            (lhs.buyerNotes == rhs.buyerNotes) &&
+            (lhs.orderID == rhs.orderID) &&
+            (lhs.billingAgreementID == rhs.billingAgreementID) &&
+            (lhs.externalSubType == rhs.externalSubType) &&
+            (lhs.invoiceNumber == rhs.invoiceNumber)
     }
     
     /// Defines what monitary transaction occured for a transaction.
