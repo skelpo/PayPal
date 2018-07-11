@@ -2,7 +2,7 @@ import Vapor
 
 /// An endpoint that can be fired after a different endpoint to
 /// run further actions on the resource.
-public final class LinkDescription: Content {
+public final class LinkDescription: Content, Equatable {
     
     /// The complete target URL. To make the related call, combine the method with
     /// this [URI Template-formatted](https://tools.ietf.org/html/rfc6570) link.
@@ -25,5 +25,11 @@ public final class LinkDescription: Content {
         self.href = href
         self.rel = rel
         self.method = method
+    }
+    
+    /// Compares two `LinkDescription` objects, checking that the `href`,
+    /// `rel`, and `method` properties are equal.
+    public static func == (lhs: LinkDescription, rhs: LinkDescription) -> Bool {
+        return (lhs.rel == rhs.rel) && (lhs.href == rhs.href) && (lhs.method == rhs.method)
     }
 }
