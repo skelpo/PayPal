@@ -1,7 +1,71 @@
 import Vapor
 
+/// Represents a standard error response returned by a PayPal API endpoint.
+public struct PayPalAPIError: Error, AbortError, Content {
+    
+    /// An additional piece of information about the error.
+    public struct Detail: Codable {
+        
+        ///
+        public let field: String
+        
+        ///
+        public let issue: String
+    }
+    
+    /// The HTTP status that will used if a `PayPalAPIError` is
+    /// returned or thrown from a service route.
+    /// This status is always [424 (Failed Dependency)](https://tools.ietf.org/html/rfc2518#section-10.5).
+    public let status: HTTPResponseStatus = .failedDependency
+    
+    /// A human readable message that describes the error.
+    /// The `CodingKey` string value for this property is `message`
+    public var reason: String
+    
+    /// A machine readable string that ideentifies the error.
+    /// The `CodingKey` string value for this property is `name`.
+    public var identifier: String
+    
+    /// A link to the error's documentation.
+    public var informationLink: String?
+    
+    /// Additional information about the error.
+    public var details: [Detail]?
+    
+    
+    /// Creates a new `PayPalAPIError` instance.
+    ///
+    ///     PayPalAPIError(
+    ///         identifier: "PERMISSION_DENIED",
+    ///         message: "No permission for the requested operation"
+    ///         informationLink: nil,
+    ///         details: nil
+    ///     )
+    public init(identifier: String, reason: String, informationLink: String?, details: [Detail]?) {
+        self.identifier = identifier
+        self.reason = reason
+        self.informationLink = informationLink
+        self.details = details
+    }
+    
+    
+    /// An array of string URLs linking to documentation pertaining to the error.
+    ///
+    /// The value return is `PayPalAPIError.details` wrapped in an array.
+    public var documentationLinks: [String] {
+        return self.informationLink == nil ? [] : [self.informationLink!]
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case reason = "message"
+        case identifier = "name"
+        case informationLink = "information_link"
+        case details
+    }
+}
+
 /// Represents an Identity error response returned by a PayPal API endpoint.
-public final class PayPalAPIIdentityError: Error, AbortError, Content {
+public struct PayPalAPIIdentityError: Error, AbortError, Content {
     
     /// The HTTP status that will used if a `PayPalAPIIdentityError` is
     /// returned or thrown from a service route.
@@ -12,7 +76,7 @@ public final class PayPalAPIIdentityError: Error, AbortError, Content {
     /// The `CodingKey` string value for this property is `error_description`
     public var reason: String
     
-    /// A machine readable string that ideentifies the error.
+    /// A machine readable string that identifies the error.
     /// The `CodingKey` string value for this property is `error`.
     public var identifier: String
     
