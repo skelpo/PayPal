@@ -8,7 +8,7 @@ final class InitialFailActionTests: XCTestCase {
     
     func testCaseRawValues() {
         XCTAssertEqual(InitialFailAction.cancel.rawValue, "CANCEL")
-        XCTAssertEqual(InitialFailAction.continue.rawValue, "CONTINURE")
+        XCTAssertEqual(InitialFailAction.continue.rawValue, "CONTINUE")
     }
     
     func testAllCase() {
@@ -22,7 +22,7 @@ final class InitialFailActionTests: XCTestCase {
         let cont = try String(data: encoder.encode(Agreement(action: .continue)), encoding: .utf8)
         
         XCTAssertEqual(cancel, "{\"action\":\"CANCEL\"}")
-        XCTAssertEqual(cont, "{\"action\":\"CONTINURE\"}")
+        XCTAssertEqual(cont, "{\"action\":\"CONTINUE\"}")
     }
     
     func testDecoding()throws {
@@ -34,7 +34,7 @@ final class InitialFailActionTests: XCTestCase {
         """.data(using: .utf8)!
         let cont = """
         {
-            "action": "CONTINURE"
+            "action": "CONTINUE"
         }
         """
         
