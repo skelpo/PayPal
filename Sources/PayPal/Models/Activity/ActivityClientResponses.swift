@@ -2,7 +2,7 @@ import Vapor
 
 /// The response structure returned from the `GET /v1/activities/activities` endpoint
 /// and `Activities.activities(parameters:)` client method.
-public final class ActivitiesResponse: Content {
+public final class ActivitiesResponse: Content, Equatable {
     
     /// A list of the financial activities for a user.
     public var items: [Activity]?
@@ -16,5 +16,11 @@ public final class ActivitiesResponse: Content {
     public init(items: [Activity]?, links: [LinkDescription]?) {
         self.items = items
         self.links = links
+    }
+    
+    
+    /// Compares two `ActivitiesResponse` objects, checking `items` and `links` properties equality.
+    public static func == (lhs: ActivitiesResponse, rhs: ActivitiesResponse) -> Bool {
+        return (lhs.items == rhs.items) && (lhs.links == rhs.links)
     }
 }

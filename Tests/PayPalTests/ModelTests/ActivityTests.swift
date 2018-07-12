@@ -1,7 +1,6 @@
 import XCTest
 @testable import PayPal
 
-@available(OSX 10.12, *)
 final class ActivityTests: XCTestCase {
     let activity = try! Activity(
         id: "94C67654-A41B-4421-B0D0-81E6CD587CDB",
