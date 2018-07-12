@@ -1,7 +1,7 @@
 import Vapor
 
 /// Represents a standard error response returned by a PayPal API endpoint.
-public struct PayPalAPIError: Error, AbortError, Content {
+public struct PayPalAPIError: Error, AbortError, Content, Equatable {
     
     /// The HTTP status that will used if a `PayPalAPIError` is
     /// returned or thrown from a service route.
