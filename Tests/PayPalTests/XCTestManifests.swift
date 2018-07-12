@@ -25,6 +25,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(PlanTypeTests.allCases),
         testCase(OverrideChargeTests.allCases),
         testCase(testValueValidation.allCases),
+        testCase(InitialFailActionTests.allCases),
         
         // Controller Tests
         testCase(APITests.allTests),
