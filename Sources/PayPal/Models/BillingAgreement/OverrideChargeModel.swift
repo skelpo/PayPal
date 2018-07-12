@@ -1,7 +1,7 @@
 import Vapor
 
 /// A charge model that overrides that default charge model of a `BillingAgreement` object.
-public final class OverrideCharge: Content {
+public final class OverrideCharge: Content, Equatable {
     
     /// The ID of the charge model.
     public var id: String
@@ -15,5 +15,11 @@ public final class OverrideCharge: Content {
     public init(id: String, amount: Money) {
         self.id = id
         self.amount = amount
+    }
+    
+    
+    /// Compares two `OverrideCharge` objects, checking the equality of the `id` and `amount` properties.
+    public static func == (lhs: OverrideCharge, rhs: OverrideCharge) -> Bool {
+        return (lhs.id == rhs.id) && (lhs.amount == rhs.amount)
     }
 }
