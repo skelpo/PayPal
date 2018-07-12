@@ -29,7 +29,7 @@ public final class ShippingAddress: Content, Equatable {
     /// [Thailand](https://developer.paypal.com/docs/integration/direct/rest/state-codes/#thailand),
     /// or [United States](https://developer.paypal.com/docs/integration/direct/rest/state-codes/#usa).
     /// Maximum length is 40 single-byte characters.
-    public var state: String?
+    public private(set) var state: String?
     
     /// The [two-character ISO 3166-1 code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/) that identifies the country or region.
     ///
@@ -38,7 +38,7 @@ public final class ShippingAddress: Content, Equatable {
     /// - Note: The country code for Great Britain is `GB` and not `UK` as used in the top-level
     ///   domain names for that country. Use the `C2` country code for China worldwide for comparable
     ///   uncontrolled price (CUP) method, bank card, and cross-border transactions.
-    public var countryCode: String
+    public private(set) var countryCode: String
     
     /// The postal code, which is the zip code or equivalent.
     /// Typically required for countries with a postal code or an equivalent.
@@ -55,8 +55,10 @@ public final class ShippingAddress: Content, Equatable {
     ///         city: "Nowhere",
     ///         state: "KS",
     ///         countryCode: "US",
-    ///         postal: "66167"
+    ///         postalCode: "66167"
     ///     )
+    ///
+    /// This initializer validates the `state` and `countryCode` values passed in.
     public init(
         recipientName: String?,
         defaultAddress: Bool?,
@@ -66,7 +68,22 @@ public final class ShippingAddress: Content, Equatable {
         state: String?,
         countryCode: String,
         postalCode: String
-    ) {
+    )throws {
+        guard state?.count ?? 0 <= 40 else {
+            throw PayPalError(
+                status: .badRequest,
+                identifier: "malformedString",
+                reason: "`ShippingAddress.state` property length can be no longer than 40 1-byte characters"
+            )
+        }
+        guard countryCode.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
+            throw PayPalError(
+                status: .badRequest,
+                identifier: "malformedString",
+                reason: "`ShippingAddress.countryCode` property must match `([A-Z]{2}|C2)$` RegEx pattern"
+            )
+        }
+        
         self.recipientName = recipientName
         self.defaultAddress = defaultAddress
         self.line1 = line1
@@ -75,6 +92,57 @@ public final class ShippingAddress: Content, Equatable {
         self.state = state
         self.countryCode = countryCode
         self.postalCode = postalCode
+    }
+    
+    /// Creates a new instance of `ShippingAddress` from that data coontained
+    /// in a decoder. Validates the `state` and `countryCode` values passed in.
+    public convenience init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        try self.init(
+            recipientName: container.decodeIfPresent(String.self, forKey: .recipientName),
+            defaultAddress: container.decodeIfPresent(Bool.self, forKey: .defaultAddress),
+            line1: container.decode(String.self, forKey: .line1),
+            line2: container.decodeIfPresent(String.self, forKey: .line2),
+            city: container.decode(String.self, forKey: .city),
+            state: container.decodeIfPresent(String.self, forKey: .state),
+            countryCode: container.decode(String.self, forKey: .countryCode),
+            postalCode: container.decode(String.self, forKey: .postalCode)
+        )
+    }
+    
+    /// Sets the `state` property to a new value, first validating
+    /// that the new value has a length of 40 or less.
+    ///
+    /// - Parameter value: The string to assign to the `state` property
+    ///
+    /// - Throws: `PayPalError.malformedString` if the length of the `value`
+    ///   argument is greater than 40.
+    public func setState(to value: String?)throws {
+        guard value?.count ?? 0 <= 40 else {
+            throw PayPalError(
+                status: .badRequest,
+                identifier: "malformedString",
+                reason: "`ShippingAddress.state` property length can be no longer than 40 1-byte characters"
+            )
+        }
+        self.state = value
+    }
+    
+    /// Sets the `countryCode` property to a new value, first validating
+    /// that the new value matches the RegEx pattern `^([A-Z]{2}|C2)$`.
+    ///
+    /// - Parameter value: The string to assign to the `countryCode` property
+    ///
+    /// - Throws: `PayPalError.malformedString` if the `value` argument doesn't match `^([A-Z]{2}|C2)$`.
+    public func setCountryCode(to value: String)throws {
+        guard value.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
+            throw PayPalError(
+                status: .badRequest,
+                identifier: "malformedString",
+                reason: "`ShippingAddress.countryCode` property must match `([A-Z]{2}|C2)$` RegEx pattern"
+            )
+        }
+        self.countryCode = value
     }
     
     /// Compares two `ShippingAddress` objects, checking properties for equality.
