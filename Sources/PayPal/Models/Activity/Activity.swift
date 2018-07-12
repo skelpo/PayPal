@@ -8,7 +8,7 @@ public final class Activity: Content, Equatable {
     
     /// The date and time when the activity was created,
     /// in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public var timeCreated: Date
+    public var timeCreated: String
     
     /// The type of activity that the object represents.
     public var type: ActivityType
@@ -37,12 +37,12 @@ public final class Activity: Content, Equatable {
     public var partnerFee: Money?
     
     /// The extension properties.
-    public var extensions: Extensions
+    public var extensions: Extensions?
     
     /// Creates a new `Activity` instance.
     public init(
         id: String,
-        timeCreated: Date,
+        timeCreated: String,
         type: ActivityType,
         subtype: SubType?,
         status: Status?,
@@ -51,7 +51,7 @@ public final class Activity: Content, Equatable {
         gross: Money?,
         net: Money?,
         partnerFee: Money?,
-        extensions: Extensions
+        extensions: Extensions?
     ) {
         self.id = id
         self.timeCreated = timeCreated
