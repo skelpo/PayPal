@@ -13,6 +13,7 @@ final class EnvironmentTests: XCTestCase {
     }
     
     func testAllCase() {
+        XCTAssertEqual(Environment.allCases.count, 2)
         XCTAssertEqual(Environment.allCases, [.sandbox, .production])
     }
     
