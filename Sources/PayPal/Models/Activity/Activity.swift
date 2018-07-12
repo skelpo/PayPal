@@ -66,6 +66,7 @@ public final class Activity: Content, Equatable {
         self.extensions = extensions
     }
     
+    /// Compares two `Activity` objects, checking all the stored properties for equality.
     public static func == (lhs: Activity, rhs: Activity) -> Bool {
         return
             (lhs.id == rhs.id) &&
