@@ -48,7 +48,7 @@ public struct PayPalAPIError: Error, AbortError, Content, Equatable {
 }
 
 /// Represents an Identity error response returned by a PayPal API endpoint.
-public struct PayPalAPIIdentityError: Error, AbortError, Content {
+public struct PayPalAPIIdentityError: Error, AbortError, Content, Equatable {
     
     /// The HTTP status that will used if a `PayPalAPIIdentityError` is
     /// returned or thrown from a service route.
@@ -72,7 +72,7 @@ public struct PayPalAPIIdentityError: Error, AbortError, Content {
     }
     
     enum CodingKeys: String, CodingKey {
-        case reason = "error"
-        case identifier = "error_description"
+        case reason = "error_description"
+        case identifier = "error"
     }
 }

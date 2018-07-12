@@ -19,6 +19,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(CreditDebitCodeTests.allCases),
         testCase(CounterPartyTests.allCases),
         testCase(PayPalAPIErrorTests.allCases),
+        testCase(PayPalAPIIdentityErrorTests.allCases),
         
         // Controller Tests
         testCase(APITests.allTests),
