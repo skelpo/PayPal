@@ -19,8 +19,9 @@ public struct QueryParamaters: Content {
     public var endTime: Date?
     
     /// The zero-relative start index of the entire list of items that are returned in the response.
-    /// So, the combination of `page=0` and `page_size=20` returns the first 20 items.
-    /// The combination of `page=20` and `page_size=20` returns the next 20 items.
+    /// So, the combination of `next_page_token=1` and `page_size=20` returns the first 20 items.
+    ///
+    /// - Note: The encoded key for this property is `next_page_token`.
     public var page: Int?
     
     /// The number of items to return in the response.
@@ -83,7 +84,7 @@ public struct QueryParamaters: Content {
     ///
     ///     QueryParamaters(page: 0, pageSize: 25, sortOrder: .ascending).encode()
     ///
-    ///     // "page=0&page_size=25&sort_order=ascending"
+    ///     // "next_page_token=0&page_size=25&sort_order=ascending"
     public func encode() -> String {
         let values: [String: CustomStringConvertible?] = [
             "count": self.count, "end_time": self.endTime?.iso8601, "next_page_token": self.page, "page_size": self.pageSize,
