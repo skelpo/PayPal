@@ -150,7 +150,7 @@ public final class ShippingAddress: Content, Equatable {
         return
             (lhs.recipientName == rhs.recipientName) &&
             (lhs.defaultAddress == rhs.defaultAddress) &&
-            (lhs.line1 == rhs.line2) &&
+            (lhs.line1 == rhs.line1) &&
             (lhs.line2 == rhs.line2) &&
             (lhs.city == rhs.city) &&
             (lhs.state == rhs.state) &&
