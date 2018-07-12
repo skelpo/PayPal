@@ -86,6 +86,15 @@ public final class ShippingAddress: Content, Equatable {
             (lhs.line2 == rhs.line2) &&
             (lhs.city == rhs.city) &&
             (lhs.state == rhs.state) &&
-            (lhs.countryCode == rhs.countryCode)
+            (lhs.countryCode == rhs.countryCode) &&
+            (lhs.postalCode == rhs.postalCode)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case line1, line2, city, state
+        case recipientName = "recipient_name"
+        case defaultAddress = "default_address"
+        case countryCode = "country_code"
+        case postalCode = "postal_code"
     }
 }
