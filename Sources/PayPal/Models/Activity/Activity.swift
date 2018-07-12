@@ -1,14 +1,14 @@
 import Vapor
 
 /// A record of a payment, currency transfer, money conversion, requests for payment, or promise of payment.
-public final class Activity: Content {
+public final class Activity: Content, Equatable {
     
     /// The PayPal-generated ID for the activity.
     public var id: String
     
     /// The date and time when the activity was created,
     /// in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public var timeCreated: String
+    public var timeCreated: Date
     
     /// The type of activity that the object represents.
     public var type: ActivityType
@@ -42,7 +42,7 @@ public final class Activity: Content {
     /// Creates a new `Activity` instance.
     public init(
         id: String,
-        timeCreated: String,
+        timeCreated: Date,
         type: ActivityType,
         subtype: SubType?,
         status: Status?,
@@ -64,6 +64,21 @@ public final class Activity: Content {
         self.net = net
         self.partnerFee = partnerFee
         self.extensions = extensions
+    }
+    
+    public static func == (lhs: Activity, rhs: Activity) -> Bool {
+        return
+            (lhs.id == rhs.id) &&
+            (lhs.timeCreated == rhs.timeCreated) &&
+            (lhs.type == rhs.type) &&
+            (lhs.subtype == rhs.subtype) &&
+            (lhs.status == rhs.status) &&
+            (lhs.counterparty == rhs.counterparty) &&
+            (lhs.fee == rhs.fee) &&
+            (lhs.gross == rhs.gross) &&
+            (lhs.net == rhs.net) &&
+            (lhs.partnerFee == rhs.partnerFee) &&
+            (lhs.extensions == rhs.extensions)
     }
     
     enum CodingKeys: String, CodingKey {
