@@ -85,4 +85,16 @@ public final class MerchantPreferances: Content, Equatable {
             (lhs.acceptedPaymentType == rhs.acceptedPaymentType) &&
             (lhs.charSet == rhs.charSet)
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case setupFee = "setup_fee"
+        case cancelURL = "cancel_url"
+        case returnURL = "return_url"
+        case maxFails = "max_fail_attempts"
+        case autoBill = "auto_bill_amount"
+        case initialFailAction = "initial_fail_amount_action"
+        case acceptedPaymentType = "accepted_payment_type"
+        case charSet = "char_set"
+    }
 }
