@@ -34,7 +34,7 @@ public final class Money: Content, Equatable {
             value.range(of: moneyValuePattern, options: .regularExpression, range: nil, locale: nil) != nil &&
             value.count <= 32
         else {
-            throw Abort(.badRequest, reason: "Attempted to use malformed mony amount value '\(value)'")
+            throw Abort(.badRequest, reason: "Attempted to use malformed money amount value '\(value)'")
         }
         
         self.currency = currency
@@ -61,7 +61,7 @@ public final class Money: Content, Equatable {
             value.range(of: moneyValuePattern, options: .regularExpression, range: nil, locale: nil) != nil &&
                 value.count <= 32
             else {
-                throw Abort(.badRequest, reason: "Attempted to use malformed mony amount value '\(value)'")
+                throw Abort(.badRequest, reason: "Attempted to use malformed money amount value '\(value)'")
         }
         self.value = value
     }
