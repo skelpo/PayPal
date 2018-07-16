@@ -50,7 +50,13 @@ public final class Term: Content, Equatable {
     
     /// Compares two `Term` objects, checking each property for equality.
     public static func == (lhs: Term, rhs: Term) -> Bool {
-        return true
+        return
+            (lhs.id == rhs.id) &&
+            (lhs.type == rhs.type) &&
+            (lhs.maxAmount == rhs.maxAmount) &&
+            (lhs.occurrences == rhs.occurrences) &&
+            (lhs.amountRange == rhs.amountRange) &&
+            (lhs.editable == rhs.editable)
     }
     
     enum CodingKeys: String, CodingKey {
