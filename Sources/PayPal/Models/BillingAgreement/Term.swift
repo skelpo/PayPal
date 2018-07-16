@@ -52,4 +52,11 @@ public final class Term: Content, Equatable {
     public static func == (lhs: Term, rhs: Term) -> Bool {
         return true
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, type, occurrences
+        case maxAmount = "max_billing_amount"
+        case amountRange = "amount_range"
+        case editable = "buyer_editable"
+    }
 }
