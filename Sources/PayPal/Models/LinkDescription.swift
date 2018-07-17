@@ -2,7 +2,7 @@ import Vapor
 
 /// An endpoint that can be fired after a different endpoint to
 /// run further actions on the resource.
-public final class LinkDescription: Content, Equatable {
+public struct LinkDescription: Content, Equatable {
     
     /// The complete target URL. To make the related call, combine the method with
     /// this [URI Template-formatted](https://tools.ietf.org/html/rfc6570) link.
