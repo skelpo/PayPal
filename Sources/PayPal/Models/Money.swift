@@ -3,7 +3,7 @@ import Vapor
 internal let moneyValuePattern = "^((-?[0-9]+)|(-?([0-9]+)?[.][0-9]+))$"
 
 /// An amount of a specified currency.
-public final class Money: Content, Equatable {
+public struct Money: Content, ValidationSetable, Equatable {
     
     /// The currency that the `Money` instance represents.
     public var currency: Currency
@@ -30,21 +30,16 @@ public final class Money: Content, Equatable {
     ///   - `Abort(.badRequest, "Attempted to use invalid currency code '{code}'")`
     ///   - `Abort(.badRequest, "Attempted to use malformed mony amount value '{value}'")`
     public init(currency: Currency, value: String)throws {
-        guard
-            value.range(of: moneyValuePattern, options: .regularExpression, range: nil, locale: nil) != nil &&
-            value.count <= 32
-        else {
-            throw Abort(.badRequest, reason: "Attempted to use malformed money amount value '\(value)'")
-        }
-        
         self.currency = currency
         self.value = value
+        
+        try self.set(\.value <~ value)
     }
     
     /// Creates a `Money` instance from the data container in a decoder's keyed container.
     ///
     /// This initializer uses the validations of the main `init(code:value:)` method.
-    public convenience init(from decoder: Decoder)throws {
+    public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         try self.init(
             currency: container.decode(Currency.self, forKey: .currency),
@@ -52,24 +47,23 @@ public final class Money: Content, Equatable {
         )
     }
     
-    /// Sets the instance's `value` property if the string passed in
-    /// passes both length and structure validations.
-    ///
-    /// - Parameter value: The new value to validate and assing to the `value` property.
-    public func setValue(to value: String)throws {
-        guard
-            value.range(of: moneyValuePattern, options: .regularExpression, range: nil, locale: nil) != nil &&
-                value.count <= 32
-            else {
-                throw Abort(.badRequest, reason: "Attempted to use malformed money amount value '\(value)'")
-        }
-        self.value = value
-    }
-    
     /// Compares two `Money` objects, checking that the `currency`
     /// and `value` properties are equal.
     public static func == (lhs: Money, rhs: Money) -> Bool {
         return (lhs.currency == rhs.currency) && (lhs.value == rhs.value)
+    }
+    
+    public static func setterValidations() -> SetterValidations<Money> {
+        var validations = SetterValidations(Money.self)
+        validations.set(\.value) { value in
+            guard
+                value.range(of: moneyValuePattern, options: .regularExpression, range: nil, locale: nil) != nil &&
+                    value.count <= 32
+                else {
+                    throw Abort(.badRequest, reason: "Attempted to use malformed money amount value '\(value)'")
+            }
+        }
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
