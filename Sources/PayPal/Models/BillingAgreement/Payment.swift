@@ -86,4 +86,9 @@ public struct Payment: Content, ValidationSetable, Equatable {
         
         return validations
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name, type, frequency, cycles, amount, charges
+        case interval = "frequency_interval"
+    }
 }
