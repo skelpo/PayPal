@@ -61,6 +61,22 @@ public struct Payment: Content, ValidationSetable, Equatable {
         try self.set(\.interval <~ interval)
     }
     
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(String.self, forKey: .id)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.type = try container.decode(PaymentType.self, forKey: .type)
+        self.interval = try container.decode(String.self, forKey: .interval)
+        self.frequency = try container.decode(Frequency.self, forKey: .frequency)
+        self.cycles = try container.decode(String.self, forKey: .cycles)
+        self.amount = try container.decode(Money.self, forKey: .amount)
+        self.charges = try container.decodeIfPresent([Charge].self, forKey: .charges)
+        
+        try self.set(\.name <~ name)
+        try self.set(\.cycles <~ cycles)
+        try self.set(\.interval <~ interval)
+    }
+    
     public func setterValidations() -> SetterValidations<Payment> {
         var validations = SetterValidations(Payment.self)
         

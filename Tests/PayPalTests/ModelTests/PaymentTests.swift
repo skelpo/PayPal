@@ -89,7 +89,7 @@ final class PaymentTests: XCTestCase {
             charges: nil
         )
         
-        let mit = """
+        let valid = """
         {
             "amount": {
                 "currency_code": "USD",
@@ -102,8 +102,36 @@ final class PaymentTests: XCTestCase {
             "name": "Service Membership"
         }
         """.data(using: .utf8)!
+        let cyclesError = """
+        {
+            "amount": {
+                "currency_code": "USD",
+                "value": "24.99"
+            },
+            "cycles": "i",
+            "frequency": "MONTH",
+            "frequency_interval": "2",
+            "type": "REGULAR",
+            "name": "Service Membership"
+        }
+        """.data(using: .utf8)!
+        let intervalError = """
+        {
+            "amount": {
+                "currency_code": "USD",
+                "value": "24.99"
+            },
+            "cycles": "0",
+            "frequency": "MONTH",
+            "frequency_interval": "13",
+            "type": "REGULAR",
+            "name": "Service Membership"
+        }
+        """.data(using: .utf8)!
         
-        try XCTAssertEqual(payment, decoder.decode(Payment.self, from: mit))
+        try XCTAssertEqual(payment, decoder.decode(Payment.self, from: valid))
+        try XCTAssertThrowsError(decoder.decode(Payment.self, from: cyclesError))
+        try XCTAssertThrowsError(decoder.decode(Payment.self, from: intervalError))
     }
     
     static var allTests: [(String, (PaymentTests) -> ()throws -> ())] = [
