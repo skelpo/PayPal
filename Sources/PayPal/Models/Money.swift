@@ -15,6 +15,9 @@ public struct Money: Content, ValidationSetable, Equatable {
     /// - A decimal fraction for currencies like TND that are subdivided into thousandths.
     /// For the required number of decimal places for a currency code, see [Currency codes - ISO 4217](https://www.iso.org/iso-4217-currency-codes.html).
     ///
+    /// This property can be set using the `Money.set(_:)` method, which will validate the new value
+    /// before assigning it to the property.
+    ///
     /// Maximum length is 32, and is must match this RegEx pattern `^((-?[0-9]+)|(-?([0-9]+)?[.][0-9]+))$`.
     public private(set) var value: String
     
