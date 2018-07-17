@@ -46,7 +46,7 @@ public struct Payment: Content, ValidationSetable, Equatable {
     ///         amount: Money(currency: .usd, value: "24.99"),
     ///         charges: nil
     ///     )
-    public init(name: String, type: PaymentType, interval: String, frequency: Frequency, cycles: String, amount: Money, charges: [Charge]?) {
+    public init(name: String, type: PaymentType, interval: String, frequency: Frequency, cycles: String, amount: Money, charges: [Charge]?)throws {
         self.id = nil
         self.name = name
         self.type = type
@@ -55,6 +55,10 @@ public struct Payment: Content, ValidationSetable, Equatable {
         self.cycles = cycles
         self.amount = amount
         self.charges = charges
+        
+        try self.set(\.name <~ name)
+        try self.set(\.cycles <~ cycles)
+        try self.set(\.interval <~ interval)
     }
     
     public func setterValidations() -> SetterValidations<Payment> {
@@ -64,6 +68,9 @@ public struct Payment: Content, ValidationSetable, Equatable {
             guard name.count <= 128 else {
                 throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "The `name` property must have a length of 128 or less.")
             }
+        }
+        validations.set(\.cycles) { number in
+            guard Int(number) != nil else { throw PayPalError(status: .badRequest, identifier: "badType", reason: "`cycles` must be convertible to a integer") }
         }
         validations.set(\.interval) { interval in
             guard let int = Int(interval) else {
