@@ -39,7 +39,11 @@ public final class Term: Content, Equatable {
         occurrences: String,
         amountRange: Money,
         editable: String
-    ) {
+    )throws {
+        guard id?.count ?? 0 < 128 else {
+            throw PayPalError(identifier: "excededIDLength", reason: "ID length must be no greater then 128 characters")
+        }
+        
         self.id = id
         self.type = type
         self.maxAmount = maxAmount
