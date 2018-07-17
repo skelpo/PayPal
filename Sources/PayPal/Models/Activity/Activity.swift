@@ -1,7 +1,7 @@
 import Vapor
 
 /// A record of a payment, currency transfer, money conversion, requests for payment, or promise of payment.
-public final class Activity: Content, Equatable {
+public struct Activity: Content, Equatable {
     
     /// The PayPal-generated ID for the activity.
     public var id: String
