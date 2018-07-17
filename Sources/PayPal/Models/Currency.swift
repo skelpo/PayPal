@@ -127,13 +127,13 @@ public struct Currency: Content, Equatable {
     public static let bif = Currency(code: "BIF", number: 108, e: 0, name: "Burundian franc")
     
     /// A `Currency` instance for the Bermudian dollar.
-    public static let bmd = Currency(code: "BMD", number: 60, e: 2, name: "Bermudian dollar")
+    public static let bmd = Currency(code: "BMD", number: 060, e: 2, name: "Bermudian dollar")
     
     /// A `Currency` instance for the Brunei dollar.
-    public static let bnd = Currency(code: "BND", number: 96, e: 2, name: "Brunei dollar")
+    public static let bnd = Currency(code: "BND", number: 096, e: 2, name: "Brunei dollar")
     
     /// A `Currency` instance for the Boliviano.
-    public static let bob = Currency(code: "BOB", number: 68, e: 2, name: "Boliviano")
+    public static let bob = Currency(code: "BOB", number: 068, e: 2, name: "Boliviano")
     
     /// A `Currency` instance for the Bolivian Mvdol (funds code).
     public static let bov = Currency(code: "BOV", number: 984, e: 2, name: "Bolivian Mvdol (funds code)")
@@ -142,19 +142,19 @@ public struct Currency: Content, Equatable {
     public static let brl = Currency(code: "BRL", number: 986, e: 2, name: "Brazilian real")
     
     /// A `Currency` instance for the Bahamian dollar.
-    public static let bsd = Currency(code: "BSD", number: 44, e: 2, name: "Bahamian dollar")
+    public static let bsd = Currency(code: "BSD", number: 044, e: 2, name: "Bahamian dollar")
     
     /// A `Currency` instance for the Bhutanese ngultrum.
-    public static let btn = Currency(code: "BTN", number: 64, e: 2, name: "Bhutanese ngultrum")
+    public static let btn = Currency(code: "BTN", number: 064, e: 2, name: "Bhutanese ngultrum")
     
     /// A `Currency` instance for the Botswana pula.
-    public static let bwp = Currency(code: "BWP", number: 72, e: 2, name: "Botswana pula")
+    public static let bwp = Currency(code: "BWP", number: 072, e: 2, name: "Botswana pula")
     
     /// A `Currency` instance for the Belarusian ruble.
     public static let byn = Currency(code: "BYN", number: 933, e: 2, name: "Belarusian ruble")
     
     /// A `Currency` instance for the Belize dollar.
-    public static let bzd = Currency(code: "BZD", number: 84, e: 2, name: "Belize dollar")
+    public static let bzd = Currency(code: "BZD", number: 084, e: 2, name: "Belize dollar")
     
     /// A `Currency` instance for the Canadian dollar.
     public static let cad = Currency(code: "CAD", number: 124, e: 2, name: "Canadian dollar")
@@ -211,7 +211,7 @@ public struct Currency: Content, Equatable {
     public static let dop = Currency(code: "DOP", number: 214, e: 2, name: "Dominican peso")
     
     /// A `Currency` instance for the Algerian dinar.
-    public static let dzd = Currency(code: "DZD", number: 12, e: 2, name: "Algerian dinar")
+    public static let dzd = Currency(code: "DZD", number: 012, e: 2, name: "Algerian dinar")
     
     /// A `Currency` instance for the Egyptian pound.
     public static let egp = Currency(code: "EGP", number: 818, e: 2, name: "Egyptian pound")
@@ -447,7 +447,7 @@ public struct Currency: Content, Equatable {
     public static let sar = Currency(code: "SAR", number: 682, e: 2, name: "Saudi riyal")
     
     /// A `Currency` instance for the Solomon Islands dollar.
-    public static let sbd = Currency(code: "SBD", number: 90, e: 2, name: "Solomon Islands dollar")
+    public static let sbd = Currency(code: "SBD", number: 090, e: 2, name: "Solomon Islands dollar")
     
     /// A `Currency` instance for the Seychelles rupee.
     public static let scr = Currency(code: "SCR", number: 690, e: 2, name: "Seychelles rupee")
