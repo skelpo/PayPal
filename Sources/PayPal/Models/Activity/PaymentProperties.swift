@@ -1,7 +1,7 @@
 import Vapor
 
 /// Additional information about a payment activity.
-public final class PaymentProperties: Content, Equatable {
+public struct PaymentProperties: Content, Equatable {
     
     /// The direction of the money transfer for the transaction.
     public var creditDebitCode: CreditDebitCode?
