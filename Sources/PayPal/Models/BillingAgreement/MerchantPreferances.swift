@@ -1,7 +1,7 @@
 import Vapor
 
 /// Merchant preferances that override the default information for a billing agreement.
-public final class MerchantPreferances: Content, Equatable {
+public struct MerchantPreferances: Content, Equatable {
     
     /// The PayPal-generated ID for the resource.
     ///
