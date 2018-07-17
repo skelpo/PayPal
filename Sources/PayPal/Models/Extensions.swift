@@ -1,7 +1,7 @@
 import Vapor
 
 /// The extension properties for an `Activity` object.
-public final class Extensions: Content, Equatable {
+public struct Extensions: Content, Equatable {
     
     /// The properties for a payment activity.
     public var paymentProperties: PaymentProperties?
