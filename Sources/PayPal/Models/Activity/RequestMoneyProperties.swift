@@ -7,7 +7,7 @@ public typealias OrderProperties = RoleObjectProperties
 public typealias MoneyRequestProperties = RoleObjectProperties
 
 /// Additional information for an object in transaction that only has a `role`.
-public final class RoleObjectProperties: Content, Equatable {
+public struct RoleObjectProperties: Content, Equatable {
     
     /// The role of the user in the transaction.
     public var role: Role?
