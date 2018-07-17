@@ -56,7 +56,7 @@ final class ShippingAddressTests: XCTestCase {
             postalCode: "66167"
         ))
         
-        let test = try ShippingAddress(
+        var test = try ShippingAddress(
             recipientName: "Puffin Billy",
             defaultAddress: true,
             line1: "89 Furnace Dr.",
@@ -67,11 +67,11 @@ final class ShippingAddressTests: XCTestCase {
             postalCode: "66167"
         )
         
-        try XCTAssertThrowsError(test.setState(to: String(repeating: "KS", count: 22)))
-        try XCTAssertThrowsError(test.setCountryCode(to: "US@"))
+        try XCTAssertThrowsError(test.set(\ShippingAddress.state <~ String(repeating: "KS", count: 22)))
+        try XCTAssertThrowsError(test.set(\.countryCode <~ "US@"))
         
-        try test.setState(to: "ON")
-        try test.setCountryCode(to: "CA")
+        try test.set(\.state <~ "ON")
+        try test.set(\.countryCode <~ "CA")
         test.city = "Somewhere"
         
         XCTAssertEqual(test.state, "ON")

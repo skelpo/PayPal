@@ -7,12 +7,12 @@ final class MoneyTests: XCTestCase {
         try XCTAssertThrowsError(Money(currency: .usd, value: "1945r"))
         try XCTAssertThrowsError(Money(currency: .usd, value: "88*99"))
         
-        let test = try Money(currency: .ang, value: "-32.4")
+        var test = try Money(currency: .ang, value: "-32.4")
         XCTAssertEqual(test.currency, .ang)
         XCTAssertEqual(test.value, "-32.4")
         
         test.currency = .xxx
-        try test.setValue(to: "88")
+        try test.set(\.value <~ "88")
         XCTAssertEqual(test.value, "88")
     }
     
