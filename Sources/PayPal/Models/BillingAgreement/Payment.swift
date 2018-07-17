@@ -1,7 +1,7 @@
 import Vapor
 
 /// The payment made during each cycle of a billing agreement.
-public struct Payment: Content, Equatable {
+public struct Payment: Content, ValidationSetable, Equatable {
     
     /// The PayPal-generated ID for the resource.
     ///
@@ -55,5 +55,32 @@ public struct Payment: Content, Equatable {
         self.cycles = cycles
         self.amount = amount
         self.charges = charges
+    }
+    
+    public func setterValidations() -> SetterValidations<Payment> {
+        var validations = SetterValidations(Payment.self)
+        
+        validations.set(\.name) { name in
+            guard name.count <= 128 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "The `name` property must have a length of 128 or less.")
+            }
+        }
+        validations.set(\.interval) { interval in
+            guard let int = Int(interval) else {
+                throw PayPalError(status: .badRequest, identifier: "badType", reason: "`frequency_interval` must be convertible to a integer")
+            }
+            
+            var error = false
+            switch self.frequency {
+            case .day: guard int <= 365 else { error = true; break }
+            case .week: guard int <= 52 else { error = true; break }
+            case .month: guard int <= 12 else { error = true; break }
+            case .year: guard int <= 1 else { error = true; break }
+            }
+            
+            if error { throw PayPalError(status: .badRequest, identifier: "invalidFrequency", reason: "`frequency_interval` cannot be more the 12 monthes") }
+        }
+        
+        return validations
     }
 }

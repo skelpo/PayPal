@@ -73,7 +73,7 @@ public protocol ValidationSetable {
     /// A constructor for the type's proeprty's validations.
     ///
     /// - Returns: A container holding the validations.
-    static func setterValidations() -> SetterValidations<Self>
+    func setterValidations() -> SetterValidations<Self>
     
     /// Sets one of the type's properties if the new value passes validation.
     ///
@@ -88,7 +88,7 @@ public protocol ValidationSetable {
 
 extension ValidationSetable {
     public mutating func set<Value>(_ setter: Setter<Self, Value>)throws {
-        try Self.setterValidations().validations[setter.key]?(setter.value)
+        try self.setterValidations().validations[setter.key]?(setter.value)
         self[keyPath: setter.key] = setter.value
     }
     

@@ -114,7 +114,7 @@ public struct MerchantPreferances: Content, ValidationSetable, Equatable {
             (lhs.charSet == rhs.charSet)
     }
     
-    public static func setterValidations() -> SetterValidations<MerchantPreferances> {
+    public func setterValidations() -> SetterValidations<MerchantPreferances> {
         var validations = SetterValidations(MerchantPreferances.self)
         
         validations.set(\.cancelURL) { url in

@@ -56,7 +56,7 @@ public struct Money: Content, ValidationSetable, Equatable {
         return (lhs.currency == rhs.currency) && (lhs.value == rhs.value)
     }
     
-    public static func setterValidations() -> SetterValidations<Money> {
+    public func setterValidations() -> SetterValidations<Money> {
         var validations = SetterValidations(Money.self)
         validations.set(\.value) { value in
             guard

@@ -111,7 +111,7 @@ public struct ShippingAddress: Content, ValidationSetable, Equatable {
             (lhs.postalCode == rhs.postalCode)
     }
     
-    public static func setterValidations() -> SetterValidations<ShippingAddress> {
+    public func setterValidations() -> SetterValidations<ShippingAddress> {
         var validations = SetterValidations(ShippingAddress.self)
         
         validations.set(\.state) { state in
