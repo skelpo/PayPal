@@ -1,7 +1,7 @@
 import Vapor
 
 /// A charge model that overrides that default charge model of a `BillingAgreement` object.
-public final class OverrideCharge: Content, Equatable {
+public struct OverrideCharge: Content, Equatable {
     
     /// The ID of the charge model.
     public var id: String
