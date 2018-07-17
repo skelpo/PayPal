@@ -1,6 +1,6 @@
 import Vapor
 
-public final class ShippingAddress: Content, Equatable {
+public struct ShippingAddress: Content, ValidationSetable, Equatable {
     
     /// The name of the recipient at this address.
     public var recipientName: String?
@@ -69,21 +69,6 @@ public final class ShippingAddress: Content, Equatable {
         countryCode: String,
         postalCode: String
     )throws {
-        guard state?.count ?? 0 <= 40 else {
-            throw PayPalError(
-                status: .badRequest,
-                identifier: "malformedString",
-                reason: "`ShippingAddress.state` property length can be no longer than 40 1-byte characters"
-            )
-        }
-        guard countryCode.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
-            throw PayPalError(
-                status: .badRequest,
-                identifier: "malformedString",
-                reason: "`ShippingAddress.countryCode` property must match `([A-Z]{2}|C2)$` RegEx pattern"
-            )
-        }
-        
         self.recipientName = recipientName
         self.defaultAddress = defaultAddress
         self.line1 = line1
@@ -92,11 +77,14 @@ public final class ShippingAddress: Content, Equatable {
         self.state = state
         self.countryCode = countryCode
         self.postalCode = postalCode
+        
+        try self.set(\.state <~ state)
+        try self.set(\.countryCode <~ countryCode)
     }
     
     /// Creates a new instance of `ShippingAddress` from that data coontained
     /// in a decoder. Validates the `state` and `countryCode` values passed in.
-    public convenience init(from decoder: Decoder)throws {
+    public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         try self.init(
             recipientName: container.decodeIfPresent(String.self, forKey: .recipientName),
@@ -110,41 +98,6 @@ public final class ShippingAddress: Content, Equatable {
         )
     }
     
-    /// Sets the `state` property to a new value, first validating
-    /// that the new value has a length of 40 or less.
-    ///
-    /// - Parameter value: The string to assign to the `state` property
-    ///
-    /// - Throws: `PayPalError.malformedString` if the length of the `value`
-    ///   argument is greater than 40.
-    public func setState(to value: String?)throws {
-        guard value?.count ?? 0 <= 40 else {
-            throw PayPalError(
-                status: .badRequest,
-                identifier: "malformedString",
-                reason: "`ShippingAddress.state` property length can be no longer than 40 1-byte characters"
-            )
-        }
-        self.state = value
-    }
-    
-    /// Sets the `countryCode` property to a new value, first validating
-    /// that the new value matches the RegEx pattern `^([A-Z]{2}|C2)$`.
-    ///
-    /// - Parameter value: The string to assign to the `countryCode` property
-    ///
-    /// - Throws: `PayPalError.malformedString` if the `value` argument doesn't match `^([A-Z]{2}|C2)$`.
-    public func setCountryCode(to value: String)throws {
-        guard value.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
-            throw PayPalError(
-                status: .badRequest,
-                identifier: "malformedString",
-                reason: "`ShippingAddress.countryCode` property must match `([A-Z]{2}|C2)$` RegEx pattern"
-            )
-        }
-        self.countryCode = value
-    }
-    
     /// Compares two `ShippingAddress` objects, checking properties for equality.
     public static func == (lhs: ShippingAddress, rhs: ShippingAddress) -> Bool {
         return
@@ -156,6 +109,31 @@ public final class ShippingAddress: Content, Equatable {
             (lhs.state == rhs.state) &&
             (lhs.countryCode == rhs.countryCode) &&
             (lhs.postalCode == rhs.postalCode)
+    }
+    
+    public static func setterValidations() -> SetterValidations<ShippingAddress> {
+        var validations = SetterValidations(ShippingAddress.self)
+        
+        validations.set(\.state) { state in
+            guard state?.count ?? 0 <= 40 else {
+                throw PayPalError(
+                    status: .badRequest,
+                    identifier: "malformedString",
+                    reason: "`ShippingAddress.state` property length can be no longer than 40 1-byte characters"
+                )
+            }
+        }
+        validations.set(\.countryCode) { code in
+            guard code.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
+                throw PayPalError(
+                    status: .badRequest,
+                    identifier: "malformedString",
+                    reason: "`ShippingAddress.countryCode` property must match `([A-Z]{2}|C2)$` RegEx pattern"
+                )
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
