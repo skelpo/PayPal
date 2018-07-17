@@ -72,6 +72,9 @@ public struct Payment: Content, ValidationSetable, Equatable {
             
             var error = false
             switch self.frequency {
+            
+            // Sure, this case doesn't handle leap years, but how would you do that anyway?
+            // PRs are welcome if you happen to figure it out!
             case .day: guard int <= 365 else { error = true; break }
             case .week: guard int <= 52 else { error = true; break }
             case .month: guard int <= 12 else { error = true; break }
