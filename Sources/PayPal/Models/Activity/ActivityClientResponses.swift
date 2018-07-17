@@ -2,7 +2,7 @@ import Vapor
 
 /// The response structure returned from the `GET /v1/activities/activities` endpoint
 /// and `Activities.activities(parameters:)` client method.
-public final class ActivitiesResponse: Content, Equatable {
+public struct ActivitiesResponse: Content, Equatable {
     
     /// A list of the financial activities for a user.
     public var items: [Activity]?
