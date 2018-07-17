@@ -1,7 +1,7 @@
 import Vapor
 
 /// Merchant preferances that override the default information for a billing agreement.
-public struct MerchantPreferances: Content, Equatable {
+public struct MerchantPreferances: Content, ValidationSetable, Equatable {
     
     /// The PayPal-generated ID for the resource.
     ///
@@ -13,13 +13,19 @@ public struct MerchantPreferances: Content, Equatable {
     
     /// The URL to which the customer is redirected if they cancel the agreement.
     ///
+    /// This property can be set with the `MerchantPreferances.set(_:)` method,
+    /// which will validate the new value before assigning it.
+    ///
     /// Maximum length: 1000.
-    public var cancelURL: String
+    public private(set) var cancelURL: String
     
     /// The URL to which the customer is redirected if they accept the agreement.
     ///
+    /// This property can be set with the `MerchantPreferances.set(_:)` method,
+    /// which will validate the new value before assigning it.
+    ///
     /// Maximum length: 1000.
-    public var returnURL: String
+    public private(set) var returnURL: String
     
     /// The maximum number of allowed failed payment attempts.
     /// Default is `0`, which allows infinite failed payment attempts.
@@ -60,7 +66,11 @@ public struct MerchantPreferances: Content, Equatable {
         initialFailAction: InitialFailAction?,
         acceptedPaymentType: String?,
         charSet: String?
-    ) {
+    )throws {
+        guard id?.count ?? 0 < 128 else {
+            throw PayPalError(identifier: "excededIDLength", reason: "ID length must be no greater then 128 characters")
+        }
+        
         self.id = id
         self.setupFee = setupFee
         self.cancelURL = cancelURL
@@ -70,6 +80,24 @@ public struct MerchantPreferances: Content, Equatable {
         self.initialFailAction = initialFailAction
         self.acceptedPaymentType = acceptedPaymentType
         self.charSet = charSet
+        
+        try self.set(\.cancelURL <~ cancelURL)
+        try self.set(\.returnURL <~ returnURL)
+    }
+    
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        try self.init(
+            id: container.decodeIfPresent(String.self, forKey: .id),
+            setupFee: container.decodeIfPresent(Money.self, forKey: .setupFee),
+            cancelURL: container.decode(String.self, forKey: .cancelURL),
+            returnURL: container.decode(String.self, forKey: .returnURL),
+            maxFails: container.decodeIfPresent(Int.self, forKey: .maxFails),
+            autoBill: container.decodeIfPresent(AutoBill.self, forKey: .autoBill),
+            initialFailAction: container.decodeIfPresent(InitialFailAction.self, forKey: .initialFailAction),
+            acceptedPaymentType: container.decodeIfPresent(String.self, forKey: .acceptedPaymentType),
+            charSet: container.decodeIfPresent(String.self, forKey: .charSet)
+        )
     }
     
     /// Compares two `MerchantPreferances` object, checking each property for equality.
@@ -84,6 +112,23 @@ public struct MerchantPreferances: Content, Equatable {
             (lhs.initialFailAction == rhs.initialFailAction) &&
             (lhs.acceptedPaymentType == rhs.acceptedPaymentType) &&
             (lhs.charSet == rhs.charSet)
+    }
+    
+    public static func setterValidations() -> SetterValidations<MerchantPreferances> {
+        var validations = SetterValidations(MerchantPreferances.self)
+        
+        validations.set(\.cancelURL) { url in
+            guard url.count <= 1000 else {
+                throw PayPalError(status: .badRequest, identifier: "urlLengthExceded", reason: "URL length must be less then, or equal to, 1000")
+            }
+        }
+        validations.set(\.returnURL) { url in
+            guard url.count <= 1000 else {
+                throw PayPalError(status: .badRequest, identifier: "urlLengthExceded", reason: "URL length must be less then, or equal to, 1000")
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
