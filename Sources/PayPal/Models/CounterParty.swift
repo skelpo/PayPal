@@ -1,7 +1,7 @@
 import Vapor
 
 /// The opposite party in a transaction.
-public final class CounterParty: Content, Equatable {
+public struct CounterParty: Content, Equatable {
     
     /// The other party's email address. For unregistered users only.
     public var email: String?
