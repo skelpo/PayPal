@@ -1,7 +1,7 @@
 import Vapor
 
 /// Additional information about an invoice activity object.
-public final class InvoiceProperties: Content, Equatable {
+public struct InvoiceProperties: Content, Equatable {
     
     /// The invoice role.
     public var role: Role?
