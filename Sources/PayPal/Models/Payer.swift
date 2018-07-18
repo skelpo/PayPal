@@ -5,7 +5,7 @@ public struct Payer: Content, Equatable {
     
     /// The ID of the customer-selected funding option for the payment.
     /// Value is `funding_instruments` or `funding_option_id`.
-    public let fundingOption: String?
+    public let fundingOption: FundingOption?
     
     
     /// The payment method.
