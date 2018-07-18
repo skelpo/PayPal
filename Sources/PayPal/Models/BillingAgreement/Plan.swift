@@ -95,6 +95,29 @@ public struct Plan: Content, ValidationSetable, Equatable {
         try self.set(\.description <~ description)
     }
     
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        let name = try container.decode(String.self, forKey: .name)
+        let description = try container.decode(String.self, forKey: .description)
+        
+        self.name = name
+        self.description = description
+        self.id = try container.decodeIfPresent(String.self, forKey: .id)
+        self.type = try container.decode(PlanType.self, forKey: .type)
+        self.state = try container.decodeIfPresent(PlanState.self, forKey: .state)
+        self.created = try container.decodeIfPresent(Date.self, forKey: .created)
+        self.updated = try container.decodeIfPresent(Date.self, forKey: .updated)
+        self.paymentDefinitions = try container.decodeIfPresent([Payment].self, forKey: .paymentDefinitions)
+        self.terms = try container.decodeIfPresent([Term].self, forKey: .terms)
+        self.preferances = try container.decodeIfPresent(MerchantPreferances.self, forKey: .preferances)
+        self.currency = try container.decodeIfPresent(Currency.self, forKey: .currency)
+        self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
+        
+        try self.set(\.name <~ name)
+        try self.set(\.description <~ description)
+    }
+    
     public func setterValidations() -> SetterValidations<Plan> {
         var validations = SetterValidations(Plan.self)
         
@@ -110,5 +133,14 @@ public struct Plan: Content, ValidationSetable, Equatable {
         }
         
         return validations
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name, description, type, state, terms, links
+        case created = "created_time"
+        case updated = "updated_time"
+        case paymentDefinitions = "payment_definitions"
+        case preferances = "merchant_preferences"
+        case currency = "currency_code"
     }
 }
