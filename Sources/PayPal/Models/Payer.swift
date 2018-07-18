@@ -56,4 +56,11 @@ public struct Payer: Content, Equatable {
         self.fundingInstruments = fundingInstruments
         self.info = info
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case fundingOption = "funding_option_id"
+        case method = "payment_method"
+        case fundingInstruments = "funding_instruments"
+        case info = "payer_info"
+    }
 }
