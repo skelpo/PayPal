@@ -90,6 +90,27 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
         try self.set(\.customerID <~ customerID)
     }
     
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.id = try container.decodeIfPresent(String.self, forKey: .id)
+        self.state = try container.decodeIfPresent(CreditCardState.self, forKey: .state)
+        self.validUntil = try container.decodeIfPresent(Date.self, forKey: .validUntil)
+        self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
+        
+        self.number = try container.decode(String.self, forKey: .number)
+        self.type = try container.decode(String.self, forKey: .type)
+        self.expireMonth = try container.decode(Int.self, forKey: .expireMonth)
+        self.expireYear = try container.decode(Int.self, forKey: .expireYear)
+        self.ccv2 = try container.decodeIfPresent(Int.self, forKey: .ccv2)
+        self.firstName = try container.decodeIfPresent(String.self, forKey: .firstName)
+        self.lastName = try container.decodeIfPresent(String.self, forKey: .lastName)
+        self.billingAddress = try container.decodeIfPresent(ShippingAddress.self, forKey: .billingAddress)
+        self.customerID = try container.decodeIfPresent(String.self, forKey: .customerID)
+        
+        try self.set(\.customerID <~ customerID)
+    }
+    
     public func setterValidations() -> SetterValidations<CreditCard> {
         var validations = SetterValidations(CreditCard.self)
         
@@ -100,5 +121,16 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
         }
         
         return validations
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, state, links, number, type, ccv2
+        case validUntil = "valid_until"
+        case expireMonth = "expire_month"
+        case expireYear = "expire_year"
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case billingAddress = "billing_address"
+        case customerID = "external_customer_id"
     }
 }
