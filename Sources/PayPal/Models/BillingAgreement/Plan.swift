@@ -100,10 +100,15 @@ public struct Plan: Content, ValidationSetable, Equatable {
         
         let name = try container.decode(String.self, forKey: .name)
         let description = try container.decode(String.self, forKey: .description)
+        let id = try container.decodeIfPresent(String.self, forKey: .id)
+        
+        guard id?.count ?? 0 <= 128 else {
+            throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`id` property must have a length of 128 or less")
+        }
         
         self.name = name
         self.description = description
-        self.id = try container.decodeIfPresent(String.self, forKey: .id)
+        self.id = id
         self.type = try container.decode(PlanType.self, forKey: .type)
         self.state = try container.decodeIfPresent(PlanState.self, forKey: .state)
         self.created = try container.decodeIfPresent(Date.self, forKey: .created)
