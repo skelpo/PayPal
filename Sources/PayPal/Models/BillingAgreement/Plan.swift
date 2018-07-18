@@ -1,7 +1,7 @@
 import Vapor
 
 /// A payment plan for a billing agreement.
-public struct Plan: Content, Equatable {
+public struct Plan: Content, ValidationSetable, Equatable {
     
     /// The PayPal-generated ID for the resource.
     ///
@@ -10,13 +10,19 @@ public struct Plan: Content, Equatable {
     
     /// The plan name.
     ///
+    /// This property can be set using the `Plan.set(_:)` method. This will
+    /// validate the new value before assigning it to the property.
+    ///
     /// Maximum length: 128.
-    public var name: String
+    public private(set) var name: String
     
     /// The plan description.
     ///
+    /// This property can be set using the `Plan.set(_:)` method. This will
+    /// validate the new value before assigning it to the property.
+    ///
     /// Maximum length: 128.
-    public var description: String
+    public private(set) var description: String
     
     /// The plan type.
     public var type: PlanType
@@ -70,7 +76,7 @@ public struct Plan: Content, Equatable {
     ///         ],
     ///         preferances: nil
     ///     )
-    public init(name: String, description: String, type: PlanType, payments: [Payment]?, preferances: MerchantPreferances?) {
+    public init(name: String, description: String, type: PlanType, payments: [Payment]?, preferances: MerchantPreferances?)throws {
         self.id = nil
         self.state = nil
         self.created = nil
@@ -84,5 +90,25 @@ public struct Plan: Content, Equatable {
         self.type = type
         self.paymentDefinitions = payments
         self.preferances = preferances
+        
+        try self.set(\.name <~ name)
+        try self.set(\.description <~ description)
+    }
+    
+    public func setterValidations() -> SetterValidations<Plan> {
+        var validations = SetterValidations(Plan.self)
+        
+        validations.set(\.name) { name in
+            guard name.count <= 128 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`name` property must have a length of 128 or less")
+            }
+        }
+        validations.set(\.description) { description in
+            guard description.count <= 128 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`description` property must have a length of 128 or less")
+            }
+        }
+        
+        return validations
     }
 }
