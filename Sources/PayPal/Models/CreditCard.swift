@@ -96,6 +96,8 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
         self.billingAddress = billingAddress
         self.customerID = customerID
         
+        try self.set(\.expireMonth <~ expireMonth)
+        try self.set(\.expireYear <~ expireYear)
         try self.set(\.customerID <~ customerID)
     }
     
@@ -117,6 +119,8 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
         self.billingAddress = try container.decodeIfPresent(ShippingAddress.self, forKey: .billingAddress)
         self.customerID = try container.decodeIfPresent(String.self, forKey: .customerID)
         
+        try self.set(\.expireMonth <~ expireMonth)
+        try self.set(\.expireYear <~ expireYear)
         try self.set(\.customerID <~ customerID)
     }
     
