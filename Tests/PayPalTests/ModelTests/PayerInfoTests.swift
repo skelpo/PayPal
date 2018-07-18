@@ -6,7 +6,7 @@ final class PayerInfoTests: XCTestCase {
         let info = try PayerInfo(
             email: "payer@exmaple.com",
             shippingAddress: nil,
-            billingAddress: ShippingAddress(
+            billingAddress: Address(
                 recipientName: "Puffin Billy",
                 defaultAddress: true,
                 line1: "89 Furnace Dr.",
@@ -26,7 +26,7 @@ final class PayerInfoTests: XCTestCase {
         XCTAssertEqual(info.shippingAddress, nil)
         try XCTAssertEqual(
             info.billingAddress,
-            ShippingAddress(
+            Address(
                 recipientName: "Puffin Billy",
                 defaultAddress: true,
                 line1: "89 Furnace Dr.",
@@ -44,7 +44,7 @@ final class PayerInfoTests: XCTestCase {
         let info = try PayerInfo(
             email: "payer@exmaple.com",
             shippingAddress: nil,
-            billingAddress: ShippingAddress(
+            billingAddress: Address(
                 recipientName: "Puffin Billy",
                 defaultAddress: true,
                 line1: "89 Furnace Dr.",
@@ -75,7 +75,7 @@ final class PayerInfoTests: XCTestCase {
         let info = try PayerInfo(
             email: "payer@exmaple.com",
             shippingAddress: nil,
-            billingAddress: ShippingAddress(
+            billingAddress: Address(
                 recipientName: "Puffin Billy",
                 defaultAddress: true,
                 line1: "89 Furnace Dr.",

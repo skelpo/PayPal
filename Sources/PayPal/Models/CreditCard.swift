@@ -34,7 +34,7 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
     public var lastName: String?
     
     /// The billing address associated with this card.
-    public var billingAddress: ShippingAddress?
+    public var billingAddress: Address?
     
     /// The facilitator-provided ID of the customer who owns this bank account.
     /// Required when storing a funding instrument or using a stored funding instrument in the PayPal vault.
@@ -78,7 +78,7 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
         ccv2: Int?,
         firstName: String?,
         lastName: String?,
-        billingAddress: ShippingAddress?,
+        billingAddress: Address?,
         customerID: String?
     )throws {
         self.id = nil
@@ -116,7 +116,7 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
         self.ccv2 = try container.decodeIfPresent(Int.self, forKey: .ccv2)
         self.firstName = try container.decodeIfPresent(String.self, forKey: .firstName)
         self.lastName = try container.decodeIfPresent(String.self, forKey: .lastName)
-        self.billingAddress = try container.decodeIfPresent(ShippingAddress.self, forKey: .billingAddress)
+        self.billingAddress = try container.decodeIfPresent(Address.self, forKey: .billingAddress)
         self.customerID = try container.decodeIfPresent(String.self, forKey: .customerID)
         
         try self.set(\.expireMonth <~ expireMonth)

@@ -16,17 +16,17 @@ public struct PayerInfo: Content, Equatable {
     public var email: String?
     
     /// The shipping address for a payment. Must be provided if it differs from the default address.
-    public var shippingAddress: ShippingAddress?
+    public var shippingAddress: Address?
     
     /// The payer's billing address.
-    public var billingAddress: ShippingAddress?
+    public var billingAddress: Address?
     
     /// Creates a new `PayerInfo` instance.
     ///
     ///     PayerInfo(
     ///         email: "payer@exmaple.com",
     ///         shippingAddress: nil,
-    ///         billingAddress: ShippingAddress(
+    ///         billingAddress: Address(
     ///             recipientName: "Puffin Billy",
     ///             defaultAddress: true,
     ///             line1: "89 Furnace Dr.",
@@ -37,7 +37,7 @@ public struct PayerInfo: Content, Equatable {
     ///             postalCode: "66167"
     ///         )
     ///     )
-    public init(email: String?, shippingAddress: ShippingAddress?, billingAddress: ShippingAddress?) {
+    public init(email: String?, shippingAddress: Address?, billingAddress: Address?) {
         self.id = nil
         self.firstName = nil
         self.lastName = nil

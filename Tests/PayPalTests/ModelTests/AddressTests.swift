@@ -1,9 +1,9 @@
 import XCTest
 @testable import PayPal
 
-final class ShippingAddressTests: XCTestCase {
+final class AddressTests: XCTestCase {
     func testInit()throws {
-        let address = try ShippingAddress(
+        let address = try Address(
             recipientName: "Puffin Billy",
             defaultAddress: true,
             line1: "89 Furnace Dr.",
@@ -25,7 +25,7 @@ final class ShippingAddressTests: XCTestCase {
     }
     
     func testValueValidation()throws {
-        try XCTAssertThrowsError(ShippingAddress(
+        try XCTAssertThrowsError(Address(
             recipientName: "Puffin Billy",
             defaultAddress: true,
             line1: "89 Furnace Dr.",
@@ -35,7 +35,7 @@ final class ShippingAddressTests: XCTestCase {
             countryCode: "22",
             postalCode: "66167"
         ))
-        try XCTAssertThrowsError(ShippingAddress(
+        try XCTAssertThrowsError(Address(
             recipientName: "Puffin Billy",
             defaultAddress: true,
             line1: "89 Furnace Dr.",
@@ -45,7 +45,7 @@ final class ShippingAddressTests: XCTestCase {
             countryCode: "USA",
             postalCode: "66167"
         ))
-        try XCTAssertThrowsError(ShippingAddress(
+        try XCTAssertThrowsError(Address(
             recipientName: "Puffin Billy",
             defaultAddress: true,
             line1: "89 Furnace Dr.",
@@ -56,7 +56,7 @@ final class ShippingAddressTests: XCTestCase {
             postalCode: "66167"
         ))
         
-        var test = try ShippingAddress(
+        var test = try Address(
             recipientName: "Puffin Billy",
             defaultAddress: true,
             line1: "89 Furnace Dr.",
@@ -67,7 +67,7 @@ final class ShippingAddressTests: XCTestCase {
             postalCode: "66167"
         )
         
-        try XCTAssertThrowsError(test.set(\ShippingAddress.state <~ String(repeating: "KS", count: 22)))
+        try XCTAssertThrowsError(test.set(\Address.state <~ String(repeating: "KS", count: 22)))
         try XCTAssertThrowsError(test.set(\.countryCode <~ "US@"))
         
         try test.set(\.state <~ "ON")
@@ -81,7 +81,7 @@ final class ShippingAddressTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let address = try ShippingAddress(
+        let address = try Address(
             recipientName: "Puffin Billy",
             defaultAddress: true,
             line1: "89 Furnace Dr.",
@@ -143,10 +143,10 @@ final class ShippingAddressTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        try XCTAssertThrowsError(decoder.decode(ShippingAddress.self, from: stateFail))
-        try XCTAssertThrowsError(decoder.decode(ShippingAddress.self, from: countryCodeFail))
+        try XCTAssertThrowsError(decoder.decode(Address.self, from: stateFail))
+        try XCTAssertThrowsError(decoder.decode(Address.self, from: countryCodeFail))
         try XCTAssertEqual(
-            ShippingAddress(
+            Address(
                 recipientName: "Puffin Billy",
                 defaultAddress: true,
                 line1: "89 Furnace Dr.",
@@ -156,11 +156,11 @@ final class ShippingAddressTests: XCTestCase {
                 countryCode: "US",
                 postalCode: "66167"
             ),
-            decoder.decode(ShippingAddress.self, from: valid)
+            decoder.decode(Address.self, from: valid)
         )
     }
     
-    static var allTests: [(String, (ShippingAddressTests) -> ()throws -> ())] = [
+    static var allTests: [(String, (AddressTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValueValidation", testValueValidation),
         ("testEncoding", testEncoding),

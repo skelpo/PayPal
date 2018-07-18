@@ -1,6 +1,6 @@
 import Vapor
 
-public struct ShippingAddress: Content, ValidationSetable, Equatable {
+public struct Address: Content, ValidationSetable, Equatable {
     
     /// The name of the recipient at this address.
     public var recipientName: String?
@@ -45,9 +45,9 @@ public struct ShippingAddress: Content, ValidationSetable, Equatable {
     /// See [postal code](https://en.wikipedia.org/wiki/Postal_code).
     public var postalCode: String?
     
-    /// Creates a new `ShippingAddress` instance.
+    /// Creates a new `Address` instance.
     ///
-    ///     ShippingAddress(
+    ///     Address(
     ///         recipientName: "Puffin Billy",
     ///         defaultAddress: true,
     ///         line1: "89 Furnace Dr.",
@@ -82,7 +82,7 @@ public struct ShippingAddress: Content, ValidationSetable, Equatable {
         try self.set(\.countryCode <~ countryCode)
     }
     
-    /// Creates a new instance of `ShippingAddress` from that data coontained
+    /// Creates a new instance of `Address` from that data coontained
     /// in a decoder. Validates the `state` and `countryCode` values passed in.
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -98,8 +98,8 @@ public struct ShippingAddress: Content, ValidationSetable, Equatable {
         )
     }
     
-    /// Compares two `ShippingAddress` objects, checking properties for equality.
-    public static func == (lhs: ShippingAddress, rhs: ShippingAddress) -> Bool {
+    /// Compares two `Address` objects, checking properties for equality.
+    public static func == (lhs: Address, rhs: Address) -> Bool {
         return
             (lhs.recipientName == rhs.recipientName) &&
             (lhs.defaultAddress == rhs.defaultAddress) &&
@@ -111,8 +111,8 @@ public struct ShippingAddress: Content, ValidationSetable, Equatable {
             (lhs.postalCode == rhs.postalCode)
     }
     
-    public func setterValidations() -> SetterValidations<ShippingAddress> {
-        var validations = SetterValidations(ShippingAddress.self)
+    public func setterValidations() -> SetterValidations<Address> {
+        var validations = SetterValidations(Address.self)
         
         validations.set(\.state) { state in
             guard state?.count ?? 0 <= 40 else {
