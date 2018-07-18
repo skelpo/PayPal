@@ -1,7 +1,7 @@
 import Vapor
 
 /// A user who funds a payment for a transaction.
-public struct Payer: Content, Equatable {
+public struct PayerInfo: Content, Equatable {
     
     /// The PayPal-assigned ID for the payer.
     public let id: String?
