@@ -1,7 +1,7 @@
 import Vapor
 
 /// Credit card information used for making a payment.
-public struct CreditCard: Content, Equatable {
+public struct CreditCard: Content, ValidationSetable, Equatable {
     
     /// The PayPal-generated ID for the resource.
     public let id: String?
@@ -71,7 +71,7 @@ public struct CreditCard: Content, Equatable {
         lastName: String?,
         billingAddress: ShippingAddress?,
         customerID: String?
-    ) {
+    )throws {
         self.id = nil
         self.state = nil
         self.validUntil = nil
@@ -86,5 +86,19 @@ public struct CreditCard: Content, Equatable {
         self.lastName = lastName
         self.billingAddress = billingAddress
         self.customerID = customerID
+        
+        try self.set(\.customerID <~ customerID)
+    }
+    
+    public func setterValidations() -> SetterValidations<CreditCard> {
+        var validations = SetterValidations(CreditCard.self)
+        
+        validations.set(\.customerID) { id in
+            guard id?.count ?? 0 <= 256 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`external_customer_id` property must have a length of 128 or less")
+            }
+        }
+        
+        return validations
     }
 }
