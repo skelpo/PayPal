@@ -1,6 +1,6 @@
 import Vapor
 
-/// A user who funds a payment for a transaction.
+/// Information about a user who funds a payment for a transaction.
 public struct PayerInfo: Content, Equatable {
     
     /// The PayPal-assigned ID for the payer.
@@ -21,9 +21,9 @@ public struct PayerInfo: Content, Equatable {
     /// The payer's billing address.
     public var billingAddress: ShippingAddress?
     
-    /// Creates a new `Payer` instance.
+    /// Creates a new `PayerInfo` instance.
     ///
-    ///     Payer(
+    ///     PayerInfo(
     ///         email: "payer@exmaple.com",
     ///         shippingAddress: nil,
     ///         billingAddress: ShippingAddress(
