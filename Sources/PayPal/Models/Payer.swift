@@ -46,4 +46,12 @@ public struct PayerInfo: Content, Equatable {
         self.shippingAddress = shippingAddress
         self.billingAddress = billingAddress
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, email
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case shippingAddress = "shipping_address"
+        case billingAddress = "billing_address"
+    }
 }
