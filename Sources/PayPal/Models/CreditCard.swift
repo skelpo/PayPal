@@ -13,9 +13,15 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
     public var type: String
     
     /// The two-digit card expiry month, in `MM` format. Value is from `01` to `12`.
+    ///
+    /// This property can be set using the `CreditCard.set(_:)` method, which
+    /// will validate the new value before it is assigned to the property.
     public var expireMonth: Int
     
     /// The four-digit card expiry year, in `YYYY` format.
+    ///
+    /// This property can be set using the `CreditCard.set(_:)` method, which
+    /// will validate the new value before it is assigned to the property.
     public var expireYear: Int
     
     /// The card validation code. Supported only when making a payment but not when saving a credit card for future use.
@@ -33,8 +39,11 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
     /// The facilitator-provided ID of the customer who owns this bank account.
     /// Required when storing a funding instrument or using a stored funding instrument in the PayPal vault.
     ///
+    /// This property can be set using the `CreditCard.set(_:)` method, which
+    /// will validate the new value before it is assigned to the property.
+    ///
     /// Maximum length: 256.
-    public var customerID: String?
+    public private(set) var customerID: String?
     
     /// The state of the funding instrument.
     public let state: CreditCardState?
@@ -114,6 +123,16 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
     public func setterValidations() -> SetterValidations<CreditCard> {
         var validations = SetterValidations(CreditCard.self)
         
+        validations.set(\.expireMonth) { month in
+            guard month > 0 && month <= 12 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidDate", reason: "`expire_month` property must have a value from 1 to 12.")
+            }
+        }
+        validations.set(\.expireYear) { year in
+            guard String(describing: year).count == 4 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidDate", reason: "`expire_year` property must have 4 digits.")
+            }
+        }
         validations.set(\.customerID) { id in
             guard id?.count ?? 0 <= 256 else {
                 throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`external_customer_id` property must have a length of 128 or less")
