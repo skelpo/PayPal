@@ -7,9 +7,9 @@ import Vapor
 /// to a string, an enum adds additional type safty to the property.
 public enum FundingOption: String, Hashable, CaseIterable, Content {
     
-    ///
+    /// `funding_option_id`
     case id = "funding_option_id"
     
-    ///
+    /// `funding_instruments`
     case instruments = "funding_instruments"
 }
