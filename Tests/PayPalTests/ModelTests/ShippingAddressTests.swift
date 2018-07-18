@@ -81,13 +81,30 @@ final class ShippingAddressTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let usd = try String(data: encoder.encode(Money(currency: .usd, value: "12.25")), encoding: .utf8)
-        let xxx = try String(data: encoder.encode(Money(currency: .xxx, value: "0")), encoding: .utf8)
-        let eur = try String(data: encoder.encode(Money(currency: .eur, value: "4.5")), encoding: .utf8)
+        let address = try ShippingAddress(
+            recipientName: "Puffin Billy",
+            defaultAddress: true,
+            line1: "89 Furnace Dr.",
+            line2: nil,
+            city: "Nowhere",
+            state: "KS",
+            countryCode: "US",
+            postalCode: "66167"
+        )
         
-        XCTAssertEqual(usd, "{\"value\":\"12.25\",\"currency_code\":\"USD\"}")
-        XCTAssertEqual(xxx, "{\"value\":\"0\",\"currency_code\":\"XXX\"}")
-        XCTAssertEqual(eur, "{\"value\":\"4.5\",\"currency_code\":\"EUR\"}")
+        let generated = try String(data: encoder.encode(address), encoding: .utf8)!
+        let json =
+            "{\"postal_code\":\"66167\",\"recipient_name\":\"Puffin Billy\",\"city\":\"Nowhere\"," +
+            "\"country_code\":\"US\",\"line1\":\"89 Furnace Dr.\",\"default_address\":true,\"state\":\"KS\"}"
+        
+        var index = 0
+        for (jsonChar, genChar) in zip(json, generated) {
+            if jsonChar == genChar { index += 1; continue }
+            XCTAssertEqual(jsonChar, genChar, "values don't match. Failure starts at index \(index)")
+            break
+        }
+        
+        XCTAssertEqual(generated, json)
     }
     
     func testDecoding()throws {
