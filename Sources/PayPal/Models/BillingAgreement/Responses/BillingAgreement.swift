@@ -1,7 +1,7 @@
 import Vapor
 
 /// An agreement for a recurring PayPal or debit card payment for goods or services.
-public struct BillingAgreement: Content, Equatable {
+public struct BillingAgreement: Content, ValidationSetable, Equatable {
     
     /// The PayPal-generated ID for the resource.
     ///
@@ -90,7 +90,7 @@ public struct BillingAgreement: Content, Equatable {
         overrideMerchantPreferances: MerchantPreferances?,
         overrideChargeModels: [OverrideCharge]?,
         plan: Plan?
-    ) {
+    )throws {
         self.id = nil
         self.state = nil
         self.links = nil
@@ -104,5 +104,25 @@ public struct BillingAgreement: Content, Equatable {
         self.overrideMerchantPreferances = overrideMerchantPreferances
         self.overrideChargeModels = overrideChargeModels
         self.plan = plan
+        
+        try self.set(\.name <~ name)
+        try self.set(\.description <~ description)
+    }
+    
+    public func setterValidations() -> SetterValidations<BillingAgreement> {
+        var validations = SetterValidations(BillingAgreement.self)
+        
+        validations.set(\.name) { name in
+            guard name?.count ?? 0 <= 128 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`name` property must have a length of 128 or less")
+            }
+        }
+        validations.set(\.description) { description in
+            guard description?.count ?? 0 <= 128 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`description` property must have a length of 128 or less")
+            }
+        }
+        
+        return validations
     }
 }
