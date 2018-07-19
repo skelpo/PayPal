@@ -61,7 +61,9 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
     ///         description: "Weekly maggot loaf subscription",
     ///         start: Date().iso8601,
     ///         payer: Payer(
-    ///             method: .paypal
+    ///             method: .paypal,
+    ///             fundingInstruments: nil,
+    ///             info: nil
     ///         ),
     ///         plan: Plan(
     ///             name: "Nia's Maggot Loaf",
@@ -79,8 +81,8 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
         plan: Plan,
         details: Details? = nil,
         shippingAddress: Address? = nil,
-        overrideMerchantPreferances: MerchantPreferances,
-        overrideChargeModels: [OverrideCharge]?
+        overrideMerchantPreferances: MerchantPreferances? = nil,
+        overrideChargeModels: [OverrideCharge]? = nil
     ) {
         self.name = name
         self.description = description
