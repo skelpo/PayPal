@@ -83,7 +83,7 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
         shippingAddress: Address? = nil,
         overrideMerchantPreferances: MerchantPreferances? = nil,
         overrideChargeModels: [OverrideCharge]? = nil
-    ) {
+    )throws {
         self.name = name
         self.description = description
         self.start = start
@@ -93,6 +93,28 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
         self.overrideMerchantPreferances = overrideMerchantPreferances
         self.overrideChargeModels = overrideChargeModels
         self.plan = plan
+        
+        try self.set(\.name <~ name)
+        try self.set(\.description <~ description)
+    }
+    
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let name = try container.decode(String.self, forKey: .name)
+        let description = try container.decode(String.self, forKey: .description)
+        
+        self.name = name
+        self.description = description
+        self.start = try container.decode(String.self, forKey: .start)
+        self.payer = try container.decode(Payer.self, forKey: .payer)
+        self.plan = try container.decode(Plan.self, forKey: .plan)
+        self.details = try container.decodeIfPresent(Details.self, forKey: .details)
+        self.shippingAddress = try container.decodeIfPresent(Address.self, forKey: .shippingAddress)
+        self.overrideMerchantPreferances = try container.decodeIfPresent(MerchantPreferances.self, forKey: .overrideMerchantPreferances)
+        self.overrideChargeModels = try container.decodeIfPresent([OverrideCharge].self, forKey: .overrideChargeModels)
+        
+        try self.set(\.name <~ name)
+        try self.set(\.description <~ description)
     }
     
     public func setterValidations() -> SetterValidations<NewAgreement> {
