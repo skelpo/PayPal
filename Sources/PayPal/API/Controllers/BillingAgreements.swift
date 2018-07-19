@@ -20,5 +20,21 @@ public final class BillingAgreements: PayPalController {
         self.resource = "payments//billing-agreements"
     }
     
-    
+    /// Creates a billing agreement.
+    ///
+    /// A successful request returns the HTTP `201 Created` status code and a JSON response body
+    /// [which is decoded to a `BillingAgreement` object] that shows billing agreement details including a billing agreement
+    /// id and redirect links to get the buyer's approval.
+    ///
+    /// - Parameter agreement: The object that is used as the request body
+    ///   to create a new billing agreement.
+    ///
+    /// - Returns: The billing agreement that was created, wrapped in a future. If an error occured
+    ///   wile creating the agreement, that is wrapped in the future instead.
+    public func create(with agreement: NewAgreement) -> Future<BillingAgreement> {
+        return Future.flatMap(on: container) { () -> Future<BillingAgreement> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path(), body: agreement, as: BillingAgreement.self)
+        }
+    }
 }
