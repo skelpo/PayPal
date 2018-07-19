@@ -14,16 +14,16 @@ public struct Details: Content, Equatable {
     public var cyclesComplete: String?
     
     /// The next billing date and time for this agreement.
-    public var nextBilling: Date?
+    public var nextBilling: String?
     
     /// The last payment date and time for this agreement.
-    public var lastPaymentDate: Date?
+    public var lastPaymentDate: String?
     
     /// The currency and amount of the last payment amount for this agreement.
     public var lastPaymentAmount: Money?
     
     /// The final payment date and time for this agreement.
-    public var finalPaymentDate: Date?
+    public var finalPaymentDate: String?
     
     /// The total number of failed payments for this agreement.
     public var failedPaymentCount: String?
@@ -35,20 +35,20 @@ public struct Details: Content, Equatable {
     ///         outstanding: Money(currency: .usd, value: "599.00"),
     ///         cyclesRemaining: "30",
     ///         cyclesComplete: "45",
-    ///         nextBilling: Date() + (60 * 60 * 24 * 365),
-    ///         lastPaymentDate: Date(),
+    ///         nextBilling: (Date() + (60 * 60 * 24 * 365)).iso8601,
+    ///         lastPaymentDate: Date().iso8601,
     ///         lastPaymentAmount: Money(currency: .usd, value: "19.97"),
-    ///         finalPaymentDate: Date.distantFuture,
+    ///         finalPaymentDate: Date.distantFuture.iso8601,
     ///         failedPaymentCount: "5"
     ///     )
     public init(
         outstanding: Money?,
         cyclesRemaining: String?,
         cyclesComplete: String?,
-        nextBilling: Date?,
-        lastPaymentDate: Date?,
+        nextBilling: String?,
+        lastPaymentDate: String?,
         lastPaymentAmount: Money?,
-        finalPaymentDate: Date?,
+        finalPaymentDate: String?,
         failedPaymentCount: String?
     ) {
         self.outstanding = outstanding
