@@ -9,9 +9,10 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/vapor/vapor.git", from: "3.0.5"),
+        .package(url: "https://github.com/skelpo/JSON.git", from: "0.13.0")
     ],
     targets: [
-        .target(name: "PayPal", dependencies: ["Vapor"]),
-        .testTarget(name: "PayPalTests", dependencies: ["PayPal", "Vapor"]),
+        .target(name: "PayPal", dependencies: ["Vapor", "JSON"]),
+        .testTarget(name: "PayPalTests", dependencies: ["PayPal", "Vapor", "JSON"]),
     ]
 )

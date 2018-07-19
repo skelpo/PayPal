@@ -1,7 +1,8 @@
 import Vapor
+import JSON
 
 /// A patch operation made on an API resource element.
-public struct Patch<Value>: Content, Equatable where Value: Codable & Equatable {
+public struct Patch: Content, Equatable {
     
     /// The operation to complete.
     public var operation: Operation
@@ -10,7 +11,7 @@ public struct Patch<Value>: Content, Equatable where Value: Codable & Equatable 
     public var path: String?
     
     /// The value to apply. The `remove` operation does not require a value.
-    public var value: Value?
+    public var value: JSON?
     
     /// The JSON pointer to the target document location from which to move the value. Required for the `move` operation.
     public var from: String?
@@ -20,13 +21,28 @@ public struct Patch<Value>: Content, Equatable where Value: Codable & Equatable 
     ///     Patch(
     ///         operation: .move,
     ///         path: "/age",
-    ///         value: 21,
+    ///         value: .number(.int(21)),
     ///         from: "/current_age"
     ///     )
-    public init(operation: Operation, path: String?, value: Value?, from: String? = nil) {
+    public init(operation: Operation, path: String?, value: JSON?, from: String? = nil) {
         self.operation = operation
         self.path = path
         self.value = value
+        self.from = from
+    }
+    
+    /// Creates a new `Patch` instance.
+    ///
+    ///     try Patch(
+    ///         operation: .move,
+    ///         path: "/age",
+    ///         value: 21,
+    ///         from: "/current_age"
+    ///     )
+    public init(operation: Operation, path: String?, value: FailableJSONRepresentable?, from: String? = nil)throws {
+        self.operation = operation
+        self.path = path
+        self.value = try value?.failableJSON()
         self.from = from
     }
     

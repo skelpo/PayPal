@@ -47,6 +47,15 @@
         }
       },
       {
+        "package": "JSON",
+        "repositoryURL": "https://github.com/skelpo/JSON.git",
+        "state": {
+          "branch": null,
+          "revision": "3a6df1dfbcd4ac8c52c79db74bc608e621dad4ca",
+          "version": "0.13.0"
+        }
+      },
+      {
         "package": "Multipart",
         "repositoryURL": "https://github.com/vapor/multipart.git",
         "state": {
