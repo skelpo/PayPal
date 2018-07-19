@@ -86,4 +86,13 @@ public struct NewAgreement: Content, Equatable {
         self.overrideChargeModels = overrideChargeModels
         self.plan = plan
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case name, description, payer, plan
+        case start = "start_date"
+        case details = "agreement_details"
+        case shippingAddress = "shipping_address"
+        case overrideMerchantPreferances = "override_merchant_preferences"
+        case overrideChargeModels = "override_charge_models"
+    }
 }
