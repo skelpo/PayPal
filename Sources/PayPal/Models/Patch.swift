@@ -29,4 +29,9 @@ public struct Patch<Value>: Content, Equatable where Value: Codable & Equatable 
         self.value = value
         self.from = from
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case path, value, from
+        case operation = "op"
+    }
 }
