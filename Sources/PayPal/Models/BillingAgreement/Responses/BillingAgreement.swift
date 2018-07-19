@@ -109,6 +109,33 @@ public struct BillingAgreement: Content, ValidationSetable, Equatable {
         try self.set(\.description <~ description)
     }
     
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let id = try container.decodeIfPresent(String.self, forKey: .id)
+        let name = try container.decodeIfPresent(String.self, forKey: .name)
+        let description = try container.decodeIfPresent(String.self, forKey: .description)
+        
+        guard id?.count ?? 0 <= 128 else {
+            throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`id` property must have a length of 128 or less")
+        }
+        
+        self.id = id
+        self.name = name
+        self.description = description
+        self.state = try container.decodeIfPresent(AgreementState.self, forKey: .state)
+        self.start = try container.decodeIfPresent(String.self, forKey: .start)
+        self.details = try container.decodeIfPresent(Details.self, forKey: .details)
+        self.payer = try container.decodeIfPresent(Payer.self, forKey: .payer)
+        self.shippingAddress = try container.decodeIfPresent(Address.self, forKey: .shippingAddress)
+        self.overrideMerchantPreferances = try container.decodeIfPresent(MerchantPreferances.self, forKey: .overrideMerchantPreferances)
+        self.overrideChargeModels = try container.decodeIfPresent([OverrideCharge].self, forKey: .overrideChargeModels)
+        self.plan = try container.decodeIfPresent(Plan.self, forKey: .plan)
+        self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
+        
+        try self.set(\.name <~ name)
+        try self.set(\.description <~ description)
+    }
+    
     public func setterValidations() -> SetterValidations<BillingAgreement> {
         var validations = SetterValidations(BillingAgreement.self)
         
@@ -124,5 +151,14 @@ public struct BillingAgreement: Content, ValidationSetable, Equatable {
         }
         
         return validations
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, state, links, name, description, payer, plan
+        case start = "start_date"
+        case details = "agreement_details"
+        case shippingAddress = "shipping_address"
+        case overrideMerchantPreferances = "override_merchant_preferences"
+        case overrideChargeModels = "override_charge_models"
     }
 }
