@@ -3,17 +3,23 @@ import Vapor
 /// The body of the POST request used to create a new billing agreement on PayPal.
 ///
 /// https://developer.paypal.com/docs/api/payments.billing-agreements/v1/#billing-agreements-create-request-body
-public struct NewAgreement: Content, Equatable {
+public struct NewAgreement: Content, ValidationSetable, Equatable {
     
     /// The agreement name.
     ///
+    /// This property can be set using the `NewAgreement.set(_:)` method
+    /// which will validate the new valie before asigning it to the poprety.
+    ///
     /// Maximum length: 128.
-    public var name: String
+    public private(set) var name: String
     
     /// The agreement description.
     ///
+    /// This property can be set using the `NewAgreement.set(_:)` method
+    /// which will validate the new valie before asigning it to the poprety.
+    ///
     /// Maximum length: 128.
-    public var description: String
+    public private(set) var description: String
     
     /// The date and time when this agreement begins, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
     /// The start date must be no less than 24 hours after the current date as the agreement can take up to 24 hours to activate.
@@ -85,6 +91,23 @@ public struct NewAgreement: Content, Equatable {
         self.overrideMerchantPreferances = overrideMerchantPreferances
         self.overrideChargeModels = overrideChargeModels
         self.plan = plan
+    }
+    
+    public func setterValidations() -> SetterValidations<NewAgreement> {
+        var validations = SetterValidations(NewAgreement.self)
+        
+        validations.set(\.name) { name in
+            guard name.count <= 128 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`name` property must have a length of 128 or less")
+            }
+        }
+        validations.set(\.description) { description in
+            guard description.count <= 128 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`description` property must have a length of 128 or less")
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
