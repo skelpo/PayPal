@@ -41,6 +41,40 @@ final class NewAgreementTests: XCTestCase {
         ))
     }
     
+    func testValidations()throws {
+        try XCTAssertThrowsError(NewAgreement(
+            name: String(repeating: "n", count: 129),
+            description: "Weekly maggot loaf subscription",
+            start: now,
+            payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
+            plan: Plan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinate, payments: nil, preferances: nil)
+        ))
+        try XCTAssertThrowsError(NewAgreement(
+            name: "Nia's Maggot Loaf",
+            description: String(repeating: "d", count: 129),
+            start: now,
+            payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
+            plan: Plan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinate, payments: nil, preferances: nil)
+        ))
+        
+        var agreement = try NewAgreement(
+            name: "Nia's Maggot Loaf",
+            description: "Weekly maggot loaf subscription",
+            start: now,
+            payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
+            plan: Plan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinate, payments: nil, preferances: nil)
+        )
+        
+        try XCTAssertThrowsError(agreement.set(\.name <~ String(repeating: "n", count: 129)))
+        try XCTAssertThrowsError(agreement.set(\.description <~ String(repeating: "d", count: 129)))
+        
+        try agreement.set(\.name <~ "No Other Name")
+        try agreement.set(\.description <~ "No other description")
+        
+        XCTAssertEqual(agreement.name, "No Other Name")
+        XCTAssertEqual(agreement.description, "No other description")
+    }
+    
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let agreement = try NewAgreement(
@@ -92,6 +126,7 @@ final class NewAgreementTests: XCTestCase {
                 preferances: nil
             )
         )
+        
         let json = """
         {
             "name": "Nia's Maggot Loaf",
@@ -107,12 +142,45 @@ final class NewAgreementTests: XCTestCase {
             }
         }
         """.data(using: .utf8)!
+        let nameFail = """
+        {
+            "name": "\(String(repeating: "n", count: 129))",
+            "description": "Weekly maggot loaf subscription",
+            "start_date": "\(now)",
+            "payer": {
+                "payment_method": "paypal"
+            },
+            "plan": {
+                "name": "Nia's Maggot Loaf",
+                "description": "Weekly maggot loaf subscription",
+                "type": "INFINATE"
+            }
+        }
+        """.data(using: .utf8)!
+        let descriptionFail = """
+        {
+            "name": "Nia's Maggot Loaf",
+            "description": "\(String(repeating: "d", count: 129))",
+            "start_date": "\(now)",
+            "payer": {
+                "payment_method": "paypal"
+            },
+            "plan": {
+                "name": "Nia's Maggot Loaf",
+                "description": "Weekly maggot loaf subscription",
+                "type": "INFINATE"
+            }
+        }
+        """.data(using: .utf8)!
         
+        try XCTAssertThrowsError(decoder.decode(NewAgreement.self, from: nameFail))
+        try XCTAssertThrowsError(decoder.decode(NewAgreement.self, from: descriptionFail))
         try XCTAssertEqual(agreement, decoder.decode(NewAgreement.self, from: json))
     }
     
     static var allTests: [(String, (NewAgreementTests) -> ()throws -> ())] = [
         ("testInit", testInit),
+        ("testValidations", testValidations),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)
     ]
