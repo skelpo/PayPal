@@ -46,9 +46,41 @@ final class BillingAgreementsTests: XCTestCase {
         XCTAssertEqual(agreement.name, "Nia's Maggot Loaf")
     }
     
+    func testUpdateEndpoint()throws {
+        let agreements = try app.make(BillingAgreements.self)
+        let new = try NewAgreement(
+            name: "Nia's Maggot Loaf",
+            description: "Weekly maggot loaf subscription",
+            start: Date().iso8601,
+            payer: Payer(
+                method: .paypal,
+                fundingInstruments: nil,
+                info: nil
+            ),
+            plan: Plan(
+                name: "Nia's Maggot Loaf",
+                description: "Weekly maggot loaf subscription",
+                type: .infinate,
+                payments: nil,
+                preferances: nil
+            )
+        )
+        
+        let agreement = try agreements.create(with: new).wait()
+        
+        XCTAssertNotEqual(agreement.id, nil)
+        XCTAssertEqual(agreement.name, "Nia's Maggot Loaf")
+        
+        let patch = try Patch(operation: .replace, path: "/name", value: "Igby Maggot")
+        let updated = try agreements.update(agreement: agreement.id!, with: [patch]).wait()
+        
+        XCTAssertEqual(updated, .ok)
+    }
+    
     static var allTests: [(String, (BillingAgreementsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
-        ("testCreateEndpoint", testCreateEndpoint)
+        ("testCreateEndpoint", testCreateEndpoint),
+        ("testUpdateEndpoint", testUpdateEndpoint)
     ]
 }
 
