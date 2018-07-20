@@ -59,4 +59,21 @@ public final class BillingAgreements: PayPalController {
             return try client.patch(self.path() + id, body: ["patch_request": patches], as: HTTPStatus.self)
         }
     }
+    
+    /// Shows details for a billing agreement, by ID.
+    ///
+    /// A successful request returns the HTTP 200 OK status code and a JSON response body
+    /// [which is decoded to a `BillingAgreement` object] that shows billing agreement details.
+    ///
+    /// - Parameter id: The ID of the agreement for which to show details.
+    ///
+    /// - Returns: The billing agreement for the ID passed in, wrapped in a future.
+    ///   If an error is returned in the response, it is converted to a Swift error
+    ///   and is tha value that the future wraps instead.
+    public func get(agreement id: String)throws -> Future<BillingAgreement> {
+        return Future.flatMap(on: self.container) { () -> Future<BillingAgreement> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path() + id, as: BillingAgreement.self)
+        }
+    }
 }
