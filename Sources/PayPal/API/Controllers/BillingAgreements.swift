@@ -30,7 +30,7 @@ public final class BillingAgreements: PayPalController {
     ///   to create a new billing agreement.
     ///
     /// - Returns: The billing agreement that was created, wrapped in a future. If an error occured
-    ///   wile creating the agreement, that is wrapped in the future instead.
+    ///   while creating the agreement, that is wrapped in the future instead.
     public func create(with agreement: NewAgreement) -> Future<BillingAgreement> {
         return Future.flatMap(on: container) { () -> Future<BillingAgreement> in
             let client = try self.container.make(PayPalClient.self)
