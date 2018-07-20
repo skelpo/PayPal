@@ -5,7 +5,7 @@ import Vapor
 final class BillingAgreementsTests: XCTestCase {
     
     var app: Application!
-    var id: String!
+    var id: String?
     
     override func setUp() {
         super.setUp()
@@ -51,16 +51,23 @@ final class BillingAgreementsTests: XCTestCase {
     
     func testUpdateEndpoint()throws {
         let agreements = try app.make(BillingAgreements.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get agreement ID to update")
+        }
         
         let patch = try Patch(operation: .replace, path: "/name", value: "Igby Maggot")
-        let updated = try agreements.update(agreement: self.id, with: [patch]).wait()
+        let updated = try agreements.update(agreement: id, with: [patch]).wait()
         
         XCTAssertEqual(updated, .ok)
     }
     
     func testGetEndpoint()throws {
         let agreements = try app.make(BillingAgreements.self)
-        let agreement = try agreements.get(agreement: self.id).wait()
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get agreement ID to get")
+        }
+        
+        let agreement = try agreements.get(agreement: id).wait()
         
         XCTAssertNotEqual(agreement.id, nil)
         XCTAssert(agreement.name == "Nia's Maggot Loaf" || agreement.name == "Igby Maggot")
