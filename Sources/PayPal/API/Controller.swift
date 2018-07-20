@@ -35,6 +35,6 @@ extension PayPalController {
     /// The default value is `v{Configuration.version}/{resource}/`.
     public func path()throws -> String {
         let config = try self.container.make(Configuration.self)
-        return "v" + String(describing: config.version) + "/" + resource + "/"
+        return "v" + config.version + "/" + resource + "/"
     }
 }
