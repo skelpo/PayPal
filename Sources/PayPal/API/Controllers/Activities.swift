@@ -6,9 +6,14 @@ import Vapor
 /// you can specify one or more query parameters.
 /// For more information, see the [Activities Integration Guide](https://developer.paypal.com/docs/integration/direct/activities/).
 public final class Activities: PayPalController {
+    
+    /// See `PayPalController.container`.
     public var container: Container
+    
+    /// See `PayPalController.resource`.
     public var resource: String
     
+    /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "activities"

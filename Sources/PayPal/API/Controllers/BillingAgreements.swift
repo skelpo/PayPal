@@ -12,9 +12,14 @@ import Vapor
 ///
 /// - Note: The Billing Agreements API does not support the `payee` object.
 public final class BillingAgreements: PayPalController {
+    
+    /// See `PayPalController.container`.
     public var container: Container
+    
+    /// See `PayPalController.resource`.
     public var resource: String
     
+    /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "payments//billing-agreements"
