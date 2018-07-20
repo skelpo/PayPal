@@ -40,11 +40,14 @@ public final class BillingAgreements: PayPalController {
     
     /// Updates details of a billing agreement, by ID. Details include the description, shipping address, start date, and so on.
     ///
+    /// A successful request returns the HTTP 200 OK status code with no JSON response body.
+    ///
     /// - Parameters:
     ///   - id: The ID of the billing agreement to update.
     ///   - patches: The JSON keys to update, and how to update them. See `Patch`.
     ///
-    /// - Returns: A successful request returns the HTTP 200 OK status code with no JSON response body.
+    /// - Returns: The HTTP status code of the response, which will be 200. If an error was returned in the
+    ///   response, it will get conveted to a Swift error and be returned in the future instead.
     public func update(agreement id: String, with patches: [Patch]) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
             let client = try self.container.make(PayPalClient.self)
