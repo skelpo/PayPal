@@ -37,4 +37,18 @@ public final class BillingAgreements: PayPalController {
             return try client.post(self.path(), body: agreement, as: BillingAgreement.self)
         }
     }
+    
+    /// Updates details of a billing agreement, by ID. Details include the description, shipping address, start date, and so on.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the billing agreement to update.
+    ///   - patches: The JSON keys to update, and how to update them. See `Patch`.
+    ///
+    /// - Returns: A successful request returns the HTTP 200 OK status code with no JSON response body.
+    public func update(agreement id: String, with patches: [Patch]) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.patch(self.path() + id, body: ["patch_request": patches], as: HTTPStatus.self)
+        }
+    }
 }
