@@ -146,7 +146,7 @@ public final class PayPalClient: ServiceType {
     ///     The `Authorization` header is added automatically.
     ///   - response: The type that the response JSON should be decoded to.
     /// - Returns: The endpoint's response, encoded to the `Result` type.
-    public func PUT<Result>(
+    public func put<Result>(
         _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], as response: Result.Type = Result.self
     ) -> Future<Result> where Result: Content {
         return self.send(.PUT, path, parameters: parameters, headers: headers, as: Result.self)
