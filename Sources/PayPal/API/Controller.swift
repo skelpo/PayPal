@@ -25,10 +25,14 @@ public protocol PayPalController: ServiceType {
 
 extension PayPalController {
     
+    /// See [`ServiceType.makeService(for:)`](https://api.vapor.codes/service/latest/Service/Protocols/ServiceType.html#/s:7Service0A4TypeP04makeA0xAA9Container_p3for_tKFZ).
     public static func makeService(for worker: Container) throws -> Self {
         return Self.init(container: worker)
     }
     
+    /// The controller's path used on the PayPal API.
+    ///
+    /// The default value is `v{Configuration.version}/{resource}/`.
     public func path()throws -> String {
         let config = try self.container.make(Configuration.self)
         return "v" + String(describing: config.version) + "/" + resource + "/"
