@@ -8,10 +8,12 @@ import Vapor
 public final class Activities: PayPalController {
     
     /// See `PayPalController.container`.
-    public var container: Container
+    public let container: Container
     
+    /// Value is `"activities"`.
+    ///
     /// See `PayPalController.resource`.
-    public var resource: String
+    public let resource: String
     
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {

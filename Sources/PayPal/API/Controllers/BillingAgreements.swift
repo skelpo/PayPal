@@ -14,10 +14,12 @@ import Vapor
 public final class BillingAgreements: PayPalController {
     
     /// See `PayPalController.container`.
-    public var container: Container
+    public let container: Container
     
-    /// See `PayPalController.resource`.
-    public var resource: String
+    /// Value is `"payments//billing-agreements"`.
+    ///
+    /// See `PayPalController.resource` for more information.
+    public let resource: String
     
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
