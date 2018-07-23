@@ -120,4 +120,26 @@ public final class BillingAgreements: PayPalController {
             return try client.post(self.path() + id + "/cancel", body: ["note": reason], as: HTTPStatus.self)
         }
     }
+    
+    /// Reactivates a suspended billing agreement, by ID. In the JSON request body, include an `agreement_state_descriptor`
+    /// object with with a note that describes the reason for the reactivation and the agreement amount and currency.
+    ///
+    /// A successful request returns the HTTP `204 No Content` status code with no JSON response body.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the billing agreement to reactivate.
+    ///   - reason: The reason for the agreement state change. Maximum length: 128.
+    ///
+    /// - Returns: The HTTP status code of the API response, which will be 204. If an error was returned in the
+    ///   response, it will get conveted to a Swift error and be returned in the future instead.
+    public func reactivate(agreement id: String, reason: String?) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            guard reason?.count ?? 0 <= 128 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note` property must have a length of 128 or less")
+            }
+            
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + id + "/re-activate", body: ["note": reason], as: HTTPStatus.self)
+        }
+    }
 }
