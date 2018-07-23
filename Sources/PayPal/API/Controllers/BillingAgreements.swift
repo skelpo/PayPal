@@ -88,9 +88,9 @@ public final class BillingAgreements: PayPalController {
     ///
     /// - Returns: The HTTP status code of the response, which will be 204. If an error was returned in the
     ///   response, it will get conveted to a Swift error and be returned in the future instead.
-    public func billBalance(for agreementID: String, reason: String) -> Future<HTTPStatus> {
+    public func billBalance(for agreementID: String, reason: String?) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            guard reason.count <= 128 else {
+            guard reason?.count ?? 0 <= 128 else {
                 throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note` property must have a length of 128 or less")
             }
             
@@ -110,9 +110,9 @@ public final class BillingAgreements: PayPalController {
     ///
     /// - Returns: The HTTP status code of the response, which will be 204. If an error was returned in the
     ///   response, it will get conveted to a Swift error and be returned in the future instead.
-    public func cancel(agreement id: String, reason: String) -> Future<HTTPStatus> {
+    public func cancel(agreement id: String, reason: String?) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            guard reason.count <= 128 else {
+            guard reason?.count ?? 0 <= 128 else {
                 throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note` property must have a length of 128 or less")
             }
             
