@@ -26,7 +26,7 @@ public struct BillingPlan: Content, ValidationSetable, Equatable {
     
     /// The plan type.
     ///
-    /// This property must have a value when used in the Billing Agreement API.
+    /// - Warning: This property must have a value when used in the Billing Agreement API.
     public var type: PlanType?
     
     /// The status of the plan.

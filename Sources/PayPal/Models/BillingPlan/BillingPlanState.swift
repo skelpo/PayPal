@@ -15,6 +15,8 @@ extension BillingPlan {
     case inactive = "INACTIVE"
     
     /// The plan has been deleted.
+    ///
+    /// - Warning: This case is not valid for the Billing Plan API.
     case deleted = "DELETED"
     }
 }
