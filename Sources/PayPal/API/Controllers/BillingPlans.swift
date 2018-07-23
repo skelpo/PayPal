@@ -12,6 +12,9 @@ import Vapor
 /// By default, a plan is not active when you create it. To activate it, you update its `state` to ACTIVE.
 ///
 /// For more information, see [Billing Plans and Agreements](https://developer.paypal.com/docs/integration/direct/billing-plans-and-agreements/).
+///
+/// - Warning: The use of the PayPal REST `/payments` APIs to accept credit card payments is restricted.
+///   Instead, you can accept credit card payments with [Braintree Direct](https://www.braintreepayments.com/products/braintree-direct).
 public class BillingPlans: PayPalController {
     
     /// See `PayPalController.container`.
