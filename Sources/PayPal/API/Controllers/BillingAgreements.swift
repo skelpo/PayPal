@@ -192,10 +192,26 @@ public final class BillingAgreements: PayPalController {
     ///     this request are `start_time` and `end_time`.
     ///
     /// - Returns: An array of transactions for the billing agreement within the time periods set in the query paramaters.
+    ///   If an error was found in the response, it is converted to a Swift error and that is what the future wraps instead.
     public func transactions(for agreementID: String, parameters: QueryParamaters = QueryParamaters()) -> Future<[Transaction]> {
         return Future.flatMap(on: self.container) { () -> Future<[Transaction]> in
             let client = try self.container.make(PayPalClient.self)
             return try client.get(self.path() + agreementID + "/transactions", parameters: parameters, as: [Transaction].self)
+        }
+    }
+    
+    /// Executes a billing agreement, by ID, after customer approval.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows billing agreement details.
+    ///
+    /// - Parameter id: The ID of the agreement to execute.
+    ///
+    /// - Returns: The billing agreement object that was executed wrapped in a future.
+    ///   If an error was found in the response, it is converted to a Swift error and that is what the future wraps instead.
+    public func execute(agreement id: String) -> Future<BillingAgreement> {
+        return Future.flatMap(on: self.container) { () -> Future<BillingAgreement> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + id + "/agreement-execute", as: BillingAgreement.self)
         }
     }
 }
