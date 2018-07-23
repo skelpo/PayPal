@@ -1,7 +1,9 @@
 import Vapor
 
-/// The current state of a billing agreement plan.
-public enum PlanState: String, Hashable, CaseIterable, Content {
+extension BillingPlan {
+    
+    /// The current state of a billing agreement plan.
+    public enum State: String, Hashable, CaseIterable, Content {
     
     /// The plan has been created.
     case created = "CREATED"
@@ -14,4 +16,5 @@ public enum PlanState: String, Hashable, CaseIterable, Content {
     
     /// The plan has been deleted.
     case deleted = "DELETED"
+    }
 }

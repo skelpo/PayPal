@@ -3,7 +3,7 @@ import XCTest
 
 final class PlanTests: XCTestCase {
     func testInit()throws {
-        let plan = try Plan(
+        let plan = try BillingPlan(
             name: "Monthly Water",
             description: "Your water payment",
             type: .infinate,
@@ -45,14 +45,14 @@ final class PlanTests: XCTestCase {
     }
     
     func testValueValidation()throws {
-        try XCTAssertThrowsError(Plan(
+        try XCTAssertThrowsError(BillingPlan(
             name: String(repeating: "N", count: 129),
             description: "Your water payment",
             type: .infinate,
             payments: nil,
             preferances: nil
         ))
-        try XCTAssertThrowsError(Plan(
+        try XCTAssertThrowsError(BillingPlan(
             name: "Monthly Water",
             description: String(repeating: "N", count: 129),
             type: .infinate,
@@ -60,7 +60,7 @@ final class PlanTests: XCTestCase {
             preferances: nil
         ))
         
-        var plan = try Plan(
+        var plan = try BillingPlan(
             name: "Monthly Water",
             description: "Your water payment",
             type: .infinate,
@@ -92,7 +92,7 @@ final class PlanTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let plan = try Plan(
+        let plan = try BillingPlan(
             name: "Monthly Water",
             description: "Your water payment",
             type: .infinate,
@@ -159,18 +159,18 @@ final class PlanTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        try XCTAssertThrowsError(decoder.decode(Plan.self, from: idFail))
-        try XCTAssertThrowsError(decoder.decode(Plan.self, from: nameFail))
-        try XCTAssertThrowsError(decoder.decode(Plan.self, from: descriptionFail))
+        try XCTAssertThrowsError(decoder.decode(BillingPlan.self, from: idFail))
+        try XCTAssertThrowsError(decoder.decode(BillingPlan.self, from: nameFail))
+        try XCTAssertThrowsError(decoder.decode(BillingPlan.self, from: descriptionFail))
         try XCTAssertEqual(
-            Plan(
+            BillingPlan(
                 name: "The Plan",
                 description: "Can't Tell",
                 type: .fixed,
                 payments: nil,
                 preferances: nil
             ),
-            decoder.decode(Plan.self, from: valid)
+            decoder.decode(BillingPlan.self, from: valid)
         )
     }
     

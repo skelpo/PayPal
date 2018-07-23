@@ -3,19 +3,19 @@ import XCTest
 
 final class PlanStateTests: XCTestCase {
     struct Test: Codable {
-        let state: PlanState
+        let state: BillingPlan.State
     }
     
     func testCaseRawValues() {
-        XCTAssertEqual(PlanState.created.rawValue, "CREATED")
-        XCTAssertEqual(PlanState.active.rawValue, "ACTIVE")
-        XCTAssertEqual(PlanState.inactive.rawValue, "INACTIVE")
-        XCTAssertEqual(PlanState.deleted.rawValue, "DELETED")
+        XCTAssertEqual(BillingPlan.State.created.rawValue, "CREATED")
+        XCTAssertEqual(BillingPlan.State.active.rawValue, "ACTIVE")
+        XCTAssertEqual(BillingPlan.State.inactive.rawValue, "INACTIVE")
+        XCTAssertEqual(BillingPlan.State.deleted.rawValue, "DELETED")
     }
     
     func testAllCase() {
-        XCTAssertEqual(PlanState.allCases.count, 4)
-        XCTAssertEqual(PlanState.allCases, [.created, .active, .inactive, .deleted])
+        XCTAssertEqual(BillingPlan.State.allCases.count, 4)
+        XCTAssertEqual(BillingPlan.State.allCases, [.created, .active, .inactive, .deleted])
     }
     
     func testEncoding()throws {

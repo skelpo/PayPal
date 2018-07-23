@@ -32,7 +32,7 @@ final class BillingAgreementsTests: XCTestCase {
                 fundingInstruments: nil,
                 info: nil
             ),
-            plan: Plan(
+            plan: BillingPlan(
                 name: "Nia's Maggot Loaf",
                 description: "Weekly maggot loaf subscription",
                 type: .infinate,

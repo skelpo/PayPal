@@ -1,7 +1,7 @@
 import Vapor
 
 /// A payment plan for a billing agreement.
-public struct Plan: Content, ValidationSetable, Equatable {
+public struct BillingPlan: Content, ValidationSetable, Equatable {
     
     /// The PayPal-generated ID for the resource.
     ///
@@ -25,10 +25,12 @@ public struct Plan: Content, ValidationSetable, Equatable {
     public private(set) var description: String
     
     /// The plan type.
-    public var type: PlanType
+    ///
+    /// This property must have a value when used in the Billing Agreement API.
+    public var type: PlanType?
     
     /// The status of the plan.
-    public let state: PlanState?
+    public let state: State?
     
     /// The date and time when the plan was created.
     public let created: Date?
@@ -57,9 +59,9 @@ public struct Plan: Content, ValidationSetable, Equatable {
     public let links: [LinkDescription]?
     
     
-    /// Creates a new `Plan` instance.
+    /// Creates a new `BillingPlan` instance.
     ///
-    ///     Plan(
+    ///     BillingPlan(
     ///         name: "Monthly Water",
     ///         description: "Your water payment",
     ///         type: .infinate,
@@ -76,7 +78,7 @@ public struct Plan: Content, ValidationSetable, Equatable {
     ///         ],
     ///         preferances: nil
     ///     )
-    public init(name: String, description: String, type: PlanType, payments: [Payment]?, preferances: MerchantPreferances?)throws {
+    public init(name: String, description: String, type: BillingPlan.PlanType, payments: [Payment]?, preferances: MerchantPreferances?)throws {
         self.id = nil
         self.state = nil
         self.created = nil
@@ -109,8 +111,8 @@ public struct Plan: Content, ValidationSetable, Equatable {
         self.name = name
         self.description = description
         self.id = id
-        self.type = try container.decode(PlanType.self, forKey: .type)
-        self.state = try container.decodeIfPresent(PlanState.self, forKey: .state)
+        self.type = try container.decode(BillingPlan.PlanType.self, forKey: .type)
+        self.state = try container.decodeIfPresent(BillingPlan.State.self, forKey: .state)
         self.created = try container.decodeIfPresent(Date.self, forKey: .created)
         self.updated = try container.decodeIfPresent(Date.self, forKey: .updated)
         self.paymentDefinitions = try container.decodeIfPresent([Payment].self, forKey: .paymentDefinitions)
@@ -123,8 +125,8 @@ public struct Plan: Content, ValidationSetable, Equatable {
         try self.set(\.description <~ description)
     }
     
-    public func setterValidations() -> SetterValidations<Plan> {
-        var validations = SetterValidations(Plan.self)
+    public func setterValidations() -> SetterValidations<BillingPlan> {
+        var validations = SetterValidations(BillingPlan.self)
         
         validations.set(\.name) { name in
             guard name.count <= 128 else {

@@ -55,7 +55,7 @@ public struct BillingAgreement: Content, ValidationSetable, Equatable {
     public var overrideChargeModels: [OverrideCharge]?
     
     /// The plan that can be used to create an agreement.
-    public var plan: Plan?
+    public var plan: BillingPlan?
     
     /// Creates a new `BillingAgreement` instance.
     ///
@@ -72,7 +72,7 @@ public struct BillingAgreement: Content, ValidationSetable, Equatable {
     ///         shippingAddress: nil,
     ///         overrideMerchantPreferances: nil,
     ///         overrideChargeModels: nil,
-    ///         plan: Plan(
+    ///         plan: BillingPlan(
     ///             name: "Nia's Maggot Loaf",
     ///             description: "Weekly maggot loaf subscription",
     ///             type: .infinate,
@@ -89,7 +89,7 @@ public struct BillingAgreement: Content, ValidationSetable, Equatable {
         shippingAddress: Address?,
         overrideMerchantPreferances: MerchantPreferances?,
         overrideChargeModels: [OverrideCharge]?,
-        plan: Plan?
+        plan: BillingPlan?
     )throws {
         self.id = nil
         self.state = nil
@@ -129,7 +129,7 @@ public struct BillingAgreement: Content, ValidationSetable, Equatable {
         self.shippingAddress = try container.decodeIfPresent(Address.self, forKey: .shippingAddress)
         self.overrideMerchantPreferances = try container.decodeIfPresent(MerchantPreferances.self, forKey: .overrideMerchantPreferances)
         self.overrideChargeModels = try container.decodeIfPresent([OverrideCharge].self, forKey: .overrideChargeModels)
-        self.plan = try container.decodeIfPresent(Plan.self, forKey: .plan)
+        self.plan = try container.decodeIfPresent(BillingPlan.self, forKey: .plan)
         self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
         
         try self.set(\.name <~ name)

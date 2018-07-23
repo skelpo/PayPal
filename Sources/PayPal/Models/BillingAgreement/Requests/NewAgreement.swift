@@ -52,7 +52,7 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
     public var overrideChargeModels: [OverrideCharge]?
     
     /// The ID of the plan on which this agreement is based.
-    public var plan: Plan
+    public var plan: BillingPlan
     
     /// Creatse a new `NewAgreement` instance.
     ///
@@ -65,7 +65,7 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
     ///             fundingInstruments: nil,
     ///             info: nil
     ///         ),
-    ///         plan: Plan(
+    ///         plan: BillingPlan(
     ///             name: "Nia's Maggot Loaf",
     ///             description: "Weekly maggot loaf subscription",
     ///             type: .infinate,
@@ -78,7 +78,7 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
         description: String,
         start: String,
         payer: Payer,
-        plan: Plan,
+        plan: BillingPlan,
         details: Details? = nil,
         shippingAddress: Address? = nil,
         overrideMerchantPreferances: MerchantPreferances? = nil,
@@ -107,7 +107,7 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
         self.description = description
         self.start = try container.decode(String.self, forKey: .start)
         self.payer = try container.decode(Payer.self, forKey: .payer)
-        self.plan = try container.decode(Plan.self, forKey: .plan)
+        self.plan = try container.decode(BillingPlan.self, forKey: .plan)
         self.details = try container.decodeIfPresent(Details.self, forKey: .details)
         self.shippingAddress = try container.decodeIfPresent(Address.self, forKey: .shippingAddress)
         self.overrideMerchantPreferances = try container.decodeIfPresent(MerchantPreferances.self, forKey: .overrideMerchantPreferances)

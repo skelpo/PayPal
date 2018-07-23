@@ -3,17 +3,17 @@ import XCTest
 
 final class PlanTypeTests: XCTestCase {
     struct Plan: Codable {
-        let type: PlanType
+        let type: BillingPlan.PlanType
     }
     
     func testCaseRawValues() {
-        XCTAssertEqual(PlanType.fixed.rawValue, "FIXED")
-        XCTAssertEqual(PlanType.infinate.rawValue, "INFINATE")
+        XCTAssertEqual(BillingPlan.PlanType.fixed.rawValue, "FIXED")
+        XCTAssertEqual(BillingPlan.PlanType.infinate.rawValue, "INFINATE")
     }
     
     func testAllCase() {
-        XCTAssertEqual(PlanType.allCases.count, 2)
-        XCTAssertEqual(PlanType.allCases, [.fixed, .infinate])
+        XCTAssertEqual(BillingPlan.PlanType.allCases.count, 2)
+        XCTAssertEqual(BillingPlan.PlanType.allCases, [.fixed, .infinate])
     }
     
     func testEncoding()throws {
