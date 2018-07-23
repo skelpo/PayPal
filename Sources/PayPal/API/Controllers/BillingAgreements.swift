@@ -130,7 +130,7 @@ public final class BillingAgreements: PayPalController {
     ///   - id: The ID of the billing agreement to reactivate.
     ///   - reason: The reason for the agreement state change. Maximum length: 128.
     ///
-    /// - Returns: The HTTP status code of the API response, which will be 204. If an error was returned in the
+    /// - Returns: The HTTP status code of the API response, which will be `204`. If an error was returned in the
     ///   response, it will get conveted to a Swift error and be returned in the future instead.
     public func reactivate(agreement id: String, reason: String?) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
@@ -140,6 +140,23 @@ public final class BillingAgreements: PayPalController {
             
             let client = try self.container.make(PayPalClient.self)
             return try client.post(self.path() + id + "/re-activate", body: ["note": reason], as: HTTPStatus.self)
+        }
+    }
+    
+    /// Sets the balance for an agreement, by ID. In the JSON request body, specify the balance currency type and value.
+    ///
+    /// A successful request returns the HTTP `204 No Content` status code with no JSON response body.
+    ///
+    /// - Parameters:
+    ///   - agreementID: The ID of the billing agreement to set the balance of.
+    ///   - amount: The currency code and value to set the agreement balance to.
+    ///
+    /// - Returns: The HTTP status code of the API response, which will be `204`. If an error was returned in the
+    ///   response, it will get conveted to a Swift error and be returned in the future instead.
+    public func setBalance(for agreementID: String, amount: Money) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + agreementID + "/set-balance", body: amount, as: HTTPStatus.self)
         }
     }
 }
