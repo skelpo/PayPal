@@ -106,6 +106,17 @@ final class BillingAgreementsTests: XCTestCase {
         XCTAssertEqual(status, .noContent)
     }
     
+    func testSetBalanaceEndpoint()throws {
+        let agreements = try app.make(BillingAgreements.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get agreement ID to get")
+        }
+        
+        let status = try agreements.setBalance(for: id, amount: .init(currency: .usd, value: "1000")).wait()
+        
+        XCTAssertEqual(status, .noContent)
+    }
+    
     static var allTests: [(String, (BillingAgreementsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
@@ -113,7 +124,8 @@ final class BillingAgreementsTests: XCTestCase {
         ("testGetEndpoint", testGetEndpoint),
         ("testBillBalanceEndpoint", testBillBalanceEndpoint),
         ("testCancelEndpoint", testCancelEndpoint),
-        ("testReactivationEndpoint", testReactivationEndpoint)
+        ("testReactivationEndpoint", testReactivationEndpoint),
+        ("testSetBalanaceEndpoint", testSetBalanaceEndpoint)
     ]
 }
 
