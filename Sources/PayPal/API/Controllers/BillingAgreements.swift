@@ -180,4 +180,22 @@ public final class BillingAgreements: PayPalController {
             return try client.post(self.path() + id + "/suspend", body: ["note": reason], as: HTTPStatus.self)
         }
     }
+    
+    /// Lists transactions for an agreement, by ID. To filter the transactions that appear in the response,
+    /// specify the optional start and end date query parameters.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that lists transactions with details.
+    ///
+    /// - Parameters:
+    ///   - agreementID: The ID of the billing agreement to get the tgransactions from.
+    ///   - parameters: The query-string parameters for the request URI. The valid values for
+    ///     this request are `start_time` and `end_time`.
+    ///
+    /// - Returns: An array of transactions for the billing agreement within the time periods set in the query paramaters.
+    public func transactions(for agreementID: String, parameters: QueryParamaters = QueryParamaters()) -> Future<[Transaction]> {
+        return Future.flatMap(on: self.container) { () -> Future<[Transaction]> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path() + agreementID + "/transactions", parameters: parameters, as: [Transaction].self)
+        }
+    }
 }
