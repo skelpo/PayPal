@@ -52,4 +52,16 @@ public struct Transaction: Content, Equatable {
         self.fee = fee
         self.net = net
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case state, amount
+        case id = "transaction_id"
+        case type = "transaction_type"
+        case fee = "fee_amount"
+        case net = "net_amount"
+        case email = "payer_email"
+        case name = "payer_name"
+        case timestamp = "time_stamp"
+        case timezone = "time_zone"
+    }
 }
