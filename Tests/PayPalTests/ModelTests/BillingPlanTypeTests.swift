@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class PlanTypeTests: XCTestCase {
+final class BillingPlanTypeTests: XCTestCase {
     struct Plan: Codable {
         let type: BillingPlan.PlanType
     }
@@ -42,7 +42,7 @@ final class PlanTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Plan.self, from: infinate).type, .infinate)
     }
     
-    static var allTests: [(String, (PlanTypeTests) -> ()throws -> ())] = [
+    static var allTests: [(String, (BillingPlanTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),
