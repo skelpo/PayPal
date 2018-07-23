@@ -30,4 +30,26 @@ public class BillingPlans: PayPalController {
         self.container = container
         self.resource = "payments/billing-plans"
     }
+    
+    
+    /// Creates a billing plan. In the JSON request body, include the plan details. A plan must include at least one regular payment definition and,
+    /// optionally, a trial payment definition. Each payment definition specifies a billing period, which determines how often and for how long the
+    /// customer is charged. A plan can specify a fixed or infinite number of payment cycles. A payment definition can optionally specify shipping
+    /// fee and tax amounts. The default state of a new plan is `CREATED`. Before you can create an agreement from a plan, you must activate the
+    /// plan by updating its `state` to `ACTIVE`.
+    ///
+    /// A successful request returns the HTTP 201 Created status code and a JSON response body that shows plan details.
+    ///
+    /// - Parameter plan: The data for the new billing plan. The `.type` property must have a value before it is sent to the PayPal API.
+    ///
+    /// - Returns: The created billing plan wrapped in a future. If an error response was sent back instead, it gets converted
+    ///   to a Swift error and the future wraps that instead.
+    public func create(with plan: BillingPlan) -> Future<BillingPlan> {
+        return Future.flatMap(on: self.container) { () -> Future<BillingPlan> in
+            guard plan.type != nil else { throw PayPalError(identifier: "nilValue", reason: "BillingPlan `type` value must not be `nil`.") }
+            
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path(), body: plan, as: BillingPlan.self)
+        }
+    }
 }
