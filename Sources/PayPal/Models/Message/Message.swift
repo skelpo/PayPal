@@ -1,7 +1,7 @@
 import Vapor
 
 /// A communication between a customer and merchant of a transaction.
-public struct Message: Content, Equatable {
+public struct Message: Content, ValidationSetable, Equatable {
     
     /// Indicates whether the customer or merchant posted the message.
     public let poster: Poster?
@@ -21,6 +21,19 @@ public struct Message: Content, Equatable {
         self.poster = nil
         self.posted = nil
         self.content = content
+    }
+    
+    /// See `ValidationSetable.setterValidations()`.
+    public func setterValidations() -> SetterValidations<Message> {
+        var validations = SetterValidations(Message.self)
+        
+        validations.set(\.content) { content in
+            guard content.count <= 2000 else {
+                throw PayPalError(identifier: "invalidLength", reason: "`content` property must have a length between 0 and 2000")
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
