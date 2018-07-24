@@ -52,4 +52,20 @@ public final class BillingPlans: PayPalController {
             return try client.post(self.path(), body: plan, as: BillingPlan.self)
         }
     }
+    
+    /// Lists billing plans. To filter the plans that appear in the response, specify one or more optional query and pagination parameters.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that lists plans with details.
+    ///
+    /// - Parameter paramaters: The query-string paramaters passed in with the request. The values used for this
+    ///   endpoint are `page`, `status`, `pageSize`, and `totalCountRequired`.
+    ///
+    /// - Returns: A list of the billing plans wrapped in a future. If an error response was sent back instead, it gets converted
+    ///   to a Swift error and the future wraps that instead.
+    public func list(parameters: QueryParamaters = QueryParamaters()) -> Future<BillingPlanList> {
+        return Future.flatMap(on: self.container) { () -> Future<BillingPlanList> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path(), parameters: parameters, as: BillingPlanList.self)
+        }
+    }
 }
