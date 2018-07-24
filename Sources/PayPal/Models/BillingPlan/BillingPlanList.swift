@@ -30,4 +30,10 @@ public struct BillingPlanList: Content, Equatable {
         self.items = String(describing: plans.count)
         self.plans = plans
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case plans, links
+        case items = "total_items"
+        case pages = "total_pages"
+    }
 }
