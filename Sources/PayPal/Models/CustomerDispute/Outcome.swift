@@ -18,5 +18,10 @@ extension CustomerDispute {
             self.code = code
             self.refunded = refunded
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case code = "outcome_code"
+            case refunded = "amount_refunded"
+        }
     }
 }
