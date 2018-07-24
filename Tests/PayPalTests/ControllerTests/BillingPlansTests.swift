@@ -56,10 +56,22 @@ final class BillingPlansTests: XCTestCase {
         XCTAssertNotNil(list.plans)
     }
     
+    func testUpdateEndpoint()throws {
+        let plans = try self.app.make(BillingPlans.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get agreement ID to get")
+        }
+        
+        let status = try plans.update(plan: id, patches: [Patch(operation: .replace, path: "/name", value: "Vaser Moth")]).wait()
+        
+        XCTAssertEqual(status, .ok)
+    }
+    
     static var allTests: [(String, (BillingPlansTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
-        ("testListEndpoint", testListEndpoint)
+        ("testListEndpoint", testListEndpoint),
+        ("testUpdateEndpoint", testUpdateEndpoint)
     ]
 }
 
