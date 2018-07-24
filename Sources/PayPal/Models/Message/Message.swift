@@ -34,8 +34,8 @@ public struct Message: Content, ValidationSetable, Equatable {
         let content = try container.decode(String.self, forKey: .content)
         
         self.content = content
-        self.poster = try container.decode(Poster.self, forKey: .poster)
-        self.posted = try container.decode(String.self, forKey: .poster)
+        self.poster = try container.decodeIfPresent(Poster.self, forKey: .poster)
+        self.posted = try container.decodeIfPresent(String.self, forKey: .poster)
         
         try self.set(\.content <~ content)
     }
