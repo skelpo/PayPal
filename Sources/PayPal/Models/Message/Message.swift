@@ -11,8 +11,11 @@ public struct Message: Content, ValidationSetable, Equatable {
     
     /// The message text.
     ///
+    /// To set this property, use the `Message.set(_:)` method. This will
+    /// validate the new value before assigning it to the property.
+    ///
     /// Minimum length: 0. Maximum length: 2000.
-    public var content: String
+    public private(set) var content: String
     
     /// Creates a new `Message` instance.
     ///
