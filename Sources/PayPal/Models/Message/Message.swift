@@ -20,11 +20,26 @@ public struct Message: Content, ValidationSetable, Equatable {
     /// Creates a new `Message` instance.
     ///
     ///     Message(content: "You might be a developer if you see a music album called J. S. Bach and wonder why it is not called Back.js")
-    public init(content: String) {
+    public init(content: String)throws {
         self.poster = nil
         self.posted = nil
         self.content = content
+        
+        try self.set(\.content <~ content)
     }
+    
+    /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let content = try container.decode(String.self, forKey: .content)
+        
+        self.content = content
+        self.poster = try container.decode(Poster.self, forKey: .poster)
+        self.posted = try container.decode(String.self, forKey: .poster)
+        
+        try self.set(\.content <~ content)
+    }
+    
     
     /// See `ValidationSetable.setterValidations()`.
     public func setterValidations() -> SetterValidations<Message> {
