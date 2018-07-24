@@ -15,7 +15,7 @@ import Vapor
 ///
 /// - Warning: The use of the PayPal REST `/payments` APIs to accept credit card payments is restricted.
 ///   Instead, you can accept credit card payments with [Braintree Direct](https://www.braintreepayments.com/products/braintree-direct).
-public class BillingPlans: PayPalController {
+public final class BillingPlans: PayPalController {
     
     /// See `PayPalController.container`.
     public let container: Container
@@ -26,7 +26,7 @@ public class BillingPlans: PayPalController {
     public let resource: String
     
     /// See `PayPalController.init(container:)`.
-    public required init(container: Container) {
+    public init(container: Container) {
         self.container = container
         self.resource = "payments/billing-plans"
     }
