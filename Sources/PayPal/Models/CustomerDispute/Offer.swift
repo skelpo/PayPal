@@ -20,4 +20,10 @@ public struct Offer: Content, Equatable {
         self.sellerAmount = sellerAmount
         self.type = type
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case buyerAmount = "buyer_requested_amount"
+        case sellerAmount = "seller_offered_amount"
+        case type = "offer_type"
+    }
 }
