@@ -77,7 +77,7 @@ public final class Configuration: Service {
     public let version: String
     
     /// The PayPal environment to send requests to.
-    /// This value is based on the app current environment.
+    /// This value is based on the app's current environment.
     ///
     /// If the app was boot in the a release environment, it will
     /// be `.production`, otherwise it will be `.sandbox`.
