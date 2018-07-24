@@ -11,7 +11,7 @@ final class ProviderTests: XCTestCase {
         setPaypalVars()
         
         var services = Services.default()
-        try! services.register(PayPal.Provider())
+        try! services.register(PayPalProvider())
         
         self.app = try! Application.testable(services: services, environment: self.environment)
     }

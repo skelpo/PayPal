@@ -11,7 +11,7 @@ final class APITests: XCTestCase {
         setPaypalVars()
         
         var services = Services.default()
-        try! services.register(PayPal.Provider())
+        try! services.register(PayPalProvider())
         
         app = try! Application.testable(services: services)
     }
