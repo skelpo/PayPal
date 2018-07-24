@@ -68,4 +68,22 @@ public final class BillingPlans: PayPalController {
             return try client.get(self.path(), parameters: parameters, as: BillingPlanList.self)
         }
     }
+    
+    /// Updates fields in a billing plan, by ID. In the JSON request body, include a patch object that specifies the
+    /// operation to perform, one or more fields to update, and a new value for each updated field.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code with no JSON response body.
+    ///
+    /// - Parameters:
+    ///   - plan: The ID of the billing plan to update.
+    ///   - patches: An array of JSON patch objects to apply partial updates to resources.
+    ///
+    /// - Returns: The HTTP status of the response, in this case `200 OK`. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func update(plan id: String, patches: [Patch]) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.patch(self.path() + id, body: patches, as: HTTPStatus.self)
+        }
+    }
 }
