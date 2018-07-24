@@ -12,7 +12,7 @@ final class BillingPlansTests: XCTestCase {
         setPaypalVars()
         
         var services = Services.default()
-        try! services.register(PayPal.Provider())
+        try! services.register(PayPalProvider())
         
         app = try! Application.testable(services: services)
     }
@@ -48,9 +48,18 @@ final class BillingPlansTests: XCTestCase {
         XCTAssertNotNil(created.id)
     }
     
+    func testListEndpoint()throws {
+        let plans = try self.app.make(BillingPlans.self)
+        let list = try plans.list(parameters: QueryParamaters(totalCountRequired: true)).wait()
+        
+        XCTAssertNotNil(list.items)
+        XCTAssertNotNil(list.plans)
+    }
+    
     static var allTests: [(String, (BillingPlansTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
-        ("testCreateEndpoint", testCreateEndpoint)
+        ("testCreateEndpoint", testCreateEndpoint),
+        ("testListEndpoint", testListEndpoint)
     ]
 }
 

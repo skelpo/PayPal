@@ -57,7 +57,7 @@ public final class BillingPlans: PayPalController {
     ///
     /// A successful request returns the HTTP `200 OK` status code and a JSON response body that lists plans with details.
     ///
-    /// - Parameter paramaters: The query-string paramaters passed in with the request. The values used for this
+    /// - Parameter parameters: The query-string paramaters passed in with the request. The values used for this
     ///   endpoint are `page`, `status`, `pageSize`, and `totalCountRequired`.
     ///
     /// - Returns: A list of the billing plans wrapped in a future. If an error response was sent back instead, it gets converted
