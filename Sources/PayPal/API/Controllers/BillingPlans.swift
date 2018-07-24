@@ -86,4 +86,19 @@ public final class BillingPlans: PayPalController {
             return try client.patch(self.path() + id, body: patches, as: HTTPStatus.self)
         }
     }
+    
+    /// Shows details for a billing plan, by ID.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows plan details.
+    ///
+    /// - Parameter id: The ID of the billing plan for which to show details.
+    ///
+    /// - Returns: The billing plan for the ID passed in, wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func details(plan id: String) -> Future<BillingPlan> {
+        return Future.flatMap(on: self.container) { () -> Future<BillingPlan> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path() + id, as: BillingPlan.self)
+        }
+    }
 }
