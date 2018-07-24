@@ -1,55 +1,53 @@
 import XCTest
 @testable import PayPal
 
-final class OfferTypeTests: XCTestCase {
-    struct Off: Codable {
-        let type: Offer.OfferType
-    }
-    
-    func testCaseRawValues() {
-        XCTAssertEqual(Offer.OfferType.refund.rawValue, "REFUND")
-        XCTAssertEqual(Offer.OfferType.return.rawValue, "REFUND_WITH_RETURN")
-        XCTAssertEqual(Offer.OfferType.replacement.rawValue, "REFUND_WITH_REPLACEMENT")
-    }
-    
-    func testAllCase() {
-        XCTAssertEqual(Offer.OfferType.allCases.count, 3)
-        XCTAssertEqual(Offer.OfferType.allCases, [.refund, .return, .replacement])
+final class OfferTests: XCTestCase {
+    func testInit()throws {
+        let offer = try Offer(buyerAmount: Money(currency: .usd, value: "10.99"), sellerAmount: Money(currency: .usd, value: "10.99"), type: .refund)
+        
+        XCTAssertEqual(offer.type, .refund)
+        try XCTAssertEqual(offer.sellerAmount, Money(currency: .usd, value: "10.99"))
+        try XCTAssertEqual(offer.buyerAmount, Money(currency: .usd, value: "10.99"))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let refund = try String(data: encoder.encode(Off(type: .refund)), encoding: .utf8)
-        let `return` = try String(data: encoder.encode(Off(type: .return)), encoding: .utf8)
+        let offer = try Offer(buyerAmount: Money(currency: .usd, value: "10.99"), sellerAmount: Money(currency: .usd, value: "10.99"), type: .refund)
+        let generated = try String(data: encoder.encode(offer), encoding: .utf8)
+        let json =
+            "{\"offer_type\":\"REFUND\",\"buyer_requested_amount\":{\"value\":\"10.99\",\"currency_code\":\"USD\"}," +
+            "\"seller_offered_amount\":{\"value\":\"10.99\",\"currency_code\":\"USD\"}}"
         
-        XCTAssertEqual(refund, "{\"type\":\"REFUND\"}")
-        XCTAssertEqual(`return`, "{\"type\":\"REFUND_WITH_RETURN\"}")
+        XCTAssertEqual(generated, json)
     }
     
     func testDecoding()throws {
         let decoder = JSONDecoder()
-        let replacement = """
+        let json = """
         {
-            "type": "REFUND_WITH_REPLACEMENT"
+            "offer_type": "REFUND",
+            "seller_offered_amount": {
+                "value": "10.99",
+                "currency_code": "USD"
+            },
+            "buyer_requested_amount": {
+                "value": "10.99",
+                "currency_code": "USD"
+            }
         }
         """.data(using: .utf8)!
-        let refund = """
-        {
-            "type": "REFUND"
-        }
-        """
+        let offer = try Offer(buyerAmount: Money(currency: .usd, value: "10.99"), sellerAmount: Money(currency: .usd, value: "10.99"), type: .refund)
         
-        try XCTAssertEqual(decoder.decode(Off.self, from: replacement).type, .replacement)
-        try XCTAssertEqual(decoder.decode(Off.self, from: refund).type, .refund)
+        try XCTAssertEqual(decoder.decode(Offer.self, from: json), offer)
     }
     
-    static var allTests: [(String, (OfferTypeTests) -> ()throws -> ())] = [
-        ("testCaseRawValues", testCaseRawValues),
-        ("testAllCase", testAllCase),
+    static var allTests: [(String, (OfferTests) -> ()throws -> ())] = [
+        ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)
     ]
 }
+
 
 
 
