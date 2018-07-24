@@ -3,7 +3,7 @@ import XCTest
 
 final class BuyerTests: XCTestCase {
     func testInit()throws {
-        let buyer = Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather")
+        let buyer = try Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather")
         
         XCTAssertEqual(buyer.email, "witheringheights@exmaple.com")
         XCTAssertEqual(buyer.name, "Leeli Wingfeather")
@@ -11,7 +11,7 @@ final class BuyerTests: XCTestCase {
     
     func testValidations()throws {
         try XCTAssertThrowsError(Buyer(email: "downsideup", name: "Leeli Wingfeather"))
-        var buyer = Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather")
+        var buyer = try Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather")
         
         try XCTAssertThrowsError(buyer.set(\.email <~ "upsidedown"))
         try buyer.set(\.email <~ "lizard.kicker@glipwood.com")
@@ -23,7 +23,7 @@ final class BuyerTests: XCTestCase {
         let encoder = JSONEncoder()
         let generated = try String(data: encoder.encode(Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather")), encoding: .utf8)
         
-        XCTAssertEqual(generated, "{\"name\":\"Leeli Wingfeather\",\"email\":\"witheringheights@exmaple.com\"}")
+        XCTAssertEqual(generated, "{\"email\":\"witheringheights@exmaple.com\",\"name\":\"Leeli Wingfeather\"}")
     }
     
     func testDecoding()throws {

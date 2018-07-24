@@ -5,10 +5,12 @@ public struct Buyer: Content, ValidationSetable, Equatable {
     
     /// The email address for the customer's PayPal account.
     ///
-    /// Minimum length: 3. Maximum length: 254.
+    /// This property can be set using the `Buyer.set(_:)` method. This method
+    /// will validate the new value before assigning it to the property.
     ///
-    /// The RegEx validation pattern is as following: `^.+@[^"\-].+$`.
-    public var email: String?
+    /// Minimum length: 3. Maximum length: 254.
+    /// The values for this property must match the following RegEx pattern: `^.+@[^"\-].+$`.
+    public private(set) var email: String?
     
     /// The customer's name.
     public var name: String?
@@ -17,11 +19,26 @@ public struct Buyer: Content, ValidationSetable, Equatable {
     /// Creates a new `Buyer` instance.
     ///
     ///     Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather")
-    public init(email: String?, name: String?) {
+    public init(email: String?, name: String?)throws {
         self.email = email
         self.name = name
+        
+        try self.set(\.email <~ email)
     }
     
+    /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let email = try container.decodeIfPresent(String.self, forKey: .email)
+        
+        self.email = email
+        self.name = try container.decodeIfPresent(String.self, forKey: .name)
+        
+        try self.set(\.email <~ email)
+    }
+    
+    
+    /// See `ValidationSetable.setterValidations()`.
     public func setterValidations() -> SetterValidations<Buyer> {
         var validations = SetterValidations(Buyer.self)
         
