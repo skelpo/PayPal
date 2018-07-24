@@ -22,4 +22,10 @@ public struct Message: Content, Equatable {
         self.posted = nil
         self.content = content
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case poster = "posted_by"
+        case posted = "time_posted"
+        case content
+    }
 }
