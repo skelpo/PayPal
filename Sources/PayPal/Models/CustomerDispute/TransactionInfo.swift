@@ -71,4 +71,14 @@ public struct TransactionInfo: Content, Equatable {
         self.buyer = buyer
         self.seller = seller
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case custom, buyer, seller, items
+        case buyerID = "buyer_transaction_id"
+        case sellerID = "seller_transaction_id"
+        case created = "create_time"
+        case status = "transaction_status"
+        case gross = "gross_amount"
+        case invoice = "invoice_number"
+    }
 }
