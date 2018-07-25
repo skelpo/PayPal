@@ -101,4 +101,17 @@ public struct CustomerDispute: Content, Equatable {
         self.messages = messages
         self.responseDue = responseDue
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case reason, status, messages, offer, links
+        case id = "dispute_id"
+        case created = "create_time"
+        case updated = "update_time"
+        case transactions = "disputed_transactions"
+        case amount = "dispute_amount"
+        case outcome = "dispute_outcome"
+        case lifecycleStage = "dispute_life_cycle_stage"
+        case channel = "dispute_channel"
+        case responseDue = "seller_response_due_date"
+    }
 }
