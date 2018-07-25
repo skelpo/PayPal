@@ -86,24 +86,49 @@ public struct CustomerDispute: Content, ValidationSetable, Equatable {
     ///         messages: nil,
     ///         responseDue: Date(timeIntervalSinceNow: 60 * 60 * 24).iso8601
     ///     )
-    public init(transactions: [TransactionInfo]?, reason: Item.Reason?, amount: Money?, messages: [Message]?, responseDue: String?) {
+    public init(transactions: [TransactionInfo]?, reason: Item.Reason?, amount: Money?, messages: [Message]?, responseDue: String?)throws {
         self.id = nil
+        self.created = nil
+        self.updated = nil
         self.status = nil
         self.outcome = nil
         self.lifecycleStage = nil
         self.channel = nil
         self.offer = nil
         self.links = nil
-        self.created = nil
-        self.updated = nil
         
         self.transactions = transactions
         self.reason = reason
         self.amount = amount
         self.messages = messages
         self.responseDue = responseDue
+        
+        try self.set(\.responseDue <~ responseDue)
     }
     
+    /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let responseDue = try container.decodeIfPresent(String.self, forKey: .responseDue)
+        
+        self.id = try container.decodeIfPresent(String.self, forKey: .id)
+        self.created = try container.decodeIfPresent(String.self, forKey: .created)
+        self.updated = try container.decodeIfPresent(String.self, forKey: .updated)
+        self.status = try container.decodeIfPresent(Status.self, forKey: .status)
+        self.outcome = try container.decodeIfPresent(Outcome.self, forKey: .outcome)
+        self.lifecycleStage = try container.decodeIfPresent(LifeCycleStage.self, forKey: .lifecycleStage)
+        self.channel = try container.decodeIfPresent(Channel.self, forKey: .channel)
+        self.offer = try container.decodeIfPresent(Offer.self, forKey: .offer)
+        self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
+        
+        self.transactions = try container.decodeIfPresent([TransactionInfo].self, forKey: .transactions)
+        self.reason = try container.decodeIfPresent(Item.Reason.self, forKey: .reason)
+        self.amount = try container.decodeIfPresent(Money.self, forKey: .amount)
+        self.messages = try container.decodeIfPresent([Message].self, forKey: .messages)
+        self.responseDue = try container.decodeIfPresent(String.self, forKey: .responseDue)
+        
+        try self.set(\.responseDue <~ responseDue)
+    }
     
     /// See `ValidationSetable.setterValidations()`.
     public func setterValidations() -> SetterValidations<CustomerDispute> {
