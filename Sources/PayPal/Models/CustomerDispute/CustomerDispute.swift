@@ -1,7 +1,9 @@
 import Vapor
 
+let dateRegex = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])[T,t]([0-1][0-9]|2[0-3]):[0-5][0-9]:([0-5][0-9]|60)([.][0-9]+)?([Zz]|[+-][0-9]{2}:[0-9]{2})$"
+
 /// A customer's dispute about an invalid transaction.
-public struct CustomerDispute: Content, Equatable {
+public struct CustomerDispute: Content, ValidationSetable, Equatable {
     
     /// The ID of the dispute.
     public let id: String?
@@ -100,6 +102,32 @@ public struct CustomerDispute: Content, Equatable {
         self.amount = amount
         self.messages = messages
         self.responseDue = responseDue
+    }
+    
+    
+    /// See `ValidationSetable.setterValidations()`.
+    public func setterValidations() -> SetterValidations<CustomerDispute> {
+        var validations = SetterValidations(CustomerDispute.self)
+        
+        validations.set(\.responseDue) { due in
+            guard let due = due else { return }
+            guard let _ = due.range(of: dateRegex, options: .regularExpression) else {
+                throw PayPalError(
+                    status: .badRequest,
+                    identifier: "malformedString",
+                    reason: "`seller_response_due_date` property value must match '\(dateRegex)' RegEx pattern"
+                )
+            }
+            guard due.count >= 20 && due.count <= 64 else {
+                throw PayPalError(
+                    status: .badRequest,
+                    identifier: "invalidLength",
+                    reason: "`seller_response_due_date` property must have a length between 20 and 64"
+                )
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
