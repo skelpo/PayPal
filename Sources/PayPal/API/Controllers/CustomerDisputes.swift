@@ -90,4 +90,21 @@ public final class CustomerDisputes: PayPalController {
             return try client.get(self.path() + disputeID, as: CustomerDispute.self)
         }
     }
+    
+    /// Accepts liability for a claim, by ID, which closes the dispute in the customer’s favor.
+    /// PayPal automatically refunds money to the customer from the merchant's account.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that includes a link to the dispute.
+    ///
+    /// - Parameters:
+    ///   - disputeID: The ID of the dispute for which to accept a claim.
+    ///   - body: The body of the request.
+    ///
+    /// - Returns: An array containing a link to the dispute.
+    public func accept(claim disputeID: String, with body: AcceptDisputeBody) -> Future<[LinkDescription]> {
+        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + disputeID + "/accept-claim", body: body, as: [LinkDescription].self)
+        }
+    }
 }
