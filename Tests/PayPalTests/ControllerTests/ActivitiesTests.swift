@@ -24,7 +24,7 @@ final class ActivitiesTests: XCTestCase {
         let activities = try app.make(Activities.self)
         
         let plain = try activities.activities().wait()
-        let queried = try activities.activities(parameters: QueryParamaters(endTime: Date(), startTime: Date.distantPast)).wait()
+        let queried = try activities.activities(parameters: QueryParamaters(startTime: Date.distantPast, endTime: Date())).wait()
         
         XCTAssert(plain.items!.count > 0, "plain.items count is 0")
         XCTAssert(queried.items!.count > 0, "queried.items count is 0")
