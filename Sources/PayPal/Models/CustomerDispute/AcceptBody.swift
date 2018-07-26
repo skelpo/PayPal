@@ -1,7 +1,7 @@
 import Vapor
 
 /// The body of the request for PayPal's `POST /v1/customer/disputes/{dispute_id}/accept-claim` endpoint.
-public struct AcceptDisputeBody: Content, Equatable {
+public struct AcceptDisputeBody: Content, ValidationSetable, Equatable {
     
     /// The merchant's notes about the claim. PayPal can, but the customer cannot, view these notes.
     ///
@@ -42,6 +42,20 @@ public struct AcceptDisputeBody: Content, Equatable {
         self.invoiceID = invoiceID
         self.returnAddress = returnAddress
         self.refund = refund
+    }
+    
+    /// See `ValidationSetable.setterValidations()`.
+    public func setterValidations() -> SetterValidations<AcceptDisputeBody> {
+        var validations = SetterValidations(AcceptDisputeBody.self)
+        
+        validations.set(\.note) { note in
+            guard let note = note else { return }
+            guard note.count >= 1 && note.count <= 2000 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note` property must have a length between 1 and 2000")
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
