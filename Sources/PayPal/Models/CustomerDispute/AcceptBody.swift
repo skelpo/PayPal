@@ -5,8 +5,11 @@ public struct AcceptDisputeBody: Content, ValidationSetable, Equatable {
     
     /// The merchant's notes about the claim. PayPal can, but the customer cannot, view these notes.
     ///
+    /// This property can be set using the `AcceptDisputeBody.set(_:)` method. This
+    /// will validate the new value before assigning it to the property.
+    ///
     /// Minimum length: 1. Maximum length: 2000.
-    public var note: String?
+    public private(set) var note: String?
     
     /// The merchant's reason for acceptance of the customer's claim.
     public var reason: Reason?
@@ -36,12 +39,27 @@ public struct AcceptDisputeBody: Content, ValidationSetable, Equatable {
     ///         invoiceID: "3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5",
     ///         refund: Money(currency: .usd, value: "55.50")
     ///     )
-    public init(note: String?, reason: Reason?, invoiceID: String?, returnAddress: Address?, refund: Money?) {
+    public init(note: String?, reason: Reason?, invoiceID: String?, returnAddress: Address?, refund: Money?)throws {
         self.note = note
         self.reason = reason
         self.invoiceID = invoiceID
         self.returnAddress = returnAddress
         self.refund = refund
+        
+        try self.set(\.note <~ note)
+    }
+    
+    /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let note = try container.decodeIfPresent(String.self, forKey: .refund)
+        
+        self.note = note
+        self.reason = try container.decodeIfPresent(Reason.self, forKey: .reason)
+        self.invoiceID = try container.decodeIfPresent(String.self, forKey: .invoiceID)
+        self.returnAddress = try container.decodeIfPresent(Address.self, forKey: .returnAddress)
+        
+        try self.set(\.note <~ note)
     }
     
     /// See `ValidationSetable.setterValidations()`.
