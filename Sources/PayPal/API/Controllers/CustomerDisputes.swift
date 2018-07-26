@@ -100,11 +100,36 @@ public final class CustomerDisputes: PayPalController {
     ///   - disputeID: The ID of the dispute for which to accept a claim.
     ///   - body: The body of the request.
     ///
-    /// - Returns: An array containing a link to the dispute.
+    /// - Returns: An array containing a link to the dispute wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
     public func accept(claim disputeID: String, with body: AcceptDisputeBody) -> Future<[LinkDescription]> {
         return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
             let client = try self.container.make(PayPalClient.self)
             return try client.post(self.path() + disputeID + "/accept-claim", body: body, as: [LinkDescription].self)
+        }
+    }
+    
+    /// Sandbox only. Settles a dispute in either the customer's or merchant's favor. Merchants can make this call in the sandbox
+    /// to complete end-to-end dispute resolution testing, which mimics the dispute resolution that PayPal agents normally complete.
+    /// To make this call, the dispute `status` must be `UNDER_REVIEW`.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that includes a link to the dispute.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the dispute to settle.
+    ///   - outcome: The outcome of the settled dispute.
+    ///
+    /// - Returns: An array containing a link to the dispute wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    ///
+    /// - Throws: A `500 Internal Server Error` if you call this method in a production environment.
+    public func settle(dispute id: String, outcome: AdjudicationOutcome)throws -> Future<[LinkDescription]> {
+        guard try self.container.make(Configuration.self).environment == .sandbox else {
+            throw Abort(.internalServerError, reason: "Dispute settlement endpoint only availible in sandbox environment.")
+        }
+        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + id + "/adjudicate", body: ["adjudication_outcome": outcome], as: [LinkDescription].self)
         }
     }
 }
