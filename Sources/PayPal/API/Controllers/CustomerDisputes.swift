@@ -35,4 +35,43 @@ public final class CustomerDisputes: PayPalController {
         self.container = container
         self.resource = "customer/disputes"
     }
+    
+    
+    /// Lists disputes with a full or summary set of details. Default is a summary set of details, which shows
+    /// the `dispute_id`, `reason`, `status`, `dispute_amount`, `create_time`, and `update_time fields`.
+    ///
+    /// To filter the disputes in the response, specify one or more optional query parameters.
+    /// To limit the number of disputes in the response, specify the `page_size` query parameter.
+    ///
+    /// To list multiple disputes, set these query parameters in the request:
+    /// - `page_size=2`
+    /// - `start_time` instead of `disputed_transaction_id`
+    ///
+    /// If the response contains more than two disputes, it lists two disputes and includes a HATEOAS link to the next page of results.
+    ///
+    /// The querystring parameters that this endpoint can use are `startTime`, `pageSize`, and `page`. Along with these standard querystrings,
+    /// there are two parameters that are endpoint specific:
+    /// - `disputed_transaction_id`: Filters the disputes in the response by a transaction, by ID.
+    ///    You can specify either but not both the start_time and disputed_transaction_id query parameter.
+    /// - `dispute_state`: Filters the disputes in the response by a state. The allowed values are:
+    ///    - `REQUIRED_ACTION`: Filters the disputes in the response in REQUIRED_ACTION dispute_state
+    ///    - `REQUIRED_OTHER_PARTY_ACTION`: Filters the disputes in the response in REQUIRED_OTHER_PARTY_ACTION state
+    ///    - `UNDER_PAYPAL_REVIEW`: Filters the disputes in the response in UNDER_PAYPAL_REVIEW state
+    ///    - `RESOLVED`: Filters the disputes in the response in RESOLVED state
+    ///    - `OPEN_INQUIRIES`: Filters the disputes in the response in OPEN_INQUIRIES state
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that lists disputes with a full or summary set of details.
+    /// Default is a summary set of details, which shows the `dispute_id`, `reason`, `status`, `dispute_amount`, `create_time`, and `update_time`
+    /// fields for each dispute.
+    ///
+    /// - Parameter parameters: The querystring paramaters sent with the request.
+    ///
+    /// - Returns: A list of customer disputes wrapped in a future. If an error response was sent back instead, it gets converted
+    ///   to a Swift error and the future wraps that instead.
+    public func list(parameters: QueryParamaters = QueryParamaters()) -> Future<CustomerDisputeList> {
+        return Future.flatMap(on: self.container) { () -> Future<CustomerDisputeList> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path(), parameters: parameters, as: CustomerDisputeList.self)
+        }
+    }
 }
