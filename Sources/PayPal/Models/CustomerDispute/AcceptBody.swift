@@ -43,4 +43,12 @@ public struct AcceptDisputeBody: Content, Equatable {
         self.returnAddress = returnAddress
         self.refund = refund
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case note
+        case reason = "accept_claim_reason"
+        case invoiceID = "invoice_id"
+        case returnAddress = "return_shipping_address"
+        case refund = "refund_amount"
+    }
 }
