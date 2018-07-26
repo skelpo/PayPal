@@ -37,6 +37,7 @@ public struct AcceptDisputeBody: Content, ValidationSetable, Equatable {
     ///         note: "Refund to customer",
     ///         reason: .policy,
     ///         invoiceID: "3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5",
+    ///         returnAddress: nil,
     ///         refund: Money(currency: .usd, value: "55.50")
     ///     )
     public init(note: String?, reason: Reason?, invoiceID: String?, returnAddress: Address?, refund: Money?)throws {
