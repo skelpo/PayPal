@@ -74,4 +74,20 @@ public final class CustomerDisputes: PayPalController {
             return try client.get(self.path(), parameters: parameters, as: CustomerDisputeList.self)
         }
     }
+    
+    /// Shows details for a dispute, by ID.
+    ///
+    /// - Note: The fields that appear in the response depend on whether you access this call through first- or third-party access.
+    ///   For example, if the merchant shows dispute details through third-party access, the customer's email ID does not appear.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body with dispute details.
+    ///
+    /// - Returns: A lcustomer dispute wrapped in a future. If an error response was sent back instead, it gets converted
+    ///   to a Swift error and the future wraps that instead.
+    public func details(for disputeID: String) -> Future<CustomerDispute> {
+        return Future.flatMap(on: self.container) { () -> Future<CustomerDispute> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path() + disputeID, as: CustomerDispute.self)
+        }
+    }
 }
