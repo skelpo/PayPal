@@ -50,6 +50,9 @@ public struct QueryParamaters: Content {
     /// For example, `start_time=2016-03-06T11:00:00Z`.
     public var startTime: Date?
     
+    /// Any endpoint specific querystring paramaters.
+    public var custom: [String: String]?
+    
     /// Creates a new `QueryParamaters` instance
     ///
     /// All paramaters have a default `nil` value, so you only need to pass
@@ -58,6 +61,7 @@ public struct QueryParamaters: Content {
     ///     QueryParamaters(page: 0, pageSize: 25, sortOrder: .ascending)
     public init(
         count: Int? = nil,
+        startTime: Date? = nil,
         endTime: Date? = nil,
         page: Int? = nil,
         pageSize: Int? = nil,
@@ -66,7 +70,7 @@ public struct QueryParamaters: Content {
         sortOrder: ResponseSortOrder? = nil,
         startID: String? = nil,
         startIndex: Int? = nil,
-        startTime: Date? = nil
+        custom: [String: String]? = nil
     ) {
         self.count = count
         self.endTime = endTime
@@ -86,13 +90,14 @@ public struct QueryParamaters: Content {
     ///
     ///     // "next_page_token=0&page_size=25&sort_order=ascending"
     public func encode() -> String {
-        let values: [String: CustomStringConvertible?] = [
+        var values: [String: CustomStringConvertible?] = [
             "count": self.count, "end_time": self.endTime?.iso8601, "next_page_token": self.page, "page_size": self.pageSize,
             "total_count_required": self.totalCountRequired, "sort_by": self.sortBy, "sort_order": self.sortOrder,
             "start_id": self.startID, "start_index": self.startIndex, "start_time": self.startTime?.iso8601
         ]
+        values.merge(self.custom ?? [:]) { _, value in return value }
         
-        return values.reduce(into: []) { query, parameter in
+        return (values).reduce(into: []) { query, parameter in
             if let value = parameter.value {
                 query.append("\(parameter.key)=\(value.description)")
             }
