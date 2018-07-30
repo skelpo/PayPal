@@ -24,4 +24,11 @@ public struct Tracking: Content, Equatable {
         self.url = url
         self.number = number
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case carrier = "carrier_name"
+        case carrierOther = "carrier_name_other"
+        case url = "tracking_url"
+        case number = "tracking_number"
+    }
 }
