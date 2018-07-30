@@ -74,6 +74,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(CarrierTests.allCases),
         testCase(TrackingTests.allCases),
         testCase(EvidenceTests.allCases),
+        testCase(DocumentTests.allCases),
         
         // Controller Tests
         testCase(APITests.allTests),

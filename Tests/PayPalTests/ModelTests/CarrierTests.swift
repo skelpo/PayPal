@@ -2,10 +2,6 @@ import XCTest
 @testable import PayPal
 
 final class CarrierTests: XCTestCase {
-    struct Request: Codable {
-        let method: PayPal.Method
-    }
-    
     struct Shippment: Codable {
         let carrier: Carrier
     }
