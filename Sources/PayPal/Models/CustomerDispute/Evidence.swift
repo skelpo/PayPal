@@ -59,4 +59,11 @@ public struct Evidence: Content, ValidationSetable, Equatable {
         
         return validations
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case notes, documents
+        case type = "evidence_type"
+        case info = "evidence_info"
+        case itemID = "item_id"
+    }
 }
