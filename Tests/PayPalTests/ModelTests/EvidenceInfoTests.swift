@@ -1,9 +1,9 @@
 import XCTest
 @testable import PayPal
 
-final class EvidenceTests: XCTestCase {
+final class EvidenceInfoTests: XCTestCase {
     func testInit()throws {
-        let evidence = Evidence(
+        let evidence = EvidenceInfo(
             tracking: [
                 Tracking(carrier: .usps, other: nil, url: "https://whoshippedit.com/shippment/9163524667210796186056", number: "9163524667210796186056")
             ],
@@ -23,7 +23,7 @@ final class EvidenceTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let evidence = Evidence(
+        let evidence = EvidenceInfo(
             tracking: [
                 Tracking(carrier: .usps, other: nil, url: "https://whoshippedit.com/shippment/9163524667210796186056", number: "9163524667210796186056")
             ],
@@ -56,7 +56,7 @@ final class EvidenceTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        let evidence = Evidence(
+        let evidence = EvidenceInfo(
             tracking: [
                 Tracking(carrier: .usps, other: nil, url: "https://whoshippedit.com/shippment/9163524667210796186056", number: "9163524667210796186056")
             ],
@@ -64,10 +64,10 @@ final class EvidenceTests: XCTestCase {
                 "2F214F48-2651-498B-9D06-150BF00E85DA"
             ]
         )
-        try XCTAssertEqual(evidence, decoder.decode(Evidence.self, from: json))
+        try XCTAssertEqual(evidence, decoder.decode(EvidenceInfo.self, from: json))
     }
     
-    static var allTests: [(String, (EvidenceTests) -> ()throws -> ())] = [
+    static var allTests: [(String, (EvidenceInfoTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

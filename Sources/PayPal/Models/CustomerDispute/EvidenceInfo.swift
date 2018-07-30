@@ -1,7 +1,7 @@
 import Vapor
 
-/// Evidence used during a dispute.
-public struct Evidence: Content, Equatable {
+/// EvidenceInfo used during a dispute.
+public struct EvidenceInfo: Content, Equatable {
     
     /// An array of relevant tracking information for the transaction involved in this dispute.
     public var tracking: [Tracking]?
@@ -9,9 +9,9 @@ public struct Evidence: Content, Equatable {
     /// An array of refund IDs for the transaction involved in this dispute.
     public var refunds: [String]?
     
-    /// Creates a new `Evidence` instance.
+    /// Creates a new `EvidenceInfo` instance.
     ///
-    ///     Evidence(
+    ///     EvidenceInfo(
     ///         tracking: [
     ///             Tracking(carrier: .usps, other: nil, url: "https://whoshippedit.com/shippment/9163524667210796186056", number: "9163524667210796186056")
     ///         ],
