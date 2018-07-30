@@ -17,7 +17,7 @@ public struct Tracking: Content, Equatable {
     
     /// Creates a new `Tracking` instance.
     ///
-    ///     Tracking(carrier: .usps, url: "https://whoshippedit.com/shippment/9163524667210796186056", number: "9163524667210796186056")
+    ///     Tracking(carrier: .usps, other: nil, url: "https://whoshippedit.com/shippment/9163524667210796186056", number: "9163524667210796186056")
     public init(carrier: Carrier?, other: String?, url: String?, number: String?) {
         self.carrier = carrier
         self.carrierOther = other
