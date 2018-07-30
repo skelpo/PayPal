@@ -15,7 +15,7 @@ public struct Evidence: Content, ValidationSetable, Equatable {
     /// Any evidence-related notes.
     ///
     /// Maximum length: 2000.
-    public var notes: String?
+    public private(set) var notes: String?
     
     /// The item ID. If the merchant provides multiple pieces of evidence and the transaction has multiple item IDs,
     /// the merchant can use this value to associate a piece of evidence with an item ID.
