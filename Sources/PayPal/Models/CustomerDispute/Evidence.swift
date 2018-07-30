@@ -1,7 +1,7 @@
 import Vapor
 
 /// Evidance for a party in a dispute.
-public struct Evidence: Content, Equatable {
+public struct Evidence: Content, ValidationSetable, Equatable {
     
     /// The type of evidence.
     public var type: EvidenceType?
@@ -44,5 +44,19 @@ public struct Evidence: Content, Equatable {
         self.documents = documents
         self.notes = notes
         self.itemID = itemID
+    }
+    
+    
+    /// See `ValidationSetable.setterValidations()`.
+    public func setterValidations() -> SetterValidations<Evidence> {
+        var validations = SetterValidations(Evidence.self)
+        
+        validations.set(\.notes) { note in
+            guard note?.count ?? 0 <= 2000 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`notes` property must have a length between 0 and 2000")
+            }
+        }
+        
+        return validations
     }
 }
