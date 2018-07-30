@@ -74,7 +74,21 @@ final class CustomerDisputesTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Cannot get dispute ID")
         }
         
-        let links = try disputes.appeal(dispute: id, evidence: []).wait()
+        let evidence = try Evidence(
+            type: .proofOfFulfillment,
+            info: Evidence.Info(
+                tracking: [
+                    Tracking(carrier: .usps, other: nil, url: "https://whoshippedit.com/shippment/9163524667210796186056", number: "9163524667210796186056")
+                ],
+                refunds: [
+                    "2F214F48-2651-498B-9D06-150BF00E85DA"
+                ]
+            ),
+            documents: [Document(name: "README.md", size: "65kb")],
+            notes: "I win. Ha!",
+            itemID: "4FB4018C-F925-4FC6-B44B-0174C1B59F17"
+        )
+        let links = try disputes.appeal(dispute: id, evidence: [evidence]).wait()
         
         XCTAssertGreaterThan(links.count, 0)
         XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
