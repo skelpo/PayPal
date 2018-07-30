@@ -14,6 +14,9 @@ public struct Evidence: Content, ValidationSetable, Equatable {
     
     /// Any evidence-related notes.
     ///
+    /// This property can be set using the `Evidence.set(_:)` method, which validates
+    /// the new value before assigning it to the property.
+    ///
     /// Maximum length: 2000.
     public private(set) var notes: String?
     
@@ -38,14 +41,29 @@ public struct Evidence: Content, ValidationSetable, Equatable {
     ///         notes: "I win. Ha!",
     ///         itemID: "4FB4018C-F925-4FC6-B44B-0174C1B59F17"
     ///     )
-    public init(type: EvidenceType?, info: Info?, documents: [Document]?, notes: String?, itemID: String?) {
+    public init(type: EvidenceType?, info: Info?, documents: [Document]?, notes: String?, itemID: String?)throws {
         self.type = type
         self.info = info
         self.documents = documents
         self.notes = notes
         self.itemID = itemID
+        
+        try self.set(\.notes <~ notes)
     }
     
+    /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let notes = try container.decodeIfPresent(String.self, forKey: .notes)
+        
+        self.notes = notes
+        self.type = try container.decodeIfPresent(EvidenceType.self, forKey: .type)
+        self.info = try container.decodeIfPresent(Info.self, forKey: .info)
+        self.documents = try container.decodeIfPresent([Document].self, forKey: .documents)
+        self.itemID = try container.decodeIfPresent(String.self, forKey: .itemID)
+        
+        try self.set(\.notes <~ notes)
+    }
     
     /// See `ValidationSetable.setterValidations()`.
     public func setterValidations() -> SetterValidations<Evidence> {
