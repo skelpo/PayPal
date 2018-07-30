@@ -132,4 +132,25 @@ public final class CustomerDisputes: PayPalController {
             return try client.post(self.path() + id + "/adjudicate", body: ["adjudication_outcome": outcome], as: [LinkDescription].self)
         }
     }
+    
+    /// Appeals a dispute, by ID. To appeal a dispute, use the `appeal` link in the
+    /// [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links) from the show dispute details response.
+    /// If this link does not appear, you cannot appeal the dispute. Submit new evidence as a document or notes in the JSON request body.
+    /// For information about dispute reasons,
+    /// see [dispute reasons](https://developer.paypal.com/docs/integration/direct/customer-disputes/integration-guide/#dispute-reasons).
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that includes a link to the dispute.
+    ///
+    /// - Parameters:
+    ///   - id: The PayPal dispute ID.
+    ///   - evidences: An array of evidences for the dispute.
+    ///
+    /// - Returns: An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
+    ///   If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
+    public func appeal(dispute id: String, evidence: [Evidence]) -> Future<[LinkDescription]> {
+        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + id + "/appeal", body: evidence, as: [LinkDescription].self)
+        }
+    }
 }
