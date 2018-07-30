@@ -23,4 +23,9 @@ public struct Evidence: Content, Equatable {
         self.tracking = tracking
         self.refunds = refunds
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case tracking = "tracking_info"
+        case refunds = "refund_ids"
+    }
 }
