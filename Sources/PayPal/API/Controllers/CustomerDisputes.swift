@@ -153,4 +153,25 @@ public final class CustomerDisputes: PayPalController {
             return try client.post(self.path() + id + "/appeal", body: evidence, as: [LinkDescription].self)
         }
     }
+    
+    /// Escalates the dispute, by ID, to a PayPal claim. To make this call, the stage in the dispute lifecycle must be `INQUIRY`.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that includes a link to the dispute.
+    ///
+    /// - Parameters:
+    ///   - id: The PayPal dispute ID.
+    ///   - note: The notes about the escalation of the dispute to a claim. Length must be between 1 and 2,000.
+    ///
+    /// - Returns: An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
+    ///   If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
+    public func escalate(dispute id: String, note: String) -> Future<[LinkDescription]> {
+        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
+            guard note.count >= 1 && note.count <= 2000 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note` property must have a length between 0 and 2000")
+            }
+            
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + id + "/escalate", body: ["note": note], as: [LinkDescription].self)
+        }
+    }
 }
