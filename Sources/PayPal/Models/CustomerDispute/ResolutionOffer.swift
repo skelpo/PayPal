@@ -36,14 +36,29 @@ extension CustomerDispute {
         ///         returnAddress: nil,
         ///         invoiceID: nil
         ///     )
-        public init(note: String, amount: Money, type: Offer.OfferType, returnAddress: Address?, invoiceID: String?) {
+        public init(note: String, amount: Money, type: Offer.OfferType, returnAddress: Address?, invoiceID: String?)throws {
             self.note = note
             self.amount = amount
             self.type = type
             self.returnAddress = returnAddress
             self.invoiceID = invoiceID
+            
+            try self.set(\.note <~ note)
         }
         
+        /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let note = try container.decode(String.self, forKey: .note)
+            
+            self.note = note
+            self.amount = try container.decode(Money.self, forKey: .amount)
+            self.type = try container.decode(Offer.OfferType.self, forKey: .type)
+            self.returnAddress = try container.decodeIfPresent(Address.self, forKey: .returnAddress)
+            self.invoiceID = try container.decodeIfPresent(String.self, forKey: .invoiceID)
+            
+            try self.set(\.note <~ note)
+        }
         
         /// See `ValidationSetable.setterValidations()`.
         public func setterValidations() -> SetterValidations<CustomerDispute.ResolutionOffer> {
