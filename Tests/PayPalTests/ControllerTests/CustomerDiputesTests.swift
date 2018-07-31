@@ -16,6 +16,10 @@ final class CustomerDisputesTests: XCTestCase {
         try! services.register(PayPalProvider())
         
         app = try! Application.testable(services: services)
+        
+        let disputes = try! self.app.make(CustomerDisputes.self)
+        let list = try! disputes.list().wait()
+        self.id = list.items?.first?.id
     }
     
     func testServiceExists()throws {
@@ -24,7 +28,9 @@ final class CustomerDisputesTests: XCTestCase {
     
     func testListEndpoint()throws {
         let disputes = try self.app.make(CustomerDisputes.self)
-        let _ = try disputes.list().wait()
+        let list = try disputes.list().wait()
+        
+        XCTAssertGreaterThan(list.items?.count ?? 0, 0)
     }
     
     func testDetailsEndpoint()throws {
