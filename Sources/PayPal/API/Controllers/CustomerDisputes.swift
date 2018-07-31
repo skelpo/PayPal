@@ -194,4 +194,47 @@ public final class CustomerDisputes: PayPalController {
             return try client.post(self.path() + disputeID + "/make-offer", body: offer, as: LinkResponse.self)["links", []]
         }
     }
+    
+    /// Provides evidence for a dispute, by ID. A merchant can provide evidence for disputes with the `WAITING_FOR_SELLER_RESPONSE` status while customers
+    /// can provide evidence for disputes with the `WAITING_FOR_BUYER_RESPONSE` status. Evidence can be a proof of delivery or proof of refund document or notes,
+    /// which can include logs. A proof of delivery document includes a tracking number while a proof of refund document includes a refund ID.
+    ///
+    /// The following rules apply to document file types and sizes:
+    /// - The merchant can upload up to 10 MB of files for a case.
+    /// - Individual files must be smaller than 5 MB.
+    /// - The supported file formats are JPG, GIF, PNG, and PDF.
+    ///
+    /// To make this request, specify the dispute ID in the URI and specify the evidence in the JSON request body. For information about dispute reasons,
+    /// see [dispute reasons](https://developer.paypal.com/docs/integration/direct/customer-disputes/integration-guide/#dispute-reasons).
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that includes a link to the dispute.
+    ///
+    /// - Parameters:
+    ///   - disputeID: The ID of the dispute for which to submit evidence.
+    ///   - file: The name of a file with evidence.
+    ///   - evidences: An array of evidences for the dispute.
+    ///
+    /// - Returns: An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
+    ///   If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
+    public func evidence(for disputeID: String, file: String, evidences: [Evidence]) -> Future<[LinkDescription]> {
+        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
+            
+            guard
+                let ext = file.split(separator: ".").last.map(String.init)?.lowercased(),
+                ext == "jpg" || ext == "gif" || ext == "png" || ext == "pdf"
+            else {
+                throw PayPalError(status: .badRequest, identifier: "invalidExtension", reason: "File type must be JPG, GIF, PNG, or PDF")
+            }
+            
+            let request: Request = try self.container.paypal(HTTPMethod.POST, self.path() + disputeID + "/provide-evidence", body: nil as [Int]?)
+            let json = try String(data: JSONEncoder().encode(evidences), encoding: .utf8) ?? "[]" + ";type=application/json"
+            let body = ["input": json, "file1": "@" + file]
+            
+            try request.content.encode(body, as: .formData)
+            request.http.headers.replaceOrAdd(name: .contentType, value: "multipart/related; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW")
+            
+            let response = try self.container.client().send(request)
+            return response.flatMap { response in try response.content.decode(LinkResponse.self) }["links", []]
+        }
+    }
 }
