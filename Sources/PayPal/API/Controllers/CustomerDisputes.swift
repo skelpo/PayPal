@@ -107,7 +107,7 @@ public final class CustomerDisputes: PayPalController {
     public func accept(claim disputeID: String, with body: AcceptDisputeBody) -> Future<[LinkDescription]> {
         return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + disputeID + "/accept-claim", body: body, as: [LinkDescription].self)
+            return try client.post(self.path() + disputeID + "/accept-claim", body: body, as: LinkResponse.self)["links", []]
         }
     }
     
@@ -131,7 +131,7 @@ public final class CustomerDisputes: PayPalController {
         }
         return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/adjudicate", body: ["adjudication_outcome": outcome], as: [LinkDescription].self)
+            return try client.post(self.path() + id + "/adjudicate", body: ["adjudication_outcome": outcome], as: LinkResponse.self)["links", []]
         }
     }
     
@@ -152,7 +152,7 @@ public final class CustomerDisputes: PayPalController {
     public func appeal(dispute id: String, evidence: [Evidence]) -> Future<[LinkDescription]> {
         return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/appeal", body: evidence, as: [LinkDescription].self)
+            return try client.post(self.path() + id + "/appeal", body: evidence, as: LinkResponse.self)["links", []]
         }
     }
     
@@ -173,7 +173,7 @@ public final class CustomerDisputes: PayPalController {
             }
             
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/escalate", body: ["note": note], as: [LinkDescription].self)
+            return try client.post(self.path() + id + "/escalate", body: ["note": note], as: LinkResponse.self)["links", []]
         }
     }
     
@@ -191,7 +191,7 @@ public final class CustomerDisputes: PayPalController {
     public func offerResolution(for disputeID: String, offer: CustomerDispute.ResolutionOffer) -> Future<[LinkDescription]> {
         return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + disputeID + "/make-offer", body: offer, as: [LinkDescription].self)
+            return try client.post(self.path() + disputeID + "/make-offer", body: offer, as: LinkResponse.self)["links", []]
         }
     }
 }
