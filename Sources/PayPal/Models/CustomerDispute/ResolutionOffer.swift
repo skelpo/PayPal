@@ -32,7 +32,7 @@ extension CustomerDispute {
         ///     CustomerDispute.ResolutionOffer(
         ///         note: "Offer refund with replacement item.",
         ///         amount: Money(currency: .usd, value: "23"),
-        ///         type: .refundWithReplacement,
+        ///         type: .replacement,
         ///         returnAddress: nil,
         ///         invoiceID: nil
         ///     )
