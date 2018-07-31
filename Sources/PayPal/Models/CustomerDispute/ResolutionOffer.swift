@@ -3,7 +3,7 @@ import Vapor
 extension CustomerDispute {
     
     /// The body of the a request for the `POST /v1/customer/disputes/{dispute_id}/make-offer` endpoint.
-    public struct ResolutionOffer: Content, Equatable {
+    public struct ResolutionOffer: Content, ValidationSetable, Equatable {
         
         /// The merchant's notes about the offer. PayPal can, but the customer cannot, view these notes.
         ///
@@ -11,7 +11,7 @@ extension CustomerDispute {
         /// validate the new value before assigning it to the property.
         ///
         /// Minimum length: 1. Maximum length: 2000.
-        public var note: String
+        public private(set) var note: String
         
         /// The amount proposed to resolve the dispute.
         public var amount: Money
@@ -44,6 +44,19 @@ extension CustomerDispute {
             self.invoiceID = invoiceID
         }
         
+        
+        /// See `ValidationSetable.setterValidations()`.
+        public func setterValidations() -> SetterValidations<CustomerDispute.ResolutionOffer> {
+            var validations = SetterValidations(ResolutionOffer.self)
+            
+            validations.set(\.note) { note in
+                guard note.count <= 2000 && note.count >= 1 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note` property must have a length between 1 and 2000")
+                }
+            }
+            
+            return validations
+        }
         
         enum CodingKeys: String, CodingKey {
             case note
