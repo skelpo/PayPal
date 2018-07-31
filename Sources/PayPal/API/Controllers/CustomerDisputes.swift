@@ -1,5 +1,7 @@
 import Vapor
 
+typealias LinkResponse = [String: [LinkDescription]]
+
 /// Occasionally, something goes wrong with a customer's order. To dispute a charge, a customer can create a dispute with PayPal.
 /// PayPal merchants, partners, and external developers can use the PayPal Customer Disputes API to manage customer disputes.
 ///
