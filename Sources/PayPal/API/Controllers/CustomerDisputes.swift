@@ -174,4 +174,22 @@ public final class CustomerDisputes: PayPalController {
             return try client.post(self.path() + id + "/escalate", body: ["note": note], as: [LinkDescription].self)
         }
     }
+    
+    /// Makes an offer to the other party to resolve a dispute, by ID. To make this call, the stage in the dispute lifecycle must be `INQUIRY`.
+    /// If the customer accepts the offer, PayPal automatically makes a refund.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that includes a link to the dispute.
+    ///
+    /// - Parameters:
+    ///   - disputeID: The ID of the dispute to make the resoultion offer on.
+    ///   - offer: The specific information about the offer. This is the body of the request sent to the PayPal API.
+    ///
+    /// - Returns: An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
+    ///   If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
+    public func offerResolution(for disputeID: String, offer: CustomerDispute.ResolutionOffer) -> Future<[LinkDescription]> {
+        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + disputeID + "/make-offer", body: offer, as: [LinkDescription].self)
+        }
+    }
 }
