@@ -1,5 +1,6 @@
 import XCTest
 import Vapor
+@testable import NIO
 @testable import PayPal
 
 final class CustomerDisputesTests: XCTestCase {
@@ -125,6 +126,49 @@ final class CustomerDisputesTests: XCTestCase {
         XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
     }
     
+    func testEvidenceEndpoint()throws {
+        let disputes = try self.app.make(CustomerDisputes.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get dispute ID")
+        }
+
+        let pdf = try self.getPDF()
+        let evidence = try Evidence(
+            type: .other,
+            info: Evidence.Info(
+                tracking: [
+                    Tracking(carrier: .usps, other: nil, url: "https://whoshippedit.com/shippment/9163524667210796186056", number: "9163524667210796186056")
+                ],
+                refunds: [
+                    "2F214F48-2651-498B-9D06-150BF00E85DA"
+                ]
+            ),
+            documents: [Document(name: "test.pdf", size: "29kb")],
+            notes: "I win. Ha!",
+            itemID: "4FB4018C-F925-4FC6-B44B-0174C1B59F17"
+        )
+        let links = try disputes.evidence(for: id, file: pdf, evidences: [evidence]).wait()
+        
+        XCTAssertGreaterThan(links.count, 0)
+        XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
+    }
+    
+    func getPDF()throws -> String {
+        if #available(OSX 10.12, *) {
+            let home = FileManager.default.homeDirectoryForCurrentUser.relativePath
+            guard let enumerator = FileManager.default.enumerator(atPath: home)?.allObjects as? [String] else {
+                throw Abort(.internalServerError)
+            }
+            guard let path = enumerator.filter({ $0.contains("PayPal/test.pdf") }).first else {
+                throw Abort(.internalServerError)
+            }
+            
+            return home + "/" + path
+        } else {
+            throw Abort(.internalServerError, reason: "Update your OS")
+        }
+    }
+    
     static var allTests: [(String, (CustomerDisputesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testListEndpoint", testListEndpoint),
@@ -133,8 +177,7 @@ final class CustomerDisputesTests: XCTestCase {
         ("testSettleEndpoint", testSettleEndpoint),
         ("testAppealEndpoint", testAppealEndpoint),
         ("testEscalateEndpoint", testEscalateEndpoint),
-        ("testOfferEndpoint", testOfferEndpoint)
+        ("testOfferEndpoint", testOfferEndpoint),
+        ("testEvidenceEndpoint", testEvidenceEndpoint)
     ]
 }
-
-
