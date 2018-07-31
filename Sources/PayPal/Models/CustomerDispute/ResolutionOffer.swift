@@ -43,5 +43,14 @@ extension CustomerDispute {
             self.returnAddress = returnAddress
             self.invoiceID = invoiceID
         }
+        
+        
+        enum CodingKeys: String, CodingKey {
+            case note
+            case amount = "offer_amount"
+            case type = "offer_type"
+            case returnAddress = "return_shipping_address"
+            case invoiceID = "invoice_id"
+        }
     }
 }
