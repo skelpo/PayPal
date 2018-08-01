@@ -95,7 +95,7 @@ final class CustomerDisputeTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(dispute), encoding: .utf8)!
         let json =
-            "{\"seller_response_due_date\":\"\(self.due)\",\"dispute_amount\":{\"value\":\"89.45\",\"currency_code\":\"USD\"},\"reason\":\"AUTHORISED\"," +
+            "{\"dispute_amount\":{\"value\":\"89.45\",\"currency_code\":\"USD\"},\"reason\":\"UNAUTHORISED\",\"seller_response_due_date\":\"\(self.due)\"," +
             "\"disputed_transactions\":[]}"
         
         var index = 0
@@ -117,7 +117,7 @@ final class CustomerDisputeTests: XCTestCase {
                 "value": "89.45",
                 "currency_code": "USD"
             },
-            "reason": "AUTHORISED",
+            "reason": "UNAUTHORISED",
             "disputed_transactions": []
         }
         """.data(using: .utf8)!
@@ -127,14 +127,14 @@ final class CustomerDisputeTests: XCTestCase {
             "create_time": "\(self.due)",
             "update_time": "\(self.due)",
             "status": "WAITING_FOR_SELLER_RESPONSE",
-            "dispute_life_cycle_stage", "INQUIRY",
+            "dispute_life_cycle_stage": "INQUIRY",
             "dispute_channel": "INTERNAL",
             "seller_response_due_date": "\(self.due)",
             "dispute_amount": {
                 "value": "89.45",
                 "currency_code": "USD"
             },
-            "reason": "AUTHORISED",
+            "reason": "UNAUTHORISED",
             "disputed_transactions": []
         }
         """.data(using: .utf8)!
@@ -142,10 +142,10 @@ final class CustomerDisputeTests: XCTestCase {
         {
             "seller_response_due_date": "1/2/13 1:24:54pm",
             "dispute_amount": {
-            "value": "89.45",
-            "currency_code": "USD"
+                "value": "89.45",
+                "currency_code": "USD"
             },
-            "reason": "AUTHORISED",
+            "reason": "UNAUTHORISED",
             "disputed_transactions": []
         }
         """.data(using: .utf8)!
@@ -160,7 +160,7 @@ final class CustomerDisputeTests: XCTestCase {
         ))
         
         let dispute = try decoder.decode(CustomerDispute.self, from: more)
-        
+
         XCTAssertEqual(dispute.id, "B321E1FA-5F62-4599-99C1-C6E933AEBBE4")
         XCTAssertEqual(dispute.created, self.due)
         XCTAssertEqual(dispute.updated, self.due)
