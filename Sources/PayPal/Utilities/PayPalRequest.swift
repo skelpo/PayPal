@@ -49,6 +49,12 @@ extension Container {
             return try self.client().send(request)
         }.flatMap(to: Result.self) { response in
             if !(200...299).contains(response.http.status.code) {
+                guard response.http.headers.firstValue(name: .contentType) == "application/json" else {
+                    let body = response.http.body.data ?? Data()
+                    let error = String(data: body, encoding: .utf8)
+                    throw Abort(response.http.status, reason: error)
+                }
+                
                 return try response.content.decode(PayPalAPIError.self).catchFlatMap { _ in
                     return try response.content.decode(PayPalAPIIdentityError.self).map { error in throw error }
                 }.map { error in
