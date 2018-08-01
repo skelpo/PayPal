@@ -16,8 +16,8 @@ final class TrackingTests: XCTestCase {
         let tracking = Tracking(carrier: .usps, other: nil, url: "https://whoshippedit.com/shippment/9163524667210796186056", number: "9163524667210796186056")
         let generated = try String(data: encoder.encode(tracking), encoding: .utf8)!
         let json =
-            "{\"tracking_number\":\"9163524667210796186056\",\"tracking_url\":\"https://whoshippedit.com/shippment/9163524667210796186056\"," +
-            "\"carrier_name\":\"USPS\"}"
+            "{\"carrier_name\":\"USPS\",\"tracking_url\":\"https:\\/\\/whoshippedit.com\\/shippment\\/9163524667210796186056\"," +
+            "\"tracking_number\":\"9163524667210796186056\"}"
         
         XCTAssertEqual(generated, json)
     }
