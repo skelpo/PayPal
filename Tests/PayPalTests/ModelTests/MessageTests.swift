@@ -17,7 +17,7 @@ final class MessageTests: XCTestCase {
         try XCTAssertThrowsError(message.set(\.content <~ String(repeating: "m", count: 2001)))
         try message.set(\.content <~ "<something_witty_here>")
         
-        XCTAssertEqual(message.content, "<comething_witty_here>")
+        XCTAssertEqual(message.content, "<something_witty_here>")
     }
     
     func testEncoding()throws {
