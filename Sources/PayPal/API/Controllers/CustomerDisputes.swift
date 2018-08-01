@@ -230,11 +230,27 @@ public final class CustomerDisputes: PayPalController {
             let json = try String(data: JSONEncoder().encode(evidences), encoding: .utf8) ?? "[]" + ";type=application/json"
             let body = ["input": json, "file1": "@" + file]
             
+            // let data = request.http.body.data?.split(separator: .newLine).first, let boundary = String(data: data, encoding: .utf8)
             try request.content.encode(body, as: .formData)
-            request.http.headers.replaceOrAdd(name: .contentType, value: "multipart/related; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW")
+            request.http.headers.replaceOrAdd(name: .contentType, value: "multipart/related")
             
             let response = try self.container.client().send(request)
-            return response.flatMap { response in try response.content.decode(LinkResponse.self) }["links", []]
+            return response.flatMap { response in
+                if !(200...299).contains(response.http.status.code) {
+                    guard response.http.headers.firstValue(name: .contentType)?.split(separator: ";").first == "application/json" else {
+                        let body = response.http.body.data ?? Data()
+                        let error = String(data: body, encoding: .utf8)
+                        throw Abort(response.http.status, reason: error)
+                    }
+                    
+                    return try response.content.decode(PayPalAPIError.self).catchFlatMap { _ in
+                        return try response.content.decode(PayPalAPIIdentityError.self).map { error in throw error }
+                    }.map { error in
+                        throw error
+                    }
+                }
+                return try response.content.decode(LinkResponse.self)
+            }["links", []]
         }
     }
 }

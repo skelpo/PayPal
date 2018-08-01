@@ -165,7 +165,7 @@ final class CustomerDisputesTests: XCTestCase {
             guard let enumerator = FileManager.default.enumerator(atPath: home)?.allObjects as? [String] else {
                 throw Abort(.internalServerError)
             }
-            guard let path = enumerator.filter({ $0.contains("PayPal/test.pdf") }).first else {
+            guard let path = enumerator.lazy.filter({ $0.contains("PayPal/test.pdf") }).first else {
                 throw Abort(.internalServerError)
             }
             
