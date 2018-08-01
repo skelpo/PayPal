@@ -53,12 +53,13 @@ public struct AcceptDisputeBody: Content, ValidationSetable, Equatable {
     /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let note = try container.decodeIfPresent(String.self, forKey: .refund)
+        let note = try container.decodeIfPresent(String.self, forKey: .note)
         
         self.note = note
         self.reason = try container.decodeIfPresent(Reason.self, forKey: .reason)
         self.invoiceID = try container.decodeIfPresent(String.self, forKey: .invoiceID)
         self.returnAddress = try container.decodeIfPresent(Address.self, forKey: .returnAddress)
+        self.refund = try container.decodeIfPresent(Money.self, forKey: .refund)
         
         try self.set(\.note <~ note)
     }
