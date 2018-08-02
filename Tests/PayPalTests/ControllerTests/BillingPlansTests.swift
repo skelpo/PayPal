@@ -15,6 +15,10 @@ final class BillingPlansTests: XCTestCase {
         try! services.register(PayPalProvider())
         
         app = try! Application.testable(services: services)
+        
+        let plans = try! self.app.make(BillingPlans.self)
+        let list = try! plans.list(parameters: QueryParamaters(totalCountRequired: true)).wait()
+        self.id = list.plans?.first?.id
     }
     
     func testServiceExists()throws {
@@ -34,15 +38,22 @@ final class BillingPlansTests: XCTestCase {
                     interval: "1",
                     frequency: .month,
                     cycles: "0",
-                    amount: Money(currency: .usd, value: "10.00"),
+                    amount: Amount(currency: .usd, value: "10.00"),
                     charges: nil
                 )
             ],
-            preferances: nil
+            preferances: MerchantPreferances(
+                setupFee: nil,
+                cancelURL: "https://skelpo.com",
+                returnURL: "https://skelpo.com",
+                autoBill: .yes,
+                initialFailAction: .cancel,
+                acceptedPaymentType: nil,
+                charSet: nil
+            )
         )
         
         let created = try plans.create(with: plan).wait()
-        self.id = created.id
         
         XCTAssertEqual(created.name, plan.name)
         XCTAssertNotNil(created.id)
@@ -52,7 +63,6 @@ final class BillingPlansTests: XCTestCase {
         let plans = try self.app.make(BillingPlans.self)
         let list = try plans.list(parameters: QueryParamaters(totalCountRequired: true)).wait()
         
-        XCTAssertNotNil(list.items)
         XCTAssertNotNil(list.plans)
     }
     
@@ -62,7 +72,7 @@ final class BillingPlansTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Cannot get agreement ID to get")
         }
         
-        let status = try plans.update(plan: id, patches: [Patch(operation: .replace, path: "/name", value: "Vaser Moth")]).wait()
+        let status = try plans.update(plan: id, patches: [Patch(operation: .replace, path: "/", value: ["name": "Vaser Moth"])]).wait()
         
         XCTAssertEqual(status, .ok)
     }
