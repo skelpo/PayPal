@@ -137,21 +137,19 @@ final class CustomerDisputesTests: XCTestCase {
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get dispute ID")
         }
-
-        let pdf = try self.getPDF()
+        
+        let pdf = try self.file()
         let evidence = try Evidence(
-            type: .other,
+            type: .proofOfFulfillment,
             info: Evidence.Info(
                 tracking: [
-                    Tracking(carrier: .usps, other: nil, url: "https://whoshippedit.com/shippment/9163524667210796186056", number: "9163524667210796186056")
+                    Tracking(carrier: .fedex, other: nil, url: nil, number: "9163524667210796186056")
                 ],
-                refunds: [
-                    "2F214F48-2651-498B-9D06-150BF00E85DA"
-                ]
+                refunds: nil
             ),
-            documents: [Document(name: "test.pdf", size: "29kb")],
+            documents: nil,
             notes: "I win. Ha!",
-            itemID: "4FB4018C-F925-4FC6-B44B-0174C1B59F17"
+            itemID: nil
         )
         let links = try disputes.evidence(for: id, file: pdf, evidences: [evidence]).wait()
         
@@ -173,6 +171,18 @@ final class CustomerDisputesTests: XCTestCase {
         } else {
             throw Abort(.internalServerError, reason: "Update your OS")
         }
+    }
+    
+    func file(for path: String? = nil)throws -> File {
+        let path = try path ?? self.getPDF()
+        guard let name = path.split(separator: "/").map(String.init).last else {
+            throw Abort(.internalServerError, reason: "Invalid File Name")
+        }
+        guard let data = FileManager.default.contents(atPath: path) else {
+            throw Abort(.internalServerError, reason: "No File or Data at path \(path)")
+        }
+        
+        return File(data: data, filename: name)
     }
     
     static var allTests: [(String, (CustomerDisputesTests) -> ()throws -> ())] = [
