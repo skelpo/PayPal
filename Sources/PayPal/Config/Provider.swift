@@ -55,6 +55,11 @@ public final class PayPalProvider: Vapor.Provider {
         services.register(BillingAgreements.self)
         services.register(BillingPlans.self)
         services.register(CustomerDisputes.self)
+        
+        var content = ContentConfig.default()
+        content.use(httpDecoder: MultipartRelatedDecoder(), for: .related)
+        content.use(httpEncoder: MultipartRelatedEncoder(), for: .related)
+        services.register(content)
     }
     
     /// Gets the current app environment and registers the proper PayPal environment to the configuration.
