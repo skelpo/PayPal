@@ -1,7 +1,7 @@
 import Vapor
 
 /// Evidance for a party in a dispute.
-public struct Evidence: Content, ValidationSetable, Equatable {
+public struct Evidence: Content, ValidationSetable, MultipartPartConvertible, Equatable {
     
     /// The type of evidence.
     public var type: EvidenceType?
@@ -76,6 +76,17 @@ public struct Evidence: Content, ValidationSetable, Equatable {
         }
         
         return validations
+    }
+    
+    public func convertToMultipartPart() throws -> MultipartPart {
+        let data = try JSONEncoder().encode(self)
+        let type = MediaType.json.serialize()
+        
+        return MultipartPart(data: data, headers: ["Content-Type": type])
+    }
+    
+    public static func convertFromMultipartPart(_ part: MultipartPart) throws -> Evidence {
+        return try JSONDecoder().decode(Evidence.self, from: part.data)
     }
     
     enum CodingKeys: String, CodingKey {
