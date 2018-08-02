@@ -62,6 +62,9 @@ extension Container {
                 }
             }
             
+            if Result.self is HTTPStatus.Type {
+                return self.future(response.http.status as! Result)
+            }
             return try response.content.decode(Result.self)
         }
     }
