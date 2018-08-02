@@ -216,23 +216,18 @@ public final class CustomerDisputes: PayPalController {
     ///
     /// - Returns: An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
     ///   If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
-    public func evidence(for disputeID: String, file: String, evidences: [Evidence]) -> Future<[LinkDescription]> {
+    public func evidence(for disputeID: String, file: File, evidences: [Evidence]) -> Future<[LinkDescription]> {
         return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
             
-            guard
-                let ext = file.split(separator: ".").last.map(String.init)?.lowercased(),
-                ext == "jpg" || ext == "gif" || ext == "png" || ext == "pdf"
-            else {
+            guard let ext = file.ext, ext == "jpg" || ext == "gif" || ext == "png" || ext == "pdf" else {
                 throw PayPalError(status: .badRequest, identifier: "invalidExtension", reason: "File type must be JPG, GIF, PNG, or PDF")
             }
             
-            let request: Request = try self.container.paypal(HTTPMethod.POST, self.path() + disputeID + "/provide-evidence", body: nil as [Int]?)
-            let json = try String(data: JSONEncoder().encode(evidences), encoding: .utf8) ?? "[]" + ";type=application/json"
-            let body = ["input": json, "file1": "@" + file]
+            let json = try MultipartPart(data: JSONEncoder().encode(evidences), headers: ["Content-Type": "application/json"])
+            let body: [String: MultipartPartConvertible] = ["input": json, "file1": file]
             
-            // let data = request.http.body.data?.split(separator: .newLine).first, let boundary = String(data: data, encoding: .utf8)
-            try request.content.encode(body, as: .formData)
-            request.http.headers.replaceOrAdd(name: .contentType, value: "multipart/related")
+            let request: Request = try self.container.paypal(.POST, self.path() + disputeID + "/provide-evidence", body: nil as [Int]?)
+            try request.content.encode(body.parts(), as: .related)
             
             let response = try self.container.client().send(request)
             return response.flatMap { response in
