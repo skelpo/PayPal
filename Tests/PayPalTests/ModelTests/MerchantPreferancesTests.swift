@@ -17,7 +17,7 @@ final class MerchantPreferancesTests: XCTestCase {
         XCTAssertEqual(preferances.id, nil)
         XCTAssertEqual(preferances.cancelURL, "https://example.com/agreements")
         XCTAssertEqual(preferances.returnURL, "https://example.com/agreements/latest")
-        XCTAssertEqual(preferances.maxFails, 0)
+        XCTAssertEqual(preferances.maxFails, "0")
         XCTAssertEqual(preferances.autoBill, .yes)
         XCTAssertEqual(preferances.initialFailAction, .continue)
         XCTAssertEqual(preferances.acceptedPaymentType, nil)
@@ -38,7 +38,7 @@ final class MerchantPreferancesTests: XCTestCase {
         
         let generated = try String(data: encoder.encode(preferances), encoding: .utf8)!
         let json =
-            "{\"max_fail_attempts\":0,\"char_set\":\"UTF-8\",\"initial_fail_amount_action\":\"CONTINUE\",\"cancel_url\":\"https:\\/\\/example.com\\/agreements\"," +
+            "{\"max_fail_attempts\":\"0\",\"char_set\":\"UTF-8\",\"initial_fail_amount_action\":\"CONTINUE\",\"cancel_url\":\"https:\\/\\/example.com\\/agreements\"," +
             "\"return_url\":\"https:\\/\\/example.com\\/agreements\\/latest\",\"setup_fee\":{\"value\":\"0\",\"currency_code\":\"USD\"}," +
             "\"auto_bill_amount\":\"YES\"}"
         
@@ -59,7 +59,7 @@ final class MerchantPreferancesTests: XCTestCase {
         {
             "cancel_url": "https://example.com/agreements",
             "return_url": "https://example.com/agreements/latest",
-            "max_fail_attempts": 0,
+            "max_fail_attempts": "0",
             "char_set": "UTF-8",
             "initial_fail_amount_action": "CONTINUE",
             "setup_fee": {
