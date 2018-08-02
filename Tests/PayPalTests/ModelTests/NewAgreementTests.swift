@@ -96,7 +96,7 @@ final class NewAgreementTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(agreement), encoding: .utf8)!
         let json =
-            "{\"plan\":{\"name\":\"Nia's Maggot Loaf\",\"type\":\"INFINATE\",\"description\":\"Weekly maggot loaf subscription\"},\"start_date\":\"\(now)\"," +
+            "{\"plan\":{\"name\":\"Nia's Maggot Loaf\",\"type\":\"INFINITE\",\"description\":\"Weekly maggot loaf subscription\"},\"start_date\":\"\(now)\"," +
             "\"name\":\"Nia's Maggot Loaf\",\"description\":\"Weekly maggot loaf subscription\",\"payer\":{\"payment_method\":\"paypal\"}}"
         
         var index = 0
@@ -138,7 +138,7 @@ final class NewAgreementTests: XCTestCase {
             "plan": {
                 "name": "Nia's Maggot Loaf",
                 "description": "Weekly maggot loaf subscription",
-                "type": "INFINATE"
+                "type": "INFINITE"
             }
         }
         """.data(using: .utf8)!
@@ -153,7 +153,7 @@ final class NewAgreementTests: XCTestCase {
             "plan": {
                 "name": "Nia's Maggot Loaf",
                 "description": "Weekly maggot loaf subscription",
-                "type": "INFINATE"
+                "type": "INFINITE"
             }
         }
         """.data(using: .utf8)!
@@ -168,7 +168,7 @@ final class NewAgreementTests: XCTestCase {
             "plan": {
                 "name": "Nia's Maggot Loaf",
                 "description": "Weekly maggot loaf subscription",
-                "type": "INFINATE"
+                "type": "INFINITE"
             }
         }
         """.data(using: .utf8)!
