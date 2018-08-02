@@ -29,7 +29,7 @@ public struct MerchantPreferances: Content, ValidationSetable, Equatable {
     
     /// The maximum number of allowed failed payment attempts.
     /// Default is `0`, which allows infinite failed payment attempts.
-    public var maxFails: Int?
+    public var maxFails: String?
     
     /// Indicates whether PayPal automatically bills the outstanding balance
     /// in the next billing cycle. The outstanding balance is the total
@@ -61,7 +61,7 @@ public struct MerchantPreferances: Content, ValidationSetable, Equatable {
         setupFee: Money?,
         cancelURL: String,
         returnURL: String,
-        maxFails: Int? = 0,
+        maxFails: String? = "0",
         autoBill: AutoBill?,
         initialFailAction: InitialFailAction?,
         acceptedPaymentType: String?,
@@ -92,7 +92,7 @@ public struct MerchantPreferances: Content, ValidationSetable, Equatable {
             setupFee: container.decodeIfPresent(Money.self, forKey: .setupFee),
             cancelURL: container.decode(String.self, forKey: .cancelURL),
             returnURL: container.decode(String.self, forKey: .returnURL),
-            maxFails: container.decodeIfPresent(Int.self, forKey: .maxFails),
+            maxFails: container.decodeIfPresent(String.self, forKey: .maxFails),
             autoBill: container.decodeIfPresent(AutoBill.self, forKey: .autoBill),
             initialFailAction: container.decodeIfPresent(InitialFailAction.self, forKey: .initialFailAction),
             acceptedPaymentType: container.decodeIfPresent(String.self, forKey: .acceptedPaymentType),
