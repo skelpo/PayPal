@@ -35,7 +35,7 @@ final class BillingAgreementsTests: XCTestCase {
             plan: BillingPlan(
                 name: "Nia's Maggot Loaf",
                 description: "Weekly maggot loaf subscription",
-                type: .infinate,
+                type: .infinite,
                 payments: nil,
                 preferances: nil
             )

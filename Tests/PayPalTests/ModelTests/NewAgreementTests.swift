@@ -17,7 +17,7 @@ final class NewAgreementTests: XCTestCase {
             plan: BillingPlan(
                 name: "Nia's Maggot Loaf",
                 description: "Weekly maggot loaf subscription",
-                type: .infinate,
+                type: .infinite,
                 payments: nil,
                 preferances: nil
             )
@@ -35,7 +35,7 @@ final class NewAgreementTests: XCTestCase {
         try XCTAssertEqual(agreement.plan, BillingPlan(
             name: "Nia's Maggot Loaf",
             description: "Weekly maggot loaf subscription",
-            type: .infinate,
+            type: .infinite,
             payments: nil,
             preferances: nil
         ))
@@ -47,14 +47,14 @@ final class NewAgreementTests: XCTestCase {
             description: "Weekly maggot loaf subscription",
             start: now,
             payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
-            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinate, payments: nil, preferances: nil)
+            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
         ))
         try XCTAssertThrowsError(NewAgreement(
             name: "Nia's Maggot Loaf",
             description: String(repeating: "d", count: 129),
             start: now,
             payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
-            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinate, payments: nil, preferances: nil)
+            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
         ))
         
         var agreement = try NewAgreement(
@@ -62,7 +62,7 @@ final class NewAgreementTests: XCTestCase {
             description: "Weekly maggot loaf subscription",
             start: now,
             payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
-            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinate, payments: nil, preferances: nil)
+            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
         )
         
         try XCTAssertThrowsError(agreement.set(\.name <~ String(repeating: "n", count: 129)))
@@ -89,7 +89,7 @@ final class NewAgreementTests: XCTestCase {
             plan: BillingPlan(
                 name: "Nia's Maggot Loaf",
                 description: "Weekly maggot loaf subscription",
-                type: .infinate,
+                type: .infinite,
                 payments: nil,
                 preferances: nil
             )
@@ -121,7 +121,7 @@ final class NewAgreementTests: XCTestCase {
             plan: BillingPlan(
                 name: "Nia's Maggot Loaf",
                 description: "Weekly maggot loaf subscription",
-                type: .infinate,
+                type: .infinite,
                 payments: nil,
                 preferances: nil
             )

@@ -7,7 +7,7 @@ final class BillingPlanListTests: XCTestCase {
             BillingPlan(
                 name: "Monthly Water",
                 description: "Your water payment",
-                type: .infinate,
+                type: .infinite,
                 payments: [
                     Payment(
                         name: "Water Charge",
@@ -28,7 +28,7 @@ final class BillingPlanListTests: XCTestCase {
         try XCTAssertEqual(list.plans?.first,  BillingPlan(
             name: "Monthly Water",
             description: "Your water payment",
-            type: .infinate,
+            type: .infinite,
             payments: [
                 Payment(
                     name: "Water Charge",
@@ -50,7 +50,7 @@ final class BillingPlanListTests: XCTestCase {
             BillingPlan(
                 name: "Monthly Water",
                 description: "Your water payment",
-                type: .infinate,
+                type: .infinite,
                 payments: [
                     Payment(
                         name: "Water Charge",
@@ -119,7 +119,7 @@ final class BillingPlanListTests: XCTestCase {
         try XCTAssertEqual(plan.plans?.first, BillingPlan(
             name: "Monthly Water",
             description: "Your water payment",
-            type: .infinate,
+            type: .infinite,
             payments: [
                 Payment(
                     name: "Water Charge",

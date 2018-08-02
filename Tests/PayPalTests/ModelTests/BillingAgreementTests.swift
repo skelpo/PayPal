@@ -14,7 +14,7 @@ final class BillingAgreementTests: XCTestCase {
             shippingAddress: nil,
             overrideMerchantPreferances: nil,
             overrideChargeModels: nil,
-            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinate, payments: nil, preferances: nil)
+            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
         )
         
         XCTAssertEqual(agreement.id, nil)
@@ -32,7 +32,7 @@ final class BillingAgreementTests: XCTestCase {
         try XCTAssertEqual(agreement.plan, BillingPlan(
             name: "Nia's Maggot Loaf",
             description: "Weekly maggot loaf subscription",
-            type: .infinate,
+            type: .infinite,
             payments: nil,
             preferances: nil
         ))
@@ -48,7 +48,7 @@ final class BillingAgreementTests: XCTestCase {
             shippingAddress: nil,
             overrideMerchantPreferances: nil,
             overrideChargeModels: nil,
-            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinate, payments: nil, preferances: nil)
+            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
         ))
         try XCTAssertThrowsError(BillingAgreement(
             name: "Nia's Maggot Loaf",
@@ -59,7 +59,7 @@ final class BillingAgreementTests: XCTestCase {
             shippingAddress: nil,
             overrideMerchantPreferances: nil,
             overrideChargeModels: nil,
-            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinate, payments: nil, preferances: nil)
+            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
         ))
         
         var agreement = try BillingAgreement(
@@ -71,7 +71,7 @@ final class BillingAgreementTests: XCTestCase {
             shippingAddress: nil,
             overrideMerchantPreferances: nil,
             overrideChargeModels: nil,
-            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinate, payments: nil, preferances: nil)
+            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
         )
         
         try XCTAssertThrowsError(agreement.set(\BillingAgreement.name <~ String(repeating: "n", count: 129)))
@@ -95,7 +95,7 @@ final class BillingAgreementTests: XCTestCase {
             shippingAddress: nil,
             overrideMerchantPreferances: nil,
             overrideChargeModels: nil,
-            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinate, payments: nil, preferances: nil)
+            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
         )
         let generated = try String(data: encoder.encode(agreement), encoding: .utf8)!
         let json =
@@ -121,7 +121,7 @@ final class BillingAgreementTests: XCTestCase {
             shippingAddress: nil,
             overrideMerchantPreferances: nil,
             overrideChargeModels: nil,
-            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinate, payments: nil, preferances: nil)
+            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
         )
         
         let json = """

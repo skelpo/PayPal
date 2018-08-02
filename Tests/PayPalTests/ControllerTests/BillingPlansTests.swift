@@ -26,7 +26,7 @@ final class BillingPlansTests: XCTestCase {
         let plan = try BillingPlan(
             name: "Monthly Water",
             description: "Your water payment",
-            type: .infinate,
+            type: .infinite,
             payments: [
                 Payment(
                     name: "Water Charge",

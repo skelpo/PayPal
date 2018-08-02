@@ -6,7 +6,7 @@ final class BillingPlanTests: XCTestCase {
         let plan = try BillingPlan(
             name: "Monthly Water",
             description: "Your water payment",
-            type: .infinate,
+            type: .infinite,
             payments: [
                 Payment(
                     name: "Water Charge",
@@ -30,7 +30,7 @@ final class BillingPlanTests: XCTestCase {
         XCTAssertEqual(plan.links, nil)
         XCTAssertEqual(plan.name, "Monthly Water")
         XCTAssertEqual(plan.description, "Your water payment")
-        XCTAssertEqual(plan.type, .infinate)
+        XCTAssertEqual(plan.type, .infinite)
         XCTAssertEqual(plan.preferances, nil)
         XCTAssertEqual(plan.paymentDefinitions?.count, 1)
         try XCTAssertEqual(plan.paymentDefinitions?.first, Payment(
@@ -48,14 +48,14 @@ final class BillingPlanTests: XCTestCase {
         try XCTAssertThrowsError(BillingPlan(
             name: String(repeating: "N", count: 129),
             description: "Your water payment",
-            type: .infinate,
+            type: .infinite,
             payments: nil,
             preferances: nil
         ))
         try XCTAssertThrowsError(BillingPlan(
             name: "Monthly Water",
             description: String(repeating: "N", count: 129),
-            type: .infinate,
+            type: .infinite,
             payments: nil,
             preferances: nil
         ))
@@ -63,7 +63,7 @@ final class BillingPlanTests: XCTestCase {
         var plan = try BillingPlan(
             name: "Monthly Water",
             description: "Your water payment",
-            type: .infinate,
+            type: .infinite,
             payments: [
                 Payment(
                     name: "Water Charge",
@@ -95,7 +95,7 @@ final class BillingPlanTests: XCTestCase {
         let plan = try BillingPlan(
             name: "Monthly Water",
             description: "Your water payment",
-            type: .infinate,
+            type: .infinite,
             payments: [
                 Payment(
                     name: "Water Charge",

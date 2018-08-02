@@ -10,6 +10,6 @@ extension BillingPlan {
         case fixed = "FIXED"
         
         /// The parent plan continues for an indefinate amount of time.
-        case infinate = "INFINATE"
+        case infinite = "INFINITE"
     }
 }
