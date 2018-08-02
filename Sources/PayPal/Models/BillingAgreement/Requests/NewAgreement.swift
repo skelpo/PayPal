@@ -45,7 +45,7 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
     /// the agreement uses the default merchant preferences from the plan. The merchant preferences include how much it costs to set up the agreement,
     /// the URLs where the customer can approve or cancel the agreement, the maximum number of allowed failed payment attempts, whether PayPal
     /// automatically bills the outstanding balance in the next billing cycle, and the action if the customer's initial payment fails.
-    public var overrideMerchantPreferances: MerchantPreferances?
+    public var overrideMerchantPreferances: MerchantPreferances<Money>?
     
     /// An array of charge models to override the charge models in the plan. A charge model defines shipping fee and tax information.
     /// If you omit this parameter, the agreement uses the default shipping fee and tax information from the plan.
@@ -81,7 +81,7 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
         plan: BillingPlan,
         details: Details? = nil,
         shippingAddress: Address? = nil,
-        overrideMerchantPreferances: MerchantPreferances? = nil,
+        overrideMerchantPreferances: MerchantPreferances<Money>? = nil,
         overrideChargeModels: [OverrideCharge]? = nil
     )throws {
         self.name = name
@@ -110,7 +110,7 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
         self.plan = try container.decode(BillingPlan.self, forKey: .plan)
         self.details = try container.decodeIfPresent(Details.self, forKey: .details)
         self.shippingAddress = try container.decodeIfPresent(Address.self, forKey: .shippingAddress)
-        self.overrideMerchantPreferances = try container.decodeIfPresent(MerchantPreferances.self, forKey: .overrideMerchantPreferances)
+        self.overrideMerchantPreferances = try container.decodeIfPresent(MerchantPreferances<Money>.self, forKey: .overrideMerchantPreferances)
         self.overrideChargeModels = try container.decodeIfPresent([OverrideCharge].self, forKey: .overrideChargeModels)
         
         try self.set(\.name <~ name)

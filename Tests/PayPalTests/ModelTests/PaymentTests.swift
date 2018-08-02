@@ -129,9 +129,9 @@ final class PaymentTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        try XCTAssertEqual(payment, decoder.decode(Payment.self, from: valid))
-        try XCTAssertThrowsError(decoder.decode(Payment.self, from: cyclesError))
-        try XCTAssertThrowsError(decoder.decode(Payment.self, from: intervalError))
+        try XCTAssertEqual(payment, decoder.decode(Payment<Money>.self, from: valid))
+        try XCTAssertThrowsError(decoder.decode(Payment<Money>.self, from: cyclesError))
+        try XCTAssertThrowsError(decoder.decode(Payment<Money>.self, from: intervalError))
     }
     
     static var allTests: [(String, (PaymentTests) -> ()throws -> ())] = [

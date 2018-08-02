@@ -14,7 +14,7 @@ final class BillingPlanTests: XCTestCase {
                     interval: "1",
                     frequency: .month,
                     cycles: "0",
-                    amount: Money(currency: .usd, value: "10.00"),
+                    amount: Amount(currency: .usd, value: "10.00"),
                     charges: nil
                 )
             ],
@@ -39,7 +39,7 @@ final class BillingPlanTests: XCTestCase {
             interval: "1",
             frequency: .month,
             cycles: "0",
-            amount: Money(currency: .usd, value: "10.00"),
+            amount: Amount(currency: .usd, value: "10.00"),
             charges: nil
         ))
     }
@@ -71,7 +71,7 @@ final class BillingPlanTests: XCTestCase {
                     interval: "1",
                     frequency: .month,
                     cycles: "0",
-                    amount: Money(currency: .usd, value: "10.00"),
+                    amount: Amount(currency: .usd, value: "10.00"),
                     charges: nil
                 )
             ],
@@ -103,7 +103,7 @@ final class BillingPlanTests: XCTestCase {
                     interval: "1",
                     frequency: .month,
                     cycles: "0",
-                    amount: Money(currency: .usd, value: "10.00"),
+                    amount: Amount(currency: .usd, value: "10.00"),
                     charges: nil
                 )
             ],
@@ -111,7 +111,7 @@ final class BillingPlanTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(plan), encoding: .utf8)!
         let json =
-            "{\"payment_definitions\":[{\"cycles\":\"0\",\"amount\":{\"value\":\"10.00\",\"currency_code\":\"USD\"},\"frequency_interval\":\"1\"," +
+            "{\"payment_definitions\":[{\"cycles\":\"0\",\"amount\":{\"value\":\"10.00\",\"currency\":\"USD\"},\"frequency_interval\":\"1\"," +
             "\"name\":\"Water Charge\",\"type\":\"REGULAR\",\"frequency\":\"MONTH\"}],\"name\":\"Monthly Water\",\"type\":\"INFINITE\"," +
             "\"description\":\"Your water payment\"}"
         

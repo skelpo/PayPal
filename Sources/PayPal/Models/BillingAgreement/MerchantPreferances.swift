@@ -1,7 +1,7 @@
 import Vapor
 
 /// Merchant preferances that override the default information for a billing agreement.
-public struct MerchantPreferances: Content, ValidationSetable, Equatable {
+public struct MerchantPreferances<M>: Content, ValidationSetable, Equatable where M: Monitary {
     
     /// The PayPal-generated ID for the resource.
     ///
@@ -9,7 +9,7 @@ public struct MerchantPreferances: Content, ValidationSetable, Equatable {
     public let id: String?
     
     /// The currency and amount of the fee to set up the agreement. Default is `0`.
-    public var setupFee: Money?
+    public var setupFee: M?
     
     /// The URL to which the customer is redirected if they cancel the agreement.
     ///
@@ -58,7 +58,7 @@ public struct MerchantPreferances: Content, ValidationSetable, Equatable {
     ///     )
     public init(
         id: String? = nil,
-        setupFee: Money?,
+        setupFee: M?,
         cancelURL: String,
         returnURL: String,
         maxFails: String? = "0",
@@ -89,7 +89,7 @@ public struct MerchantPreferances: Content, ValidationSetable, Equatable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         try self.init(
             id: container.decodeIfPresent(String.self, forKey: .id),
-            setupFee: container.decodeIfPresent(Money.self, forKey: .setupFee),
+            setupFee: container.decodeIfPresent(M.self, forKey: .setupFee),
             cancelURL: container.decode(String.self, forKey: .cancelURL),
             returnURL: container.decode(String.self, forKey: .returnURL),
             maxFails: container.decodeIfPresent(String.self, forKey: .maxFails),

@@ -15,7 +15,7 @@ final class BillingPlanListTests: XCTestCase {
                         interval: "1",
                         frequency: .month,
                         cycles: "0",
-                        amount: Money(currency: .usd, value: "10.00"),
+                        amount: Amount(currency: .usd, value: "10.00"),
                         charges: nil
                     )
                 ],
@@ -36,7 +36,7 @@ final class BillingPlanListTests: XCTestCase {
                     interval: "1",
                     frequency: .month,
                     cycles: "0",
-                    amount: Money(currency: .usd, value: "10.00"),
+                    amount: Amount(currency: .usd, value: "10.00"),
                     charges: nil
                 )
             ],
@@ -58,7 +58,7 @@ final class BillingPlanListTests: XCTestCase {
                         interval: "1",
                         frequency: .month,
                         cycles: "0",
-                        amount: Money(currency: .usd, value: "10.00"),
+                        amount: Amount(currency: .usd, value: "10.00"),
                         charges: nil
                     )
                 ],
@@ -67,7 +67,7 @@ final class BillingPlanListTests: XCTestCase {
             ])
         let generated = try String(data: encoder.encode(list), encoding: .utf8)!
         let json =
-            "{\"plans\":[{\"payment_definitions\":[{\"cycles\":\"0\",\"amount\":{\"value\":\"10.00\",\"currency_code\":\"USD\"},\"frequency_interval\":\"1\"," +
+            "{\"plans\":[{\"payment_definitions\":[{\"cycles\":\"0\",\"amount\":{\"value\":\"10.00\",\"currency\":\"USD\"},\"frequency_interval\":\"1\"," +
             "\"name\":\"Water Charge\",\"type\":\"REGULAR\",\"frequency\":\"MONTH\"}],\"name\":\"Monthly Water\",\"type\":\"INFINITE\"," +
             "\"description\":\"Your water payment\"}],\"total_items\":\"1\"}"
         
@@ -95,7 +95,7 @@ final class BillingPlanListTests: XCTestCase {
                             "cycles": "0",
                             "amount": {
                                 "value": "10.00",
-                                "currency_code": "USD"
+                                "currency": "USD"
                             },
                             "frequency_interval": "1",
                             "name": "Water Charge",
@@ -127,7 +127,7 @@ final class BillingPlanListTests: XCTestCase {
                     interval: "1",
                     frequency: .month,
                     cycles: "0",
-                    amount: Money(currency: .usd, value: "10.00"),
+                    amount: Amount(currency: .usd, value: "10.00"),
                     charges: nil
                 )
             ],

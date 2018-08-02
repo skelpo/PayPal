@@ -1,7 +1,7 @@
 import Vapor
 
 /// The payment made during each cycle of a billing agreement.
-public struct Payment: Content, ValidationSetable, Equatable {
+public struct Payment<M>: Content, ValidationSetable, Equatable where M: Monitary {
     
     /// The PayPal-generated ID for the resource.
     ///
@@ -30,7 +30,7 @@ public struct Payment: Content, ValidationSetable, Equatable {
     public var cycles: String
     
     /// The currency and amount to charge at the end of each payment cycle for this definition.
-    public var amount: Money
+    public var amount: M
     
     /// An array of shipping fee and tax information for this definition.
     public var charges: [Charge]?
@@ -46,7 +46,7 @@ public struct Payment: Content, ValidationSetable, Equatable {
     ///         amount: Money(currency: .usd, value: "24.99"),
     ///         charges: nil
     ///     )
-    public init(name: String, type: PaymentType, interval: String, frequency: Frequency, cycles: String, amount: Money, charges: [Charge]?)throws {
+    public init(name: String, type: PaymentType, interval: String, frequency: Frequency, cycles: String, amount: M, charges: [Charge]?)throws {
         self.id = nil
         self.name = name
         self.type = type
@@ -69,7 +69,7 @@ public struct Payment: Content, ValidationSetable, Equatable {
         self.interval = try container.decode(String.self, forKey: .interval)
         self.frequency = try container.decode(Frequency.self, forKey: .frequency)
         self.cycles = try container.decode(String.self, forKey: .cycles)
-        self.amount = try container.decode(Money.self, forKey: .amount)
+        self.amount = try container.decode(M.self, forKey: .amount)
         self.charges = try container.decodeIfPresent([Charge].self, forKey: .charges)
         
         try self.set(\.name <~ name)
