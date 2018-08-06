@@ -53,7 +53,7 @@ final class BillingAgreementsTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Cannot get agreement ID to update")
         }
         
-        let patch = try Patch(operation: .replace, path: "/name", value: "Igby Maggot")
+        let patch = try Patch(operation: .replace, path: "/", value: ["name": "Igby Maggot"])
         let updated = try agreements.update(agreement: id, with: [patch]).wait()
         
         XCTAssertEqual(updated, .ok)
