@@ -19,10 +19,9 @@ public struct Patch: Content, Equatable {
     /// Creates a new `Patch` instance.
     ///
     ///     Patch(
-    ///         operation: .move,
-    ///         path: "/age",
-    ///         value: .number(.int(21)),
-    ///         from: "/current_age"
+    ///         operation: .replace,
+    ///         path: "/",
+    ///         value: JSON.object(["age": .number(.int(21))])
     ///     )
     public init(operation: Operation, path: String?, value: JSON?, from: String? = nil) {
         self.operation = operation
@@ -34,10 +33,9 @@ public struct Patch: Content, Equatable {
     /// Creates a new `Patch` instance.
     ///
     ///     try Patch(
-    ///         operation: .move,
-    ///         path: "/age",
-    ///         value: 21,
-    ///         from: "/current_age"
+    ///         operation: .replace,
+    ///         path: "/",
+    ///         value: ["age": 21]
     ///     )
     public init(operation: Operation, path: String?, value: FailableJSONRepresentable?, from: String? = nil)throws {
         self.operation = operation
