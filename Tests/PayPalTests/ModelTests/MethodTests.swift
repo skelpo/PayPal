@@ -15,11 +15,12 @@ final class MethodTests: XCTestCase {
         XCTAssertEqual(Method.CONNECT.rawValue, "CONNECT")
         XCTAssertEqual(Method.OPTIONS.rawValue, "OPTIONS")
         XCTAssertEqual(Method.PATCH.rawValue, "PATCH")
+        XCTAssertEqual(Method.REDIRECT.rawValue, "REDIRECT")
     }
     
     func testAllCase() {
-        XCTAssertEqual(Method.allCases.count, 8)
-        XCTAssertEqual(Method.allCases, [.GET, .POST, .PUT, .DELETE, .HEAD, .CONNECT, .OPTIONS, .PATCH])
+        XCTAssertEqual(Method.allCases.count, 9)
+        XCTAssertEqual(Method.allCases, [.GET, .POST, .PUT, .DELETE, .HEAD, .CONNECT, .OPTIONS, .PATCH, .REDIRECT])
     }
     
     func testEncoding()throws {

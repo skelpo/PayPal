@@ -4,5 +4,5 @@ import Vapor
 public enum Method: String, Hashable, CaseIterable, Content {
     
     ///
-    case GET, POST, PUT, DELETE, HEAD, CONNECT, OPTIONS, PATCH
+    case GET, POST, PUT, DELETE, HEAD, CONNECT, OPTIONS, PATCH, REDIRECT
 }
