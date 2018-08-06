@@ -1,4 +1,5 @@
 import Vapor
+import JSON
 
 /// You use billing plans and billing agreements to create an agreement for a recurring PayPal or debit card payment for goods or services.
 ///
@@ -109,5 +110,22 @@ public final class BillingPlans: PayPalController {
             let client = try self.container.make(PayPalClient.self)
             return try client.get(self.path() + id, as: BillingPlan.self)
         }
+    }
+    
+    /// Sets the state of a billing plan, by ID.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code with no JSON response body.
+    ///
+    /// - Parameters:
+    ///   - plan: The ID of the billing plan to update.
+    ///   - state: The new state to set the plan to.
+    ///
+    /// - Returns: The HTTP status of the response, in this case `200 OK`. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func setState(of planID: String, to state: BillingPlan.State) -> Future<HTTPStatus> {
+        let newValue = JSON.object(["state": .string(state.rawValue)])
+        return self.update(plan: planID, patches: [
+            Patch(operation: .replace, path: "/", value: newValue)
+        ])
     }
 }
