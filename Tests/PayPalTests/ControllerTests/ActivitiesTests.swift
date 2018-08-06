@@ -24,10 +24,10 @@ final class ActivitiesTests: XCTestCase {
         let activities = try app.make(Activities.self)
         
         let plain = try activities.activities().wait()
-        let queried = try activities.activities(parameters: QueryParamaters(startTime: Date.distantPast, endTime: Date())).wait()
+        let queried = try activities.activities(parameters: QueryParamaters(page: 0, pageSize: 5)).wait()
         
-        XCTAssert(plain.items!.count > 0, "plain.items count is 0")
-        XCTAssert(queried.items!.count > 0, "queried.items count is 0")
+        XCTAssertGreaterThan(plain.items?.count ?? 0, 0)
+        XCTAssertLessThanOrEqual(queried.items?.count ?? 0, 5)
     }
     
     static var allTests: [(String, (ActivitiesTests) -> ()throws -> ())] = [
