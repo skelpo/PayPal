@@ -248,4 +248,8 @@ public final class CustomerDisputes: PayPalController {
             }["links", []]
         }
     }
+    
+    public func updateStatus(of disputeID: String?) {
+        
+    }
 }
