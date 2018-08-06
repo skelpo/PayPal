@@ -57,15 +57,24 @@ public final class BillingPlans: PayPalController {
     ///
     /// A successful request returns the HTTP `200 OK` status code and a JSON response body that lists plans with details.
     ///
-    /// - Parameter parameters: The query-string paramaters passed in with the request. The values used for this
-    ///   endpoint are `page`, `status`, `pageSize`, and `totalCountRequired`.
+    /// - Parameters:
+    ///   - state: The state of the billing plans to fetch. PayPal uses `CREATED` if no value is passed in.
+    ///   - parameters: The query-string paramaters passed in with the request. The values used for this
+    ///   endpoint are `page`, `pageSize`, and `totalCountRequired`.
     ///
     /// - Returns: A list of the billing plans wrapped in a future. If an error response was sent back instead, it gets converted
     ///   to a Swift error and the future wraps that instead.
-    public func list(parameters: QueryParamaters = QueryParamaters()) -> Future<BillingPlanList> {
+    public func list(state: BillingPlan.State? = nil, parameters: QueryParamaters = QueryParamaters()) -> Future<BillingPlanList> {
         return Future.flatMap(on: self.container) { () -> Future<BillingPlanList> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path(), parameters: parameters, as: BillingPlanList.self)
+            var params = parameters
+            
+            if let state = state, params.custom == nil {
+                params.custom = ["status": state.rawValue]
+            } else {
+                params.custom?["status"] = state?.rawValue
+            }
+            return try client.get(self.path(), parameters: params, as: BillingPlanList.self)
         }
     }
     
