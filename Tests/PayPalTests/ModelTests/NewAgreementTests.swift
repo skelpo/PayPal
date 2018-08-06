@@ -14,13 +14,7 @@ final class NewAgreementTests: XCTestCase {
                 fundingInstruments: nil,
                 info: nil
             ),
-            plan: BillingPlan(
-                name: "Nia's Maggot Loaf",
-                description: "Weekly maggot loaf subscription",
-                type: .infinite,
-                payments: nil,
-                preferances: nil
-            )
+            plan: "P-52603F876DFD4C61"
         )
         
         XCTAssertEqual(agreement.details, nil)
@@ -32,13 +26,7 @@ final class NewAgreementTests: XCTestCase {
         XCTAssertEqual(agreement.description, "Weekly maggot loaf subscription")
         XCTAssertEqual(agreement.start, now)
         XCTAssertEqual(agreement.payer, Payer(method: .paypal, fundingInstruments: nil, info: nil))
-        try XCTAssertEqual(agreement.plan, BillingPlan(
-            name: "Nia's Maggot Loaf",
-            description: "Weekly maggot loaf subscription",
-            type: .infinite,
-            payments: nil,
-            preferances: nil
-        ))
+        XCTAssertEqual(agreement.plan, "P-52603F876DFD4C61")
     }
     
     func testValidations()throws {
@@ -47,14 +35,14 @@ final class NewAgreementTests: XCTestCase {
             description: "Weekly maggot loaf subscription",
             start: now,
             payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
-            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
+            plan: "P-52603F876DFD4C61"
         ))
         try XCTAssertThrowsError(NewAgreement(
             name: "Nia's Maggot Loaf",
             description: String(repeating: "d", count: 129),
             start: now,
             payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
-            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
+            plan: "P-52603F876DFD4C61"
         ))
         
         var agreement = try NewAgreement(
@@ -62,7 +50,7 @@ final class NewAgreementTests: XCTestCase {
             description: "Weekly maggot loaf subscription",
             start: now,
             payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
-            plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
+            plan: "P-52603F876DFD4C61"
         )
         
         try XCTAssertThrowsError(agreement.set(\.name <~ String(repeating: "n", count: 129)))
@@ -86,18 +74,12 @@ final class NewAgreementTests: XCTestCase {
                 fundingInstruments: nil,
                 info: nil
             ),
-            plan: BillingPlan(
-                name: "Nia's Maggot Loaf",
-                description: "Weekly maggot loaf subscription",
-                type: .infinite,
-                payments: nil,
-                preferances: nil
-            )
+            plan: "P-52603F876DFD4C61"
         )
         let generated = try String(data: encoder.encode(agreement), encoding: .utf8)!
         let json =
-            "{\"plan\":{\"name\":\"Nia's Maggot Loaf\",\"type\":\"INFINITE\",\"description\":\"Weekly maggot loaf subscription\"},\"start_date\":\"\(now)\"," +
-            "\"name\":\"Nia's Maggot Loaf\",\"description\":\"Weekly maggot loaf subscription\",\"payer\":{\"payment_method\":\"paypal\"}}"
+            "{\"plan\":{\"id\":\"P-52603F876DFD4C61\"},\"start_date\":\"\(now)\",\"name\":\"Nia's Maggot Loaf\"," +
+            "\"description\":\"Weekly maggot loaf subscription\",\"payer\":{\"payment_method\":\"paypal\"}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -118,13 +100,7 @@ final class NewAgreementTests: XCTestCase {
                 fundingInstruments: nil,
                 info: nil
             ),
-            plan: BillingPlan(
-                name: "Nia's Maggot Loaf",
-                description: "Weekly maggot loaf subscription",
-                type: .infinite,
-                payments: nil,
-                preferances: nil
-            )
+            plan: "P-52603F876DFD4C61"
         )
         
         let json = """
@@ -136,9 +112,7 @@ final class NewAgreementTests: XCTestCase {
                 "payment_method": "paypal"
             },
             "plan": {
-                "name": "Nia's Maggot Loaf",
-                "description": "Weekly maggot loaf subscription",
-                "type": "INFINITE"
+                "id": "P-52603F876DFD4C61"
             }
         }
         """.data(using: .utf8)!
@@ -151,9 +125,7 @@ final class NewAgreementTests: XCTestCase {
                 "payment_method": "paypal"
             },
             "plan": {
-                "name": "Nia's Maggot Loaf",
-                "description": "Weekly maggot loaf subscription",
-                "type": "INFINITE"
+                "id": "P-52603F876DFD4C61"
             }
         }
         """.data(using: .utf8)!
@@ -166,9 +138,7 @@ final class NewAgreementTests: XCTestCase {
                 "payment_method": "paypal"
             },
             "plan": {
-                "name": "Nia's Maggot Loaf",
-                "description": "Weekly maggot loaf subscription",
-                "type": "INFINITE"
+                "id": "P-52603F876DFD4C61"
             }
         }
         """.data(using: .utf8)!
