@@ -23,30 +23,28 @@ final class BillingAgreementsTests: XCTestCase {
     
     func testCreateEndpoint()throws {
         let agreements = try app.make(BillingAgreements.self)
+        guard let plan = try app.make(BillingPlans.self).list(state: .active).wait().plans?.first else {
+            throw Abort(.internalServerError, reason: "No billing plan found")
+        }
+        guard let id = plan.id else {
+            throw Abort(.internalServerError, reason: "Billing plan missing ID")
+        }
+        
         let new = try NewAgreement(
             name: "Nia's Maggot Loaf",
             description: "Weekly maggot loaf subscription",
-            start: Date().iso8601,
+            start: (Date() + 60 * 60 * 24).iso8601,
             payer: Payer(
                 method: .paypal,
                 fundingInstruments: nil,
                 info: nil
             ),
-            plan: BillingPlan(
-                name: "Nia's Maggot Loaf",
-                description: "Weekly maggot loaf subscription",
-                type: .infinite,
-                payments: nil,
-                preferances: nil
-            )
+            plan: ID(id)
         )
         
         let agreement = try agreements.create(with: new).wait()
         
-        XCTAssertNotEqual(agreement.id, nil)
         XCTAssertEqual(agreement.name, "Nia's Maggot Loaf")
-        
-        self.id = agreement.id
     }
     
     func testUpdateEndpoint()throws {
