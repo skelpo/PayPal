@@ -8,6 +8,9 @@ public protocol Monitary: Content, ValidationSetable, Equatable {
     /// The coding keys used for encoding/decoding the object.
     associatedtype CodingKeys: CodingKey
     
+    /// The key path to use in validation of the `.value` property.
+    static var valueKey: WritableKeyPath<Self, String> { get }
+    
     /// The currency that the `Money` instance represents.
     var currency: Currency { get set }
     
@@ -47,7 +50,7 @@ extension Monitary {
     /// See `ValidationSetable.setterValidations()`
     public func setterValidations() -> SetterValidations<Self> {
         var validations = SetterValidations(Self.self)
-        validations.set(\Self.value) { value in
+        validations.set(Self.valueKey) { value in
             guard
                 value.range(of: moneyValuePattern, options: .regularExpression, range: nil, locale: nil) != nil &&
                 value.count <= 32
@@ -63,6 +66,9 @@ extension Monitary {
 ///
 /// Uses `currency_code` as the `currency` property coding key.
 public struct Money: Monitary {
+    
+    /// See `Money.valueKey`.
+    public static var valueKey: WritableKeyPath<Money, String> = \.value
     
     /// See `Monitary.currency`.
     public var currency: Currency
@@ -101,6 +107,9 @@ public struct Money: Monitary {
 /// Uses `currency` as the `currency` property coding key.
 public struct Amount: Monitary {
 
+    /// See `Amount.valueKey`.
+    public static var valueKey: WritableKeyPath<Amount, String> = \.value
+    
     /// See `Monitary.currency`.
     public var currency: Currency
     
