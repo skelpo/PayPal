@@ -157,6 +157,18 @@ final class CustomerDisputesTests: XCTestCase {
         XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
     }
     
+    func testUpdateStatusEndpoint()throws {
+        let disputes = try self.app.make(CustomerDisputes.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get dispute ID")
+        }
+        
+        let links = try disputes.updateStatus(of: id, to: .seller).wait()
+        
+        XCTAssertGreaterThan(links.count, 0)
+        XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
+    }
+    
     func getPDF()throws -> String {
         if #available(OSX 10.12, *) {
             let home = FileManager.default.homeDirectoryForCurrentUser.relativePath
@@ -194,6 +206,7 @@ final class CustomerDisputesTests: XCTestCase {
         ("testAppealEndpoint", testAppealEndpoint),
         ("testEscalateEndpoint", testEscalateEndpoint),
         ("testOfferEndpoint", testOfferEndpoint),
-        ("testEvidenceEndpoint", testEvidenceEndpoint)
+        ("testEvidenceEndpoint", testEvidenceEndpoint),
+        ("testUpdateStatusEndpoint", testUpdateStatusEndpoint)
     ]
 }

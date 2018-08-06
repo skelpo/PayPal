@@ -249,7 +249,28 @@ public final class CustomerDisputes: PayPalController {
         }
     }
     
-    public func updateStatus(of disputeID: String?) {
-        
+    /// Sandbox only. Updates the status of a dispute, by ID, from UNDER_REVIEW to either `WAITING_FOR_BUYER_RESPONSE` or `WAITING_FOR_SELLER_RESPONSE`.
+    ///
+    /// This status change enables either the customer or merchant to submit evidence for the dispute. To make this call,
+    /// the dispute `status` must be `UNDER_REVIEW`. Specify an `action` value in the JSON request body to indicate whether the status change
+    /// enables the customer or merchant to submit evidence.
+    ///
+    /// If the `action` is `BUYER_EVIDENCE`, The `status` updates to `WAITING_FOR_BUYER_RESPONSE`.
+    /// If the `action` is `SELLER_EVIDENCE`, The `status` updates to `WAITING_FOR_SELLER_RESPONSE`.
+    ///
+    /// - Parameters:
+    ///   - disputeID: The ID of the dispute that requires evidence.
+    ///   - action: The action. Indicates whether the state change enables the customer or merchant to submit evidence.
+    ///
+    /// - Returns: An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
+    ///   If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
+    public func updateStatus(of disputeID: String, with action: UpdateAction)throws -> Future<[LinkDescription]> {
+        guard try self.container.make(Configuration.self).environment == .sandbox else {
+            throw Abort(.internalServerError, reason: "Dispute settlement endpoint only availible in sandbox environment.")
+        }
+        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + disputeID + "/require-evidence", body: ["action": action], as: LinkResponse.self)["links", []]
+        }
     }
 }
