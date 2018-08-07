@@ -273,4 +273,21 @@ public final class CustomerDisputes: PayPalController {
             return try client.post(self.path() + disputeID + "/require-evidence", body: ["action": action], as: LinkResponse.self)["links", []]
         }
     }
+    
+    /// Sends a message to the other party in the dispute, by ID.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that includes a link to the dispute.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the dispute for which to send a message.
+    ///   - content: The message sent by the merchant to the other party.
+    ///
+    /// - Returns: An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
+    ///   If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
+    public func message(dispute id: String, content: String) -> Future<[LinkDescription]> {
+        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + id + "/send-message", body: ["message": content], as: LinkResponse.self)["links", []]
+        }
+    }
 }
