@@ -128,4 +128,12 @@ public struct BillingInfo: Content, ValidationSetable, Equatable {
         
         return validations
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case email, phone, address, language
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case businessName = "business_name"
+        case info = "additional_info"
+    }
 }
