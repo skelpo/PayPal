@@ -59,4 +59,9 @@ public struct PhoneNumber: Content, ValidationSetable, Equatable {
         
         return validations
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case country = "country_code"
+        case number = "national_number"
+    }
 }
