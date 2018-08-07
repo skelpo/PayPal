@@ -163,7 +163,19 @@ final class CustomerDisputesTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Cannot get dispute ID")
         }
         
-        let links = try disputes.updateStatus(of: id, to: .seller).wait()
+        let links = try disputes.updateStatus(of: id, with: .seller).wait()
+        
+        XCTAssertGreaterThan(links.count, 0)
+        XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
+    }
+    
+    func testMessageEndpoint()throws {
+        let disputes = try self.app.make(CustomerDisputes.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get dispute ID")
+        }
+        
+        let links = try disputes.message(dispute: id, content: "De item haz ben ship").wait()
         
         XCTAssertGreaterThan(links.count, 0)
         XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
@@ -207,6 +219,7 @@ final class CustomerDisputesTests: XCTestCase {
         ("testEscalateEndpoint", testEscalateEndpoint),
         ("testOfferEndpoint", testOfferEndpoint),
         ("testEvidenceEndpoint", testEvidenceEndpoint),
-        ("testUpdateStatusEndpoint", testUpdateStatusEndpoint)
+        ("testUpdateStatusEndpoint", testUpdateStatusEndpoint),
+        ("testMessageEndpoint", testMessageEndpoint)
     ]
 }
