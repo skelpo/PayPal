@@ -82,6 +82,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(UpdateActionTests.allCases),
         testCase(AccountTypeTests.allCases),
         testCase(UserInfoAddressTests.allCases),
+        testCase(UserInfoTests.allCases),
         
         // Controller Tests
         testCase(APITests.allTests),
