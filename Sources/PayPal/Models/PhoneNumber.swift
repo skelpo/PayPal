@@ -25,6 +25,19 @@ public struct PhoneNumber: Content, ValidationSetable, Equatable {
     public init(country: String, number: String)throws {
         self.country = country
         self.number = number
+        
+        try self.set(\.country <~ country)
+        try self.set(\.number <~ number)
+    }
+    
+    /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.country = try container.decode(String.self, forKey: .country)
+        self.number = try container.decode(String.self, forKey: .number)
+        
+        try self.set(\.country <~ country)
+        try self.set(\.number <~ number)
     }
     
     /// See `ValidationSetable.setterValidations()`.
