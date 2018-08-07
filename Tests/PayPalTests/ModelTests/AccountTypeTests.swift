@@ -3,18 +3,18 @@ import XCTest
 
 final class AccountTypeTests: XCTestCase {
     struct Account: Codable {
-        let type: User.AccountType
+        let type: UserInfo.AccountType
     }
     
     func testCaseRawValues() {
-        XCTAssertEqual(User.AccountType.personal.rawValue, "PERSONAL")
-        XCTAssertEqual(User.AccountType.business.rawValue, "BUSINESS")
-        XCTAssertEqual(User.AccountType.premier.rawValue, "PREMIER")
+        XCTAssertEqual(UserInfo.AccountType.personal.rawValue, "PERSONAL")
+        XCTAssertEqual(UserInfo.AccountType.business.rawValue, "BUSINESS")
+        XCTAssertEqual(UserInfo.AccountType.premier.rawValue, "PREMIER")
     }
     
     func testAllCase() {
-        XCTAssertEqual(User.AccountType.allCases.count, 3)
-        XCTAssertEqual(User.AccountType.allCases, [.personal, .business, .premier])
+        XCTAssertEqual(UserInfo.AccountType.allCases.count, 3)
+        XCTAssertEqual(UserInfo.AccountType.allCases, [.personal, .business, .premier])
     }
     
     func testEncoding()throws {

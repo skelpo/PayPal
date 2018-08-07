@@ -1,6 +1,6 @@
 import Vapor
 
-extension User {
+extension UserInfo {
     
     /// That type of account that a user has.
     public enum AccountType: String, Hashable, CaseIterable, Content {
