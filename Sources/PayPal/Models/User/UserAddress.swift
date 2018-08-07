@@ -7,5 +7,11 @@ extension UserInfo {
         public let region: String?
         public let zip: String?
         public let country: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case locality, region, country
+            case streetAddress = "street_address"
+            case zip = "postal_code"
+        }
     }
 }
