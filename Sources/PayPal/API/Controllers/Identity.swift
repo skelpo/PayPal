@@ -10,7 +10,7 @@ public final class Identity: PayPalController {
     /// See `PayPalController.container`.
     public let container: Container
     
-    /// Value is `"customer/disputes"`.
+    /// Value is `"identity"`.
     ///
     /// See `PayPalController.resource` for more information.
     public let resource: String
