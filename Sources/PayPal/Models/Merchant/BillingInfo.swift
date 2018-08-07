@@ -94,6 +94,38 @@ public struct BillingInfo: Content, ValidationSetable, Equatable {
         self.address = address
         self.language = language
         self.info = info
+        
+        try self.set(\.email <~ email)
+        try self.set(\.firstName <~ firstName)
+        try self.set(\.lastName <~ lastName)
+        try self.set(\.businessName <~ businessName)
+        try self.set(\.info <~ info)
+    }
+    
+    /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let email = try container.decodeIfPresent(String.self, forKey: .email)
+        let firstName = try container.decodeIfPresent(String.self, forKey: .firstName)
+        let lastName = try container.decodeIfPresent(String.self, forKey: .lastName)
+        let businessName = try container.decodeIfPresent(String.self, forKey: .businessName)
+        let info = try container.decodeIfPresent(String.self, forKey: .info)
+        
+        self.email = email
+        self.firstName = firstName
+        self.lastName = lastName
+        self.businessName = businessName
+        self.info = info
+        
+        self.phone = try container.decodeIfPresent(PhoneNumber.self, forKey: .phone)
+        self.address = try container.decodeIfPresent(Address.self, forKey: .address)
+        self.language = try container.decodeIfPresent(Language.self, forKey: .language)
+        
+        try self.set(\.email <~ email)
+        try self.set(\.firstName <~ firstName)
+        try self.set(\.lastName <~ lastName)
+        try self.set(\.businessName <~ businessName)
+        try self.set(\.info <~ info)
     }
     
     /// See `ValidationSetable.setterValidations()`.
