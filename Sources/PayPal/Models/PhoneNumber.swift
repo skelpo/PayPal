@@ -1,7 +1,7 @@
 import Vapor
 
 /// A phone number's country code and local number.
-public struct PhoneNumber {
+public struct PhoneNumber: Content, Equatable {
     
     /// The country code portion of the phone number, in [E.164 format](https://www.itu.int/rec/T-REC-E.164-201011-I).
     ///
