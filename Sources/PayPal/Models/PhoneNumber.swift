@@ -9,7 +9,7 @@ public struct PhoneNumber: Content, ValidationSetable, Equatable {
     /// the new value before assigning it to the property.
     ///
     /// Minimum length: 1. Maximum length: 3. Pattern: `^[0-9]{1,3}?$`.
-    public private(set) var country: String
+    public private(set) var country: String?
     
     /// The in-country phone number, in [E.164 format](https://www.itu.int/rec/T-REC-E.164-201011-I).
     ///
@@ -17,12 +17,12 @@ public struct PhoneNumber: Content, ValidationSetable, Equatable {
     /// the new value before assigning it to the property.
     ///
     /// Minimum length: 1. Maximum length: 14. Pattern: `^[0-9]{1,14}?$`.
-    public private(set) var number: String
+    public private(set) var number: String?
     
     /// Creates a new instance of `PhoneNumber`.
     ///
     ///     PhoneNumber(country: "1", number: "9963191901")
-    public init(country: String, number: String)throws {
+    public init(country: String?, number: String?)throws {
         self.country = country
         self.number = number
         
@@ -45,12 +45,14 @@ public struct PhoneNumber: Content, ValidationSetable, Equatable {
         var validations = SetterValidations(PhoneNumber.self)
         
         validations.set(\.country) { country in
-            guard country.range(of: "^[0-9]{1,3}?$", options: .regularExpression) != nil else {
+            if country == nil { return }
+            guard country?.range(of: "^[0-9]{1,3}?$", options: .regularExpression) != nil else {
                 throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`country` property value must match '^[0-9]{1,3}?$' RegEx pattern")
             }
         }
         validations.set(\.number) { number in
-            guard number.range(of: "^[0-9]{1,14}?$", options: .regularExpression) != nil else {
+            if number == nil { return }
+            guard number?.range(of: "^[0-9]{1,14}?$", options: .regularExpression) != nil else {
                 throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`number` property value must match '^[0-9]{1,14}?$' RegEx pattern")
             }
         }
