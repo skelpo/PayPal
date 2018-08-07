@@ -2,10 +2,6 @@ import XCTest
 @testable import PayPal
 
 final class AcceptDisputeReasonTests: XCTestCase {
-    struct Request: Codable {
-        let method: PayPal.Method
-    }
-    
     struct Accept: Codable {
         let reason: AcceptDisputeBody.Reason
     }
