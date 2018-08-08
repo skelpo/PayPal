@@ -3,23 +3,35 @@ import Vapor
 extension Invoice {
     
     /// A single item in an invoice.
-    public struct Item: Content, Equatable {
+    public struct Item: Content, ValidationSetable, Equatable {
         
         /// The item name.
         ///
+        /// This property can be set using the `Item.set(_:)` method. This
+        /// method will validate the new value before assigning it to the property.
+        ///
         /// Maximum length: 200.
-        public var name: String
+        public private(set) var name: String
         
         /// The item description.
         ///
+        /// This property can be set using the `Item.set(_:)` method. This
+        /// method will validate the new value before assigning it to the property.
+        ///
         /// Maximum length: 1000.
-        public var description: String?
+        public private(set) var description: String?
         
         /// The item quantity. Value is from `-10000` to `10000`. Supports up to five decimal places.
-        public var quantity: Decimal
+        ///
+        /// This property can be set using the `Item.set(_:)` method. This
+        /// method will validate the new value before assigning it to the property.
+        public private(set) var quantity: Decimal
         
         /// The currency and amount of the item unit price. Value is from `-1000000` to `1000000`. Supports up to two decimal places.
-        public var unitPrice: Decimal
+        ///
+        /// This property can be set using the `Item.set(_:)` method. This
+        /// method will validate the new value before assigning it to the property.
+        public private(set) var unitPrice: Decimal
         
         /// The tax information.
         public var tax: Tax?
@@ -67,6 +79,39 @@ extension Invoice {
             self.date = date
             self.discount = discount
             self.unitMeasure = unitMeasure
+        }
+        
+        /// See `ValidationSetable.setterValidations()`.
+        public func setterValidations() -> SetterValidations<Invoice.Item> {
+            var validations = SetterValidations(Item.self)
+            
+            validations.set(\.name) { name in
+                guard name.count <= 200 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`name` property must have a length between 0 and 200")
+                }
+            }
+            validations.set(\.description) { description in
+                if description == nil { return }
+                guard description?.count ?? 0 <= 1000 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`description` property must have a length between 0 and 1000")
+                }
+            }
+            validations.set(\.quantity) { quantity in
+                guard quantity >= -10_000 && quantity <= 10_000 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`quantity` property must have a length between -10,000 and 10,000")
+                }
+            }
+            validations.set(\.unitPrice) { unitPrice in
+                guard unitPrice >= -1_000_000 && unitPrice <= 1_000_000 else {
+                    throw PayPalError(
+                        status: .badRequest,
+                        identifier: "invalidLength",
+                        reason: "`unit_price` property must have a length between -1,000,000 and 1,000,000"
+                    )
+                }
+            }
+            
+            return validations
         }
         
         enum CodingKeys: String, CodingKey {
