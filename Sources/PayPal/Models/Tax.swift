@@ -25,7 +25,7 @@ public struct Tax: Content, ValidationSetable, Equatable {
     
     /// Creates a new `Tax` instance.
     ///
-    ///     Tax(name: "Sales", percent: 10, amount: Amount(code: .usd, value: "0.59"))
+    ///     Tax(name: "Sales", percent: 10, amount: Amount(currency: .usd, value: "0.59"))
     public init(name: String, percent: Decimal, amount: Amount?)throws {
         self.name = name
         self.percent = percent
