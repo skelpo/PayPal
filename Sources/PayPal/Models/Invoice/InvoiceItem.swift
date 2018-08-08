@@ -21,17 +21,17 @@ extension Invoice {
         /// Maximum length: 1000.
         public private(set) var description: String?
         
-        /// The item quantity. Value is from `-10000` to `10000`. Supports up to five decimal places.
+        /// The item quantity. Value is from `-10,000` to `10,000`. Supports up to five decimal places.
         ///
         /// This property can be set using the `Item.set(_:)` method. This
         /// method will validate the new value before assigning it to the property.
         public private(set) var quantity: Decimal
         
-        /// The currency and amount of the item unit price. Value is from `-1000000` to `1000000`. Supports up to two decimal places.
+        /// The currency and amount of the item unit price. Value is from `-1,000,000` to `1,000,000`. Supports up to two decimal places.
         ///
         /// This property can be set using the `Item.set(_:)` method. This
         /// method will validate the new value before assigning it to the property.
-        public private(set) var unitPrice: Decimal
+        public private(set) var unitPrice: Amount
         
         /// The tax information.
         public var tax: Tax?
@@ -65,7 +65,7 @@ extension Invoice {
             name: String,
             description: String?,
             quantity: Decimal,
-            unitPrice: Decimal,
+            unitPrice: Amount,
             tax: Tax?,
             date: String?,
             discount: Discount<Amount>?,
@@ -92,7 +92,7 @@ extension Invoice {
             let name = try container.decode(String.self, forKey: .name)
             let description = try container.decodeIfPresent(String.self, forKey: .description)
             let quantity = try container.decode(Decimal.self, forKey: .quantity)
-            let unitPrice = try container.decode(Decimal.self, forKey: .unitPrice)
+            let unitPrice = try container.decode(Amount.self, forKey: .unitPrice)
             
             self.name = name
             self.description = description
@@ -130,7 +130,8 @@ extension Invoice {
                 }
             }
             validations.set(\.unitPrice) { unitPrice in
-                guard unitPrice >= -1_000_000 && unitPrice <= 1_000_000 else {
+                guard let price = Int(unitPrice.value) else { return }
+                guard price >= -1_000_000 && price <= 1_000_000 else {
                     throw PayPalError(
                         status: .badRequest,
                         identifier: "invalidLength",
