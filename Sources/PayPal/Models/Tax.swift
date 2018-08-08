@@ -26,10 +26,27 @@ public struct Tax: Content, ValidationSetable, Equatable {
     /// Creates a new `Tax` instance.
     ///
     ///     Tax(name: "Sales", percent: 10, amount: Amount(code: .usd, value: "0.59"))
-    public init(name: String, percent: Decimal, amount: Amount?) {
+    public init(name: String, percent: Decimal, amount: Amount?)throws {
         self.name = name
         self.percent = percent
         self.amount = amount
+        
+        try self.set(\.name <~ name)
+        try self.set(\.percent <~ percent)
+    }
+    
+    /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let name = try container.decode(String.self, forKey: .name)
+        let percent = try container.decode(Decimal.self, forKey: .percent)
+        
+        self.name = name
+        self.percent = percent
+        self.amount = try container.decodeIfPresent(Amount.self, forKey: .amount)
+        
+        try self.set(\.name <~ name)
+        try self.set(\.percent <~ percent)
     }
     
     /// See `ValidationSetable.setterValidations()`.
