@@ -70,7 +70,7 @@ extension Invoice {
             date: String?,
             discount: Discount<Amount>?,
             unitMeasure: Measure?
-        ) {
+        )throws {
             self.name = name
             self.description = description
             self.quantity = quantity
@@ -79,6 +79,34 @@ extension Invoice {
             self.date = date
             self.discount = discount
             self.unitMeasure = unitMeasure
+            
+            try self.set(\.name <~ name)
+            try self.set(\.description <~ description)
+            try self.set(\.quantity <~ quantity)
+            try self.set(\.unitPrice <~ unitPrice)
+        }
+        
+        /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let name = try container.decode(String.self, forKey: .name)
+            let description = try container.decodeIfPresent(String.self, forKey: .description)
+            let quantity = try container.decode(Decimal.self, forKey: .quantity)
+            let unitPrice = try container.decode(Decimal.self, forKey: .unitPrice)
+            
+            self.name = name
+            self.description = description
+            self.quantity = quantity
+            self.unitPrice = unitPrice
+            self.tax = try container.decodeIfPresent(Tax.self, forKey: .tax)
+            self.date = try container.decodeIfPresent(String.self, forKey: .date)
+            self.discount = try container.decodeIfPresent(Discount<Amount>.self, forKey: .discount)
+            self.unitMeasure = try container.decodeIfPresent(Measure.self, forKey: .unitPrice)
+            
+            try self.set(\.name <~ name)
+            try self.set(\.description <~ description)
+            try self.set(\.quantity <~ quantity)
+            try self.set(\.unitPrice <~ unitPrice)
         }
         
         /// See `ValidationSetable.setterValidations()`.
