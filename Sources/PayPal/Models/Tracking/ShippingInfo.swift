@@ -100,4 +100,11 @@ public struct ShippingInfo: Content, ValidationSetable, Equatable {
         
         return validations
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case address
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case businessName = "business_name"
+    }
 }
