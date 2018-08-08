@@ -1,6 +1,23 @@
 import Vapor
 
-public struct PaymentTerm {}
+/// The due data and terms of a payment.
+public struct PaymentTerm {
+    
+    /// The term when the invoice payment is due.
+    public var type: TermType?
+    
+    /// The date when the invoice payment is due, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
+    /// For example, _yyyy-MM-dd z_.
+    public var due: String?
+    
+    /// Creates a new `PaymentType` instance.
+    ///
+    ///     PaymentTerm(type: .dueOnReceipt, due: Date().iso8601)
+    public init(type: TermType?, due: String?) {
+        self.type = type
+        self.due = due
+    }
+}
 
 extension PaymentTerm {
     
