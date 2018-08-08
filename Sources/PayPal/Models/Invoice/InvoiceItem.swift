@@ -68,5 +68,11 @@ extension Invoice {
             self.discount = discount
             self.unitMeasure = unitMeasure
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case name, description, quantity, tax, date, discount
+            case unitPrice = "unit_price"
+            case unitMeasure = "unit_of_measure"
+        }
     }
 }
