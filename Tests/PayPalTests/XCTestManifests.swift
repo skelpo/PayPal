@@ -93,6 +93,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(InvoiceMeasureTests.allCases),
         testCase(InvoiceItemTests.allCases),
         testCase(ShippingCostsTests.allCases),
+        testCase(PaymentTermTypeTests.allCases),
         
         // Controller Tests
         testCase(APITests.allTests),
