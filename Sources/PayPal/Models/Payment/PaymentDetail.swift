@@ -41,4 +41,10 @@ public struct PaymentDetail: Content, Equatable {
         self.note = note
         self.amount = amount
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case type, date, method, note, amount
+        case transaction = "transaction_id"
+        case transactionType = "transaction_type"
+    }
 }
