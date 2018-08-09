@@ -1,6 +1,11 @@
 import Vapor
 
+/// The summary of a payment made.
 public struct PaymentSummary: Content, Equatable {
+    
+    /// The currency and amount of the total paid or refunded through PayPal.
     public let paypal: Amount?
+    
+    /// The currency and amount of the total paid or refunded through other sources.
     public let other: Amount?
 }
