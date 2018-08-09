@@ -1,7 +1,7 @@
 import Vapor
 
 /// The due data and terms of a payment.
-public struct PaymentTerm {
+public struct PaymentTerm: Content, Equatable {
     
     /// The term when the invoice payment is due.
     public var type: TermType?

@@ -1,7 +1,7 @@
 import Vapor
 
 /// A monitary amount with a custom label.
-public struct CustomAmount<M> where M: Monitary {
+public struct CustomAmount<M>: Content, Equatable where M: Monitary {
     
     /// The custom amount label.
     ///
