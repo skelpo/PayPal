@@ -17,6 +17,11 @@ public struct PaymentTerm {
         self.type = type
         self.due = due
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case type = "term_type"
+        case due = "due_date"
+    }
 }
 
 extension PaymentTerm {
