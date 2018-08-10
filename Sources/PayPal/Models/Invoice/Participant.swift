@@ -9,5 +9,12 @@ extension Invoice {
         ///
         /// Maximum length: 260.
         public var email: String
+        
+        /// Creates a new `Invoice.Participant` instance.
+        ///
+        ///     Invoice.Participant(email: "participant@example.com")
+        public init(email: String)throws {
+            self.email = email
+        }
     }
 }
