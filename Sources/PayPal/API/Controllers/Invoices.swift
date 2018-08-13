@@ -53,4 +53,21 @@ public class Invoices: PayPalController {
             return try client.get(self.path(), parameters: parameters, as: InvoiceList.self)
         }
     }
+    
+    /// Fully updates an invoice, by ID. In the JSON request body, include a complete `invoice` object. This call does not support partial updates.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows invoice details.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the invoice to update.
+    ///   - body: The new data for the specified invoice.
+    ///   - notify: Indicates whether to send the invoice update notification to the merchant.
+    ///
+    /// - Returns: The updated invoice object. If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
+    public func update(invoice id: String, with body: Invoice, notifyMerchant notify: Bool = true) -> Future<Invoice> {
+        return Future.flatMap(on: self.container) { () -> EventLoopFuture<Invoice> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.put(self.path() + id, parameters: QueryParamaters(custom: ["notify_merchant": notify.description]), body: body, as: Invoice.self)
+        }
+    }
 }
