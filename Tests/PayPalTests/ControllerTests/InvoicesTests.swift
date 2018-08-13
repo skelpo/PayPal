@@ -143,7 +143,7 @@ final class InvoicesTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
         }
         
-        let status = try invoices.delete(invoice: id).wait()
+        let status = try invoices.deleteDraft(invoice: id).wait()
         
         XCTAssertEqual(status, .noContent)
     }

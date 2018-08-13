@@ -96,7 +96,7 @@ public class Invoices: PayPalController {
     ///
     /// - Returns: The HTTP status of the response, which will be 204 (No Content). If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
-    public func delete(invoice id: String) -> Future<HTTPStatus> {
+    public func deleteDraft(invoice id: String) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
             let client = try self.container.make(PayPalClient.self)
             return try client.delete(self.path() + id, as: HTTPStatus.self)
