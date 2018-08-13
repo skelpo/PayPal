@@ -102,4 +102,19 @@ public class Invoices: PayPalController {
             return try client.delete(self.path() + id, as: HTTPStatus.self)
         }
     }
+    
+    /// Cancels a sent invoice, by ID, and, optionally, sends a notification about the cancellation to the payer, merchant, and CC: emails.
+    ///
+    /// A successful request returns the HTTP `204 No Content` status code with no JSON response body.
+    ///
+    /// - Parameter id: The ID of the invoice to cancel.
+    ///
+    /// - Returns: The HTTP status of the response, which will be 204 (No Content). If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func cancel(invoice id: String) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + id + "/cancel", as: HTTPStatus.self)
+        }
+    }
 }
