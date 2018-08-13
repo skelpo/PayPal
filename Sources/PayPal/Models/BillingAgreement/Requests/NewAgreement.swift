@@ -8,7 +8,7 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
     /// The agreement name.
     ///
     /// This property can be set using the `NewAgreement.set(_:)` method
-    /// which will validate the new valie before asigning it to the poprety.
+    /// which will validate the new valie before asigning it to the property.
     ///
     /// Maximum length: 128.
     public private(set) var name: String
@@ -16,7 +16,7 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
     /// The agreement description.
     ///
     /// This property can be set using the `NewAgreement.set(_:)` method
-    /// which will validate the new valie before asigning it to the poprety.
+    /// which will validate the new valie before asigning it to the property.
     ///
     /// Maximum length: 128.
     public private(set) var description: String
