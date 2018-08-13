@@ -96,4 +96,13 @@ public struct MerchantInfo: Content, Equatable {
         self.taxID = taxID
         self.info = info
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case email, address, phone, fax, website
+        case business = "business_name"
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case taxID = "tax_id"
+        case info = "additional_info"
+    }
 }
