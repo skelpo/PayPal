@@ -37,4 +37,20 @@ public class Invoices: PayPalController {
             return try client.post(self.path(), body: invoice, as: Invoice.self)
         }
     }
+    
+    /// Lists invoices. To filter the invoices that appear in the response, you can specify one or more optional query parameters.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that lists invoices with details.
+    ///
+    /// - Parameter parameters: The query string parameters that are passed with the request in the path. The query paramaters used are
+    ///   `page`, `page_size`, and `total_count_required`.
+    ///
+    /// - Returns: The list of invoices that match the query parameters passed in. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func list(parameters: QueryParamaters = QueryParamaters()) -> Future<InvoiceList> {
+        return Future.flatMap(on: self.container) { () -> EventLoopFuture<InvoiceList> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path(), parameters: parameters, as: InvoiceList.self)
+        }
+    }
 }
