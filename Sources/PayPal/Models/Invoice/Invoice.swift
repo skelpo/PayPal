@@ -151,6 +151,128 @@ public struct Invoice: Content, ValidationSetable, Equatable {
     ///   The `template_id` is only needed if you use the Invoicing API to build a full invoicing solution that includes templates.
     public var template: String?
     
+    
+    /// Creates a new `Invoice` instance.
+    public init(
+        number: String?,
+        merchant: MerchantInfo,
+        billing: [BillingInfo]?,
+        shipping: ShippingInfo?,
+        cc: [Participant]?,
+        items: [Item]?,
+        date: String?,
+        payment: PaymentTerm?,
+        reference: String?,
+        discount: Discount<Amount>?,
+        shippingCost: ShippingCosts?,
+        custom: CustomAmount<Amount>?,
+        allowPartialPayment: Bool?,
+        minimumDue: Amount?,
+        taxCalculatedAfterDiscount: Bool?,
+        taxInclusive: Bool?,
+        terms: String?,
+        note: String?,
+        memo: String?,
+        logo: String?,
+        allowTip: Bool?,
+        template: String?
+    )throws {
+        self.id = nil
+        self.status = nil
+        self.total = nil
+        self.payments = nil
+        self.refunds = nil
+        self.metadata = nil
+        self.paid = nil
+        self.refunded = nil
+        self.attachments = nil
+        self.links = nil
+        
+        self.number = number
+        self.merchant = merchant
+        self.billing = billing
+        self.shipping = shipping
+        self.cc = cc
+        self.items = items
+        self.date = date
+        self.payment = payment
+        self.reference = reference
+        self.discount = discount
+        self.shippingCost = shippingCost
+        self.custom = custom
+        self.allowPartialPayment = allowPartialPayment
+        self.minimumDue = minimumDue
+        self.taxCalculatedAfterDiscount = taxCalculatedAfterDiscount
+        self.taxInclusive = taxInclusive
+        self.terms = terms
+        self.note = note
+        self.memo = memo
+        self.logo = logo
+        self.allowTip = allowTip
+        self.template = template
+        
+        try self.set(\.number <~ number)
+        try self.set(\.reference <~ reference)
+        try self.set(\.terms <~ terms)
+        try self.set(\.note <~ note)
+        try self.set(\.memo <~ memo)
+        try self.set(\.logo <~ logo)
+    }
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let number = try container.decodeIfPresent(String.self, forKey: .number)
+        let reference = try container.decodeIfPresent(String.self, forKey: .reference)
+        let terms = try container.decodeIfPresent(String.self, forKey: .terms)
+        let note = try container.decodeIfPresent(String.self, forKey: .note)
+        let memo = try container.decodeIfPresent(String.self, forKey: .memo)
+        let logo = try container.decodeIfPresent(String.self, forKey: .logo)
+        
+        self.number = number
+        self.reference = reference
+        self.terms = terms
+        self.note = note
+        self.memo = memo
+        self.logo = logo
+        
+        self.id = try container.decodeIfPresent(String.self, forKey: .id)
+        self.status = try container.decodeIfPresent(Status.self, forKey: .status)
+        self.total = try container.decodeIfPresent(Amount.self, forKey: .total)
+        self.payments = try container.decodeIfPresent([Details].self, forKey: .payment)
+        self.refunds = try container.decodeIfPresent([RefundDetail].self, forKey: .refunds)
+        self.metadata = try container.decodeIfPresent(Metadata.self, forKey: .metadata)
+        self.paid = try container.decodeIfPresent(PaymentSummary.self, forKey: .paid)
+        self.refunded = try container.decodeIfPresent(PaymentSummary.self, forKey: .refunded)
+        self.attachments = try container.decodeIfPresent([FileAttachment].self, forKey: .attachments)
+        self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
+
+        self.merchant = try container.decode(MerchantInfo.self, forKey: .merchant)
+        self.billing = try container.decodeIfPresent([BillingInfo].self, forKey: .billing)
+        self.shipping = try container.decodeIfPresent(ShippingInfo.self, forKey: .shipping)
+        self.cc = try container.decodeIfPresent([Participant].self, forKey: .cc)
+        self.items = try container.decodeIfPresent([Item].self, forKey: .items)
+        self.date = try container.decodeIfPresent(String.self, forKey: .date)
+        self.payment = try container.decodeIfPresent(PaymentTerm.self, forKey: .payment)
+        self.discount = try container.decodeIfPresent(Discount<Amount>.self, forKey: .discount)
+        self.shippingCost = try container.decodeIfPresent(ShippingCosts.self, forKey: .shippingCost)
+        self.custom = try container.decodeIfPresent(CustomAmount<Amount>.self, forKey: .custom)
+        self.allowPartialPayment = try container.decodeIfPresent(Bool.self, forKey: .allowPartialPayment)
+        self.minimumDue = try container.decodeIfPresent(Amount.self, forKey: .minimumDue)
+        self.taxCalculatedAfterDiscount = try container.decodeIfPresent(Bool.self, forKey: .taxCalculatedAfterDiscount)
+        self.taxInclusive = try container.decodeIfPresent(Bool.self, forKey: .taxInclusive)
+        self.allowTip = try container.decodeIfPresent(Bool.self, forKey: .allowTip)
+        self.template = try container.decodeIfPresent(String.self, forKey: .template)
+        
+        try self.set(\.number <~ number)
+        try self.set(\.reference <~ reference)
+        try self.set(\.terms <~ terms)
+        try self.set(\.note <~ note)
+        try self.set(\.memo <~ memo)
+        try self.set(\.logo <~ logo)
+    }
+    
+    
     /// See `ValidationSetable.setterValidations()`.
     public func setterValidations() -> SetterValidations<Invoice> {
         var validations = SetterValidations(Invoice.self)
