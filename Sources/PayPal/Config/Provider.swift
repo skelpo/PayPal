@@ -56,6 +56,7 @@ public final class PayPalProvider: Vapor.Provider {
         services.register(BillingPlans.self)
         services.register(CustomerDisputes.self)
         services.register(Identity.self)
+        services.register(Invoices.self)
         
         var content = ContentConfig.default()
         content.use(httpDecoder: MultipartRelatedDecoder(), for: .related)
