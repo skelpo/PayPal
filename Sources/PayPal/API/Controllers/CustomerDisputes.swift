@@ -84,7 +84,7 @@ public final class CustomerDisputes: PayPalController {
     ///
     /// A successful request returns the HTTP `200 OK` status code and a JSON response body with dispute details.
     ///
-    /// - Returns: A lcustomer dispute wrapped in a future. If an error response was sent back instead, it gets converted
+    /// - Returns: A customer dispute wrapped in a future. If an error response was sent back instead, it gets converted
     ///   to a Swift error and the future wraps that instead.
     public func details(for disputeID: String) -> Future<CustomerDispute> {
         return Future.flatMap(on: self.container) { () -> Future<CustomerDispute> in
