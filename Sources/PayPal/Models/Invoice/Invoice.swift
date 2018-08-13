@@ -9,6 +9,7 @@ public struct Invoice: Content, Equatable {
     /// The invoice status. When you [search for invoices](https://developer.paypal.com/docs/api/invoicing/#search_search),
     /// you must specify this value as an array. For example, `"status": ["REFUNDED"]`. The status indicates the phase of an invoice in its lifecycle.
     /// The status also indicates whether the invoice is unpaid, partially paid, fully paid, partially refunded, or fully refunded.
+    ///
     /// An invoice payment can be either:
     /// - **Connected** to an invoice. The customer clicks **Pay** on the invoice to make a payment. The payment is automatically recorded.
     /// - **Disconnected** from an invoice. The customer pays by check, wire transfer, or another method. The merchant manually records the payment.
