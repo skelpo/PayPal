@@ -22,4 +22,9 @@ public struct InvoiceList: Content, Equatable {
         self.links = []
         self.invoices = invoices
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case links, invoices
+        case count = "total_count"
+    }
 }
