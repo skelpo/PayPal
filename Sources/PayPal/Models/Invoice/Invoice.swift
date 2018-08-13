@@ -153,29 +153,65 @@ public struct Invoice: Content, ValidationSetable, Equatable {
     
     
     /// Creates a new `Invoice` instance.
+    ///
+    ///     let invoice = try Invoice(
+    ///         number: nil,
+    ///         merchant: MerchantInfo(
+    ///             email: "hello@vapor.codes",
+    ///             business: "Qutheory LLC.",
+    ///             firstName: "Tanner",
+    ///             lastName: "Nelson",
+    ///             address: nil,
+    ///             phone: nil,
+    ///             fax: nil,
+    ///             website: "https://vapor.codes/",
+    ///             taxID: nil,
+    ///             info: nil
+    ///         ),
+    ///         billing: [],
+    ///         shipping: nil,
+    ///         cc: [Invoice.Participant(email: "collective@vapor.codes"), Invoice.Participant(email: "donator@example.com")],
+    ///         items: nil,
+    ///         date: now,
+    ///         payment: PaymentTerm(type: .dueOnReceipt, due: now),
+    ///         reference: "PO number",
+    ///         discount: nil,
+    ///         shippingCost: nil,
+    ///         custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "")),
+    ///         allowPartialPayment: false,
+    ///         minimumDue: Amount(currency: .usd, value: "1.00"),
+    ///         taxCalculatedAfterDiscount: true,
+    ///         taxInclusive: true,
+    ///         terms: nil,
+    ///         note: "Thanks for your donation!",
+    ///         memo: "Open Collective donation",
+    ///         logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
+    ///         allowTip: true,
+    ///         template: "PayPal system template"
+    ///     )
     public init(
-        number: String?,
+        number: String? = nil,
         merchant: MerchantInfo,
-        billing: [BillingInfo]?,
-        shipping: ShippingInfo?,
-        cc: [Participant]?,
-        items: [Item]?,
-        date: String?,
-        payment: PaymentTerm?,
-        reference: String?,
-        discount: Discount<Amount>?,
-        shippingCost: ShippingCosts?,
-        custom: CustomAmount<Amount>?,
-        allowPartialPayment: Bool?,
-        minimumDue: Amount?,
-        taxCalculatedAfterDiscount: Bool?,
-        taxInclusive: Bool?,
-        terms: String?,
-        note: String?,
-        memo: String?,
-        logo: String?,
-        allowTip: Bool?,
-        template: String?
+        billing: [BillingInfo]? = nil,
+        shipping: ShippingInfo? = nil,
+        cc: [Participant]? = nil,
+        items: [Item]? = nil,
+        date: String? = nil,
+        payment: PaymentTerm? = nil,
+        reference: String? = nil,
+        discount: Discount<Amount>? = nil,
+        shippingCost: ShippingCosts? = nil,
+        custom: CustomAmount<Amount>? = nil,
+        allowPartialPayment: Bool? = nil,
+        minimumDue: Amount? = nil,
+        taxCalculatedAfterDiscount: Bool? = nil,
+        taxInclusive: Bool? = nil,
+        terms: String? = nil,
+        note: String? = nil,
+        memo: String? = nil,
+        logo: String? = nil,
+        allowTip: Bool? = nil,
+        template: String? = nil
     )throws {
         self.id = nil
         self.status = nil
@@ -239,7 +275,7 @@ public struct Invoice: Content, ValidationSetable, Equatable {
         self.id = try container.decodeIfPresent(String.self, forKey: .id)
         self.status = try container.decodeIfPresent(Status.self, forKey: .status)
         self.total = try container.decodeIfPresent(Amount.self, forKey: .total)
-        self.payments = try container.decodeIfPresent([Details].self, forKey: .payment)
+        self.payments = try container.decodeIfPresent([Details].self, forKey: .payments)
         self.refunds = try container.decodeIfPresent([RefundDetail].self, forKey: .refunds)
         self.metadata = try container.decodeIfPresent(Metadata.self, forKey: .metadata)
         self.paid = try container.decodeIfPresent(PaymentSummary.self, forKey: .paid)
