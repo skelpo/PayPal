@@ -85,4 +85,21 @@ public class Invoices: PayPalController {
             return try client.get(self.path() + invoiceID, as: Invoice.self)
         }
     }
+    
+    /// Deletes invoices in the `DRAFT` or `SCHEDULED` state, by ID. For invoices that have already been sent,
+    /// you can [cancel the invoice](https://developer.paypal.com/docs/api/invoicing/v1/#invoices_cancel). After you delete a draft or scheduled invoice,
+    /// you can no longer use it or show its details. However, you can reuse its invoice number.
+    ///
+    /// A successful request returns the HTTP `204 No Content` status code with no JSON response body.
+    ///
+    /// - Parameter id: The ID of the draft invoice to delete.
+    ///
+    /// - Returns: The HTTP status of the response, which will be 204 (No Content). If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func delete(invoice id: String) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.delete(self.path() + id, as: HTTPStatus.self)
+        }
+    }
 }
