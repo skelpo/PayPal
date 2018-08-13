@@ -16,7 +16,7 @@ public struct Invoice: Content, ValidationSetable, Equatable {
     ///
     /// Similarly, an invoice refund can be **disconnected** from an invoice. The merchant refunds a payment by check, wire transfer,
     /// or another method and manually records the refund.
-    public let status: Status
+    public let status: Status?
     
     /// The total amount of the invoice.
     public let total: Amount?
