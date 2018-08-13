@@ -159,6 +159,18 @@ final class InvoicesTests: XCTestCase {
         XCTAssertEqual(status, .noContent)
     }
     
+    func testDeletePayment()throws {
+        let invoices = try self.app.make(Invoices.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
+        }
+        
+        let details = try invoices.details(for: id).wait()
+        let status = try invoices.deletePayment(transaction: "<figure-out-how-to-get-the-proper-id>", forInvoice: id).wait()
+        
+        XCTAssertEqual(status, .noContent)
+    }
+    
     static var allTests: [(String, (InvoicesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
@@ -167,6 +179,7 @@ final class InvoicesTests: XCTestCase {
         ("testUpdateEndpoint", testUpdateEndpoint),
         ("testDetailsEndpoint", testDetailsEndpoint),
         ("testDeleteEndpoint", testDeleteEndpoint),
-        ("testCancelEndpoint", testCancelEndpoint)
+        ("testCancelEndpoint", testCancelEndpoint),
+        ("testDeletePayment", testDeletePayment)
     ]
 }
