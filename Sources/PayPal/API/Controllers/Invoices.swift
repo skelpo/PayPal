@@ -70,4 +70,19 @@ public class Invoices: PayPalController {
             return try client.put(self.path() + id, parameters: QueryParamaters(custom: ["notify_merchant": notify.description]), body: body, as: Invoice.self)
         }
     }
+    
+    /// Shows details for an invoice, by ID.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows invoice details.
+    ///
+    /// - Parameter invoiceID: The ID of the invoice for which to show details.
+    ///
+    /// - Returns: The invoice data for the ID passed in. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func details(for invoiceID: String) -> Future<Invoice> {
+        return Future.flatMap(on: self.container) { () -> Future<Invoice> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path() + invoiceID, as: Invoice.self)
+        }
+    }
 }
