@@ -19,7 +19,7 @@ public struct InvoiceList: Content, Equatable {
     ///     InvoiceList(invoices: [])
     public init(invoices: [Invoice]?) {
         self.count = invoices?.count
-        self.links = []
+        self.links = nil
         self.invoices = invoices
     }
     
