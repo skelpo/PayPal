@@ -191,4 +191,26 @@ public struct Invoice: Content, ValidationSetable, Equatable {
         
         return validations
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, number, status, items, reference, discount, custom, terms, note, payments, refunds, metadata, attachments, links
+        case merchant = "merchant_info"
+        case billing = "billing_info"
+        case shipping = "shipping_info"
+        case cc = "cc_info"
+        case date = "invoice_date"
+        case payment = "payment_term"
+        case shippingCost = "shipping_cost"
+        case allowPartialPayment = "allow_partial_payment"
+        case minimumDue = "minimum_amount_due"
+        case taxCalculatedAfterDiscount = "tax_calculated_after_discount"
+        case taxInclusive = "tax_inclusive"
+        case memo = "merchant_memo"
+        case logo = "logo_url"
+        case total = "total_amount"
+        case paid = "paid_amount"
+        case refunded = "refunded_amount"
+        case allowTip = "allow_tip"
+        case template = "template_id"
+    }
 }
