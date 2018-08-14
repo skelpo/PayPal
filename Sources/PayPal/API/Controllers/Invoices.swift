@@ -234,4 +234,25 @@ public class Invoices: PayPalController {
             return try client.post(self.path() + id + "/remind", body: reminder, as: HTTPStatus.self)
         }
     }
+    
+    /// Schedules an invoice, by ID, to send on a future date. At 07:00 on that date in the preferred time zone of the merchant's PayPal account profile,
+    /// PayPal emails an invoice notification to the merchant and the customer, adds an online payment button to the customer’s view of the invoice,
+    /// and updates the invoice status to `SENT`.
+    ///
+    /// - Note: To change the scheduled date, adjust the invoice date and
+    ///   [update invoice](https://developer.paypal.com/docs/invoicing/integrate/process-invoices/#update-invoice).
+    ///   To send the invoice immediately, update the invoice date to today or to a date in the past.
+    ///
+    /// A successful request returns the HTTP 202 Accepted status code and a JSON response body with a link to the invoice.
+    ///
+    /// - Parameter invoice: The ID of the invoice to schedule.
+    ///
+    /// - Returns: An array containing a link to the dispute wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func schedule(invoice id: String) -> Future<[LinkDescription]> {
+        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + id + "/schedule", as: LinkResponse.self)["links", []]
+        }
+    }
 }
