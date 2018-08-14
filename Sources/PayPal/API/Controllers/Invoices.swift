@@ -134,4 +134,35 @@ public class Invoices: PayPalController {
             return try client.delete(self.path() + invoice + "/payment-records/" + transaction, as: HTTPStatus.self)
         }
     }
+    
+    /// Generates a QR code for an invoice, by ID. The QR code is a PNG image in [Base64-encoded](https://www.base64encode.org/) format that corresponds
+    /// to the invoice ID. You can generate a QR code for an invoice and add it to a paper or PDF invoice. When customers use their mobile devices to
+    /// scan the QR code, they are redirected to the PayPal mobile payment flow where they can view the invoice and pay online with PayPal or a credit card.
+    /// Before you get a QR code, you must [create an invoice](https://developer.paypal.com/docs/api/invoicing/v1/#invoices_create) and
+    /// [send an invoice](https://developer.paypal.com/docs/api/invoicing/v1/#invoices_send) to move the invoice from a draft to payable state.
+    /// Do not include an email address if you do not want the invoice emailed.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows the QR code as a PNG image.
+    ///
+    /// - Parameters:
+    ///   - invoiceID: The ID of the invoice for which to generate a QR code.
+    ///   - width: The width, in pixels, of the QR code image. Value is from `150` to `500`. The default value of the parameter is `500`.
+    ///   - height: The height, in pixels, of the QR code image. Value is from `150` to `500`. The default value of the parameter is `500`.
+    ///
+    /// - Returns: The base64-encoded image of the image/png type. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func generateQR(for invoiceID: String, width: Int = 500, height: Int = 500) -> Future<String> {
+        return Future.flatMap(on: self.container) { () -> Future<String> in
+            guard (150...500).contains(width) && (150...500).contains(height) else {
+                throw Abort(.internalServerError, reason: "Height and width values for QR code must be between 150 and 500")
+            }
+            
+            let client = try self.container.make(PayPalClient.self)
+            let parameters = QueryParamaters(custom: ["width": width.description, "height": height.description])
+            
+            return try client.get(self.path() + invoiceID + "/qr-code", parameters: parameters, as: [String: String].self)["image"].unwrap(
+                or: Abort(.failedDependency, reason: "`image` key not found in PayPal response")
+            )
+        }
+    }
 }
