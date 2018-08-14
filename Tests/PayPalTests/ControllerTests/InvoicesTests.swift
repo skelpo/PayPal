@@ -215,6 +215,18 @@ final class InvoicesTests: XCTestCase {
         XCTAssertEqual(status, .ok)
     }
     
+    func testReminderEndpoint()throws {
+        let invoices = try self.app.make(Invoices.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
+        }
+        
+        let reminder = try Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [CCEmail(email: "payer@example.com")])
+        let status = try invoices.send(reminder: reminder, for: id).wait()
+        
+        XCTAssertEqual(status, .accepted)
+    }
+    
     static var allTests: [(String, (InvoicesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
@@ -228,6 +240,7 @@ final class InvoicesTests: XCTestCase {
         ("testGenerateQREndpoint", testGenerateQREndpoint),
         ("testPaymentEndpoint", testPaymentEndpoint),
         ("testRefundEndpoint", testRefundEndpoint),
-        ("testRefundEndpoint", testRefundEndpoint)
+        ("testRefundEndpoint", testRefundEndpoint),
+        ("testReminderEndpoint", testReminderEndpoint)
     ]
 }
