@@ -5,14 +5,26 @@ public struct CCEmail: Content, ValidationSetable, Equatable {
     
     /// A CC: email to which to send a notification email.
     ///
+    /// This property can be set by the `CCEmail.set(_:)` method. This method will
+    /// validate the the new value before assigning it to the property.
+    ///
     /// Minimum length: 3. Maximum length: 254. Pattern: `^.+@[^"\-].+$`.
-    public var email: String?
+    public private(set) var email: String?
     
     /// Creates a new `CCEmail` instance.
     ///
     ///     CCEmail(email: "holmer@shlock.com")
-    public init(email: String?) {
+    public init(email: String?)throws {
         self.email = email
+        
+        try self.set(\.email <~ email)
+    }
+    
+    /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        self.email = try decoder.container(keyedBy: CodingKeys.self).decode(String.self, forKey: .email)
+        
+        try self.set(\.email <~ self.email)
     }
     
     /// See `ValidationSetable.setterValidations()`
