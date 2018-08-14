@@ -216,4 +216,22 @@ public class Invoices: PayPalController {
             return try client.delete(self.path() + invoice + "/refund-records/" + refund, as: HTTPStatus.self)
         }
     }
+    
+    /// Sends a reminder to the payer about an invoice, by ID. In the JSON request body,
+    /// include a `notification` object that defines the subject of the reminder and other details.
+    ///
+    /// A successful request returns the HTTP `202 Accepted` status code with no JSON response body.
+    ///
+    /// - Parameters:
+    ///   - reminder: The data for the reminder notification to be sent to the invoice payer.
+    ///   - invoiceID: The ID of the invoice for which to send a reminder.
+    ///
+    /// - Returns: The HTTP status of the response, which will be 202 (Accepted). If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func send(reminder: Invoice.Reminder, for invoiceID: String) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + invoiceID + "/remind", body: reminder, as: HTTPStatus.self)
+        }
+    }
 }
