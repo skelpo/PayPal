@@ -167,7 +167,7 @@ final class InvoicesTests: XCTestCase {
         }
         
         let details = try invoices.details(for: id).wait()
-        let status = try invoices.deletePayment(transaction: "<figure-out-how-to-get-the-proper-id>", forInvoice: id).wait()
+        let status = try invoices.delete(payment: "<figure-out-how-to-get-the-proper-id>", forInvoice: id).wait()
         
         XCTAssertEqual(status, .noContent)
     }

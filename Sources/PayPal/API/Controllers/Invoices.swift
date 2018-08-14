@@ -128,10 +128,10 @@ public class Invoices: PayPalController {
     ///
     /// - Returns: The HTTP status of the response, which will be 204 (No Content). If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
-    public func deletePayment(transaction: String, forInvoice invoice: String) -> Future<HTTPStatus> {
+    public func delete(payment: String, forInvoice invoice: String) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.delete(self.path() + invoice + "/payment-records/" + transaction, as: HTTPStatus.self)
+            return try client.delete(self.path() + invoice + "/payment-records/" + payment, as: HTTPStatus.self)
         }
     }
     
@@ -197,6 +197,23 @@ public class Invoices: PayPalController {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
             let client = try self.container.make(PayPalClient.self)
             return try client.post(self.path() + id + "/record-refund", body: payment, as: HTTPStatus.self)
+        }
+    }
+    
+    /// Deletes an external refund, by invoice ID and transaction ID.
+    ///
+    /// A successful request returns the HTTP `204 No Content` status code with no JSON response body.
+    ///
+    /// - Parameters:
+    ///   - refund: The ID of the external refund transaction to delete.
+    ///   - invoice: The ID of the invoice from which to delete the external refund transaction.
+    ///
+    /// - Returns: The HTTP status of the response, which will be 204 (No Content). If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func delete(refund: String, forInvoice invoice: String) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.delete(self.path() + invoice + "/refund-records/" + refund, as: HTTPStatus.self)
         }
     }
 }
