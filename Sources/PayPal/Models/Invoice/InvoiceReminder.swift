@@ -29,5 +29,10 @@ extension Invoice {
             self.sendToMerchant = sendToMerchant
             self.emails = emails
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case note, subject, emails
+            case sendToMerchant = "send_to_merchant"
+        }
     }
 }
