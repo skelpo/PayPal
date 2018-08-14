@@ -18,7 +18,7 @@ extension Template.Settings {
         case itemsDiscount = "items.discount"
         
         /// `item.tax`
-        case itemsTax = "item.tax"
+        case itemsTax = "items.tax"
         
         /// `discount`
         case discount = "discount"
