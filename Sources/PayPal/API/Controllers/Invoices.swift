@@ -149,7 +149,7 @@ public class Invoices: PayPalController {
     ///   - width: The width, in pixels, of the QR code image. Value is from `150` to `500`. The default value of the parameter is `500`.
     ///   - height: The height, in pixels, of the QR code image. Value is from `150` to `500`. The default value of the parameter is `500`.
     ///
-    /// - Returns: The base64-encoded image of the image/png type. If an error response was sent back instead,
+    /// - Returns: The base64-encoded image of the `image/png` type. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func generateQR(for invoiceID: String, width: Int = 500, height: Int = 500) -> Future<String> {
         return Future.flatMap(on: self.container) { () -> Future<String> in
