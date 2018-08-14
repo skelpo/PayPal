@@ -109,6 +109,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(CCEmailTests.allCases),
         testCase(InvoiceReminderTests.allCases),
         testCase(TemplateSettingsMetadataTests.allCases),
+        testCase(TemplateSettingFieldTests.allCases),
         
         // Controller Tests
         testCase(APITests.allTests),
