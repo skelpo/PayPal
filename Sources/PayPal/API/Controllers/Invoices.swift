@@ -174,12 +174,29 @@ public class Invoices: PayPalController {
     ///   - id: The ID of the invoice to mark as paid.
     ///   - payment: The information used to make the payment on the invoice.
     ///
-    /// - Returns: he HTTP status of the response, which will be 200 (OK). If an error response was sent back instead,
+    /// - Returns: The HTTP status of the response, which will be 200 (OK). If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func pay(invoice id: String, payment: Invoice.Payment) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
             let client = try self.container.make(PayPalClient.self)
             return try client.post(self.path() + id + "/record-payment", body: payment, as: HTTPStatus.self)
+        }
+    }
+    
+    /// Marks the status of an invoice, by ID, as refunded.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code with no JSON response body.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the invoice to mark as refunded.
+    ///   - payment: The information used to make the refund for the invoice.
+    ///
+    /// - Returns: The HTTP status of the response, which will be 200 (OK). If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func refund(invoice id: String, payment: Invoice.Payment) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path() + id + "/record-refund", body: payment, as: HTTPStatus.self)
         }
     }
 }
