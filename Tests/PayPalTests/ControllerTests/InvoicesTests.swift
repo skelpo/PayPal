@@ -1,5 +1,6 @@
 import XCTest
 import Vapor
+import SwiftGD
 @testable import PayPal
 
 final class InvoicesTests: XCTestCase {
@@ -171,6 +172,23 @@ final class InvoicesTests: XCTestCase {
         XCTAssertEqual(status, .noContent)
     }
     
+    func testGenerateQREndpoint()throws {
+        let invoices = try self.app.make(Invoices.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
+        }
+        
+        let code = try invoices.generateQR(for: id).wait()
+        guard let data = Data(base64Encoded: code) else {
+            throw Abort(.internalServerError, reason: "Unable to decode Base64 encoded string to data")
+        }
+        
+        let qr = try Image(data: data, as: .png)
+        
+        XCTAssertEqual(qr.size.height, 500)
+        XCTAssertEqual(qr.size.width, 500)
+    }
+    
     static var allTests: [(String, (InvoicesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
@@ -180,6 +198,7 @@ final class InvoicesTests: XCTestCase {
         ("testDetailsEndpoint", testDetailsEndpoint),
         ("testDeleteEndpoint", testDeleteEndpoint),
         ("testCancelEndpoint", testCancelEndpoint),
-        ("testDeletePayment", testDeletePayment)
+        ("testDeletePayment", testDeletePayment),
+        ("testGenerateQREndpoint", testGenerateQREndpoint)
     ]
 }
