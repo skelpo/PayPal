@@ -249,6 +249,17 @@ final class InvoicesTests: XCTestCase {
         XCTAssertEqual(status, .accepted)
     }
     
+    func testNumberEndpoint()throws {
+        let invoices = try self.app.make(Invoices.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
+        }
+        
+        let number = try invoices.nextNumber().wait()
+        
+        XCTAssertNotEqual(number, id)
+    }
+    
     static var allTests: [(String, (InvoicesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
@@ -265,6 +276,7 @@ final class InvoicesTests: XCTestCase {
         ("testRefundEndpoint", testRefundEndpoint),
         ("testReminderEndpoint", testReminderEndpoint),
         ("testScheduleEndpoint", testScheduleEndpoint),
-        ("testSendEndpoint", testSendEndpoint)
+        ("testSendEndpoint", testSendEndpoint),
+        ("testNumberEndpoint", testNumberEndpoint)
     ]
 }
