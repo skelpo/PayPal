@@ -33,7 +33,7 @@ public struct CCEmail: Content, ValidationSetable, Equatable {
         
         validations.set(\.email) { email in
             guard let email = email else { return }
-            guard email.count <= 3 && email.count >= 254 else {
+            guard email.count >= 3 && email.count <= 254 else {
                 throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`email` property must have a length between 3 and 254")
             }
             guard email.range(of: "^.+@[^\"\\-].+$", options: .regularExpression) != nil else {
