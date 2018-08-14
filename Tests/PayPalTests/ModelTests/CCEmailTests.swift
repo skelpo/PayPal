@@ -13,6 +13,8 @@ final class CCEmailTests: XCTestCase {
         try XCTAssertThrowsError(CCEmail(email: "@exmaple.com"))
         try XCTAssertThrowsError(CCEmail(email: "witheringheights@"))
         try XCTAssertThrowsError(CCEmail(email: "witheringheights@-exmaple.com"))
+        try XCTAssertThrowsError(CCEmail(email: "w@"))
+        try XCTAssertThrowsError(CCEmail(email: String(repeating: "e", count: 255)))
         var email = try CCEmail(email: "witheringheights@exmaple.com")
         
         try XCTAssertThrowsError(email.set(\.email <~ "witheringheights"))
