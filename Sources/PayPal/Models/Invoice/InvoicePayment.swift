@@ -24,7 +24,7 @@ extension Invoice {
         /// Creates a new `Invoice.Payment` instance.
         ///
         ///     Invoice.Payment(method: .cash, amount: Amount(currency: .usd, value: "20.00"), date: Date().iso8601, note: "I got the payment by cash!")
-        public init(method: PaymentDetail.Method?, amount: Amount?, date: String?, note: String?) {
+        public init(method: PaymentDetail.Method? = nil, amount: Amount?, date: String?, note: String?) {
             self.method = method
             self.amount = amount
             self.date = date

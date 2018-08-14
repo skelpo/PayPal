@@ -202,6 +202,19 @@ final class InvoicesTests: XCTestCase {
         XCTAssertEqual(status, .ok)
     }
     
+    func testRefundEndpoint()throws {
+        let now = Date().iso8601
+        let invoices = try self.app.make(Invoices.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
+        }
+        
+        let payment = try Invoice.Payment(amount: Amount(currency: .usd, value: "10.00"), date: now, note: "I refunded the payment of cash")
+        let status = try invoices.refund(invoice: id, payment: payment).wait()
+        
+        XCTAssertEqual(status, .ok)
+    }
+    
     static var allTests: [(String, (InvoicesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
@@ -213,6 +226,8 @@ final class InvoicesTests: XCTestCase {
         ("testCancelEndpoint", testCancelEndpoint),
         ("testDeletePayment", testDeletePayment),
         ("testGenerateQREndpoint", testGenerateQREndpoint),
-        ("testPaymentEndpoint", testPaymentEndpoint)
+        ("testPaymentEndpoint", testPaymentEndpoint),
+        ("testRefundEndpoint", testRefundEndpoint),
+        ("testRefundEndpoint", testRefundEndpoint)
     ]
 }
