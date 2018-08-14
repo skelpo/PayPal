@@ -276,4 +276,20 @@ public class Invoices: PayPalController {
             return try client.post(self.path() + id + "/send", parameters: parameters, as: HTTPStatus.self)
         }
     }
+    
+    /// Generates the next invoice number that is available to the merchant. The next invoice number uses the prefix and suffix from the last invoice
+    /// number and increments the number by one. For example, the next invoice number after `INVOICE-1234` is `INVOICE-1235`.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows the next invoice number.
+    ///
+    /// - Returns: The new invoice number, incremented from the last number. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func nextNumber() -> Future<String> {
+        return Future.flatMap(on: self.container) { () -> Future<String> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path(), as: [String: String].self)["number"].unwrap(
+                or: Abort(.failedDependency, reason: "`number` key not found in PayPal response")
+            )
+        }
+    }
 }
