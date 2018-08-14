@@ -255,4 +255,25 @@ public class Invoices: PayPalController {
             return try client.post(self.path() + id + "/schedule", as: LinkResponse.self)["links", []]
         }
     }
+    
+    /// Sends an invoice, by ID, to a customer. To suppress the merchant's email notification, set the `notify_merchant` query parameter to `false`.
+    ///
+    /// - Note: After you send an invoice, you cannot resend it.
+    ///
+    /// A successful request returns the HTTP 202 Accepted status code with no JSON response body.
+    ///
+    /// - Parameters:
+    ///   - invoice: The ID of the invoice to send.
+    ///   - notify: Indicates whether to send the invoice update notification to the merchant.
+    ///
+    /// - Returns: The HTTP status of the response, which will be 202 (Accepted). If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func send(invoice id: String, notifyMerchant notify: Bool = true) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            let client = try self.container.make(PayPalClient.self)
+            let parameters = QueryParamaters(custom: ["notify_merchant": notify.description])
+            
+            return try client.post(self.path() + id + "/send", parameters: parameters, as: HTTPStatus.self)
+        }
+    }
 }
