@@ -53,7 +53,7 @@ final class InvoicesTests: XCTestCase {
             reference: "PO number",
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "")),
+            custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")),
             allowPartialPayment: false,
             minimumDue: Amount(currency: .usd, value: "1.00"),
             taxCalculatedAfterDiscount: true,
@@ -107,7 +107,7 @@ final class InvoicesTests: XCTestCase {
             reference: "PO number",
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "")),
+            custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")),
             allowPartialPayment: false,
             minimumDue: Amount(currency: .usd, value: "1.00"),
             taxCalculatedAfterDiscount: true,
@@ -189,6 +189,19 @@ final class InvoicesTests: XCTestCase {
         XCTAssertEqual(qr.size.width, 500)
     }
     
+    func testPaymentEndpoint()throws {
+        let now = Date().iso8601
+        let invoices = try self.app.make(Invoices.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
+        }
+        
+        let payment = try Invoice.Payment(method: .cash, amount: Amount(currency: .usd, value: "10.00"), date: now, note: "I got the payment by cash!")
+        let status = try invoices.pay(invoice: id, payment: payment).wait()
+        
+        XCTAssertEqual(status, .ok)
+    }
+    
     static var allTests: [(String, (InvoicesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
@@ -199,6 +212,7 @@ final class InvoicesTests: XCTestCase {
         ("testDeleteEndpoint", testDeleteEndpoint),
         ("testCancelEndpoint", testCancelEndpoint),
         ("testDeletePayment", testDeletePayment),
-        ("testGenerateQREndpoint", testGenerateQREndpoint)
+        ("testGenerateQREndpoint", testGenerateQREndpoint),
+        ("testPaymentEndpoint", testPaymentEndpoint)
     ]
 }
