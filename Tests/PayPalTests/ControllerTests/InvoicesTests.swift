@@ -238,6 +238,17 @@ final class InvoicesTests: XCTestCase {
         XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/invoicing/invoices/\(id)")
     }
     
+    func testSendEndpoint()throws {
+        let invoices = try self.app.make(Invoices.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
+        }
+        
+        let status = try invoices.send(invoice: id).wait()
+        
+        XCTAssertEqual(status, .accepted)
+    }
+    
     static var allTests: [(String, (InvoicesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
@@ -253,6 +264,7 @@ final class InvoicesTests: XCTestCase {
         ("testRefundEndpoint", testRefundEndpoint),
         ("testRefundEndpoint", testRefundEndpoint),
         ("testReminderEndpoint", testReminderEndpoint),
-        ("testScheduleEndpoint", testScheduleEndpoint)
+        ("testScheduleEndpoint", testScheduleEndpoint),
+        ("testSendEndpoint", testSendEndpoint)
     ]
 }
