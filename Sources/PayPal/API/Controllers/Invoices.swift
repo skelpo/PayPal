@@ -228,10 +228,10 @@ public class Invoices: PayPalController {
     ///
     /// - Returns: The HTTP status of the response, which will be 202 (Accepted). If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
-    public func send(reminder: Invoice.Reminder, for invoiceID: String) -> Future<HTTPStatus> {
+    public func remind(invoice id: String, with reminder: Invoice.Reminder) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + invoiceID + "/remind", body: reminder, as: HTTPStatus.self)
+            return try client.post(self.path() + id + "/remind", body: reminder, as: HTTPStatus.self)
         }
     }
 }

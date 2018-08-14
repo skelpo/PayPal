@@ -222,7 +222,7 @@ final class InvoicesTests: XCTestCase {
         }
         
         let reminder = try Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [CCEmail(email: "payer@example.com")])
-        let status = try invoices.send(reminder: reminder, for: id).wait()
+        let status = try invoices.remind(invoice: id, with: reminder).wait()
         
         XCTAssertEqual(status, .accepted)
     }
