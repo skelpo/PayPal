@@ -78,4 +78,19 @@ public final class Templates: PayPalController {
             return try client.put(self.path() + id, body: data, as: Template.self)
         }
     }
+    
+    /// Deletes a template, by ID.
+    ///
+    /// A successful request returns the HTTP `204 No Content` status code with no JSON response body.
+    ///
+    /// - Parameter id: The ID of the template to delete.
+    ///
+    /// - Returns: The HTTP status of the response, which will be 204 (No Content), wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func delete(template id: String) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.delete(self.path() + id, as: HTTPStatus.self)
+        }
+    }
 }
