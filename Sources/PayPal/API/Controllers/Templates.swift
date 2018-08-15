@@ -40,4 +40,25 @@ public final class Templates: PayPalController {
             return try client.post(self.path(), body: template, as: Template.self)
         }
     }
+    
+    /// Lists merchant-created templates with associated details. The associated details include the email addresses, postal addresses,
+    /// and phone numbers from the user's PayPal profile.
+    ///
+    /// The user can select which values to show in the business information section of their template.
+    /// 
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that lists invoices.
+    ///
+    /// - Parameter fields: The fields to return in the response. Value is `all` or `none`.
+    ///   To return only the template name, ID, and default attributes, specify `none`.
+    ///
+    /// - Returns: The merchant's template details, wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func list(fields: Template.ListFields = .all) -> Future<TemplateList> {
+        return Future.flatMap(on: self.container) { () -> Future<TemplateList> in
+            let client = try self.container.make(PayPalClient.self)
+            let parameters = QueryParamaters(custom: ["fields": fields.rawValue])
+            
+            return try client.get(self.path(), parameters: parameters, as: TemplateList.self)
+        }
+    }
 }
