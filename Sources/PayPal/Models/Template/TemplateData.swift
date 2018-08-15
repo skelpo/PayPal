@@ -3,7 +3,7 @@ import Vapor
 extension Template {
     
     /// The data used to populate an invoice template.
-    public struct Data: Content, Equatable {
+    public struct Data: Content, ValidationSetable, Equatable {
         
         /// The currency and amount of the invoice total.
         public let total: Amount?
@@ -31,8 +31,11 @@ extension Template {
         
         /// The reference data, such as a PO number.
         ///
+        /// This property can be set using the `Template.Data.set(_:)` method
+        /// which will validate the new valie before asigning it to the property.
+        ///
         /// Maximum length: 60.
-        public var reference: String?
+        public private(set) var reference: String?
         
         /// The invoice level discount, as a percent or an amount value.
         public var discount: Discount<Amount>?
@@ -60,23 +63,35 @@ extension Template {
         
         /// The general terms of the invoice.
         ///
+        /// This property can be set using the `Template.Data.set(_:)` method
+        /// which will validate the new valie before asigning it to the property.
+        ///
         /// Maximum length: 4000.
-        public var terms: String?
+        public private(set) var terms: String?
         
         /// A note to the invoice recipient. This note also appears on the invoice notification email.
         ///
+        /// This property can be set using the `Template.Data.set(_:)` method
+        /// which will validate the new valie before asigning it to the property.
+        ///
         /// Maximum length: 4000.
-        public var note: String?
+        public private(set) var note: String?
         
         /// A private bookkeeping memo for the merchant.
         ///
+        /// This property can be set using the `Template.Data.set(_:)` method
+        /// which will validate the new valie before asigning it to the property.
+        ///
         /// Maximum length: 150.
-        public var memo: String?
+        public private(set) var memo: String?
         
         /// The full URL to an external logo image. The logo image must not be larger than 250 pixels wide by 90 pixels high.
         ///
+        /// This property can be set using the `Template.Data.set(_:)` method
+        /// which will validate the new valie before asigning it to the property.
+        ///
         /// Maximum length: 4000.
-        public var logo: String?
+        public private(set) var logo: String?
         
         /// An array of PayPal file IDs for the files that are attached to an invoice. The maximum number of files is `5`.
         public var attachments: [FileAttachment]?
@@ -158,6 +173,39 @@ extension Template {
             self.memo = memo
             self.logo = logo
             self.attachments = attachments
+        }
+        
+        /// See `ValidationSetable.setterValidations()`.
+        public func setterValidations() -> SetterValidations<Template.Data> {
+            var validations = SetterValidations(Data.self)
+            
+            validations.set(\.reference) { reference in
+                guard reference?.count ?? 0 <= 60 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`reference` property must have a length of 60 or less")
+                }
+            }
+            validations.set(\.terms) { terms in
+                guard terms?.count ?? 0 <= 4_000 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`terms` property must have a length of 4,000 or less")
+                }
+            }
+            validations.set(\.note) { note in
+                guard note?.count ?? 0 <= 4_000 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note` property must have a length of 4,000 or less")
+                }
+            }
+            validations.set(\.memo) { memo in
+                guard memo?.count ?? 0 <= 150 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`memo` property must have a length of 500 or less")
+                }
+            }
+            validations.set(\.logo) { logo in
+                guard logo?.count ?? 0 <= 4_000 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`logo` property must have a length of 4,000 or less")
+                }
+            }
+            
+            return validations
         }
     }
 }
