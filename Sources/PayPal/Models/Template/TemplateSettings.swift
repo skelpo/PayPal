@@ -9,5 +9,10 @@ extension Template {
             self.field = field
             self.preference = preference
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case field = "field_name"
+            case preference = "display_preference"
+        }
     }
 }
