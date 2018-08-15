@@ -41,7 +41,7 @@ final class TemplatesTests: XCTestCase {
                 ),
                 billing: [],
                 shipping: nil,
-                cc: [CCEmail(email: "collective@vapor.codes"), CCEmail(email: "donator@example.com")],
+                cc: [.init(email: "collective@vapor.codes"), .init(email: "donator@example.com")],
                 items: nil,
                 payment: PaymentTerm(type: .dueOnReceipt, due: now),
                 reference: "PO number",

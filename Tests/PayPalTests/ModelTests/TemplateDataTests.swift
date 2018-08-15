@@ -20,7 +20,7 @@ final class TemplateDataTests: XCTestCase {
             ),
             billing: [],
             shipping: nil,
-            cc: [CCEmail(email: "collective@vapor.codes"), CCEmail(email: "donator@example.com")],
+            cc: [.init(email: "collective@vapor.codes"), .init(email: "donator@example.com")],
             items: nil,
             payment: PaymentTerm(type: .dueOnReceipt, due: now),
             reference: "PO number",
@@ -57,7 +57,7 @@ final class TemplateDataTests: XCTestCase {
         XCTAssertEqual(data.attachments, [FileAttachment(name: "photo.jpg", url: "https://avatars3.githubusercontent.com/u/2872298?s=200&v=4")])
         
         try XCTAssertEqual(data.custom, CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")))
-        try XCTAssertEqual(data.cc, [CCEmail(email: "collective@vapor.codes"), CCEmail(email: "donator@example.com")])
+        try XCTAssertEqual(data.cc, [.init(email: "collective@vapor.codes"), .init(email: "donator@example.com")])
         try XCTAssertEqual(data.merchant, MerchantInfo(
             email: "hello@vapor.codes",
             business: "Qutheory LLC.",
@@ -142,7 +142,7 @@ final class TemplateDataTests: XCTestCase {
             ),
             billing: [],
             shipping: nil,
-            cc: [CCEmail(email: "collective@vapor.codes"), CCEmail(email: "donator@example.com")],
+            cc: [.init(email: "collective@vapor.codes"), .init(email: "donator@example.com")],
             items: nil,
             payment: PaymentTerm(type: .dueOnReceipt, due: now),
             reference: "PO number",
@@ -300,7 +300,7 @@ final class TemplateDataTests: XCTestCase {
             ),
             billing: [],
             shipping: nil,
-            cc: [CCEmail(email: "collective@vapor.codes"), CCEmail(email: "donator@example.com")],
+            cc: [.init(email: "collective@vapor.codes"), .init(email: "donator@example.com")],
             items: nil,
             payment: PaymentTerm(type: .dueOnReceipt, due: now),
             reference: "PO number",

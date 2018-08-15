@@ -221,7 +221,7 @@ final class InvoicesTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
         }
         
-        let reminder = try Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [CCEmail(email: "payer@example.com")])
+        let reminder = try Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [.init(email: "payer@example.com")])
         let status = try invoices.remind(invoice: id, with: reminder).wait()
         
         XCTAssertEqual(status, .accepted)
