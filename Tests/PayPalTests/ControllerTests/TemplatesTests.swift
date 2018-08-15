@@ -150,12 +150,24 @@ final class TemplatesTests: XCTestCase {
         XCTAssertEqual(status, .noContent)
     }
     
+    func testDetailsEndpoint()throws {
+        let templates = try self.app.make(Templates.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Could not get ID of template to update")
+        }
+        
+        let details = try templates.details(for: id).wait()
+        
+        XCTAssertEqual(details.id, id)
+    }
+    
     static var allTests: [(String, (TemplatesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testListEndpoint", testListEndpoint),
         ("testUpdateEndpoint", testUpdateEndpoint),
-        ("testDeleteEndpoint", testDeleteEndpoint)
+        ("testDeleteEndpoint", testDeleteEndpoint),
+        ("testDetailsEndpoint", testDetailsEndpoint)
     ]
 }
 
