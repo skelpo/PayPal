@@ -112,6 +112,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(TemplateSettingFieldTests.allCases),
         testCase(TemplateSettingsTests.allCases),
         testCase(TemplateDataTests.allCases),
+        testCase(TemplateTests.allCases),
         
         // Controller Tests
         testCase(APITests.allTests),
