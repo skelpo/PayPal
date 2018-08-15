@@ -61,4 +61,21 @@ public final class Templates: PayPalController {
             return try client.get(self.path(), parameters: parameters, as: TemplateList.self)
         }
     }
+    
+    /// Updates a template, by ID. In the JSON request body, specify a complete `Template` object. The update method does not support partial updates.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows template details.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the template to update.
+    ///   - data: The template object to replace the current template data with.
+    ///
+    /// - Returns: The updated `Template` object, wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func update(template id: String, with data: Template) -> Future<Template> {
+        return Future.flatMap(on: self.container) { () -> Future<Template> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.put(self.path() + id, body: data, as: Template.self)
+        }
+    }
 }
