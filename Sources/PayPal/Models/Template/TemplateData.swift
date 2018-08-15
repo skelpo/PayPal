@@ -129,7 +129,7 @@ extension Template {
         ///         note: "Thanks for your donation!",
         ///         memo: "Open Collective donation",
         ///         logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
-        ///         attachments: [FileAttachment(name: "photo.jpg", url: "https://avatars3.githubusercontent.com/u/2872298?s=200&v=4")],
+        ///         attachments: [FileAttachment(name: "photo.jpg", url: "https://avatars3.githubusercontent.com/u/2872298?s=200&v=4")]
         ///     )
         public init(
             merchant: MerchantInfo,
