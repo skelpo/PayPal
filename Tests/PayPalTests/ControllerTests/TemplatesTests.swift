@@ -71,9 +71,18 @@ final class TemplatesTests: XCTestCase {
         XCTAssertEqual(saved.name, "Hours Template")
     }
     
+    func testListEndpoint()throws {
+        let templates = try self.app.make(Templates.self)
+        
+        let list = try templates.list().wait()
+        
+        XCTAssert(list.templates?.count ?? 0 > 0 && list.templates?.count ?? 0 <= 50)
+    }
+    
     static var allTests: [(String, (TemplatesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
-        ("testCreateEndpoint", testCreateEndpoint)
+        ("testCreateEndpoint", testCreateEndpoint),
+        ("testListEndpoint", testListEndpoint)
     ]
 }
 
