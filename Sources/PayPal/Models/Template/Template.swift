@@ -53,4 +53,12 @@ public struct Template: Content, Equatable {
         self.settings = settings
         self.measureUnit = measureUnit
     }
+    
+    
+    enum CodingKeys: String, CodingKey {
+        case name, `default`, settings, custom, links
+        case id = "template_id"
+        case data = "temaplate_data"
+        case measureUnit = "unit_of_measure"
+    }
 }
