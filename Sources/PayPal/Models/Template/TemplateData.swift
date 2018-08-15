@@ -173,6 +173,51 @@ extension Template {
             self.memo = memo
             self.logo = logo
             self.attachments = attachments
+            
+            try self.set(\.reference <~ reference)
+            try self.set(\.terms <~ terms)
+            try self.set(\.note <~ note)
+            try self.set(\.memo <~ memo)
+            try self.set(\.logo <~ logo)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let reference = try container.decodeIfPresent(String.self, forKey: .reference)
+            let terms = try container.decodeIfPresent(String.self, forKey: .terms)
+            let note = try container.decodeIfPresent(String.self, forKey: .note)
+            let memo = try container.decodeIfPresent(String.self, forKey: .memo)
+            let logo = try container.decodeIfPresent(String.self, forKey: .logo)
+            
+            self.reference = reference
+            self.terms = terms
+            self.note = note
+            self.memo = memo
+            self.logo = logo
+            
+            self.total = try container.decodeIfPresent(Amount.self, forKey: .total)
+            self.attachments = try container.decodeIfPresent([FileAttachment].self, forKey: .attachments)
+            
+            self.merchant = try container.decode(MerchantInfo.self, forKey: .merchant)
+            self.billing = try container.decodeIfPresent([BillingInfo].self, forKey: .billing)
+            self.shipping = try container.decodeIfPresent(ShippingInfo.self, forKey: .shipping)
+            self.cc = try container.decodeIfPresent([CCEmail].self, forKey: .cc)
+            self.items = try container.decodeIfPresent([Invoice.Item].self, forKey: .items)
+            self.payment = try container.decodeIfPresent(PaymentTerm.self, forKey: .payment)
+            self.discount = try container.decodeIfPresent(Discount<Amount>.self, forKey: .discount)
+            self.shippingCost = try container.decodeIfPresent(ShippingCosts.self, forKey: .shippingCost)
+            self.custom = try container.decodeIfPresent(CustomAmount<Amount>.self, forKey: .custom)
+            self.allowPartialPayment = try container.decodeIfPresent(Bool.self, forKey: .allowPartialPayment)
+            self.minimumDue = try container.decodeIfPresent(Amount.self, forKey: .minimumDue)
+            self.taxCalculatedAfterDiscount = try container.decodeIfPresent(Bool.self, forKey: .taxCalculatedAfterDiscount)
+            self.taxInclusive = try container.decodeIfPresent(Bool.self, forKey: .taxInclusive)
+            
+            try self.set(\.reference <~ reference)
+            try self.set(\.terms <~ terms)
+            try self.set(\.note <~ note)
+            try self.set(\.memo <~ memo)
+            try self.set(\.logo <~ logo)
         }
         
         /// See `ValidationSetable.setterValidations()`.
