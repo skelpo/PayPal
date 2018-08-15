@@ -21,4 +21,23 @@ public final class Templates: PayPalController {
         self.container = container
         self.resource = "invoicing/templates"
     }
+    
+    
+    /// Creates an invoice template. You can use details from this template to create an invoice. You can create up to 50 templates.
+    ///
+    /// - Note: Every merchant starts with three PayPal system templates that are optimized for the unit type billed.
+    ///   The template includes `Quantity`, `Hours`, and `Amount`.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows template details.
+    ///
+    /// - Parameter template: The template data object sent to PayPal so a new Template can be created.
+    ///
+    /// - Returns: The saved template object wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func create(template: Template) -> Future<Template> {
+        return Future.flatMap(on: self.container) { () -> Future<Template> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path(), body: template, as: Template.self)
+        }
+    }
 }
