@@ -207,5 +207,22 @@ extension Template {
             
             return validations
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case items, reference, discount, custom, terms, note, attachments
+            case merchant = "merchant_info"
+            case billing = "billing_info"
+            case shipping = "shipping_info"
+            case cc = "cc_info"
+            case payment = "payment_term"
+            case shippingCost = "shipping_cost"
+            case allowPartialPayment = "allow_partial_payment"
+            case minimumDue = "minimum_amount_due"
+            case taxCalculatedAfterDiscount = "tax_calculated_after_discount"
+            case taxInclusive = "tax_inclusive"
+            case memo = "merchant_memo"
+            case logo = "logo_url"
+            case total = "total_amount"
+        }
     }
 }
