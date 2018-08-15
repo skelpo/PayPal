@@ -93,4 +93,19 @@ public final class Templates: PayPalController {
             return try client.delete(self.path() + id, as: HTTPStatus.self)
         }
     }
+    
+    /// Shows details for a template, by ID.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows template details.
+    ///
+    /// - Parameter templateID: The ID of the template for which to show details.
+    ///
+    /// - Returns: The `Template` object for the ID passed in, wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func details(for templateID: String) -> Future<Template> {
+        return Future.flatMap(on: self.container) { () -> Future<Template> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path() + templateID, as: Template.self)
+        }
+    }
 }
