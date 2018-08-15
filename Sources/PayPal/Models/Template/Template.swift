@@ -37,8 +37,8 @@ public struct Template: Content, Equatable {
     ///         default: true,
     ///         data: nil,
     ///         settings: [
-    ///             .init(field: .itemsDate, preference: Metadata(hidden: true)),
-    ///             .init(field: .custom, preference: Metadata(hidden: true))
+    ///             .init(field: .itemsDate, preference: .init(hidden: true)),
+    ///             .init(field: .custom, preference: .init(hidden: true))
     ///         ],
     ///         measureUnit: .hours
     ///     )
