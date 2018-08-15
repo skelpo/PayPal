@@ -5,6 +5,7 @@ import Vapor
 final class TemplatesTests: XCTestCase {
     
     var app: Application!
+    var id: String?
     
     override func setUp() {
         super.setUp()
@@ -14,6 +15,10 @@ final class TemplatesTests: XCTestCase {
         try! services.register(PayPalProvider())
         
         app = try! Application.testable(services: services)
+        
+        let templates = try! self.app.make(Templates.self)
+        let list = try! templates.list().wait()
+        self.id = list.templates?.first?.id
     }
     
     func testServiceExists()throws {
@@ -79,10 +84,66 @@ final class TemplatesTests: XCTestCase {
         XCTAssert(list.templates?.count ?? 0 > 0 && list.templates?.count ?? 0 <= 50)
     }
     
+    func testUpdateEndpoint()throws {
+        let templates = try self.app.make(Templates.self)
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Could not get ID of template to update")
+        }
+        
+        let now = Date().iso8601
+        let template = try Template(
+            name: "Donation Template",
+            default: true,
+            data: .init(
+                merchant: MerchantInfo(
+                    email: "hello@vapor.codes",
+                    business: "Qutheory LLC.",
+                    firstName: "Tanner",
+                    lastName: "Nelson",
+                    address: nil,
+                    phone: nil,
+                    fax: nil,
+                    website: "https://vapor.codes/",
+                    taxID: nil,
+                    info: nil
+                ),
+                billing: [],
+                shipping: nil,
+                cc: [.init(email: "collective@vapor.codes"), .init(email: "donator@example.com")],
+                items: nil,
+                payment: PaymentTerm(type: .dueOnReceipt, due: now),
+                reference: "PO number",
+                discount: nil,
+                shippingCost: nil,
+                custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")),
+                allowPartialPayment: false,
+                minimumDue: Amount(currency: .usd, value: "1.00"),
+                taxCalculatedAfterDiscount: true,
+                taxInclusive: true,
+                terms: nil,
+                note: "Thanks for your donation!",
+                memo: "Open Collective donation",
+                logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
+                attachments: [FileAttachment(name: "photo.png", url: "https://avatars3.githubusercontent.com/u/2872298?s=200&v=4")]
+            ),
+            settings: [
+                .init(field: .itemsDate, preference: .init(hidden: true)),
+                .init(field: .custom, preference: .init(hidden: true))
+            ],
+            measureUnit: .hours
+        )
+        
+        let updated = try templates.update(template: id, with: template).wait()
+        
+        XCTAssertEqual(updated.id, id)
+        XCTAssertEqual(updated.name, "Donation Template")
+    }
+    
     static var allTests: [(String, (TemplatesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
-        ("testListEndpoint", testListEndpoint)
+        ("testListEndpoint", testListEndpoint),
+        ("testUpdateEndpoint", testUpdateEndpoint)
     ]
 }
 
