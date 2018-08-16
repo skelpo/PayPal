@@ -159,6 +159,18 @@ extension BusinessOwner {
             
             return validations
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case type = "type"
+            case line1 = "line1"
+            case line2 = "line2"
+            case line3 = "line3"
+            case suburb = "suburb"
+            case city = "city"
+            case state = "state"
+            case country = "country_code"
+            case postalCode = "postal_code"
+        }
     }
 }
 
