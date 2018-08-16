@@ -38,14 +38,47 @@ public struct Name: Content, ValidationSetable,  Equatable {
     /// Creates a new `Name` instance.
     ///
     ///     Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "auth.", full: "Sir Walter Scott")
-    public init(prefix: String?, given: String?, surname: String?, middle: String?, suffix: String?, full: String?) {
+    public init(prefix: String?, given: String?, surname: String?, middle: String?, suffix: String?, full: String?)throws {
         self.prefix = prefix
         self.given = given
         self.surname = surname
         self.middle = middle
         self.suffix = suffix
         self.full = full
+        
+        try self.set(\Name.prefix <~ prefix)
+        try self.set(\Name.given <~ given)
+        try self.set(\Name.surname <~ surname)
+        try self.set(\Name.middle <~ middle)
+        try self.set(\Name.suffix <~ suffix)
+        try self.set(\Name.full <~ full)
     }
+    
+    /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let prefix = try container.decode(String.self, forKey: .prefix)
+        let given = try container.decode(String.self, forKey: .given)
+        let surname = try container.decode(String.self, forKey: .surname)
+        let middle = try container.decode(String.self, forKey: .middle)
+        let suffix = try container.decode(String.self, forKey: .suffix)
+        let full = try container.decode(String.self, forKey: .full)
+        
+        self.prefix = prefix
+        self.given = given
+        self.surname = surname
+        self.middle = middle
+        self.suffix = suffix
+        self.full = full
+        
+        try self.set(\Name.prefix <~ prefix)
+        try self.set(\Name.given <~ given)
+        try self.set(\Name.surname <~ surname)
+        try self.set(\Name.middle <~ middle)
+        try self.set(\Name.suffix <~ suffix)
+        try self.set(\Name.full <~ full)
+    }
+    
     
     /// See `ValidationSetable.setterValidations()`
     public func setterValidations() -> SetterValidations<Name> {
@@ -94,6 +127,7 @@ public struct Name: Content, ValidationSetable,  Equatable {
     enum CodingKeys: String, CodingKey {
         case prefix, surname, suffix
         case given = "given_name"
+        case middle = "middle_name"
         case full = "full_name"
     }
 }
