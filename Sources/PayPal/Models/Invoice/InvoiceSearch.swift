@@ -123,5 +123,24 @@ extension Invoice {
             self.totalCount = totalCount
             self.archived = archived
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case email, number, status, page, archived
+            case firstName = "recipient_first_name"
+            case lastName = "recipient_last_name"
+            case businessName = "recipient_business_name"
+            case lowerAmount = "lower_total_amount"
+            case upperAmount = "upper_total_amount"
+            case startInvoiceAt = "start_invoice_date"
+            case endInvoiceAt = "end_invoice_date"
+            case startDueAt = "start_due_date"
+            case endDueAt = "end_due_date"
+            case startPaymentAt = "start_payment_date"
+            case endPaymentAt = "end_payment_date"
+            case startCreationAt = "start_creation_date"
+            case endCreationAt = "end_creation_date"
+            case pageSize = "page_size"
+            case totalCount = "total_count_required"
+        }
     }
 }
