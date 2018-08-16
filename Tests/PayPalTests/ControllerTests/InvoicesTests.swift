@@ -260,6 +260,20 @@ final class InvoicesTests: XCTestCase {
         XCTAssertNotEqual(number, id)
     }
     
+    func testSearchEndpoint()throws {
+        let invoices = try self.app.make(Invoices.self)
+        let criteria = Invoice.Search(lowerAmount: "9.00", page: 0, pageSize: 1)
+        let emptyCriteria = Invoice.Search(upperAmount: "9.00", page: 0, pageSize: 1)
+        
+        let list = try invoices.search(with: criteria).wait()
+        let empty = try invoices.search(with: emptyCriteria).wait()
+        
+        XCTAssertEqual(list.invoices?.count, 1)
+        XCTAssertGreaterThanOrEqual(list.invoices?.first?.total?.value ?? "0.00", "9.00")
+        
+        XCTAssertEqual(empty.invoices?.count, 0)
+    }
+    
     static var allTests: [(String, (InvoicesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
@@ -277,6 +291,7 @@ final class InvoicesTests: XCTestCase {
         ("testReminderEndpoint", testReminderEndpoint),
         ("testScheduleEndpoint", testScheduleEndpoint),
         ("testSendEndpoint", testSendEndpoint),
-        ("testNumberEndpoint", testNumberEndpoint)
+        ("testNumberEndpoint", testNumberEndpoint),
+        ("testSearchEndpoint", testSearchEndpoint)
     ]
 }
