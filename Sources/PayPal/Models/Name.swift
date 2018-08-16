@@ -46,4 +46,10 @@ public struct Name: Content, Equatable {
         self.suffix = suffix
         self.full = full
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case prefix, surname, suffix
+        case given = "given_name"
+        case full = "full_name"
+    }
 }
