@@ -1,7 +1,39 @@
 import Vapor
 
 extension BusinessOwner {
-    public struct Address {}
+    public struct Address {
+        public var type: AddressType
+        public var line1: String
+        public var line2: String?
+        public var line3: String?
+        public var suburb: String?
+        public var city: String
+        public var state: String?
+        public var country: Currency
+        public var postalCode: String?
+        
+        public init(
+            type: AddressType,
+            line1: String,
+            line2: String?,
+            line3: String?,
+            suburb: String?,
+            city: String,
+            state: String?,
+            country: Currency,
+            postalCode: String?
+        )throws {
+            self.type = type
+            self.line1 = line1
+            self.line2 = line2
+            self.line3 = line3
+            self.suburb = suburb
+            self.city = city
+            self.state = state
+            self.country = country
+            self.postalCode = postalCode
+        }
+    }
 }
 
 extension BusinessOwner.Address {
