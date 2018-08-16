@@ -292,4 +292,22 @@ public class Invoices: PayPalController {
             )
         }
     }
+    
+    /// Searches for invoices that match search criteria. If you pass multiple criteria, the response lists invoices that match all criteria.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that lists the invoices that match the search criteria.
+    ///
+    /// - Parameter body: The search criteria that the invoices must match to be returned.
+    ///
+    /// - Returns: The list of invoices that match the search criteria passed in, wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func search(with body: Invoice.Search) -> Future<InvoiceList> {
+        return  Future.flatMap(on: self.container) { () -> Future<InvoiceList> in
+            let client = try self.container.make(PayPalClient.self)
+            let config = try self.container.make(Configuration.self)
+            let path = "v" + config.version + "/invoicing/search"
+            
+            return client.post(path, body: body, as: InvoiceList.self)
+        }
+    }
 }
