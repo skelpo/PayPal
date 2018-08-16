@@ -3,7 +3,7 @@ import Vapor
 extension BusinessOwner {
     
     /// The address object structure used for a business owner.
-    public struct Address {
+    public struct Address: Content, Equatable {
         
         /// The address type.
         public var type: AddressType
