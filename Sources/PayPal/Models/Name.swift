@@ -1,7 +1,7 @@
 import Vapor
 
 /// The name of a person, broken into specific parts.
-public struct Name: Content, Equatable {
+public struct Name: Content, ValidationSetable,  Equatable {
     
     /// The prefix, or title, to the party name.
     ///
@@ -45,6 +45,50 @@ public struct Name: Content, Equatable {
         self.middle = middle
         self.suffix = suffix
         self.full = full
+    }
+    
+    /// See `ValidationSetable.setterValidations()`
+    public func setterValidations() -> SetterValidations<Name> {
+        var validations = SetterValidations(Name.self)
+        
+        validations.set(\.prefix) { prefix in
+            guard let prefix = prefix else { return }
+            guard prefix.count <= 140 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`prefix` property must have a length less than 140")
+            }
+        }
+        validations.set(\.given) { given in
+            guard let given = given else { return }
+            guard given.count <= 140 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`prefix` property must have a length less than 140")
+            }
+        }
+        validations.set(\.surname) { surname in
+            guard let surname = surname else { return }
+            guard surname.count <= 140 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`prefix` property must have a length less than 140")
+            }
+        }
+        validations.set(\.middle) { middle in
+            guard let middle = middle else { return }
+            guard middle.count <= 140 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`prefix` property must have a length less than 140")
+            }
+        }
+        validations.set(\.suffix) { suffix in
+            guard let suffix = suffix else { return }
+            guard suffix.count <= 140 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`prefix` property must have a length less than 140")
+            }
+        }
+        validations.set(\.full) { full in
+            guard let full = full else { return }
+            guard full.count <= 300 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`prefix` property must have a length less than 140")
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
