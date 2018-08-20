@@ -3,7 +3,7 @@ import Vapor
 extension BusinessOwner {
     
     /// An identification document for a business owner.
-    public struct ID: Content, Equatable {
+    public struct ID: Content, ValidationSetable, Equatable {
         
         /// The type of document to use for identification.
         public var type: IDType
@@ -18,8 +18,11 @@ extension BusinessOwner {
         /// The [two-character IS0-3166-1 country code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/)
         /// of the country that issued the identity document.
         ///
+        /// This property can be set with the `BusinessOwner.set(_:)`. This method
+        /// validates the new value before assigning it to the property.
+        ///
         /// Pattern: `^[A-Z]([A-Z]|\d)$`.
-        public var issuerCountry: String
+        public private(set) var issuerCountry: String
         
         /// The [state or province code](https://developer.paypal.com/docs/integration/direct/rest/state-codes/)
         /// for the state or province that issued the identity document.
@@ -65,6 +68,23 @@ extension BusinessOwner {
             self.issuerCity = issuerCity
             self.placeOfIssue = placeOfIssue
             self.description = description
+        }
+        
+        /// See `ValidationSetable.setterValidations()`
+        public func setterValidations() -> SetterValidations<BusinessOwner.ID> {
+            var validations = SetterValidations(ID.self)
+            
+            validations.set(\.issuerCountry) { country in
+                guard country.range(of: "^[A-Z]([A-Z]|\\d)$", options: .regularExpression) != nil else {
+                    throw PayPalError(
+                        status: .badRequest,
+                        identifier: "malformedString",
+                        reason: "`country` property must match RegEx pattern '^[A-Z]([A-Z]|\\d)$'"
+                    )
+                }
+            }
+            
+            return validations
         }
         
         enum CodingKeys: String, CodingKey {
