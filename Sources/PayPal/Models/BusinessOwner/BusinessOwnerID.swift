@@ -66,5 +66,14 @@ extension BusinessOwner {
             self.placeOfIssue = placeOfIssue
             self.description = description
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case type, value, masked
+            case issuerCountry = "issuer_country_code"
+            case issuerState = "issuer_state"
+            case issuerCity = "issuer_city"
+            case placeOfIssue = "place_of_issue"
+            case description = "issuer_description"
+        }
     }
 }
