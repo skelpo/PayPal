@@ -111,8 +111,45 @@ extension BusinessOwner {
             self.state = state
             self.country = country
             self.postalCode = postalCode
+            
+            try self.set(\.line1 <~ line1)
+            try self.set(\.line2 <~ line2)
+            try self.set(\.line3 <~ line3)
+            try self.set(\.suburb <~ suburb)
+            try self.set(\.city <~ city)
+            try self.set(\.state <~ state)
+            try self.set(\.country <~ country)
         }
         
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let line1 = try container.decode(String.self, forKey: .line1)
+            let line2 = try container.decodeIfPresent(String.self, forKey: .line2)
+            let line3 = try container.decodeIfPresent(String.self, forKey: .line3)
+            let suburb = try container.decodeIfPresent(String.self, forKey: .suburb)
+            let city = try container.decode(String.self, forKey: .city)
+            let state = try container.decodeIfPresent(String.self, forKey: .state)
+            let country = try container.decode(String.self, forKey: .country)
+            
+            self.line1 = line1
+            self.line2 = line2
+            self.line3 = line3
+            self.suburb = suburb
+            self.city = city
+            self.state = state
+            self.country = country
+            self.type = try container.decode(AddressType.self, forKey: .type)
+            self.postalCode = try container.decodeIfPresent(String.self, forKey: .postalCode)
+            
+            try self.set(\.line1 <~ line1)
+            try self.set(\.line2 <~ line2)
+            try self.set(\.line3 <~ line3)
+            try self.set(\.suburb <~ suburb)
+            try self.set(\.city <~ city)
+            try self.set(\.state <~ state)
+            try self.set(\.country <~ country)
+        }
         
         /// See `ValidationSetable.setterValidations()`
         public func setterValidations() -> SetterValidations<BusinessOwner.Address> {
