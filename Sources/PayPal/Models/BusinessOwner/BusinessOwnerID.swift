@@ -59,7 +59,7 @@ extension BusinessOwner {
             issuerCity: String?,
             placeOfIssue: String?,
             description: String?
-        ) {
+        )throws {
             self.type = type
             self.value = value
             self.masked = masked
@@ -68,6 +68,25 @@ extension BusinessOwner {
             self.issuerCity = issuerCity
             self.placeOfIssue = placeOfIssue
             self.description = description
+            
+            try self.set(\.issuerCountry <~ issuerCountry)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let issuerCountry = try container.decode(String.self, forKey: .issuerCountry)
+            
+            self.issuerCountry = issuerCountry
+            self.type = try container.decode(IDType.self, forKey: .type)
+            self.value = try container.decode(String.self, forKey: .value)
+            self.masked = try container.decodeIfPresent(Bool.self, forKey: .masked)
+            self.issuerState = try container.decodeIfPresent(String.self, forKey: .issuerState)
+            self.issuerCity = try container.decodeIfPresent(String.self, forKey: .issuerCity)
+            self.placeOfIssue = try container.decodeIfPresent(String.self, forKey: .placeOfIssue)
+            self.description = try container.decodeIfPresent(String.self, forKey: .description)
+            
+            try self.set(\.issuerCountry <~ issuerCountry)
         }
         
         /// See `ValidationSetable.setterValidations()`
