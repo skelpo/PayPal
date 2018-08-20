@@ -1,16 +1,52 @@
 import Vapor
 
 extension BusinessOwner {
+    
+    /// An identification document for a business owner.
     public struct ID: Content, Equatable {
+        
+        /// The type of document to use for identification.
         public var type: IDType
+        
+        /// The document number.
         public var value: String
+        
+        /// Indicates whether the value is a partial value. Use when the identifier type supports a partial value, such as a four-digit SSN number,
+        /// instead of the full nine digits. This flag may not always be honored based on the context in which it is used.
         public var masked: Bool?
+        
+        /// The [two-character IS0-3166-1 country code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/)
+        /// of the country that issued the identity document.
+        ///
+        /// Pattern: `^[A-Z]([A-Z]|\d)$`.
         public var issuerCountry: String
+        
+        /// The [state or province code](https://developer.paypal.com/docs/integration/direct/rest/state-codes/)
+        /// for the state or province that issued the identity document.
         public var issuerState: String?
+        
+        /// The city that issued the identity document. Applies only to certain types of documents, such as `trade_registration_number` documents.
         public var issuerCity: String?
+        
+        /// The name of the place that issued the identity document. Applies only to some types, such as `TAX_ID` for Turkey (`TR`).
         public var placeOfIssue: String?
+        
+        /// A description of the entity that issued the identity document. For example, `registration authority`.
         public var description: String?
         
+        
+        /// Creates a new `BusinessOwner.ID` instance.
+        ///
+        ///     BusinessOwner.ID(
+        ///         type: .driversLicense,
+        ///         value: "123abc456def",
+        ///         masked: false,
+        ///         issuerCountry: "US",
+        ///         issuerState: "OR",
+        ///         issuerCity: "Portland",
+        ///         placeOfIssue: nil,
+        ///         description: "DMV"
+        ///     )
         public init(
             type: IDType,
             value: String,
