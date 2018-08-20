@@ -37,11 +37,31 @@ public struct TypedPhoneNumber: Content, ValidationSetable, Equatable {
     /// Creates a new `TypePhoneNumber` instance.
     ///
     ///     TypedPhoneNumber(type: .home, country: "1", nationalNumber: "5838954290", extension: "777")
-    public init(type: PhoneType, country: String, nationalNumber: String, `extension`: String?) {
+    public init(type: PhoneType, country: String, nationalNumber: String, `extension`: String?)throws {
         self.type = type
         self.country = country
         self.nationalNumber = nationalNumber
         self.extension = `extension`
+        
+        try self.set(\.country <~ country)
+        try self.set(\.nationalNumber <~ nationalNumber)
+        try self.set(\.`extension` <~ `extension`)
+    }
+    
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let country = try container.decode(String.self, forKey: .country)
+        let nationalNumber = try container.decode(String.self, forKey: .nationalNumber)
+        let `extension` = try container.decodeIfPresent(String.self, forKey: .extension)
+        
+        self.country = country
+        self.nationalNumber = nationalNumber
+        self.extension = `extension`
+        self.type = try container.decode(PhoneType.self, forKey: .type)
+        
+        try self.set(\.country <~ country)
+        try self.set(\.nationalNumber <~ nationalNumber)
+        try self.set(\.`extension` <~ `extension`)
     }
     
     /// See `ValidationSetable.setterValidations()`.
