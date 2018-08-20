@@ -34,4 +34,11 @@ public struct TypedPhoneNumber: Content, Equatable {
         self.nationalNumber = nationalNumber
         self.extension = `extension`
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case type
+        case country = "country_code"
+        case nationalNumber = "national_number"
+        case `extension` = "extension_number"
+    }
 }
