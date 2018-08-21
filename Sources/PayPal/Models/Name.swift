@@ -57,12 +57,12 @@ public struct Name: Content, ValidationSetable,  Equatable {
     /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let prefix = try container.decode(String.self, forKey: .prefix)
-        let given = try container.decode(String.self, forKey: .given)
-        let surname = try container.decode(String.self, forKey: .surname)
-        let middle = try container.decode(String.self, forKey: .middle)
-        let suffix = try container.decode(String.self, forKey: .suffix)
-        let full = try container.decode(String.self, forKey: .full)
+        let prefix = try container.decodeIfPresent(String.self, forKey: .prefix)
+        let given = try container.decodeIfPresent(String.self, forKey: .given)
+        let surname = try container.decodeIfPresent(String.self, forKey: .surname)
+        let middle = try container.decodeIfPresent(String.self, forKey: .middle)
+        let suffix = try container.decodeIfPresent(String.self, forKey: .suffix)
+        let full = try container.decodeIfPresent(String.self, forKey: .full)
         
         self.prefix = prefix
         self.given = given
