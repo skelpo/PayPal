@@ -89,6 +89,33 @@ public struct BusinessOwner: Content, ValidationSetable, Equatable {
         self.phones = phones
         self.ids = ids
         self.occupation = occupation
+        
+        try self.set(\.email <~ email)
+        try self.set(\.country <~ country)
+        try self.set(\.birthdate <~ birthdate)
+    }
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let email = try container.decode(String.self, forKey: .email)
+        let country = try container.decode(String.self, forKey: .country)
+        let birthdate = try container.decodeIfPresent(String.self, forKey: .birthdate)
+        
+        self.email = email
+        self.country = country
+        self.birthdate = birthdate
+        self.name = try container.decode(Name.self, forKey: .name)
+        self.relationships = try container.decodeIfPresent([AccountOwnerRelationship].self, forKey: .relationships)
+        self.addresses = try container.decode([Address].self, forKey: .addresses)
+        self.language = try container.decodeIfPresent(Language.self, forKey: .language)
+        self.phones = try container.decodeIfPresent([TypedPhoneNumber].self, forKey: .phones)
+        self.ids = try container.decodeIfPresent([ID].self, forKey: .ids)
+        self.occupation = try container.decodeIfPresent(String.self, forKey: .occupation)
+        
+        try self.set(\.email <~ email)
+        try self.set(\.country <~ country)
+        try self.set(\.birthdate <~ birthdate)
     }
     
     /// See `ValidationSetable.setterValidations()`.
