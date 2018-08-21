@@ -21,10 +21,24 @@ public struct AccountOwnerRelationship: Content, ValidationSetable, Equatable {
     /// Creates a new `AccountOwnerRelationship` instance.
     ///
     ///     AccountOwnerRelationship(name: Name(prefix: nil, given: "Abe", surname: "Lincon", middle: nil, suffix: nil, full: "Abe Lincon"), country: "US")
-    public init(name: Name, country: String) {
+    public init(name: Name, country: String)throws {
         self.name = name
         self.country = country
         self.relation = "MOTHER"
+        
+        try self.set(\.country <~ country)
+    }
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let country = try container.decode(String.self, forKey: .country)
+        
+        self.country = country
+        self.name = try container.decode(Name.self, forKey: .name)
+        self.relation = try container.decode(String.self, forKey: .relation)
+        
+        try self.set(\.country <~ country)
     }
     
     /// See `ValidationSetable.setterValidations()`.
