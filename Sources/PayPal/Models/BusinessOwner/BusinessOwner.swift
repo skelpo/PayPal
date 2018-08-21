@@ -81,4 +81,13 @@ public struct BusinessOwner: Content, Equatable {
         self.ids = ids
         self.occupation = occupation
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case email, name, addresses, phones, occupation
+        case relationships = "account_owner_relationships"
+        case country = "country_code_of_nationality"
+        case birthdate = "date_of_birth"
+        case language = "language_code"
+        case ids = "identifications"
+    }
 }
