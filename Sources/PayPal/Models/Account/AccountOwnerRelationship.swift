@@ -20,7 +20,7 @@ public struct AccountOwnerRelationship: Content, ValidationSetable, Equatable {
     
     /// Creates a new `AccountOwnerRelationship` instance.
     ///
-    ///     AccountOwnerRelationship(name: Name(prefix: nil, given: "Abe", surname: "Lincon", middle: nil, suffix: nil, full: "Abe Lincon", country: "US")
+    ///     AccountOwnerRelationship(name: Name(prefix: nil, given: "Abe", surname: "Lincon", middle: nil, suffix: nil, full: "Abe Lincon"), country: "US")
     public init(name: Name, country: String) {
         self.name = name
         self.country = country
