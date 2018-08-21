@@ -48,6 +48,7 @@ public struct TypedPhoneNumber: Content, ValidationSetable, Equatable {
         try self.set(\.`extension` <~ `extension`)
     }
     
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let country = try container.decode(String.self, forKey: .country)
