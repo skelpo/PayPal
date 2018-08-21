@@ -1,13 +1,16 @@
 import Vapor
 
 /// Information on a business owner, which owns an account.
-public struct BusinessOwner: Content, Equatable {
+public struct BusinessOwner: Content, ValidationSetable, Equatable {
     
     /// The account holder's email address, in [Simple Mail Transfer Protocol](https://www.ietf.org/rfc/rfc5321.txt) as defined in RFC 5321 or
     /// in [Internet Message Format](https://www.ietf.org/rfc/rfc5322.txt) as defined in RFC 5322. Does not support Unicode email addresses.
     ///
+    /// This property can be set using the `BusinessOwner.set(_:)` method.
+    /// This method validates the new value before assigning it to the property.
+    ///
     /// Minimum length: 3. Maximum length: 254. Pattern: `^.+@[^"\-].+$`.
-    public var email: String
+    public private(set) var email: String
     
     /// The account holder's name.
     public var name: Name
@@ -18,8 +21,11 @@ public struct BusinessOwner: Content, Equatable {
     /// The [two-character IS0-3166-1 country code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/)
     /// of the account holder's country of residence.
     ///
+    /// This property can be set using the `BusinessOwner.set(_:)` method.
+    /// This method validates the new value before assigning it to the property.
+    ///
     /// Length: 2. Pattern: `^([A-Z]{2}|C2)$`.
-    public var country: String
+    public private(set) var country: String
     
     /// An array of addresses for the account holder.
     public var addresses: [Address]
@@ -27,8 +33,11 @@ public struct BusinessOwner: Content, Equatable {
     /// The account holder's date of birth, in [Internet date and time `full-date` format](https://tools.ietf.org/html/rfc3339#section-5.6).
     /// Supports `YYYY-MM-DD`. Not required for all countries.
     ///
+    /// This property can be set using the `BusinessOwner.set(_:)` method.
+    /// This method validates the new value before assigning it to the property.
+    ///
     /// Length: 10. Pattern: `^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$`.
-    public var birthdate: String?
+    public private(set) var birthdate: String?
     
     /// The [language code](https://developer.paypal.com/docs/integration/direct/rest/locale-codes/) for the account holder's preferred language.
     public var language: Language?
@@ -80,6 +89,30 @@ public struct BusinessOwner: Content, Equatable {
         self.phones = phones
         self.ids = ids
         self.occupation = occupation
+    }
+    
+    /// See `ValidationSetable.setterValidations()`.
+    public func setterValidations() -> SetterValidations<BusinessOwner> {
+        var validations = SetterValidations(BusinessOwner.self)
+        
+        validations.set(\.email) { email in
+            guard email.range(of: "^.+@[^\"\\-].+$", options: .regularExpression) != nil else {
+                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`email` value must match the RegEx pattern `^.+@[^\"\\-].+$`")
+            }
+        }
+        validations.set(\.country) { country in
+            guard country.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
+                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`country` value must match the RegEx pattern `^([A-Z]{2}|C2)$`")
+            }
+        }
+        validations.set(\.birthdate) { birthdate in
+            let pattern = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+            guard birthdate?.range(of: pattern, options: .regularExpression) != nil else {
+                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`birthdate` value must match the RegEx pattern `\(pattern)`")
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
