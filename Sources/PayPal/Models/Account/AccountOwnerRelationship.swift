@@ -23,4 +23,9 @@ public struct AccountOwnerRelationship: Content, Equatable {
         self.country = country
         self.relation = "MOTHER"
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case name, relation
+        case country = "country_code_of_nationality"
+    }
 }
