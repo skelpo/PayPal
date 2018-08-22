@@ -7,6 +7,9 @@ public typealias CCEmail = EmailType<CCEmailKeys>
 public typealias Email = EmailType<EmailKeys>
 
 /// See `EmailType` struct.
+///
+/// - Note: Up to 64 characters are allowed before and 255 characters are allowed after the @ sign.
+///   However, the generally accepted maximum length for an email address is 254 characters. The pattern verifies that an unquoted @ sign exists.
 public typealias EmailAddress = EmailType<EmailAddressKeys>
 
 // MARK: - Coding Keys
