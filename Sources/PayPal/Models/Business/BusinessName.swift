@@ -3,13 +3,15 @@ import Vapor
 extension Business {
     
     /// The name of a business object.
-    public struct Name {
+    public struct Name: Content, ValidationSetable, Equatable {
         
         /// The legal category of the business.
         public var type: NameType
         
         /// The name of the business.
-        public var name: String
+        ///
+        /// Maximum length: 300.
+        public private(set) var name: String
         
         
         /// Creates a new `Business.Name` instance.
@@ -18,6 +20,17 @@ extension Business {
         public init(type: NameType, name: String) {
             self.type = type
             self.name = name
+        }
+        
+        /// See `ValidationSetable.setterValidations()`.
+        public func setterValidations() -> SetterValidations<Business.Name> {
+            var validations = SetterValidations(Name.self)
+            
+            validations.set(\.name) { name in
+                guard name.count <= 300 else { throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`name` length must be 300 or less") }
+            }
+            
+            return validations
         }
     }
 }
