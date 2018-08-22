@@ -46,4 +46,8 @@ public struct TimelessDate: Content, ValidationSetable, Equatable {
         
         return validations
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case date = "date_no_time"
+    }
 }
