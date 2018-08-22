@@ -18,12 +18,12 @@ extension Invoice {
         /// the API sends notification emails to all CC: email addresses that are part of the invoice.
         ///
         /// - Note: Valid values are email addresses in the `cc_info` array of the invoice.
-        public var emails: [Email<CCEmailKeys>]?
+        public var emails: [CCEmail]?
         
         /// Creates a new `Invoice.Reminder` instance.
         ///
         ///     Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [CCEmail(email: "payer@example.com")])
-        public init(subject: String?, note: String?, sendToMerchant: Bool? = true, emails: [Email<CCEmailKeys>]?) {
+        public init(subject: String?, note: String?, sendToMerchant: Bool? = true, emails: [CCEmail]?) {
             self.subject = subject
             self.note = note
             self.sendToMerchant = sendToMerchant

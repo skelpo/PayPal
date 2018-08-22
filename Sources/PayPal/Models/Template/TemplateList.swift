@@ -11,7 +11,7 @@ public struct TemplateList: Content, Equatable {
     public var addresses: [Address]?
     
     /// An array of email addresses in the user's PayPal profile.
-    public var emails: [Email<EmailKeys>]?
+    public var emails: [Email]?
     
     /// An array of phone numbers in the user's PayPal profile.
     public var phones: [PhoneNumber]?
@@ -24,7 +24,7 @@ public struct TemplateList: Content, Equatable {
     ///
     /// Instead of creating a `TemplateList` with this initializer, you will most likely want to create it
     /// be decoding it from a JSON response from the PayPal API.
-    public init(addresses: [Address]?, emails: [Email<EmailKeys>]?, phones: [PhoneNumber]?, templates: [Template]?) {
+    public init(addresses: [Address]?, emails: [Email]?, phones: [PhoneNumber]?, templates: [Template]?) {
         self.links = nil
         self.addresses = addresses
         self.emails = emails

@@ -21,7 +21,7 @@ extension Template {
         public var shipping: ShippingInfo?
         
         /// An array of email addresses to which PayPal sends a copy of the invoice.
-        public var cc: [Email<EmailKeys>]?
+        public var cc: [Email]?
         
         /// An array of invoice line item information. The maximum items for an invoice is `100`.
         public var items: [Invoice.Item]?
@@ -135,7 +135,7 @@ extension Template {
             merchant: MerchantInfo,
             billing: [BillingInfo]? = nil,
             shipping: ShippingInfo? = nil,
-            cc: [Email<EmailKeys>]? = nil,
+            cc: [Email]? = nil,
             items: [Invoice.Item]? = nil,
             payment: PaymentTerm? = nil,
             reference: String? = nil,
@@ -202,7 +202,7 @@ extension Template {
             self.merchant = try container.decode(MerchantInfo.self, forKey: .merchant)
             self.billing = try container.decodeIfPresent([BillingInfo].self, forKey: .billing)
             self.shipping = try container.decodeIfPresent(ShippingInfo.self, forKey: .shipping)
-            self.cc = try container.decodeIfPresent([Email<EmailKeys>].self, forKey: .cc)
+            self.cc = try container.decodeIfPresent([Email].self, forKey: .cc)
             self.items = try container.decodeIfPresent([Invoice.Item].self, forKey: .items)
             self.payment = try container.decodeIfPresent(PaymentTerm.self, forKey: .payment)
             self.discount = try container.decodeIfPresent(Discount<Amount>.self, forKey: .discount)
