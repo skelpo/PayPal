@@ -90,7 +90,12 @@ extension CustomerService {
             return validations
         }
         
-        
+        enum CodingKeys: String, CodingKey {
+            case type, headline
+            case logo = "logo_image_url"
+            case serviceImage = "service_image_url"
+            case sellerMessage = "seller_message"
+        }
     }
 }
 
