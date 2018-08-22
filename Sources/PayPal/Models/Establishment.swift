@@ -24,4 +24,9 @@ public struct Establishment: Content, Equatable {
         self.state = state
         self.country = country
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case state
+        case country = "country_code"
+    }
 }
