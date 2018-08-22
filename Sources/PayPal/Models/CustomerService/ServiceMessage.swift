@@ -3,7 +3,7 @@ import Vapor
 extension CustomerService {
     
     /// A message sent by the customer service of a business or organizat
-    public struct Message {
+    public struct Message: Content, Codable {
         
         /// The type of customer service message
         public var type: MessageType
