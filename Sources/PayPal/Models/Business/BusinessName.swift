@@ -1,8 +1,24 @@
 import Vapor
 
 extension Business {
+    
+    /// The name of a business object.
     public struct Name {
         
+        /// The legal category of the business.
+        public var type: NameType
+        
+        /// The name of the business.
+        public var name: String
+        
+        
+        /// Creates a new `Business.Name` instance.
+        ///
+        ///     Business.Name(type: .legal, name: "Stuff and Nonesense Inc.")
+        public init(type: NameType, name: String) {
+            self.type = type
+            self.name = name
+        }
     }
 }
 
