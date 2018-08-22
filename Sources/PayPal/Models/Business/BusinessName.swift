@@ -2,7 +2,7 @@ import Vapor
 
 extension Business {
     
-    /// The name of a business object.
+    /// The name of a business, such as legal name or stock trading name.
     public struct Name: Content, ValidationSetable, Equatable {
         
         /// The legal category of the business.
