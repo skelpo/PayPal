@@ -19,6 +19,18 @@ public struct TimelessDate: Content, ValidationSetable, Equatable {
     ///     TimelessDate(date: "1517-10-31")
     public init(date: String?)throws {
         self.date = date
+        
+        try self.set(\.date <~ date)
+    }
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let date = try container.decodeIfPresent(String.self, forKey: .date)
+        
+        self.date = date
+        
+        try self.set(\.date <~ date)
     }
     
     /// See `ValidationSetable.setterValidations()`
