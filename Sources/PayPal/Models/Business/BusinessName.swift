@@ -17,9 +17,22 @@ extension Business {
         /// Creates a new `Business.Name` instance.
         ///
         ///     Business.Name(type: .legal, name: "Stuff and Nonesense Inc.")
-        public init(type: NameType, name: String) {
+        public init(type: NameType, name: String)throws {
             self.type = type
             self.name = name
+            
+            try self.set(\.name <~ name)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let name = try container.decode(String.self, forKey: .name)
+            
+            self.name = name
+            self.type = try container.decode(NameType.self, forKey: .type)
+            
+            try self.set(\.name <~ name)
         }
         
         /// See `ValidationSetable.setterValidations()`.
