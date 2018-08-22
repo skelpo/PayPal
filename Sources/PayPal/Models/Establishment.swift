@@ -14,15 +14,28 @@ public struct Establishment: Content, ValidationSetable, Equatable {
     ///   Use the `C2 country code for China worldwide for comparable uncontrolled price (CUP) method, bank card, and cross-border transactions.
     ///
     /// Length: 2. Pattern: `^([A-Z]{2}|C2)$`.
-    public var country: String?
+    public private(set) var country: String?
     
     
     /// Creates a new `Establishment` instance.
     ///
     ///     Establishment(state: "KS", country: "US")
-    public init(state: String?, country: String?) {
+    public init(state: String?, country: String?)throws {
         self.state = state
         self.country = country
+        
+        try self.set(\.country <~ country)
+    }
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let country = try container.decodeIfPresent(String.self, forKey: .country)
+        
+        self.country = country
+        self.state = try container.decodeIfPresent(String.self, forKey: .state)
+        
+        try self.set(\.country <~ country)
     }
     
     /// See `ValidationSetable.setterValidations()`.
