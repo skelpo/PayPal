@@ -56,6 +56,31 @@ extension CustomerService {
             self.logo = logo
             self.serviceImage = serviceImage
             self.sellerMessage = sellerMessage
+            
+            try self.set(\.headline <~ headline)
+            try self.set(\.logo <~ logo)
+            try self.set(\.serviceImage <~ serviceImage)
+            try self.set(\.sellerMessage <~ sellerMessage)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let headline = try container.decodeIfPresent(String.self, forKey: .headline)
+            let logo = try container.decodeIfPresent(String.self, forKey: .logo)
+            let serviceImage = try container.decodeIfPresent(String.self, forKey: .serviceImage)
+            let sellerMessage = try container.decode(String.self, forKey: .sellerMessage)
+            
+            self.headline = headline
+            self.logo = logo
+            self.serviceImage = serviceImage
+            self.sellerMessage = sellerMessage
+            self.type = try container.decode(MessageType.self, forKey: .type)
+            
+            try self.set(\.headline <~ headline)
+            try self.set(\.logo <~ logo)
+            try self.set(\.serviceImage <~ serviceImage)
+            try self.set(\.sellerMessage <~ sellerMessage)
         }
         
         /// See `ValidationSetable.setterValidations()`.
