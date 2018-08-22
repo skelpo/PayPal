@@ -1,7 +1,7 @@
 import Vapor
 
 /// The place of establishment of an organization or business.
-public struct Establishment: Content, Equatable {
+public struct Establishment: Content, ValidationSetable, Equatable {
     
     /// The [state or territory](https://developer.paypal.com/docs/integration/direct/rest/state-codes/)
     /// of the government body with which the business was established.
@@ -23,6 +23,20 @@ public struct Establishment: Content, Equatable {
     public init(state: String?, country: String?) {
         self.state = state
         self.country = country
+    }
+    
+    /// See `ValidationSetable.setterValidations()`.
+    public func setterValidations() -> SetterValidations<Establishment> {
+        var validations = SetterValidations(Establishment.self)
+        
+        validations.set(\.country) { country in
+            guard let country = country else { return }
+            guard country.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
+                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`country_code` value must match RegEx pattern `^([A-Z]{2}|C2)$`")
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
