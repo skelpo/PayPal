@@ -16,4 +16,9 @@ public struct MoneyRange<M>: Content, Equatable where M: Monitary {
         self.minimum = min
         self.maximum = max
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case minimum = "minimum_amount"
+        case maximum = "maximum_amount"
+    }
 }
