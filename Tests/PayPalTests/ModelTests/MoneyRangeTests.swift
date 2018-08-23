@@ -3,10 +3,13 @@ import XCTest
 
 final class MoneyRangeTests: XCTestCase {
     func testInit()throws {
-        let range = try MoneyRange(min: Money(currency: .usd, value: "12.25"), max: Money(currency: .usd, value: "50.00"))
+        let range0 = try MoneyRange(min: Money(currency: .usd, value: "12.25"), max: Money(currency: .usd, value: "50.00"))
+        try XCTAssertEqual(range0.minimum, Money(currency: .usd, value: "12.25"))
+        try XCTAssertEqual(range0.maximum, Money(currency: .usd, value: "50.00"))
         
-        try XCTAssertEqual(range.minimum, Money(currency: .usd, value: "12.25"))
-        try XCTAssertEqual(range.maximum, Money(currency: .usd, value: "50.00"))
+        let range1 = try MoneyRange<Money>("12.25"..."50.00", currency: .usd)
+        try XCTAssertEqual(range1.minimum, Money(currency: .usd, value: "12.25"))
+        try XCTAssertEqual(range1.maximum, Money(currency: .usd, value: "50.00"))
     }
     
     func testEncoding()throws {
