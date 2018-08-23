@@ -1,16 +1,23 @@
 import Vapor
 
-public struct PercentRange: Content, Hashable {
+/// A range of percentages, including all whole numbers between a spoecified minimum and maximum values.
+public struct PercentRange: Content, ValidationSetable, Hashable {
     
     /// The minimum inclusive value of the range.
     ///
+    /// This property can be set using the `PercentRange.set(_:)`. This method
+    /// validates the new value before assigning it to thr property.
+    ///
     /// Minimum value: 0. Maximum value: 99.
-    public var minimum: Int
+    public private(set) var minimum: Int
     
     /// The maximum inclusive value of the range.
     ///
+    /// This property can be set using the `PercentRange.set(_:)`. This method
+    /// validates the new value before assigning it to thr property.
+    ///
     /// Minimum value: 1. Maximum value: 100.
-    public var maximum: Int
+    public private(set) var maximum: Int
     
     
     /// Creates a new `PercentRange` instance.
@@ -19,6 +26,24 @@ public struct PercentRange: Content, Hashable {
     public init(min: Int, max: Int) {
         self.minimum = min
         self.maximum = max
+    }
+    
+    /// See `ValidationSetable.setterValidations()`.
+    public func setterValidations() -> SetterValidations<PercentRange> {
+        var validations = SetterValidations(PercentRange.self)
+        
+        validations.set(\.minimum) { min in
+            guard (0...99).contains(min) else {
+                throw PayPalError(status: .badRequest, identifier: "invalidPercent", reason: "`min` value must be no less than 0 and no greater then 99 (0-99)")
+            }
+        }
+        validations.set(\.maximum) { max in
+            guard (1...100).contains(max) else {
+                throw PayPalError(status: .badRequest, identifier: "invalidPercent", reason: "`max` value must be no less than 1 and no greater then 100 (1-100)")
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
