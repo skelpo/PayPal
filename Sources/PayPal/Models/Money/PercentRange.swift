@@ -142,7 +142,7 @@ extension PercentRange: RangeExpression {
     
     /// See [`RangeExpression.contains(_:)`](https://developer.apple.com/documentation/swift/rangeexpression/2893202-contains)
     public func contains(_ element: Int) -> Bool {
-        return element >= minimum && element <= maximum
+        return element >= self.minimum && element <= self.maximum
     }
 }
 
@@ -156,18 +156,18 @@ extension PercentRange: RandomAccessCollection {
     
     
     /// See [`RandomAccessCollection.startIndex`](https://developer.apple.com/documentation/swift/randomaccesscollection/2944247-startindex).
-    public var startIndex: Int { return self.minimum }
+    public var startIndex: Int { return 0 }
     
     /// See [`RandomAccessCollection.endIndex`](https://developer.apple.com/documentation/swift/randomaccesscollection/2945831-endindex).
-    public var endIndex: Int { return self.maximum }
+    public var endIndex: Int { return (self.maximum - self.minimum) + 1 }
     
     
     /// See [`RandomAccessCollection.subscript(position:)`](https://developer.apple.com/documentation/swift/randomaccesscollection/2944476-subscript).
     public subscript(position: Int) -> Int {
-        guard self.contains(position) else {
+        guard (self.startIndex...self.endIndex).contains(position) else {
             return Array(self.minimum...self.maximum)[position]
         }
-        return position
+        return self.minimum + position
     }
     
     
