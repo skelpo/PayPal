@@ -31,6 +31,65 @@ public struct PercentRange: Content, ValidationSetable, Hashable {
         try self.set(\.maximum <~ max)
     }
     
+    /// Creates a new `PercentRange` instance with a closed range.
+    ///
+    ///     PercentRange(50..<100)
+    public init(_ range: Range<Int>)throws {
+        self.minimum = range.lowerBound
+        self.maximum = range.last ?? range.upperBound
+        
+        try self.set(\.minimum <~ range.lowerBound)
+        try self.set(\.maximum <~ (range.last ?? range.upperBound))
+    }
+    
+    /// Creates a new `PercentRange` instance with a closed range.
+    ///
+    ///     PercentRange(50...75)
+    public init(_ range: ClosedRange<Int>)throws {
+        self.minimum = range.lowerBound
+        self.maximum = range.upperBound
+        
+        try self.set(\.minimum <~ range.lowerBound)
+        try self.set(\.maximum <~ range.upperBound)
+    }
+    
+    /// Creates a new `PercentRange` instance with a closed range.
+    ///
+    ///     PercentRange(50...)
+    ///
+    /// - Note: `maximum` property gets assigned `100`.
+    public init(_ range: PartialRangeFrom<Int>)throws {
+        self.minimum = range.lowerBound
+        self.maximum = 100
+        
+        try self.set(\.minimum <~ range.lowerBound)
+    }
+    
+    
+    /// Creates a new `PercentRange` instance with a closed range.
+    ///
+    ///     PercentRange(...100)
+    ///
+    /// - Note: `minimum` property gets assigned `0`.
+    public init(_ range: PartialRangeThrough<Int>)throws {
+        self.minimum = 0
+        self.maximum = range.upperBound
+        
+        try self.set(\.maximum <~ range.upperBound)
+    }
+    
+    /// Creates a new `PercentRange` instance with a closed range.
+    ///
+    ///     PercentRange(..<100)
+    ///
+    /// - Note: `minimum` property gets assigned `0`.
+    public init(_ range: PartialRangeUpTo<Int>)throws {
+        self.minimum = 0
+        self.maximum = range.upperBound - 1
+        
+        try self.set(\.maximum <~ (range.upperBound - 1))
+    }
+    
     /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
