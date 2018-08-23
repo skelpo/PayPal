@@ -20,6 +20,11 @@ public struct PercentRange: Content, Hashable {
         self.minimum = min
         self.maximum = max
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case minimum = "minimum_percent"
+        case maximum = "maximum_percent"
+    }
 }
 
 extension PercentRange: RangeExpression {
