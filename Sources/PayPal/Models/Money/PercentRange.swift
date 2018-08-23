@@ -1,6 +1,6 @@
 import Vapor
 
-public struct PercentRange: Content, Equatable {
+public struct PercentRange: Content, Hashable {
     public var minimum: Int
     public var maximum: Int
     
