@@ -21,4 +21,9 @@ public struct SalesVenue: Content, Equatable {
         self.ebayID = ebayID
         self.description = description
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case type, description
+        case ebayID = "ebay_id"
+    }
 }
