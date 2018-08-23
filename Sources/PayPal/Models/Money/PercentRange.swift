@@ -23,9 +23,25 @@ public struct PercentRange: Content, ValidationSetable, Hashable {
     /// Creates a new `PercentRange` instance.
     ///
     ///     PercentRange(min: 25, max: 75)
-    public init(min: Int, max: Int) {
+    public init(min: Int, max: Int)throws {
         self.minimum = min
         self.maximum = max
+        
+        try self.set(\.minimum <~ min)
+        try self.set(\.maximum <~ max)
+    }
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let min = try container.decode(Int.self, forKey: .minimum)
+        let max = try container.decode(Int.self, forKey: .maximum)
+        
+        self.minimum = min
+        self.maximum = max
+        
+        try self.set(\.minimum <~ min)
+        try self.set(\.maximum <~ max)
     }
     
     /// See `ValidationSetable.setterValidations()`.
