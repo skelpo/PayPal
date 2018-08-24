@@ -3,7 +3,7 @@ import Vapor
 extension Business {
     
     /// The sales information for a business.
-    public struct Sales: Content, Equatable {
+    public struct Sales: Content, ValidationSetable, Equatable {
         
         /// The average transaction price.
         public var price: MoneyRange<Amount>?
@@ -16,8 +16,11 @@ extension Business {
         
         /// The primary URL of the business.
         ///
+        /// This property can be set using the `Sales.set(_:)` method. This method
+        /// will validate the new value before assigning it to the property.
+        ///
         /// Maximum length: 255.
-        public var website: String?
+        public private(set) var website: String?
         
         /// The percentage of revenue attributable to online sales.
         public var online: PercentRange?
@@ -38,6 +41,20 @@ extension Business {
             self.venues = venues
             self.website = website
             self.online = online
+        }
+        
+        /// See `ValidationSetable.setterValidations()`.
+        public func setterValidations() -> SetterValidations<Business.Sales> {
+            var validations = SetterValidations(Sales.self)
+            
+            validations.set(\.website) { website in
+                guard let website = website else { return }
+                guard website.count <= 255 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`website` value must have a length of 255 or less")
+                }
+            }
+            
+            return validations
         }
         
         enum CodingKeys: String, CodingKey {
