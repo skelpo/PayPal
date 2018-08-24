@@ -39,5 +39,13 @@ extension Business {
             self.website = website
             self.online = online
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case website
+            case price = "average_price"
+            case volume = "average_monthly_volume"
+            case venues = "sales_venues"
+            case online = "revenue_from_online_sales"
+        }
     }
 }
