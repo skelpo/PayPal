@@ -22,4 +22,9 @@ public struct BirthPlace: Content, Equatable {
         self.country = country
         self.city = city
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case country = "country_code"
+        case city
+    }
 }
