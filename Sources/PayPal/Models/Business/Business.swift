@@ -69,7 +69,7 @@ public struct Business: Content, ValidationSetable, Equatable {
     public var customerService: CustomerService?
     
     /// An array of merchant addresses.
-    public var addresses: [Address]?
+    public var addresses: [Address]
     
     /// The [two-character ISO 3166-1 code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/) that identifies the country or region.
     ///
@@ -136,7 +136,7 @@ public struct Business: Content, ValidationSetable, Equatable {
         disputeEmail: EmailAddress?,
         sales: Sales?,
         customerService: CustomerService?,
-        addresses: [Address]?,
+        addresses: [Address],
         country: String?,
         stakeholders: [Stakeholder]?,
         designation: Designation?
@@ -160,6 +160,38 @@ public struct Business: Content, ValidationSetable, Equatable {
         self.country = country
         self.stakeholders = stakeholders
         self.designation = designation
+        
+        try self.set(\.category <~ category)
+        try self.set(\.subCategory <~ subCategory)
+        try self.set(\.merchantCategory <~ merchantCategory)
+        try self.set(\.country <~ country)
+    }
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        try self.init(
+            type: container.decode(BusinessType.self, forKey: .type),
+            subType: container.decodeIfPresent(SubType.self, forKey: .subType),
+            government: container.decodeIfPresent(GovernmentBody.self, forKey: .government),
+            establishment: container.decodeIfPresent(Establishment.self, forKey: .establishment),
+            names: container.decodeIfPresent([Name].self, forKey: .names),
+            ids: container.decodeIfPresent([Identification].self, forKey: .ids),
+            phones: container.decode([TypedPhoneNumber].self, forKey: .phones),
+            category: container.decodeIfPresent(String.self, forKey: .category),
+            subCategory: container.decodeIfPresent(String.self, forKey: .subCategory),
+            merchantCategory: container.decodeIfPresent(String.self, forKey: .merchantCategory),
+            establishedDate: container.decodeIfPresent(TimelessDate.self, forKey: .establishedDate),
+            registrationDate: container.decodeIfPresent(TimelessDate.self, forKey: .registrationDate),
+            disputeEmail: container.decodeIfPresent(EmailAddress.self, forKey: .disputeEmail),
+            sales: container.decodeIfPresent(Sales.self, forKey: .sales),
+            customerService: container.decodeIfPresent(CustomerService.self, forKey: .customerService),
+            addresses: container.decode([Address].self, forKey: .addresses),
+            country: container.decodeIfPresent(String.self, forKey: .country),
+            stakeholders: container.decodeIfPresent([Stakeholder].self, forKey: .stakeholders),
+            designation: container.decodeIfPresent(Designation.self, forKey: .designation)
+        )
     }
     
     /// See `ValidationSetable.setterValidations()`.
