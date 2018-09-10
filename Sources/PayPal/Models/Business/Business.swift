@@ -149,4 +149,20 @@ public struct Business: Content, Equatable {
         self.stakeholders = stakeholders
         self.designation = designation
     }
+    
+    enum CodingKeys: String, CodingKey {
+       case type, names, phones, category, addresses, stakeholders, designation
+       case subType = "sub_type"
+       case government = "government_body"
+       case establishment = "place_of_establishment"
+       case ids = "identifications"
+       case subCategory = "sub_category"
+       case merchantCategory = "merchant_category_code"
+       case establishedDate = "date_business_established"
+       case registrationDate = "date_of_registration"
+       case disputeEmail = "dispute_email"
+       case sales = "business_sales_details"
+       case customerService = "customer_service"
+       case country = "country_code_of_incorporation"
+    }
 }
