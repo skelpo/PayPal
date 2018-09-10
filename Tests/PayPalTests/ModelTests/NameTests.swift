@@ -35,9 +35,9 @@ final class NameTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        var name = try Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "auth.", full: "Sir Walter Scott")
+        let name = try Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "auth.", full: "Sir Walter Scott")
         let generated = try String(data: encoder.encode(name), encoding: .utf8)
-        let json = "{\"full_name\":\"Sir Walter Scott\",\"suffix\":\"auth.\",\"surname\":\"Scott\",\"given_name\":\"Walter\",\"prefix\":\"Sir\"}"
+        let json = "{\"given_name\":\"Walter\",\"full_name\":\"Sir Walter Scott\",\"prefix\":\"Sir\",\"surname\":\"Scott\",\"suffix\":\"auth.\"}"
         
         XCTAssertEqual(generated, json)
     }
