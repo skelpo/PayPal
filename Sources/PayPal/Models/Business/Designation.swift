@@ -19,5 +19,10 @@ extension Business {
             self.title = title
             self.area = area
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case title
+            case area = "business_area"
+        }
     }
 }
