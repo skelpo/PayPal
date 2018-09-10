@@ -47,7 +47,7 @@ public struct BusinessOwner: Content, ValidationSetable, Equatable {
     
     /// An array of identification documents for the account holder. This field is only required when `/business_info/type` is set to `INDIVIDUAL`
     /// or `PROPRIETORSHIP`. When required, this property must contain an identification whose `type` is set to `SOCIAL_SECURITY_NUMBER`.
-    public var ids: [ID]?
+    public var ids: [Identification]?
     
     /// The account holder's occupation.
     public var occupation: String?
@@ -76,7 +76,7 @@ public struct BusinessOwner: Content, ValidationSetable, Equatable {
         birthdate: String?,
         language: Language?,
         phones: [TypedPhoneNumber]?,
-        ids: [ID]?,
+        ids: [Identification]?,
         occupation: String?
     )throws {
         self.email = email
@@ -110,7 +110,7 @@ public struct BusinessOwner: Content, ValidationSetable, Equatable {
         self.addresses = try container.decode([Address].self, forKey: .addresses)
         self.language = try container.decodeIfPresent(Language.self, forKey: .language)
         self.phones = try container.decodeIfPresent([TypedPhoneNumber].self, forKey: .phones)
-        self.ids = try container.decodeIfPresent([ID].self, forKey: .ids)
+        self.ids = try container.decodeIfPresent([Identification].self, forKey: .ids)
         self.occupation = try container.decodeIfPresent(String.self, forKey: .occupation)
         
         try self.set(\.email <~ email)

@@ -1,9 +1,9 @@
 import XCTest
 @testable import PayPal
 
-final class BusinessOwnerIDTests: XCTestCase {
+final class IdentificationTests: XCTestCase {
     func testInit()throws {
-        let id = try BusinessOwner.ID(
+        let id = try Identification(
             type: .driversLicense,
             value: "123abc456def",
             masked: false,
@@ -25,7 +25,7 @@ final class BusinessOwnerIDTests: XCTestCase {
     }
     
     func testValueValidation()throws {
-        try XCTAssertThrowsError(BusinessOwner.ID(
+        try XCTAssertThrowsError(Identification(
             type: .cpf,
             value: "123abc456def",
             masked: nil,
@@ -35,7 +35,7 @@ final class BusinessOwnerIDTests: XCTestCase {
             placeOfIssue: nil,
             description: nil
         ))
-        var id = try BusinessOwner.ID(
+        var id = try Identification(
             type: .driversLicense,
             value: "123abc456def",
             masked: false,
@@ -54,7 +54,7 @@ final class BusinessOwnerIDTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let id = try BusinessOwner.ID(
+        let id = try Identification(
             type: .driversLicense,
             value: "123abc456def",
             masked: false,
@@ -82,7 +82,7 @@ final class BusinessOwnerIDTests: XCTestCase {
     func testDecoding()throws {
         let decoder = JSONDecoder()
         
-        let id = try BusinessOwner.ID(
+        let id = try Identification(
             type: .driversLicense,
             value: "123abc456def",
             masked: false,
@@ -116,11 +116,11 @@ final class BusinessOwnerIDTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        try XCTAssertEqual(id, decoder.decode(BusinessOwner.ID.self, from: json))
-        try XCTAssertThrowsError(decoder.decode(BusinessOwner.ID.self, from: country))
+        try XCTAssertEqual(id, decoder.decode(Identification.self, from: json))
+        try XCTAssertThrowsError(decoder.decode(Identification.self, from: country))
     }
     
-    static var allTests: [(String, (BusinessOwnerIDTests) -> ()throws -> ())] = [
+    static var allTests: [(String, (IdentificationTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValueValidation", testValueValidation),
         ("testEncoding", testEncoding),

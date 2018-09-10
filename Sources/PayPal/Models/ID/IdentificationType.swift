@@ -1,6 +1,6 @@
 import Vapor
 
-extension BusinessOwner.ID {
+extension Identification {
     
     /// The type of identification for a business owner.
     public enum IDType: String, Hashable, CaseIterable, Content {

@@ -120,7 +120,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(BusinessOwnerAddressTypeTests.allCases),
         testCase(BusinessOwnerAddressTests.allCases),
         testCase(BusinessOwnerIDTypeTests.allCases),
-        testCase(BusinessOwnerIDTests.allCases),
+        testCase(IdentificationTests.allCases),
         testCase(PhoneTypeTests.allCases),
         testCase(TypedPhoneNumberTests.allCases),
         testCase(AccountOwnerRelationshipTests.allCases),

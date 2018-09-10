@@ -3,32 +3,32 @@ import XCTest
 
 final class BusinessOwnerIDTypeTests: XCTestCase {
     struct ID: Codable {
-        let type: BusinessOwner.ID.IDType
+        let type: Identification.IDType
     }
     
     func testCaseRawValues() {
-        XCTAssertEqual(BusinessOwner.ID.IDType.associationNumber.rawValue, "ASSOCIATION_NUMBER")
-        XCTAssertEqual(BusinessOwner.ID.IDType.businessNumber.rawValue, "BUSINESS_NUMBER")
-        XCTAssertEqual(BusinessOwner.ID.IDType.businessRegistrationNumber.rawValue, "BUSINESS_REGISTRATION_NUMBER")
-        XCTAssertEqual(BusinessOwner.ID.IDType.cnpj.rawValue, "CNPJ")
-        XCTAssertEqual(BusinessOwner.ID.IDType.companyNumber.rawValue, "COMPANY_NUMBER")
-        XCTAssertEqual(BusinessOwner.ID.IDType.cooperativeNumber.rawValue, "COOPERATIVE_NUMBER")
-        XCTAssertEqual(BusinessOwner.ID.IDType.cpf.rawValue, "CPF")
-        XCTAssertEqual(BusinessOwner.ID.IDType.driversLicense.rawValue, "DRIVERS_LICENSE")
-        XCTAssertEqual(BusinessOwner.ID.IDType.employmentIdentificationNumber.rawValue, "EMPLOYMENT_IDENTIFICATION_NUMBER")
-        XCTAssertEqual(BusinessOwner.ID.IDType.immigrantID.rawValue, "IMMIGRANT_ID")
-        XCTAssertEqual(BusinessOwner.ID.IDType.individualTaxIdentificationNumber.rawValue, "INDIVIDUAL_TAX_IDENTIFICATION_NUMBER")
-        XCTAssertEqual(BusinessOwner.ID.IDType.medicalInsuranceID.rawValue, "MEDICAL_INSURANCE_ID")
-        XCTAssertEqual(BusinessOwner.ID.IDType.nationalID.rawValue, "NATIONAL_ID")
-        XCTAssertEqual(BusinessOwner.ID.IDType.passportNumber.rawValue, "PASSPORT_NUMBER")
-        XCTAssertEqual(BusinessOwner.ID.IDType.socialInsuranceNumber.rawValue, "SOCIAL_INSURANCE_NUMBER")
-        XCTAssertEqual(BusinessOwner.ID.IDType.socialSecurityNumber.rawValue, "SOCIAL_SECURITY_NUMBER")
-        XCTAssertEqual(BusinessOwner.ID.IDType.valueAddedTaxID.rawValue, "VALUE_ADDED_TAX_ID")
+        XCTAssertEqual(Identification.IDType.associationNumber.rawValue, "ASSOCIATION_NUMBER")
+        XCTAssertEqual(Identification.IDType.businessNumber.rawValue, "BUSINESS_NUMBER")
+        XCTAssertEqual(Identification.IDType.businessRegistrationNumber.rawValue, "BUSINESS_REGISTRATION_NUMBER")
+        XCTAssertEqual(Identification.IDType.cnpj.rawValue, "CNPJ")
+        XCTAssertEqual(Identification.IDType.companyNumber.rawValue, "COMPANY_NUMBER")
+        XCTAssertEqual(Identification.IDType.cooperativeNumber.rawValue, "COOPERATIVE_NUMBER")
+        XCTAssertEqual(Identification.IDType.cpf.rawValue, "CPF")
+        XCTAssertEqual(Identification.IDType.driversLicense.rawValue, "DRIVERS_LICENSE")
+        XCTAssertEqual(Identification.IDType.employmentIdentificationNumber.rawValue, "EMPLOYMENT_IDENTIFICATION_NUMBER")
+        XCTAssertEqual(Identification.IDType.immigrantID.rawValue, "IMMIGRANT_ID")
+        XCTAssertEqual(Identification.IDType.individualTaxIdentificationNumber.rawValue, "INDIVIDUAL_TAX_IDENTIFICATION_NUMBER")
+        XCTAssertEqual(Identification.IDType.medicalInsuranceID.rawValue, "MEDICAL_INSURANCE_ID")
+        XCTAssertEqual(Identification.IDType.nationalID.rawValue, "NATIONAL_ID")
+        XCTAssertEqual(Identification.IDType.passportNumber.rawValue, "PASSPORT_NUMBER")
+        XCTAssertEqual(Identification.IDType.socialInsuranceNumber.rawValue, "SOCIAL_INSURANCE_NUMBER")
+        XCTAssertEqual(Identification.IDType.socialSecurityNumber.rawValue, "SOCIAL_SECURITY_NUMBER")
+        XCTAssertEqual(Identification.IDType.valueAddedTaxID.rawValue, "VALUE_ADDED_TAX_ID")
     }
     
     func testAllCase() {
-        XCTAssertEqual(BusinessOwner.ID.IDType.allCases.count, 18)
-        XCTAssertEqual(BusinessOwner.ID.IDType.allCases, [
+        XCTAssertEqual(Identification.IDType.allCases.count, 18)
+        XCTAssertEqual(Identification.IDType.allCases, [
             .associationNumber, .businessNumber, .businessRegistrationNumber, .cnpj, .companyNumber, .cooperativeNumber, .cpf, .driversLicense,
             .employmentIdentificationNumber, .immigrantID, .individualTaxIdentificationNumber, .medicalInsuranceID, .nationalID,
             .passportNumber, .pensionFundID, .socialInsuranceNumber, .socialSecurityNumber, .valueAddedTaxID
