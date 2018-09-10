@@ -38,8 +38,9 @@ public struct TimelessDate: Content, ValidationSetable, Equatable {
         var validations = SetterValidations(TimelessDate.self)
         
         validations.set(\.date) { date in
+            guard let date = date else { return }
             let pattern = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
-            guard date?.range(of: pattern, options: .regularExpression) != nil else {
+            guard date.range(of: pattern, options: .regularExpression) != nil else {
                 throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`date` value must match RegEx pattern `\(pattern)`")
             }
         }
