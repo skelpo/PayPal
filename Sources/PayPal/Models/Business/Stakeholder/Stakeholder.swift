@@ -60,7 +60,7 @@ extension Business {
             phones: [TypedPhoneNumber]?,
             ids: [Identification]?,
             birthplace: BirthPlace?
-        ) {
+        )throws {
             self.ownership = ownership
             self.type = type
             self.country = country
@@ -70,6 +70,26 @@ extension Business {
             self.phones = phones
             self.ids = ids
             self.birthplace = birthplace
+            
+            try self.set(\.country <~ country)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let country = try container.decodeIfPresent(String.self, forKey: .country)
+            
+            self.country = country
+            self.ownership = try container.decodeIfPresent(String.self, forKey: .ownership)
+            self.type = try container.decodeIfPresent(StakeholderType.self, forKey: .type)
+            self.birth = try container.decodeIfPresent(TimelessDate.self, forKey: .birth)
+            self.name = try container.decodeIfPresent(PayPal.Name.self, forKey: .name)
+            self.addresses = try container.decodeIfPresent([Address].self, forKey: .addresses)
+            self.phones = try container.decodeIfPresent([TypedPhoneNumber].self, forKey: .phones)
+            self.ids = try container.decodeIfPresent([Identification].self, forKey: .ids)
+            self.birthplace = try container.decodeIfPresent(BirthPlace.self, forKey: .birthplace)
+            
+            try self.set(\.country <~ country)
         }
         
         /// See `ValidationSetable.setterValidations()`.
