@@ -100,8 +100,8 @@ public struct Business: Content, ValidationSetable, Equatable {
     ///         category: "3145",
     ///         subCategory: "5972",
     ///         merchantCategory: "4653",
-    ///         establishedDate: TimelessDate(name: "1882-05-13"),
-    ///         registrationDate: TimelessDate(name: "1975-04-22"),
+    ///         establishedDate: TimelessDate(date: "1882-05-13"),
+    ///         registrationDate: TimelessDate(date: "1975-04-22"),
     ///         disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
     ///         sales: .init(
     ///             price: MoneyRange("50"..."60", currency: .usd),
@@ -118,7 +118,7 @@ public struct Business: Content, ValidationSetable, Equatable {
     ///         addresses: [],
     ///         country: "US",
     ///         stakeholders: [],
-    ///         designation: Designation(title: "CTO", area: "Software Engineering")
+    ///         designation: .init(title: "CTO", area: "Software Engineering")
     ///     )
     public init(
         type: BusinessType,
