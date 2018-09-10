@@ -74,7 +74,7 @@ public struct EmailType<Keys>: Content, ValidationSetable, Equatable where Keys:
     
     /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
-        self.email = try decoder.container(keyedBy: Keys.self).decode(String.self, forKey: .email)
+        self.email = try decoder.container(keyedBy: Keys.self).decodeIfPresent(String.self, forKey: .email)
         
         try self.set(\.email <~ self.email)
     }
@@ -82,7 +82,7 @@ public struct EmailType<Keys>: Content, ValidationSetable, Equatable where Keys:
     /// See [`Encodable.encode(to:)`](https://developer.apple.com/documentation/swift/encodable/2893603-encode).
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: Keys.self)
-        try container.encode(self.email, forKey: .email)
+        try container.encodeIfPresent(self.email, forKey: .email)
     }
     
     /// See `ValidationSetable.setterValidations()`
