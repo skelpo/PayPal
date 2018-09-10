@@ -85,5 +85,14 @@ extension Business {
             
             return validations
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case type, name, addresses, phones
+            case ownership = "ownership_percentage"
+            case country = "country_code_of_nationality"
+            case birth = "date_of_birth"
+            case ids = "identifications"
+            case birthplace = "place_of_birth"
+        }
     }
 }
