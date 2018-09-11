@@ -4,10 +4,6 @@ import XCTest
 typealias EmailFrequency =  NotificationOptions.EmailFrequency
 
 final class EmailFrequencyTests: XCTestCase {
-    struct Dispute: Codable {
-        let stage: CustomerDispute.LifeCycleStage
-    }
-    
     struct Email: Codable {
         let frequency: NotificationOptions.EmailFrequency
     }
