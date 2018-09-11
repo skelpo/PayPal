@@ -4,7 +4,7 @@ import Vapor
 public struct FinancialInstrument: Content, Equatable {
     
     /// The financial instrument type. Currently supports `BANK` only.
-    public let type: String?
+    public let type: InstrumentType?
     
     /// The bank account type.
     public let accountType: String
@@ -17,7 +17,7 @@ public struct FinancialInstrument: Content, Equatable {
     ///
     /// - Parameter id: The PayPal-generated financial instrument ID. Defaults to `nil`.
     public init(id: String? = nil) {
-        self.type = "BANK"
+        self.type = .bank
         self.id = id
         self.accountType = ""
     }
