@@ -1,9 +1,23 @@
 import Vapor
 
+/// Permissions that can be assigned to an account.
 public struct AccountPermission: Content, Equatable {
+    
+    /// The third-party ID for the account.
     public var thirdParty: String?
+    
+    /// The permission to assign to the account.
+    ///
+    /// - Note: The `SETTLEMENT_CONSOLIDATION` permissions is not applicable to all partners.
     public var permissions: [Permission]?
     
+    /// Creates a new `AccountPermission` instance.
+    ///
+    ///     AccountPermission(thiredParty: "FDF4D16C-11C0-4792-A956-6A3A9D8B49C2", permissions: [.directPayment])
+    ///
+    /// - Parameters:
+    ///   - thirdParty: The third-party ID for the account.
+    ///   - permissions: The permission to assign to the account.
     public init(thirdParty: String?, permissions: [Permission]?) {
         self.thirdParty = thirdParty
         self.permissions = permissions
