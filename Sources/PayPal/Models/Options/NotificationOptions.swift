@@ -27,8 +27,14 @@ public struct NotificationOptions: Content, Equatable {
 }
 
 extension NotificationOptions {
+    
+    /// The frequency with which the reminder email is sent to the PayPal user after he or she creates an account.
     public enum EmailFrequency: String, Hashable, CaseIterable, Content {
+        
+        /// All reminder emails are sent.
         case `default` = "DEFAULT"
+        
+        /// No reminder emails are sent.
         case none = "NONE"
     }
 }
