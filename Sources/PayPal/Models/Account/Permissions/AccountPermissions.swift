@@ -1,6 +1,14 @@
 import Vapor
 
-public struct AccountPermission {}
+public struct AccountPermission: Content, Equatable {
+    public var thirdParty: String?
+    public var permissions: [Permission]?
+    
+    public init(thirdParty: String?, permissions: [Permission]?) {
+        self.thirdParty = thirdParty
+        self.permissions = permissions
+    }
+}
 
 extension AccountPermission {
     
