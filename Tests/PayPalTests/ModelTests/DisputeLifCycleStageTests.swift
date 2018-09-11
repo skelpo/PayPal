@@ -2,10 +2,6 @@ import XCTest
 @testable import PayPal
 
 final class DisputeLifeCycleTests: XCTestCase {
-    struct User: Codable {
-        let role: Role
-    }
-    
     struct Dispute: Codable {
         let stage: CustomerDispute.LifeCycleStage
     }
