@@ -5,11 +5,11 @@ final class PartnerOptionsTests: XCTestCase {
     func testInit()throws {
         let dict: PartnerOptions = ["key": "value", "key1": "value1"]
         XCTAssertEqual(dict["key"], "value")
-        XCTAssertEqual(dict["key0"], "value1")
+        XCTAssertEqual(dict["key1"], "value1")
         
         let options = PartnerOptions(fields: ["key": "value", "key1": "value1"])
         XCTAssertEqual(options["key"], "value")
-        XCTAssertEqual(options["key0"], "value1")
+        XCTAssertEqual(options["key1"], "value1")
         XCTAssertEqual(options.fields, ["key": "value", "key1": "value1"])
     }
     
