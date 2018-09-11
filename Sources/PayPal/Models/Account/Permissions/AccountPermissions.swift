@@ -22,6 +22,11 @@ public struct AccountPermission: Content, Equatable {
         self.thirdParty = thirdParty
         self.permissions = permissions
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case permissions
+        case thirdParty = "third_party"
+    }
 }
 
 extension AccountPermission {
