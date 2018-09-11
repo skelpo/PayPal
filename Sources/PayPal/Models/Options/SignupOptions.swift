@@ -34,4 +34,11 @@ public struct SignupOptions: Content, Equatable {
         self.web = web
         self.notification = notification
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case partner = "partner_options"
+        case legal = "legal_agreements"
+        case web = "web_experience_preference"
+        case notification = "notification_options"
+    }
 }
