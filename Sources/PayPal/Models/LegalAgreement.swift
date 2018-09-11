@@ -1,7 +1,7 @@
 import Vapor
 
 /// A legal agreement between a maerchant and a partner.
-public struct LegalAgreement {
+public struct LegalAgreement: Content, Equatable {
     
     /// Indicates whether the merchant accepted the legal agreement.
     public var accepted: Bool
