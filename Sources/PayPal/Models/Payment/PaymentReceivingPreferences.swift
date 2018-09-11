@@ -49,9 +49,9 @@ public struct PaymentReceivingPreferences: Content, ValidationSetable, Equatable
     ///         blockEcheck: false,
     ///         blockCrossCurrency: true,
     ///         blockSendMoney: false,
-    ///         alternatePayment: "https://example.com/alternate"
+    ///         alternatePayment: "https://example.com/alternate",
     ///         displayInstructionsInput: true,
-    ///         ccDescriptor: "NOT-SURE"
+    ///         ccDescriptor: "NOT-SURE",
     ///         ccDescriptorExtended: "NOTE-SURE-AGAIN"
     ///     )
     public init(
