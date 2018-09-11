@@ -20,6 +20,20 @@ public struct PartnerOptions: Content, Equatable, ExpressibleByDictionaryLiteral
         self.fields = elements.map(KeyValue.init)
     }
     
+    /// Gets the first value with a matching key.
+    ///
+    /// - Parameter key: The key of the value to find.
+    ///
+    /// - Returns: The value for the key passed in if one exists, otherwise `nil`.
+    public subscript(key: String) -> String? {
+        get {
+            return self.fields[key]
+        }
+        set {
+            self.fields[key] = newValue
+        }
+    }
+    
     enum CodingKeys: String, CodingKey {
         case fields = "partner_fields"
     }
