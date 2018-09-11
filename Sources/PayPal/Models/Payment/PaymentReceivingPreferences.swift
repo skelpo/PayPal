@@ -75,4 +75,16 @@ public struct PaymentReceivingPreferences: Content, Equatable {
         self.ccDescriptor = ccDescriptor
         self.ccDescriptorExtended = ccDescriptorExtended
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case blockUnconfirmedUSAddress = "block_unconfirmed_us_address_payments"
+        case blockNonUS = "block_non_us_payments"
+        case blockEcheck = "block_echeck_payments"
+        case blockCrossCurrency = "block_cross_currency_payments"
+        case blockSendMoney = "block_send_money_payments"
+        case alternatePayment = "alternate_payment_url"
+        case displayInstructionsInput = "display_instructions_text_input"
+        case ccDescriptor = "cc_soft_descriptor"
+        case ccDescriptorExtended = "cc_soft_descriptor_extended"
+    }
 }
