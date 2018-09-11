@@ -21,4 +21,9 @@ public struct FinancialInstrument: Content, Equatable {
         self.id = id
         self.accountType = ""
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case type, id
+        case accountType = "account_type"
+    }
 }
