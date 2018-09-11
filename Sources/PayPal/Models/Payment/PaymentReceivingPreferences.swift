@@ -1,7 +1,7 @@
 import Vapor
 
 /// Account preferences for the receipt of payments.
-public struct PaymentReceivingPreferences: Content, Equatable {
+public struct PaymentReceivingPreferences: Content, ValidationSetable, Equatable {
     
     /// Indicates whether to block payments to this account from US buyers who do not provide a confirmed shipping address. To block, set to `TRUE`.
     public var blockUnconfirmedUSAddress: Bool?
@@ -74,6 +74,27 @@ public struct PaymentReceivingPreferences: Content, Equatable {
         self.displayInstructionsInput = displayInstructionsInput
         self.ccDescriptor = ccDescriptor
         self.ccDescriptorExtended = ccDescriptorExtended
+    }
+    
+    
+    /// See `PaymentReceivingPreferences.setterValidations()`.
+    public func setterValidations() -> SetterValidations<PaymentReceivingPreferences> {
+        var validations = SetterValidations(PaymentReceivingPreferences.self)
+        
+        validations.set(\.ccDescriptor) { descriptor in
+            guard let descriptor = descriptor else { return }
+            guard (2...11).contains(descriptor.count) else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`ccDescriptor` length must be in range 2 - 11")
+            }
+        }
+        validations.set(\.ccDescriptorExtended) { descriptor in
+            guard let descriptor = descriptor else { return }
+            guard (2...19).contains(descriptor.count) else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`ccDescriptorExtended` length must be in range 2 - 19")
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
