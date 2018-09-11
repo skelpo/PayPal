@@ -20,4 +20,9 @@ public struct AccountRelation: Content, Equatable {
         self.type = type
         self.payer = payer
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case type
+        case payer = "subject_payer_id"
+    }
 }
