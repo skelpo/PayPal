@@ -14,4 +14,8 @@ public struct PartnerOptions: Content, Equatable {
     public init(fields: [KeyValue]) {
         self.fields = fields
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case fields = "partner_fields"
+    }
 }
