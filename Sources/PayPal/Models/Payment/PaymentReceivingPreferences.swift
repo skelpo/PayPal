@@ -74,8 +74,30 @@ public struct PaymentReceivingPreferences: Content, ValidationSetable, Equatable
         self.displayInstructionsInput = displayInstructionsInput
         self.ccDescriptor = ccDescriptor
         self.ccDescriptorExtended = ccDescriptorExtended
+        
+        try self.set(\.ccDescriptor <~ ccDescriptor)
+        try self.set(\.ccDescriptorExtended <~ ccDescriptorExtended)
     }
     
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let ccDescriptor = try container.decodeIfPresent(String.self, forKey: .ccDescriptor)
+        let ccDescriptorExtended = try container.decodeIfPresent(String.self, forKey: .ccDescriptorExtended)
+        
+        self.blockUnconfirmedUSAddress = try container.decodeIfPresent(Bool.self, forKey: .blockUnconfirmedUSAddress)
+        self.blockNonUS = try container.decodeIfPresent(Bool.self, forKey: .blockNonUS)
+        self.blockEcheck = try container.decodeIfPresent(Bool.self, forKey: .blockEcheck)
+        self.blockCrossCurrency = try container.decodeIfPresent(Bool.self, forKey: .blockCrossCurrency)
+        self.blockSendMoney = try container.decodeIfPresent(Bool.self, forKey: .blockSendMoney)
+        self.alternatePayment = try container.decodeIfPresent(String.self, forKey: .alternatePayment)
+        self.displayInstructionsInput = try container.decodeIfPresent(Bool.self, forKey: .displayInstructionsInput)
+        self.ccDescriptor = try container.decodeIfPresent(String.self, forKey: .ccDescriptor)
+        self.ccDescriptorExtended =  try container.decodeIfPresent(String.self, forKey: .ccDescriptorExtended)
+        
+        try self.set(\.ccDescriptor <~ ccDescriptor)
+        try self.set(\.ccDescriptorExtended <~ ccDescriptorExtended)
+    }
     
     /// See `PaymentReceivingPreferences.setterValidations()`.
     public func setterValidations() -> SetterValidations<PaymentReceivingPreferences> {
