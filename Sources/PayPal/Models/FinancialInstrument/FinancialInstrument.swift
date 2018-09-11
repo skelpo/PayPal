@@ -4,10 +4,10 @@ import Vapor
 public struct FinancialInstrument: Content, Equatable {
     
     /// The financial instrument type. Currently supports `BANK` only.
-    public let type: InstrumentType?
+    public var type: InstrumentType?
     
     /// The bank account type.
-    public let accountType: String
+    public var accountType: AccountType
     
     /// The PayPal-generated financial instrument ID.
     public var id: String?
@@ -15,11 +15,13 @@ public struct FinancialInstrument: Content, Equatable {
     
     /// Creates a new `FinancialInstrument` instance.
     ///
-    /// - Parameter id: The PayPal-generated financial instrument ID. Defaults to `nil`.
-    public init(id: String? = nil) {
+    /// - Parameters:
+    ///   - id: The PayPal-generated financial instrument ID. Defaults to `nil`.
+    ///   - accountType: The bank account type. Defaults to `.checking`.
+    public init(id: String? = nil, accountType: AccountType = .checking) {
         self.type = .bank
         self.id = id
-        self.accountType = ""
+        self.accountType = accountType
     }
     
     enum CodingKeys: String, CodingKey {
