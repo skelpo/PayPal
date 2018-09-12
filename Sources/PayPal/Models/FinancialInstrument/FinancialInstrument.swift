@@ -1,5 +1,13 @@
 import Vapor
 
+public struct FinancialInstruments: Content, Equatable {
+    public var instruments: [FinancialInstrument]?
+    
+    public init(instruments: [FinancialInstrument]?) {
+        self.instruments = instruments
+    }
+}
+
 /// A financial instrument that can be used to make and receive payments (or something like that, Paypal doesn't say).
 public struct FinancialInstrument: Content, Equatable {
     
