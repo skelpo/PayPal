@@ -17,7 +17,7 @@ import Vapor
 /// You can call the [create merchant account](https://developer.paypal.com/docs/api/managed-accounts/v1/#partner-merchant_create),
 /// [repopulate merchant account](https://developer.paypal.com/docs/api/managed-accounts/v1/#partner-merchant_repopulate),
 /// and [update merchant account](https://developer.paypal.com/docs/api/managed-accounts/v1/#partner-merchant_update) API methods for the Managed path.
-public final class MerchentAccounts: PayPalController {
+public final class ManagedAccounts: PayPalController {
     
     /// See `PayPalController.container`.
     public let container: Container
