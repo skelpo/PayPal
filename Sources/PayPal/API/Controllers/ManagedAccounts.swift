@@ -113,5 +113,20 @@ public final class ManagedAccounts: PayPalController {
             return try client.get(self.path() + accountID + "/balances", as: BalanceResponse.self)
         }
     }
+    
+    /// Shows financial instrument details for a managed account.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows the financial instrument details for the managed account.
+    ///
+    /// - Parameters: The ID of the merchant account to get the instruments from.
+    ///
+    /// - Returns: The details of the account's financial instruments, wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func financialInstruments(for accountID: String) -> Future<FinancialInstruments> {
+        return Future.flatMap(on: self.container) { () -> Future<FinancialInstruments> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path() + accountID + "/financial-instruments", as: FinancialInstruments.self)
+        }
+    }
 }
 
