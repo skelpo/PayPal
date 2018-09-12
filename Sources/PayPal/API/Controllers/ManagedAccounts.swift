@@ -47,5 +47,24 @@ public final class ManagedAccounts: PayPalController {
             return try client.post(self.path(), body: account, as: CreatedMerchantResponse.self)
         }
     }
+    
+    /// Partially updates information for a merchant account, by merchant payer ID. For information about the paths where you can replace, add,
+    /// or delete information, see update account in the [update account](https://developer.paypal.com/docs/marketplaces/how-to/update-reference-accounts/)
+    /// in the Managed Onboarding Integration Guide.
+    ///
+    /// A successful request returns the HTTP `204 No Content` status code with no JSON response body.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the merchant to update.
+    ///   - patches: An array of JSON patch objects to apply partial updates to resources.
+    ///
+    /// - Returns: The HTTP status code of the response, which will be `204 No Content`. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func patch(account id: String, with patchs: [Patch]) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.patch(self.path() + id, body: ["patch_request": patchs], as: HTTPStatus.self)
+        }
+    }
 }
 
