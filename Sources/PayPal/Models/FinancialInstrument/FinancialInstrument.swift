@@ -1,8 +1,14 @@
 import Vapor
 
+/// An array of financial instruments, keyed with a `CodingKey` with the value `financial_instruments`.
 public struct FinancialInstruments: Content, Equatable {
+    
+    /// An array of financial instruments.
     public var instruments: [FinancialInstrument]?
     
+    /// Creates a new `FinancialInstruments` instance.
+    ///
+    /// - Parameter instruments: An array of financial instruments.
     public init(instruments: [FinancialInstrument]?) {
         self.instruments = instruments
     }
