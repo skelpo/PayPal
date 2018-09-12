@@ -36,8 +36,11 @@ public struct MerchantAccount: Content, ValidationSetable, Equatable {
     
     /// An ID that the partner creates for the merchant account. Note: This information is not available for retrieval.
     ///
+    /// This property can be set using the `MerchantAccount.set(_:)` method. This method
+    /// validatse the new value before assigning it to the property.
+    ///
     /// Maximum length: 127.
-    public var partnerExternalID: String?
+    public private(set) var partnerExternalID: String?
     
     /// Whether the account allows the merchant to log in. Accounts managed by their parent only are not loginable.
     public var loginable: Bool?
