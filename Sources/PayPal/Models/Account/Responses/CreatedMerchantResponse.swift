@@ -24,4 +24,12 @@ public struct CreatedMerchantResponse: Content, Equatable {
     
     /// An array of errors, if any, that occurred during account creation.
     public var errors: [AccountError]?
+    
+    enum CodingKeys: String, CodingKey {
+        case links, errors
+        case payer = "payer_id"
+        case partnerExternalID = "partner_merchant_external_id"
+        case authCode = "merchant_authorization_code"
+        case custom = "custom_data"
+    }
 }
