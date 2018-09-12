@@ -32,5 +32,20 @@ public final class ManagedAccounts: PayPalController {
         self.container = container
         self.resource = "partners/merchant-accounts"
     }
+    
+    /// Creates a merchant account. Submit the merchant account information in the JSON request body.
+    ///
+    /// A successful request returns the HTTP `201 Created` status code and a JSON response body that shows merchant account details.
+    ///
+    /// - Parameter account: The data for the account to create.
+    ///
+    /// - Returns: Creation success information, wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func create(account: MerchantAccount) -> Future<CreatedMerchantResponse> {
+        return Future.flatMap(on: self.container) { () -> Future<CreatedMerchantResponse> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path(), body: account, as: CreatedMerchantResponse.self)
+        }
+    }
 }
 
