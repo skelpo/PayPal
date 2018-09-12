@@ -98,5 +98,20 @@ public final class ManagedAccounts: PayPalController {
             return try client.get(self.path() + accountID, as: MerchantAccount.self)
         }
     }
+    
+    /// Shows details for a merchant account balance by merchant payer ID. Balance will include Available/Negative/Pending balances.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows the merchant account balance.
+    ///
+    /// - Parameter accountID: The payer ID of the merchant for which to show account balances.
+    ///
+    /// - Returns: The balance of the account of the ID passed in, wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func balance(of accountID: String) -> Future<BalanceResponse> {
+        return Future.flatMap(on: self.container) { () -> Future<BalanceResponse> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path() + accountID + "/balances", as: BalanceResponse.self)
+        }
+    }
 }
 
