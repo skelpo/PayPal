@@ -103,4 +103,19 @@ public struct MerchantAccount: Content, Equatable {
         self.signupOptions = signupOptions
         self.errors = errors
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case links, timezone, loginable, errors
+        case owner = "owner_info"
+        case business = "business_info"
+        case status = "account_status"
+        case currency = "account_currency"
+        case seconderyCurrencies = "secondary_currency"
+        case paymentReceiving = "payment_receiving_preferences"
+        case relations = "account_relations"
+        case permissions = "account_permissions"
+        case partnerExternalID = "partner_merchant_external_id"
+        case partnerTaxReporting = "partner_tax_reporting"
+        case signupOptions = "signup_options"
+    }
 }
