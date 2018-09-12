@@ -66,5 +66,22 @@ public final class ManagedAccounts: PayPalController {
             return try client.patch(self.path() + id, body: ["patch_request": patchs], as: HTTPStatus.self)
         }
     }
+    
+    /// Updates merchant account information, by merchant payer ID. Specify the information to update in the JSON request body.
+    ///
+    /// A successful request returns the HTTP `204 No Content` status code with no JSON response body.
+    ///
+    /// - Parameters:
+    ///   - id: The payer ID of the merchant for which to update account information.
+    ///   - data: The new data for the merchant account.
+    ///
+    /// - Returns: The HTTP status code of the response, which will be `204 No Content`. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func update(account id: String, with data: MerchantAccount) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.put(self.path() + id, body: data, as: HTTPStatus.self)
+        }
+    }
 }
 
