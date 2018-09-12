@@ -83,5 +83,20 @@ public final class ManagedAccounts: PayPalController {
             return try client.put(self.path() + id, body: data, as: HTTPStatus.self)
         }
     }
+    
+    /// Shows details for a merchant account, by merchant payer ID.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows merchant account details.
+    ///
+    /// - Parameter accountID: The payer ID of the merchant for which to show account details.
+    ///
+    /// - Returns: The data for the merchant account, wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func details(for accountID: String) -> Future<MerchantAccount> {
+        return Future.flatMap(on: self.container) { () -> Future<MerchantAccount> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path() + accountID, as: MerchantAccount.self)
+        }
+    }
 }
 
