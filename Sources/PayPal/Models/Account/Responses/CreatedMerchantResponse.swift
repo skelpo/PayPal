@@ -25,6 +25,25 @@ public struct CreatedMerchantResponse: Content, ValidationSetable, Equatable {
     /// An array of errors, if any, that occurred during account creation.
     public var errors: [AccountError]?
     
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let payer = try container.decodeIfPresent(String.self, forKey: .payer)
+        let partnerExternalID = try container.decodeIfPresent(String.self, forKey: .partnerExternalID)
+        
+        self.payer = payer
+        self.partnerExternalID = partnerExternalID
+        self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
+        self.authCode = try container.decodeIfPresent(String.self, forKey: .authCode)
+        self.custom = try container.decodeIfPresent([KeyValue].self, forKey: .custom)
+        self.errors = try container.decodeIfPresent([AccountError].self, forKey: .errors)
+        
+        try self.set(\.payer <~ payer)
+        try self.set(\.partnerExternalID <~ partnerExternalID)
+    }
+    
+    
     /// See `ValidationSetable.setterValidations()`.
     public func setterValidations() -> SetterValidations<CreatedMerchantResponse> {
         var validations = SetterValidations(CreatedMerchantResponse.self)
