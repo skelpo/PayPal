@@ -70,7 +70,7 @@ public struct MerchantAccount: Content, ValidationSetable, Equatable {
     ///         partnerExternalID: "F42E7896-17E3-455C-9B85-5F96729A4FD9",
     ///         loginable: true,
     ///         partnerTaxReporting: false,
-    ///         signupOptions: SignupOptions(partner: nil, legal: nil, web: , notification: nil),
+    ///         signupOptions: SignupOptions(partner: nil, legal: nil, web: nil, notification: nil),
     ///         errors: []
     ///     )
     public init(
