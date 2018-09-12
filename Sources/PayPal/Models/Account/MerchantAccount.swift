@@ -85,7 +85,7 @@ public struct MerchantAccount: Content, ValidationSetable, Equatable {
         partnerTaxReporting: Bool?,
         signupOptions: SignupOptions?,
         errors: [AccountError]?
-    ) {
+    )throws {
         self.links = nil
         
         self.owner = owner
@@ -102,7 +102,35 @@ public struct MerchantAccount: Content, ValidationSetable, Equatable {
         self.partnerTaxReporting = partnerTaxReporting
         self.signupOptions = signupOptions
         self.errors = errors
+        
+        try self.set(\.partnerExternalID <~ partnerExternalID)
     }
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let partnerExternalID = try container.decodeIfPresent(String.self, forKey: .partnerExternalID)
+        
+        self.partnerExternalID = partnerExternalID
+        self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
+        self.owner = try container.decodeIfPresent(BusinessOwner.self, forKey: .owner)
+        self.business = try container.decodeIfPresent(Business.self, forKey: .business)
+        self.status = try container.decodeIfPresent(AccountStatus.self, forKey: .status)
+        self.currency = try container.decodeIfPresent(Currency.self, forKey: .currency)
+        self.seconderyCurrencies = try container.decodeIfPresent([Currency].self, forKey: .seconderyCurrencies)
+        self.paymentReceiving = try container.decodeIfPresent(PaymentReceivingPreferences.self, forKey: .paymentReceiving)
+        self.relations = try container.decodeIfPresent([AccountRelation].self, forKey: .relations)
+        self.permissions = try container.decodeIfPresent([AccountPermission].self, forKey: .permissions)
+        self.timezone = try container.decodeIfPresent(Timezone.self, forKey: .timezone)
+        self.partnerExternalID = try container.decodeIfPresent(String.self, forKey: .partnerExternalID)
+        self.loginable = try container.decodeIfPresent(Bool.self, forKey: .loginable)
+        self.partnerTaxReporting = try container.decodeIfPresent(Bool.self, forKey: .partnerTaxReporting)
+        self.signupOptions = try container.decodeIfPresent(SignupOptions.self, forKey: .signupOptions)
+        self.errors = try container.decodeIfPresent([AccountError].self, forKey: .errors)
+        
+        try self.set(\.partnerExternalID <~ partnerExternalID)
+    }
+    
     
     /// See `ValidationSetable.setterValidations()`.
     public func setterValidations() -> SetterValidations<MerchantAccount> {
