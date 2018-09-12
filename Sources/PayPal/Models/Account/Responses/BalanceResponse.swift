@@ -13,4 +13,10 @@ public struct BalanceResponse: Content, Equatable {
     
     /// This field contains the total pending reversal balances based on currency.
     public var pending: Money?
+    
+    enum CodingKeys: String, CodingKey {
+        case payer = "payer_id"
+        case available = "available_balances"
+        case pending = "pending_balances"
+    }
 }
