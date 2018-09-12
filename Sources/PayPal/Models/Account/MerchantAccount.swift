@@ -54,6 +54,8 @@ public struct MerchantAccount: Content, ValidationSetable, Equatable {
     /// An array of errors that can occur when you add bundles to a customer account.
     public var errors: [AccountError]?
     
+    /// An array of financial instruments.
+    public var financialInstruments: FinancialInstruments?
     
     /// Creates a new `MerchantAccount` instance.
     ///
@@ -71,7 +73,8 @@ public struct MerchantAccount: Content, ValidationSetable, Equatable {
     ///         loginable: true,
     ///         partnerTaxReporting: false,
     ///         signupOptions: SignupOptions(partner: nil, legal: nil, web: nil, notification: nil),
-    ///         errors: []
+    ///         errors: [],
+    ///         financialInstruments: FinancialInstruments(instruments: [])
     ///     )
     public init(
         owner: BusinessOwner?,
@@ -87,7 +90,8 @@ public struct MerchantAccount: Content, ValidationSetable, Equatable {
         loginable: Bool?,
         partnerTaxReporting: Bool?,
         signupOptions: SignupOptions?,
-        errors: [AccountError]?
+        errors: [AccountError]?,
+        financialInstruments: FinancialInstruments?
     )throws {
         self.links = nil
         
@@ -105,6 +109,7 @@ public struct MerchantAccount: Content, ValidationSetable, Equatable {
         self.partnerTaxReporting = partnerTaxReporting
         self.signupOptions = signupOptions
         self.errors = errors
+        self.financialInstruments = financialInstruments
         
         try self.set(\.partnerExternalID <~ partnerExternalID)
     }
@@ -130,6 +135,7 @@ public struct MerchantAccount: Content, ValidationSetable, Equatable {
         self.partnerTaxReporting = try container.decodeIfPresent(Bool.self, forKey: .partnerTaxReporting)
         self.signupOptions = try container.decodeIfPresent(SignupOptions.self, forKey: .signupOptions)
         self.errors = try container.decodeIfPresent([AccountError].self, forKey: .errors)
+        self.financialInstruments = try container.decodeIfPresent(FinancialInstruments.self, forKey: .financialInstruments)
         
         try self.set(\.partnerExternalID <~ partnerExternalID)
     }
@@ -162,5 +168,6 @@ public struct MerchantAccount: Content, ValidationSetable, Equatable {
         case partnerExternalID = "partner_merchant_external_id"
         case partnerTaxReporting = "partner_tax_reporting"
         case signupOptions = "signup_options"
+        case financialInstruments = "financial_instruments"
     }
 }

@@ -17,7 +17,8 @@ final class MerchantAccountTests: XCTestCase {
             loginable: true,
             partnerTaxReporting: false,
             signupOptions: SignupOptions(partner: nil, legal: nil, web: nil, notification: nil),
-            errors: []
+            errors: [],
+            financialInstruments: FinancialInstruments(instruments: nil)
         )
         
         XCTAssertNil(account.owner)
@@ -32,6 +33,7 @@ final class MerchantAccountTests: XCTestCase {
         XCTAssertEqual(account.partnerTaxReporting, false)
         XCTAssertEqual(account.signupOptions, SignupOptions(partner: nil, legal: nil, web: nil, notification: nil))
         XCTAssertEqual(account.errors, [])
+        XCTAssertEqual(account.financialInstruments, FinancialInstruments(instruments: nil))
         try XCTAssertEqual(account.paymentReceiving, PaymentReceivingPreferences())
     }
     
@@ -50,7 +52,8 @@ final class MerchantAccountTests: XCTestCase {
             loginable: nil,
             partnerTaxReporting: nil,
             signupOptions: nil,
-            errors: []
+            errors: [],
+            financialInstruments: nil
         ))
         var account = try MerchantAccount(
             owner: nil,
@@ -66,7 +69,8 @@ final class MerchantAccountTests: XCTestCase {
             loginable: nil,
             partnerTaxReporting: nil,
             signupOptions: nil,
-            errors: []
+            errors: [],
+            financialInstruments: nil
         )
         
         try XCTAssertThrowsError(account.set(\MerchantAccount.partnerExternalID <~ String(repeating: "p", count: 128)))
@@ -91,11 +95,15 @@ final class MerchantAccountTests: XCTestCase {
             loginable: true,
             partnerTaxReporting: false,
             signupOptions: SignupOptions(partner: nil, legal: nil, web: nil, notification: nil),
-            errors: []
+            errors: [],
+            financialInstruments: FinancialInstruments(instruments: nil)
         )
         let generated = try String(data: encoder.encode(account), encoding: .utf8)!
         let json =
-        "{\"account_status\":\"A\",\"secondary_currency\":[],\"partner_tax_reporting\":false,\"partner_merchant_external_id\":\"F42E7896-17E3-455C-9B85-5F96729A4FD9\",\"account_relations\":[],\"signup_options\":{},\"account_currency\":\"USD\",\"account_permissions\":[],\"timezone\":\"America\\/Chicago\",\"payment_receiving_preferences\":{},\"loginable\":true,\"errors\":[]}"
+            "{\"account_status\":\"A\",\"secondary_currency\":[],\"partner_tax_reporting\":false," +
+            "\"partner_merchant_external_id\":\"F42E7896-17E3-455C-9B85-5F96729A4FD9\",\"account_relations\":[],\"signup_options\":{}," +
+            "\"account_currency\":\"USD\",\"account_permissions\":[],\"financial_instruments\":{},\"timezone\":\"America\\/Chicago\"," +
+            "\"payment_receiving_preferences\":{},\"loginable\":true,\"errors\":[]}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -117,6 +125,7 @@ final class MerchantAccountTests: XCTestCase {
             "partner_tax_reporting": false,
             "loginable": true,
             "partner_merchant_external_id": "F42E7896-17E3-455C-9B85-5F96729A4FD9",
+            "financial_instruments": {},
             "timezone": "America/Chicago",
             "account_permissions": [],
             "account_relations": [],
@@ -140,7 +149,8 @@ final class MerchantAccountTests: XCTestCase {
             loginable: true,
             partnerTaxReporting: false,
             signupOptions: SignupOptions(partner: nil, legal: nil, web: nil, notification: nil),
-            errors: []
+            errors: [],
+            financialInstruments: FinancialInstruments(instruments: nil)
         )
         
         try XCTAssertEqual(account, decoder.decode(MerchantAccount.self, from: json))
