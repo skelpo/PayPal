@@ -159,6 +159,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(AccountPermissionEnumTests.allCases),
         testCase(AccountPermissionTests.allCases),
         testCase(AccountErrorDetailTests.allCases),
+        testCase(AccountErrorTests.allCases),
         
         // Controller Tests
         testCase(APITests.allTests),
