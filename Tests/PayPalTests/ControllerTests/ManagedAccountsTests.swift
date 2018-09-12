@@ -5,6 +5,7 @@ import Vapor
 final class ManagedAccountsTests: XCTestCase {
     
     var app: Application!
+    var id: String?
     
     override func setUp() {
         super.setUp()
@@ -14,6 +15,9 @@ final class ManagedAccountsTests: XCTestCase {
         try! services.register(PayPalProvider())
         
         app = try! Application.testable(services: services)
+        
+        let identity = try! self.app.make(Identity.self)
+        self.id = try! identity.info().wait().payerID
     }
     
     func testServiceExists()throws {
@@ -21,6 +25,10 @@ final class ManagedAccountsTests: XCTestCase {
     }
     
     func testCreateEndpoint()throws {
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "ID is nil")
+        }
+        
         let paymentPref = try PaymentReceivingPreferences(
             blockUnconfirmedUSAddress: true,
             blockNonUS: false,
@@ -83,7 +91,7 @@ final class ManagedAccountsTests: XCTestCase {
             currency: .usd,
             seconderyCurrencies: [.eur],
             paymentReceiving: paymentPref,
-            relations: [],
+            relations: [AccountRelation(type: .same, payer: id)],
             permissions: [AccountPermission(thirdParty: nil, permissions: [.directPayment])],
             timezone: .chicago,
             partnerExternalID: nil,
