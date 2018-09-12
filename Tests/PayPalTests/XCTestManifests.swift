@@ -171,7 +171,8 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(BillingPlansTests.allTests),
         testCase(CustomerDisputesTests.allTests),
         testCase(InvoicesTests.allTests),
-        testCase(TemplatesTests.allTests)
+        testCase(TemplatesTests.allTests),
+        testCase(ManagedAccountsTests.allTests)
     ]
 }
 #endif
