@@ -107,7 +107,7 @@ public final class ManagedAccounts: PayPalController {
     ///
     /// - Returns: The balance of the account of the ID passed in, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
-    public func balance(of accountID: String) -> Future<BalanceResponse> {
+    public func balance(for accountID: String) -> Future<BalanceResponse> {
         return Future.flatMap(on: self.container) { () -> Future<BalanceResponse> in
             let client = try self.container.make(PayPalClient.self)
             return try client.get(self.path() + accountID + "/balances", as: BalanceResponse.self)
