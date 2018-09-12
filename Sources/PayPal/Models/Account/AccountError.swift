@@ -39,4 +39,10 @@ public struct AccountError: Content, Error, Equatable {
         self.debug = debug
         self.details = details
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case links, name, message, details
+        case information = "information_link"
+        case debug = "debug_id"
+    }
 }
