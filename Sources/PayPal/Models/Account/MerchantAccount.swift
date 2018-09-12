@@ -1,7 +1,7 @@
 import Vapor
 
 /// The detaild data of a PayPal merchant account.
-public struct MerchantAccount: Content, Equatable {
+public struct MerchantAccount: Content, ValidationSetable, Equatable {
     
     /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
     public let links: [LinkDescription]?
@@ -102,6 +102,20 @@ public struct MerchantAccount: Content, Equatable {
         self.partnerTaxReporting = partnerTaxReporting
         self.signupOptions = signupOptions
         self.errors = errors
+    }
+    
+    /// See `ValidationSetable.setterValidations()`.
+    public func setterValidations() -> SetterValidations<MerchantAccount> {
+        var validations = SetterValidations(MerchantAccount.self)
+        
+        validations.set(\.partnerExternalID) { id in
+            guard let id = id else { return }
+            guard id.count <= 127 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`partnerExternalID` value length must be 127 or less")
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
