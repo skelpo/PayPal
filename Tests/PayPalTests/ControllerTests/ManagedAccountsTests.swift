@@ -209,11 +209,23 @@ final class ManagedAccountsTests: XCTestCase {
         XCTAssertEqual(status, .noContent)
     }
     
+    func testDetailsEndpoint()throws {
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "ID is nil")
+        }
+        
+        let accounts = try self.app.make(ManagedAccounts.self)
+        let details = try accounts.details(for: id).wait()
+        
+        XCTAssert(details.relations?.contains { $0.payer == id } ?? false)
+    }
+    
     static var allTests: [(String, (ManagedAccountsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testPatchEndpoint", testPatchEndpoint),
-        ("testUpdateEndpoint", testUpdateEndpoint)
+        ("testUpdateEndpoint", testUpdateEndpoint),
+        ("testDetailsEndpoint", testDetailsEndpoint)
     ]
 }
 
