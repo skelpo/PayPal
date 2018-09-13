@@ -27,7 +27,7 @@ public struct PartnerOptions: Content, Equatable, ExpressibleByDictionaryLiteral
     /// - Returns: The value for the key passed in if one exists, otherwise `nil`.
     public subscript(key: String) -> String? {
         get {
-            return self.fields?[key]
+            return self.fields?[key] ?? nil
         }
         set {
             self.fields?[key] = newValue
