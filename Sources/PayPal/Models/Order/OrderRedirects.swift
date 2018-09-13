@@ -22,8 +22,8 @@ extension Order {
         }
         
         enum CodingKeys: String, CodingKey {
-            case `return` = "return"
-            case cancel = "cancel"
+            case `return` = "return_url"
+            case cancel = "cancel_url"
         }
     }
 }
