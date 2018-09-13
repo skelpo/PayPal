@@ -10,6 +10,11 @@ extension Order {
         
         /// Indicates whether to disburse the payment instantly or delay the payment.
         public let disbursement: DisbursementMode?
+        
+        enum CodingKeys: String, CodingKey {
+            case payment = "payment_id"
+            case disbursement = "disbursement_mode"
+        }
     }
 }
 
