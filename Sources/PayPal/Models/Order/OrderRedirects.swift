@@ -20,5 +20,10 @@ extension Order {
             self.return = `return`
             self.cancel = cancel
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case `return` = "return"
+            case cancel = "cancel"
+        }
     }
 }
