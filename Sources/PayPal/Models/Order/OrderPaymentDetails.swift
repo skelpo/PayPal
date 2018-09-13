@@ -1,7 +1,16 @@
 import Vapor
 
 extension Order {
-    public struct PaymentDetails {}
+    
+    /// The payment details for the order.
+    public struct PaymentDetails: Content, Equatable {
+        
+        /// The payment ID for the order.
+        public let payment: String?
+        
+        /// Indicates whether to disburse the payment instantly or delay the payment.
+        public let disbursement: DisbursementMode?
+    }
 }
 
 extension Order.PaymentDetails {
