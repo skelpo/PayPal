@@ -108,9 +108,23 @@ final class ManagedAccountsTests: XCTestCase {
         XCTAssertEqual(created.errors?.count, 0)
     }
     
+    func testPatchEndpoint()throws {
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "ID is nil")
+        }
+        
+        let instrument = FinancialInstrument(accountType: .saving)
+        let patch: Patch = try Patch(operation: .add, path: "/financial_instruments", value: [instrument].json(), from: nil)
+        let accounts = try self.app.make(ManagedAccounts.self)
+        let status = try accounts.patch(account: id, with: [patch]).wait()
+        
+        XCTAssertEqual(status, .noContent)
+    }
+    
     static var allTests: [(String, (ManagedAccountsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
-        ("testCreateEndpoint", testCreateEndpoint)
+        ("testCreateEndpoint", testCreateEndpoint),
+        ("testPatchEndpoint", testPatchEndpoint)
     ]
 }
 
