@@ -16,8 +16,12 @@ final class ManagedAccountsTests: XCTestCase {
         
         app = try! Application.testable(services: services)
         
-        let identity = try! self.app.make(Identity.self)
-        self.id = try! identity.info().wait().payerID
+        do {
+            let identity = try self.app.make(Identity.self)
+            self.id = try identity.info().wait().payerID
+        } catch let error {
+            fatalError(String(describing: error))
+        }
     }
     
     func testServiceExists()throws {
