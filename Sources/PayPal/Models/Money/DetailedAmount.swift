@@ -95,5 +95,15 @@ extension DetailedAmount {
             self.insurance = insurance
             self.giftWrap = giftWrap
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case subtotal = "subtotal"
+            case shipping = "shipping"
+            case tax = "tax"
+            case handlingFee = "handlingFee"
+            case shippingDiscount = "shippingDiscount"
+            case insurance = "insurance"
+            case giftWrap = "giftWrap"
+        }
     }
 }
