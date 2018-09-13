@@ -2,9 +2,6 @@ import XCTest
 @testable import PayPal
 
 final class KeyValueTests: XCTestCase {
-    let now = Date().iso8601
-    let later = (Date() + 60 * 60 * 24 * 60).iso8601
-    
     func testInit()throws {
         let strd = KeyValue(key: "key0", value: "value0")
         XCTAssertEqual(strd.key, "key0")
@@ -27,17 +24,22 @@ final class KeyValueTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let strd = KeyValue(key: "key0", value: "value0")
-        let generated = try String(data: encoder.encode(strd), encoding: .utf8)!
-        let json = "{\"key\":\"key0\",\"value\":\"value0\"}"
         
-        XCTAssertEqual(generated, json)
+        let key = KeyValue(key: "key0", value: "value0")
+        let kgenerated = try String(data: encoder.encode(key), encoding: .utf8)!
+        let kjson = "{\"key\":\"key0\",\"value\":\"value0\"}"
+        XCTAssertEqual(kgenerated, kjson)
+        
+        let name = NameValue(key: "key0", value: "value0")
+        let ngenerated = try String(data: encoder.encode(name), encoding: .utf8)!
+        let njson = "{\"name\":\"key0\",\"value\":\"value0\"}"
+        XCTAssertEqual(ngenerated, njson)
     }
     
     func testDecoding()throws {
         let decoder = JSONDecoder()
         
-        let json = """
+        let kjson = """
         {
             "key": "key0",
             "value": "value0"
@@ -45,7 +47,17 @@ final class KeyValueTests: XCTestCase {
         """.data(using: .utf8)!
         
         let kv = KeyValue(key: "key0", value: "value0")
-        try XCTAssertEqual(kv, decoder.decode(KeyValue.self, from: json))
+        try XCTAssertEqual(kv, decoder.decode(KeyValue.self, from: kjson))
+        
+        let njson = """
+        {
+            "name": "key0",
+            "value": "value0"
+        }
+        """.data(using: .utf8)!
+        
+        let nv = NameValue(key: "key0", value: "value0")
+        try XCTAssertEqual(nv, decoder.decode(NameValue.self, from: njson))
     }
     
     static var allTests: [(String, (KeyValueTests) -> ()throws -> ())] = [
