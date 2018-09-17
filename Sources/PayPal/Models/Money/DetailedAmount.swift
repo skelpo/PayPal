@@ -10,11 +10,14 @@ public struct DetailedAmount: Content, ValidationSetable, Equatable {
     
     /// The total amount charged to the payee by the payer.
     ///
+    /// This property can be set using the `DetailedAmount.set(_:)`.
+    /// This method validates the new value before assigning it to the property.
+    ///
     /// For refunds, represents the amount that the payee refunds to the original payer. Maximum length is 10 characters, which includes:
     /// - Seven digits before the decimal point.
     /// - The decimal point.
     /// - Two digits after the decimal point.
-    public var total: String
+    public private(set) var total: String
     
     /// The additional details about the payment amount.
     public var details: Detail?
@@ -26,10 +29,22 @@ public struct DetailedAmount: Content, ValidationSetable, Equatable {
     ///   - currency: The three-character ISO-4217 currency code
     ///   - total: The total amount charged to the payee by the payer.
     ///   - details: The additional details about the payment amount.
-    public init(currency: Currency, total: String, details: Detail?) {
+    public init(currency: Currency, total: String, details: Detail?)throws {
         self.currency = currency
         self.total = total
         self.details = details
+        
+        try self.set(\.total <~ total)
+    }
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        try self.init(
+            currency: container.decode(Currency.self, forKey: .currency),
+            total: container.decode(String.self, forKey: .total),
+            details: container.decodeIfPresent(Detail.self, forKey: .details)
+        )
     }
     
     /// See `ValidationSetable.setterValidations()`.
