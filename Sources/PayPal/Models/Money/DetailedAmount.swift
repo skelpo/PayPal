@@ -7,7 +7,7 @@ extension DetailedAmount {
     
     /// The additional details about a payment amount.
     public struct Detail: Content, ValidationSetable, Equatable {
-        private let regex: String = "^[0-9]{,7}(\\.[0-9]{1,2})?"
+        private let regex: String = "^[0-9]{0,7}(\\.[0-9]{1,2})?$"
         
         /// The subtotal amount for the items.
         ///
