@@ -154,10 +154,10 @@ extension DetailedAmount {
             case subtotal = "subtotal"
             case shipping = "shipping"
             case tax = "tax"
-            case handlingFee = "handlingFee"
-            case shippingDiscount = "shippingDiscount"
+            case handlingFee = "handling_fee"
+            case shippingDiscount = "shipping_discount"
             case insurance = "insurance"
-            case giftWrap = "giftWrap"
+            case giftWrap = "gift_wrap"
         }
     }
 }
