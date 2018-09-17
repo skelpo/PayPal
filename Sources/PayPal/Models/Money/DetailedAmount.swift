@@ -11,62 +11,83 @@ extension DetailedAmount {
         
         /// The subtotal amount for the items.
         ///
+        /// This property can be set using the `DetailedAmount.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        ///
         /// If the request includes line items, this property is **required**. Maximum length is 10 characters, which includes:
         /// - Seven digits before the decimal point.
         /// - The decimal point.
         /// - Two digits after the decimal point.
-        public var subtotal: String
+        public private(set) var subtotal: String
         
         /// The shipping fee.
         ///
+        /// This property can be set using the `DetailedAmount.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        ///
         /// Maximum length is 10 characters, which includes:
         /// - Seven digits before the decimal point.
         /// - The decimal point.
         /// - Two digits after the decimal point.
-        public var shipping: String?
+        public private(set) var shipping: String?
         
         /// The tax.
         ///
+        /// This property can be set using the `DetailedAmount.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        ///
         /// Maximum length is 10 characters, which includes:
         /// - Seven digits before the decimal point.
         /// - The decimal point.
         /// - Two digits after the decimal point.
-        public var tax: String?
+        public private(set) var tax: String?
         
         /// The handling fee.
         ///
-        /// Maximum length is 10 characters, which includes:
-        /// - Seven digits before the decimal point.
-        /// - The decimal point.
-        /// - Two digits after the decimal point.
-        /// Supported for the PayPal payment method only.
-        public var handlingFee: String?
-        
-        /// The shipping fee discount.
+        /// This property can be set using the `DetailedAmount.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
         ///
         /// Maximum length is 10 characters, which includes:
         /// - Seven digits before the decimal point.
         /// - The decimal point.
         /// - Two digits after the decimal point.
         /// Supported for the PayPal payment method only.
-        public var shippingDiscount: String?
+        public private(set) var handlingFee: String?
+        
+        /// The shipping fee discount.
+        ///
+        /// This property can be set using the `DetailedAmount.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        ///
+        /// Maximum length is 10 characters, which includes:
+        /// - Seven digits before the decimal point.
+        /// - The decimal point.
+        /// - Two digits after the decimal point.
+        /// Supported for the PayPal payment method only.
+        public private(set) var shippingDiscount: String?
         
         /// The insurance fee.
+        ///
+        /// This property can be set using the `DetailedAmount.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
         ///
         /// Maximum length is 10 characters, which includes:
         /// - Seven digits before the decimal point.
         /// - The decimal point.
         /// - Two digits after the decimal point.
         /// Supported only for the PayPal payment method.
-        public var insurance: String?
+        public private(set) var insurance: String?
         
         /// The gift wrap fee.
+        ///
+        /// This property can be set using the `DetailedAmount.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
         ///
         /// Maximum length is 10 characters, which includes:
         /// - Seven digits before the decimal point.
         /// - The decimal point.
         /// - Two digits after the decimal point.
-        public var giftWrap: String?
+        public private(set) var giftWrap: String?
         
         /// Creates a new `DetailAmount.Detail` instance.
         ///
@@ -95,6 +116,28 @@ extension DetailedAmount {
             self.shippingDiscount = shippingDiscount
             self.insurance = insurance
             self.giftWrap = giftWrap
+            
+            try self.set(\.subtotal <~ subtotal)
+            try self.set(\.shipping <~ shipping)
+            try self.set(\.tax <~ tax)
+            try self.set(\.handlingFee <~ handlingFee)
+            try self.set(\.shippingDiscount <~ shippingDiscount)
+            try self.set(\.insurance <~ insurance)
+            try self.set(\.giftWrap <~ giftWrap)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            try self.init(
+                subtotal: container.decode(String.self, forKey: .subtotal),
+                shipping: container.decodeIfPresent(String.self, forKey: .shipping),
+                tax: container.decodeIfPresent(String.self, forKey: .tax),
+                handlingFee: container.decodeIfPresent(String.self, forKey: .handlingFee),
+                shippingDiscount: container.decodeIfPresent(String.self, forKey: .shippingDiscount),
+                insurance: container.decodeIfPresent(String.self, forKey: .insurance),
+                giftWrap: container.decodeIfPresent(String.self, forKey: .giftWrap)
+            )
         }
         
         /// See `ValidationSetable.setterValidations()`.
