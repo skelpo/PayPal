@@ -18,4 +18,9 @@ public struct DisplayPhone: Content, Equatable {
         self.country = country
         self.number = number
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case country = "country_code"
+        case number
+    }
 }
