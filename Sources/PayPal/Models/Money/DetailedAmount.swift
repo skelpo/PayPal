@@ -1,7 +1,17 @@
 import Vapor
 import Core
 
-public struct DetailedAmount {}
+public struct DetailedAmount: Content, Equatable {
+    public var currency: Currency
+    public var total: String
+    public var details: Detail?
+    
+    public init(currency: Currency, total: String, details: Detail?) {
+        self.currency = currency
+        self.total = total
+        self.details = details
+    }
+}
 
 extension DetailedAmount {
     
