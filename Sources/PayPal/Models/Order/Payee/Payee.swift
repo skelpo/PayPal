@@ -29,4 +29,10 @@ public struct Payee: Content, Equatable {
         self.merchant = merchant
         self.metadata = metadata
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case email
+        case merchant = "merchant_id"
+        case metadata = "payee_display_metadata"
+    }
 }
