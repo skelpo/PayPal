@@ -2,7 +2,7 @@ import Vapor
 import Core
 
 /// The amount of a purchase which includes details such as shipping, tax, discounts, etc.
-public struct DetailedAmount: Content, Equatable {
+public struct DetailedAmount: Content, ValidationSetable, Equatable {
     
     /// The [three-character ISO-4217 currency code](https://developer.paypal.com/docs/integration/direct/rest/currency-codes/).
     /// PayPal does not support all currencies.
@@ -30,6 +30,21 @@ public struct DetailedAmount: Content, Equatable {
         self.currency = currency
         self.total = total
         self.details = details
+    }
+    
+    /// See `ValidationSetable.setterValidations()`.
+    public func setterValidations() -> SetterValidations<DetailedAmount> {
+        var validations = SetterValidations(DetailedAmount.self)
+        
+        validations.set(\.total) { total in
+            guard total.range(of: "^[0-9]{0,7}(\\.[0-9]{1,2})?$", options: .regularExpression) != nil else {
+                throw PayPalError(
+                    status: .badRequest, identifier: "malformedString", reason: "`total` value must match RegEx pattern '^[0-9]{0,7}(\\.[0-9]{1,2})?$'"
+                )
+            }
+        }
+        
+        return validations
     }
 }
 
