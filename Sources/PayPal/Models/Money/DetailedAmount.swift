@@ -1,11 +1,31 @@
 import Vapor
 import Core
 
+/// The amount of a purchase which includes details such as shipping, tax, discounts, etc.
 public struct DetailedAmount: Content, Equatable {
+    
+    /// The [three-character ISO-4217 currency code](https://developer.paypal.com/docs/integration/direct/rest/currency-codes/).
+    /// PayPal does not support all currencies.
     public var currency: Currency
+    
+    /// The total amount charged to the payee by the payer.
+    ///
+    /// For refunds, represents the amount that the payee refunds to the original payer. Maximum length is 10 characters, which includes:
+    /// - Seven digits before the decimal point.
+    /// - The decimal point.
+    /// - Two digits after the decimal point.
     public var total: String
+    
+    /// The additional details about the payment amount.
     public var details: Detail?
     
+    
+    /// Creates a new `DetailedAmount` instance.
+    ///
+    /// - Parameters:
+    ///   - currency: The three-character ISO-4217 currency code
+    ///   - total: The total amount charged to the payee by the payer.
+    ///   - details: The additional details about the payment amount.
     public init(currency: Currency, total: String, details: Detail?) {
         self.currency = currency
         self.total = total
