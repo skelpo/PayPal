@@ -25,5 +25,11 @@ extension Payee {
             self.phone = phone
             self.brand = brand
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case email
+            case phone = "display_phone"
+            case brand = "brand_name"
+        }
     }
 }
