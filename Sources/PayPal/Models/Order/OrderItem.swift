@@ -131,7 +131,7 @@ extension Order {
                 }
             }
             validations.set(\.price) { price in
-                guard price.range(of: "^[0-9]{0,10}$", options: .regularExpression) != nil else {
+                guard price.range(of: "^[0-9]{0,10}(\\.[0-9]{0,2})?$", options: .regularExpression) != nil else {
                     throw PayPalError(
                         status: .badRequest, identifier: "malformedString", reason: "`price` value must match match RegEx pattern '^[0-9]{0,10}(\\.[0-9]{0,2})?$'"
                     )
