@@ -17,9 +17,20 @@ public struct DisplayPhone: Content, ValidationSetable, Equatable {
     /// - Parameters:
     ///   - country: The country code of the payee's country.
     ///   - number: The in-country phone number.
-    public init(country: String?, number: String?) {
+    public init(country: String?, number: String?)throws {
         self.country = country
         self.number = number
+        
+        try self.set(\.country <~ country)
+    }
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        try self.init(
+            country: container.decodeIfPresent(String.self, forKey: .country),
+            number: container.decodeIfPresent(String.self, forKey: .number)
+        )
     }
     
     /// See `ValidationSetable.setterValidations()`.
