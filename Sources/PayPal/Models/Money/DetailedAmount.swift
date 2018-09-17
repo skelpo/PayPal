@@ -1,11 +1,12 @@
 import Vapor
+import Core
 
 public struct DetailedAmount {}
 
 extension DetailedAmount {
     
     /// The additional details about a payment amount.
-    public struct Detail: Content, Equatable {
+    public struct Detail: Content, ValidationSetable, Equatable {
         private let regex: String = "^[0-9]{,7}(\\.[0-9]{1,2})?"
         
         /// The subtotal amount for the items.
@@ -94,6 +95,59 @@ extension DetailedAmount {
             self.shippingDiscount = shippingDiscount
             self.insurance = insurance
             self.giftWrap = giftWrap
+        }
+        
+        /// See `ValidationSetable.setterValidations()`.
+        public func setterValidations() -> SetterValidations<DetailedAmount.Detail> {
+            var validations = SetterValidations(Detail.self)
+            
+            validations.set(\.subtotal) { subtotal in
+                guard subtotal.range(of: self.regex, options: .regularExpression) != nil else {
+                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`subtotal` value must match RegEx pattern '\(self.regex)`")
+                }
+            }
+            validations.set(\.shipping) { shipping in
+                guard let shipping = shipping else { return }
+                guard shipping.range(of: self.regex, options: .regularExpression) != nil else {
+                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`shipping` value must match RegEx pattern '\(self.regex)`")
+                }
+            }
+            validations.set(\.tax) { tax in
+                guard let tax = tax else { return }
+                guard tax.range(of: self.regex, options: .regularExpression) != nil else {
+                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`tax` value must match RegEx pattern '\(self.regex)`")
+                }
+            }
+            validations.set(\.handlingFee) { handlingFee in
+                guard let handlingFee = handlingFee else { return }
+                guard handlingFee.range(of: self.regex, options: .regularExpression) != nil else {
+                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`handlingFee` value must match RegEx pattern '\(self.regex)`")
+                }
+            }
+            validations.set(\.shippingDiscount) { shippingDiscount in
+                guard let shippingDiscount = shippingDiscount else { return }
+                guard shippingDiscount.range(of: self.regex, options: .regularExpression) != nil else {
+                    throw PayPalError(
+                        status: .badRequest,
+                        identifier: "malformedString",
+                        reason: "`shippingDiscount` value must match RegEx pattern '\(self.regex)`"
+                    )
+                }
+            }
+            validations.set(\.insurance) { insurance in
+                guard let insurance = insurance else { return }
+                guard insurance.range(of: self.regex, options: .regularExpression) != nil else {
+                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`insurance` value must match RegEx pattern '\(self.regex)`")
+                }
+            }
+            validations.set(\.giftWrap) { giftWrap in
+                guard let giftWrap = giftWrap else { return }
+                guard giftWrap.range(of: self.regex, options: .regularExpression) != nil else {
+                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`giftWrap` value must match RegEx pattern '\(self.regex)`")
+                }
+            }
+            
+            return validations
         }
         
         enum CodingKeys: String, CodingKey {
