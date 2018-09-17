@@ -173,6 +173,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(DetailedAmountDetailTests.allCases),
         testCase(DetailedAmountTests.allCases),
         testCase(DisplayPhoneTests.allCases),
+        testCase(PayeeMetadataTests.allCases),
         
         // Controller Tests
         testCase(APITests.allTests),
