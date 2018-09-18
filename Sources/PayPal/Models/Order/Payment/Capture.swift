@@ -1,25 +1,44 @@
 import Vapor
 
+/// A captures for a purchase unit.
 public struct Capture: Content, Equatable {
+    
+    /// The ID of the capture transaction.
     public let id: String?
+    
+    /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
     public let links: [LinkDescription]?
     
+    /// The status of the capture transaction.
+    public let status: Status?
+    
+    /// A reason code that indicates the reason for the transaction state of `PENDING` or `REVERSED`.
+    public let reason: Reason?
+    
+    
+    /// The amount to capture. Default is the authorization amount. If that amount is the same as the authorized amount,
+    /// the authorization state changes to `CAPTURED`. Otherwise, the authorization state changes to `PARTIALLY_CAPTURED`.
+    /// To indicate that this capture is the final capture, set `is_final_capture` to `true`.
     public var amount: DetailedAmount?
-    public var status: Status?
-    public var reason: Reason?
+    
+    /// The currency and amount of the transaction fee
     public var transaction: Amount?
     
+    
+    /// Creates a new `Capture` instance.
+    ///
+    /// - Parameters:
+    ///   - amount: The amount to capture. Default is the authorization amount.
+    ///   - transaction: The currency and amount of the transaction fee.
     public init(
         amount: DetailedAmount?,
-        status: Status?,
-        reason: Reason?,
         transaction: Amount?
     ) {
         self.id = nil
         self.links = nil
+        self.status = nil
+        self.reason = nil
         self.amount = amount
-        self.status = status
-        self.reason = reason
         self.transaction = transaction
     }
 }
