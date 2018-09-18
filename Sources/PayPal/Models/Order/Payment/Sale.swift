@@ -47,6 +47,13 @@ public struct Sale {
         self.amount = amount
         self.transaction = transaction
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, links, amount, status
+        case created = "create_time"
+        case updated = "update_time"
+        case transaction = "transaction_fee"
+    }
 }
 
 extension Sale {
