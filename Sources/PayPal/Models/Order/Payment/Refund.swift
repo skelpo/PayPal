@@ -39,6 +39,12 @@ public struct Refund {
         self.links = nil
         self.amount = amount
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, status, links, amount
+        case capture = "capture_id"
+        case sale = "sale_id"
+    }
 }
 
 extension Refund {
