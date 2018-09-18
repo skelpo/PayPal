@@ -1,6 +1,28 @@
 import Vapor
 
-public struct Capture {}
+public struct Capture: Content, Equatable {
+    public let id: String?
+    public let links: [LinkDescription]?
+    
+    public var amount: DetailedAmount?
+    public var status: Status?
+    public var reason: Reason?
+    public var transaction: Amount?
+    
+    public init(
+        amount: DetailedAmount?,
+        status: Status?,
+        reason: Reason?,
+        transaction: Amount?
+    ) {
+        self.id = nil
+        self.links = nil
+        self.amount = amount
+        self.status = status
+        self.reason = reason
+        self.transaction = transaction
+    }
+}
 
 extension Capture {
     
