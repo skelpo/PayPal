@@ -1,6 +1,23 @@
 import Vapor
 
-public struct Refund {}
+public struct Refund {
+    public let id: String?
+    public let capture: String?
+    public let sale: String?
+    public let status: Status?
+    public let links: [LinkDescription]?
+    
+    public let amount: DetailedAmount?
+    
+    public init(amount: DetailedAmount?) {
+        self.id = nil
+        self.capture = nil
+        self.sale = nil
+        self.status = nil
+        self.links = nil
+        self.amount = amount
+    }
+}
 
 extension Refund {
     
