@@ -1,6 +1,26 @@
 import Vapor
 
-public struct Sale {}
+public struct Sale {
+    public let id: String?
+    public let status: Status?
+    public let created: String?
+    public let updated: String?
+    public let links: [LinkDescription]?
+    
+    public var amount: DetailedAmount?
+    public var transaction: Amount?
+    
+    public init(amount: DetailedAmount?, transaction: Amount?) {
+        self.id = nil
+        self.status = nil
+        self.created = nil
+        self.updated = nil
+        self.links = nil
+        
+        self.amount = amount
+        self.transaction = transaction
+    }
+}
 
 extension Sale {
     
