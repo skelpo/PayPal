@@ -2,6 +2,9 @@ import Vapor
 
 public struct Address: Content, ValidationSetable, Equatable {
     
+    /// The address normalization status. Returned only for payers from Brazil.
+    public let normalization: Normalization?
+    
     /// The name of the recipient at this address.
     public var recipientName: String?
     
@@ -45,6 +48,12 @@ public struct Address: Content, ValidationSetable, Equatable {
     /// See [postal code](https://en.wikipedia.org/wiki/Postal_code).
     public var postalCode: String?
     
+    /// The phone number, in [E.123 format](https://www.itu.int/rec/T-REC-E.123-200102-I/en). Maximum length is 50 characters.
+    public var phone: String?
+    
+    /// The type of address. For example, `HOME_OR_WORK`, `GIFT`, and so on.
+    public var type: String?
+    
     /// Creates a new `Address` instance.
     ///
     ///     Address(
@@ -67,8 +76,11 @@ public struct Address: Content, ValidationSetable, Equatable {
         city: String,
         state: String?,
         countryCode: String,
-        postalCode: String
+        postalCode: String,
+        phone: String?,
+        type: String?
     )throws {
+        self.normalization = nil
         self.recipientName = recipientName
         self.defaultAddress = defaultAddress
         self.line1 = line1
@@ -77,25 +89,34 @@ public struct Address: Content, ValidationSetable, Equatable {
         self.state = state
         self.countryCode = countryCode
         self.postalCode = postalCode
+        self.phone = phone
+        self.type = type
         
         try self.set(\.state <~ state)
         try self.set(\.countryCode <~ countryCode)
+        try self.set(\.phone <~ phone)
     }
     
     /// Creates a new instance of `Address` from that data coontained
     /// in a decoder. Validates the `state` and `countryCode` values passed in.
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        try self.init(
-            recipientName: container.decodeIfPresent(String.self, forKey: .recipientName),
-            defaultAddress: container.decodeIfPresent(Bool.self, forKey: .defaultAddress),
-            line1: container.decode(String.self, forKey: .line1),
-            line2: container.decodeIfPresent(String.self, forKey: .line2),
-            city: container.decode(String.self, forKey: .city),
-            state: container.decodeIfPresent(String.self, forKey: .state),
-            countryCode: container.decode(String.self, forKey: .countryCode),
-            postalCode: container.decode(String.self, forKey: .postalCode)
-        )
+        
+        self.normalization = try container.decodeIfPresent(Normalization.self, forKey: .normalization)
+        self.recipientName = try container.decodeIfPresent(String.self, forKey: .recipientName)
+        self.defaultAddress = try container.decodeIfPresent(Bool.self, forKey: .defaultAddress)
+        self.line1 = try container.decode(String.self, forKey: .line1)
+        self.line2 = try container.decodeIfPresent(String.self, forKey: .line2)
+        self.city = try container.decode(String.self, forKey: .city)
+        self.state = try container.decodeIfPresent(String.self, forKey: .state)
+        self.countryCode = try container.decode(String.self, forKey: .countryCode)
+        self.postalCode = try container.decode(String.self, forKey: .postalCode)
+        self.phone = try container.decodeIfPresent(String.self, forKey: .phone)
+        self.type = try container.decodeIfPresent(String.self, forKey: .type)
+        
+        try self.set(\.state <~ state)
+        try self.set(\.countryCode <~ countryCode)
+        try self.set(\.phone <~ phone)
     }
     
     /// Compares two `Address` objects, checking properties for equality.
@@ -132,15 +153,19 @@ public struct Address: Content, ValidationSetable, Equatable {
                 )
             }
         }
+        validations.set(\.phone) { phone in
+            
+        }
         
         return validations
     }
     
     enum CodingKeys: String, CodingKey {
-        case line1, line2, city, state
+        case line1, line2, city, state, phone, type
         case recipientName = "recipient_name"
         case defaultAddress = "default_address"
         case countryCode = "country_code"
         case postalCode = "postal_code"
+        case normalization = "normalization_status"
     }
 }
