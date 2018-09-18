@@ -11,7 +11,7 @@ extension Refund {
         case pending = "PENDING"
         
         /// The refund completed.
-        case complete = "COMPLETE"
+        case completed = "COMPLETED"
         
         /// The refund failed.
         case failed = "FAILED"
