@@ -29,7 +29,9 @@ final class PayerTests: XCTestCase {
                     city: "Nowhere",
                     state: "KS",
                     countryCode: "US",
-                    postalCode: "66167"
+                    postalCode: "66167",
+                    phone: nil,
+                    type: nil
                 )
             )
         )
@@ -64,7 +66,9 @@ final class PayerTests: XCTestCase {
                     city: "Nowhere",
                     state: "KS",
                     countryCode: "US",
-                    postalCode: "66167"
+                    postalCode: "66167",
+                    phone: nil,
+                    type: nil
                 )
             )
         )
@@ -98,7 +102,9 @@ final class PayerTests: XCTestCase {
                     city: "Nowhere",
                     state: "KS",
                     countryCode: "US",
-                    postalCode: "66167"
+                    postalCode: "66167",
+                    phone: nil,
+                    type: nil
                 )
             )
         )
@@ -148,7 +154,9 @@ final class PayerTests: XCTestCase {
                     city: "Nowhere",
                     state: "KS",
                     countryCode: "US",
-                    postalCode: "66167"
+                    postalCode: "66167",
+                    phone: nil,
+                    type: nil
                 )
             )
         )

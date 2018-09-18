@@ -11,7 +11,9 @@ final class AddressTests: XCTestCase {
             city: "Nowhere",
             state: "KS",
             countryCode: "US",
-            postalCode: "66167"
+            postalCode: "66167",
+            phone: nil,
+            type: nil
         )
         
         XCTAssertEqual(address.recipientName, "Puffin Billy")
@@ -22,6 +24,8 @@ final class AddressTests: XCTestCase {
         XCTAssertEqual(address.state, "KS")
         XCTAssertEqual(address.countryCode, "US")
         XCTAssertEqual(address.postalCode, "66167")
+        XCTAssertEqual(address.phone, nil)
+        XCTAssertEqual(address.type, nil)
     }
     
     func testValueValidation()throws {
@@ -33,7 +37,9 @@ final class AddressTests: XCTestCase {
             city: "Nowhere",
             state: "KS",
             countryCode: "22",
-            postalCode: "66167"
+            postalCode: "66167",
+            phone: nil,
+            type: nil
         ))
         try XCTAssertThrowsError(Address(
             recipientName: "Puffin Billy",
@@ -43,7 +49,9 @@ final class AddressTests: XCTestCase {
             city: "Nowhere",
             state: "KS",
             countryCode: "USA",
-            postalCode: "66167"
+            postalCode: "66167",
+            phone: nil,
+            type: nil
         ))
         try XCTAssertThrowsError(Address(
             recipientName: "Puffin Billy",
@@ -53,7 +61,9 @@ final class AddressTests: XCTestCase {
             city: "Nowhere",
             state: String(repeating: "j", count: 41),
             countryCode: "US",
-            postalCode: "66167"
+            postalCode: "66167",
+            phone: nil,
+            type: nil
         ))
         
         var test = try Address(
@@ -64,7 +74,9 @@ final class AddressTests: XCTestCase {
             city: "Nowhere",
             state: "KS",
             countryCode: "US",
-            postalCode: "66167"
+            postalCode: "66167",
+            phone: nil,
+            type: nil
         )
         
         try XCTAssertThrowsError(test.set(\Address.state <~ String(repeating: "KS", count: 22)))
@@ -89,7 +101,9 @@ final class AddressTests: XCTestCase {
             city: "Nowhere",
             state: "KS",
             countryCode: "US",
-            postalCode: "66167"
+            postalCode: "66167",
+            phone: nil,
+            type: nil
         )
         
         let generated = try String(data: encoder.encode(address), encoding: .utf8)!
@@ -154,7 +168,9 @@ final class AddressTests: XCTestCase {
                 city: "Nowhere",
                 state: "KS",
                 countryCode: "US",
-                postalCode: "66167"
+                postalCode: "66167",
+                phone: nil,
+                type: nil
             ),
             decoder.decode(Address.self, from: valid)
         )

@@ -14,7 +14,9 @@ final class PayerInfoTests: XCTestCase {
                 city: "Nowhere",
                 state: "KS",
                 countryCode: "US",
-                postalCode: "66167"
+                postalCode: "66167",
+                phone: nil,
+                type: nil
             )
         )
         
@@ -34,7 +36,9 @@ final class PayerInfoTests: XCTestCase {
                 city: "Nowhere",
                 state: "KS",
                 countryCode: "US",
-                postalCode: "66167"
+                postalCode: "66167",
+                phone: nil,
+                type: nil
             )
         )
     }
@@ -52,7 +56,9 @@ final class PayerInfoTests: XCTestCase {
                 city: "Nowhere",
                 state: "KS",
                 countryCode: "US",
-                postalCode: "66167"
+                postalCode: "66167",
+                phone: nil,
+                type: nil
             )
         )
         let generated = try String(data: encoder.encode(info), encoding: .utf8)!
@@ -83,7 +89,9 @@ final class PayerInfoTests: XCTestCase {
                 city: "Nowhere",
                 state: "KS",
                 countryCode: "US",
-                postalCode: "66167"
+                postalCode: "66167",
+                phone: nil,
+                type: nil
             )
         )
         let json = """

@@ -15,7 +15,9 @@ final class ShippingInfoTests: XCTestCase {
                 city: "Glipwood",
                 state: nil,
                 countryCode: "SK",
-                postalCode: "562"
+                postalCode: "562",
+                phone: nil,
+                type: nil
             )
         )
         
@@ -30,7 +32,9 @@ final class ShippingInfoTests: XCTestCase {
             city: "Glipwood",
             state: nil,
             countryCode: "SK",
-            postalCode: "562"
+            postalCode: "562",
+            phone: nil,
+            type: nil
         ))
     }
     
