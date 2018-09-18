@@ -41,6 +41,12 @@ public struct Capture: Content, Equatable {
         self.amount = amount
         self.transaction = transaction
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, links, status, amount
+        case reason = "reason_code"
+        case transaction = "transaction_fee"
+    }
 }
 
 extension Capture {
