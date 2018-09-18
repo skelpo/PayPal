@@ -3,6 +3,8 @@ import Vapor
 public struct Capture {}
 
 extension Capture {
+    
+    /// The statuses of a capture transaction.
     public enum Status: String, Hashable, CaseIterable, Content {
         
         /// The purchase unit status is `CAPTURED` and the capture status is pending.
