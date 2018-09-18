@@ -24,7 +24,7 @@ public struct Refund {
     /// Maximum length is 10 characters, which includes:
     /// - Seven digits before the decimal point.
     /// - The decimal point.
-    /// - Two digits after the decimal point./// -
+    /// - Two digits after the decimal point.
     public let amount: DetailedAmount?
     
     
