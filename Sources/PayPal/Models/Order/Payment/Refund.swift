@@ -1,7 +1,7 @@
 import Vapor
 
 /// A refund for a purchased unit.
-public struct Refund {
+public struct Refund: Content, Equatable {
     
     /// The ID of the refund transaction. Maximum length is 17 characters.
     public let id: String?
