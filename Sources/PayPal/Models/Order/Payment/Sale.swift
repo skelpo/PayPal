@@ -1,7 +1,7 @@
 import Vapor
 
 /// A sale or authorization for a purchase unit in an order.
-public struct Sale {
+public struct Sale: Content, Equatable {
     
     /// The ID of the sale transaction.
     public let id: String?
