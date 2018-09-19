@@ -1,6 +1,29 @@
 import Vapor
 
-public struct AppContext {}
+public struct AppContext {
+    public var brand: String?
+    public var locale: String?
+    public var landingPage: String?
+    public var shipping: Shipping?
+    public var userAction: String?
+    public var data: [NameValue]?
+    
+    public init(
+       brand: String? = nil,
+       locale: String? = nil,
+       landingPage: String? = nil,
+       shipping: Shipping? = nil,
+       userAction: String? = nil,
+       data: [NameValue]? = nil
+    ) {
+        self.brand = brand
+        self.locale = locale
+        self.landingPage = landingPage
+        self.shipping = shipping
+        self.userAction = userAction
+        self.data = data
+    }
+}
 
 extension AppContext {
     
