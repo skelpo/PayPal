@@ -1,9 +1,12 @@
 import Vapor
 
 /// Customization for a payer's experience during the approval process for a payment with PayPal.
-public struct AppContext {
+public struct AppContext: Content, ValidationSetable, Equatable {
     
     /// A label that overrides the business name in the PayPal account on the PayPal pages.
+    ///
+    /// This property can be set using the `AppContext.set(_:)` method. This method
+    /// validates the new value before assigning it to the property.
     ///
     /// - Maximum length: 127.
     public var brand: String?
@@ -12,6 +15,9 @@ public struct AppContext {
     /// issues, and suggested actions. The tag is made up of the [ISO 639-2 language code](https://www.loc.gov/standards/iso639-2/php/code_list.php),
     /// the optional [ISO-15924 script tag](https://www.unicode.org/iso15924/codelists.html), and the
     /// [ISO-3166 alpha-2 country code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/).
+    ///
+    /// This property can be set using the `AppContext.set(_:)` method. This method
+    /// validates the new value before assigning it to the property.
     ///
     /// Minimum length: 2. Maximum length: 10. Pattern: `^[a-z]{2}(?:-[A-Z][a-z]{3})?(?:-(?:[A-Z]{2}))?$`.
     public var locale: String?
@@ -64,6 +70,26 @@ public struct AppContext {
         self.shipping = shipping
         self.userAction = userAction
         self.data = data
+    }
+    
+    /// See `ValidationSetable.setterValidations()`.
+    public func setterValidations() -> SetterValidations<AppContext> {
+        var validations = SetterValidations(AppContext.self)
+        
+        validations.set(\.brand) { brand in
+            guard brand?.count ?? 0 <= 127 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`brand_name` value must have a length of 127 or less")
+            }
+        }
+        validations.set(\.locale) { locale in
+            guard let locale = locale else { return }
+            let regex = "^[a-z]{2}(?:-[A-Z][a-z]{3})?(?:-(?:[A-Z]{2}))?$"
+            guard locale.range(of: regex, options: .regularExpression) != nil else {
+                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`locale` value must match RegEx pattern '\(regex)'")
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
