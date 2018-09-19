@@ -65,6 +65,15 @@ public struct AppContext {
         self.userAction = userAction
         self.data = data
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case locale
+        case brand = "brand_name"
+        case landingPage = "landing_page"
+        case shipping = "shipping_preference"
+        case userAction = "user_action"
+        case data = "supplementary_data"
+    }
 }
 
 extension AppContext {
