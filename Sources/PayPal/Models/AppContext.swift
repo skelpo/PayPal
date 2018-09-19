@@ -1,13 +1,55 @@
 import Vapor
 
+/// Customization for a payer's experience during the approval process for a payment with PayPal.
 public struct AppContext {
+    
+    /// A label that overrides the business name in the PayPal account on the PayPal pages.
+    ///
+    /// - Maximum length: 127.
     public var brand: String?
+    
+    /// The [language tag](https://tools.ietf.org/html/bcp47#section-2) for the language in which to localize the error-related strings, such as messages,
+    /// issues, and suggested actions. The tag is made up of the [ISO 639-2 language code](https://www.loc.gov/standards/iso639-2/php/code_list.php),
+    /// the optional [ISO-15924 script tag](https://www.unicode.org/iso15924/codelists.html), and the
+    /// [ISO-3166 alpha-2 country code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/).
+    ///
+    /// Minimum length: 2. Maximum length: 10. Pattern: `^[a-z]{2}(?:-[A-Z][a-z]{3})?(?:-(?:[A-Z]{2}))?$`.
     public var locale: String?
+    
+    /// The type of landing page to display on the PayPal site for user checkout. To use the non-PayPal account landing page,
+    /// set to `Billing`. To use the PayPal account login landing page, set to `Login`.
     public var landingPage: String?
+    
+    /// The shipping preferences.
     public var shipping: Shipping?
+    
+    /// Defines whether to present the customer with a **Continue** or **Pay Now** checkout flow. To present buyers with the **Pay Now** checkout flow,
+    /// set `useraction=commit`. Default is the **Continue** checkout flow.
+    ///
+    /// **Checkout flow**:
+    /// - **Continue**:
+    ///   - **Choose when**: You do not know the final payment amount when you initiate the checkout flow.
+    ///   - **Description**: The default flow. Redirects the customer to the PayPal payment page, which shows the **Continue** button.
+    ///   When the customer clicks **Continue**, the customer can change the payment amount.
+    /// - **Pay Now**:
+    ///   - **Choose when**: You know the final payment amount when you initiate the checkout flow.
+    ///   - **Description**: Set `user_action=commit`. Redirects the customer to the PayPal payment page, which shows the **Pay Now** button.
+    ///     When the customer clicks **Pay Now**, the payment is processed immediately.
     public var userAction: String?
+    
+    /// An array of name-and-value pairs that contain supplementary data required by PayPal for transaction processing.
     public var data: [NameValue]?
     
+    
+    /// Creates a new `AppContext` instance.
+    ///
+    /// - Parameters:
+    ///   - brand: A label that overrides the business name in the PayPal account on the PayPal pages.
+    ///   - locale: The language tag for the language in which to localize the error-related strings
+    ///   - landingPage: The type of landing page to display on the PayPal site for user checkout.
+    ///   - shipping: The shipping preferences.
+    ///   - userAction: Defines whether to present the customer with a **Continue** or **Pay Now** checkout flow.
+    ///   - data: An array of name-and-value pairs that contain supplementary data required by PayPal for transaction processing.
     public init(
        brand: String? = nil,
        locale: String? = nil,
