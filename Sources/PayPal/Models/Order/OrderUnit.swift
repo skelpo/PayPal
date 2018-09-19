@@ -128,6 +128,20 @@ extension Order {
             self.metadata = metadata
             self.payment = payment
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case status, amount, payee, description, custom, items, metadata
+            case reference = "reference_id"
+            case invoice = "invoice_number"
+            case paymentDescriptor = "payment_descriptor"
+            case notify = "notify_url"
+            case shippingAddress = "shipping_address"
+            case shippingMethod = "shipping_method"
+            case partnerFee = "partner_fee_details"
+            case paymentGroup = "payment_linked_group"
+            case payment = "payment_summary"
+            case reason = "reason_code"
+        }
     }
 }
 
