@@ -1,31 +1,105 @@
 import Vapor
 
 extension Order {
+    
+    /// A purchase unit which establishes a contract between a customer and merchant.
     public struct Unit: Content, Equatable {
+        
+        /// The transaction state.
         public let status: Status?
+        
+        /// The reason code for a transaction status of `PENDING` or `REVERSED`. Eventually,
+        /// this field will replace `pending_reason`. Supported only for the PayPal payment method.
         public let reason: Reason?
         
+        
+        /// The merchant ID for the purchase unit.
+        ///
+        /// Maximum length: 256.
         public var reference: String
+        
+        /// The amount to collect.
         public var amount: DetailedAmount
+        
+        /// The recipient of the funds for this transaction.
         public var payee: Payee?
+        
+        /// The purchase description.
+        ///
+        /// Maximum length: 127.
         public var description: String?
+        
+        /// The client-provided external ID. Used to reconcile client transactions with PayPal transactions.
+        /// Returned in transaction and settlement reports. Only supported for the PayPal payment method.
+        ///
+        /// Maximum length: 127.
         public var invoice: String?
+        
+        /// The API caller-provided external invoice ID for this order. Only supported for the PayPal payment method.
+        ///
+        /// Maximum length: 256.
+        public var custom: String?
+        
+        /// The payment descriptor on the buyer credit card statement of account activity.
+        ///
+        /// Maximum length: 22.
         public var paymentDescriptor: String?
+        
+        /// An array of items that the customer is purchasing from the merchant.
         public var items: [Item]?
+        
+        /// The payment notifications URL.
+        ///
+        /// Maximum length: 2048.
         public var notify: String?
+        
+        /// The shipping address details.
         public var shippingAddress: Address?
+        
+        /// The shipping method. For example, `USPSParcel`.
         public var shippingMethod: String?
+        
+        /// The partner fee that is collected for the original transaction.
         public var partnerFee: PartnerFee?
+        
+        /// An ID that groups multiple linked purchase units. The purchase transactions are linked only for the payment and not for refund.
+        /// A refund is processed only for the specific transaction within the same linked group.
+        ///
+        /// Minimum value: 1. Maximum value: 100.
         public var paymentGroup: Int?
+        
+        /// The name-and-value pairs that contain external data, such as user, user feedback, score, and so on.
         public var metadata: Metadata?
+        
+        /// The payment summary.
         public var payment: Payment?
         
+        
+        /// Creates a new `Order.Unit` instance.
+        ///
+        /// - Parameters:
+        ///   - reference: The merchant ID for the purchase unit.
+        ///   - amount: The amount to collect.
+        ///   - payee: The recipient of the funds for this transaction.
+        ///   - description: The purchase description.
+        ///   - invoice: The client-provided external ID.
+        ///   - custom: The API caller-provided external invoice ID for this order.
+        ///   - paymentDescriptor: The payment descriptor on the buyer credit card statement of account activity.
+        ///   - items: An array of items that the customer is purchasing from the merchant.
+        ///   - notify: The payment notifications URL.
+        ///   - shippingAddress: The shipping address details.
+        ///   - shippingMethod: The shipping method.
+        ///   - partnerFee: The partner fee that is collected for the original transaction.
+        ///   - paymentGroup: An ID that groups multiple linked purchase units.
+        ///   - metadata: The name-and-value pairs that contain external data.
+        ///   - payment: The payment summary.
         public init(
             reference: String,
             amount: DetailedAmount,
             payee: Payee?,
             description: String?,
             invoice: String?,
+            custom: String?,
             paymentDescriptor: String?,
             items: [Item]?,
             notify: String?,
@@ -43,6 +117,7 @@ extension Order {
             self.payee = payee
             self.description = description
             self.invoice = invoice
+            self.custom = custom
             self.paymentDescriptor = paymentDescriptor
             self.items = items
             self.notify = notify
