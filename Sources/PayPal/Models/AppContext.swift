@@ -63,13 +63,29 @@ public struct AppContext: Content, ValidationSetable, Equatable {
        shipping: Shipping? = nil,
        userAction: String? = nil,
        data: [NameValue]? = nil
-    ) {
+    )throws {
         self.brand = brand
         self.locale = locale
         self.landingPage = landingPage
         self.shipping = shipping
         self.userAction = userAction
         self.data = data
+        
+        try self.set(\.brand <~ brand)
+        try self.set(\.locale <~ locale)
+    }
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        try self.init(
+            brand: container.decodeIfPresent(String.self, forKey: .locale),
+            locale: container.decodeIfPresent(String.self, forKey: .brand),
+            landingPage: container.decodeIfPresent(String.self, forKey: .landingPage),
+            shipping: container.decodeIfPresent(Shipping.self, forKey: .shipping),
+            userAction: container.decodeIfPresent(String.self, forKey: .userAction),
+            data: container.decodeIfPresent([NameValue].self, forKey: .data)
+        )
     }
     
     /// See `ValidationSetable.setterValidations()`.
