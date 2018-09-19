@@ -109,7 +109,7 @@ extension Order {
             paymentGroup: Int?,
             metadata: Metadata?,
             payment: Payment?
-        ) {
+        )throws {
             self.status = nil
             self.reason = nil
             self.reference = reference
@@ -127,6 +127,45 @@ extension Order {
             self.paymentGroup = paymentGroup
             self.metadata = metadata
             self.payment = payment
+            
+            try self.set(\.reference <~ reference)
+            try self.set(\.description <~ description)
+            try self.set(\.custom <~ custom)
+            try self.set(\.invoice <~ invoice)
+            try self.set(\.paymentDescriptor <~ paymentDescriptor)
+            try self.set(\.notify <~ notify)
+            try self.set(\.paymentGroup <~ paymentGroup)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            self.status = try container.decodeIfPresent(Status.self, forKey: .status)
+            self.reason = try container.decodeIfPresent(Reason.self, forKey: .reason)
+            self.reference = try container.decode(String.self, forKey: .reference)
+            self.amount = try container.decode(DetailedAmount.self, forKey: .amount)
+            self.payee = try container.decodeIfPresent(Payee.self, forKey: .payee)
+            self.description = try container.decodeIfPresent(String.self, forKey: .description)
+            self.invoice = try container.decodeIfPresent(String.self, forKey: .invoice)
+            self.custom = try container.decodeIfPresent(String.self, forKey: .custom)
+            self.paymentDescriptor = try container.decodeIfPresent(String.self, forKey: .paymentDescriptor)
+            self.items = try container.decodeIfPresent([Item].self, forKey: .items)
+            self.notify = try container.decodeIfPresent(String.self, forKey: .notify)
+            self.shippingAddress = try container.decodeIfPresent(Address.self, forKey: .shippingAddress)
+            self.shippingMethod = try container.decodeIfPresent(String.self, forKey: .shippingMethod)
+            self.partnerFee = try container.decodeIfPresent(PartnerFee.self, forKey: .partnerFee)
+            self.paymentGroup = try container.decodeIfPresent(Int.self, forKey: .paymentGroup)
+            self.metadata = try container.decodeIfPresent(Metadata.self, forKey: .metadata)
+            self.payment = try container.decodeIfPresent(Payment.self, forKey: .payment)
+            
+            try self.set(\.reference <~ reference)
+            try self.set(\.description <~ description)
+            try self.set(\.custom <~ custom)
+            try self.set(\.invoice <~ invoice)
+            try self.set(\.paymentDescriptor <~ paymentDescriptor)
+            try self.set(\.notify <~ notify)
+            try self.set(\.paymentGroup <~ paymentGroup)
         }
         
         /// See `ValidationSetable.setterValidations()`.
