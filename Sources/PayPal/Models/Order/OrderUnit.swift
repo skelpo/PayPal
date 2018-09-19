@@ -3,7 +3,7 @@ import Vapor
 extension Order {
     
     /// A purchase unit which establishes a contract between a customer and merchant.
-    public struct Unit: Content, Equatable {
+    public struct Unit: Content, ValidationSetable, Equatable {
         
         /// The transaction state.
         public let status: Status?
@@ -127,6 +127,49 @@ extension Order {
             self.paymentGroup = paymentGroup
             self.metadata = metadata
             self.payment = payment
+        }
+        
+        /// See `ValidationSetable.setterValidations()`.
+        public func setterValidations() -> SetterValidations<Order.Unit> {
+            var validations = SetterValidations(Order.Unit.self)
+            
+            validations.set(\.reference) { reference in
+                guard reference.count <= 256 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`reference` value length must be 256 or less.")
+                }
+            }
+            validations.set(\.description) { description in
+                guard description?.count ?? 0 <= 127 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`description` value length must be 127 or less.")
+                }
+            }
+            validations.set(\.custom) { custom in
+                guard custom?.count ?? 0 <= 127 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`custom` value length must be 127 or less.")
+                }
+            }
+            validations.set(\.invoice) { invoice in
+                guard invoice?.count ?? 0 <= 256 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`invoice` value length must be 256 or less.")
+                }
+            }
+            validations.set(\.paymentDescriptor) { paymentDescriptor in
+                guard paymentDescriptor?.count ?? 0 <= 22 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`paymentDescriptor` value length must be 22 or less.")
+                }
+            }
+            validations.set(\.notify) { notify in
+                guard notify?.count ?? 0 <= 2048 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`notify` value length must be 2048 or less.")
+                }
+            }
+            validations.set(\.paymentGroup) { paymentGroup in
+                guard (1...100).contains(paymentGroup ?? 1) else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidInt", reason: "`paymentGroup` value must be in range 1...100 or `nil`")
+                }
+            }
+            
+            return validations
         }
         
         enum CodingKeys: String, CodingKey {
