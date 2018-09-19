@@ -15,8 +15,11 @@ extension Order {
         
         /// The merchant ID for the purchase unit.
         ///
+        /// This property can be set using the `Unit.set(_:)` method. This method
+        /// validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 256.
-        public var reference: String
+        public private(set) var reference: String
         
         /// The amount to collect.
         public var amount: DetailedAmount
@@ -26,32 +29,47 @@ extension Order {
         
         /// The purchase description.
         ///
+        /// This property can be set using the `Unit.set(_:)` method. This method
+        /// validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 127.
-        public var description: String?
+        public private(set) var description: String?
         
         /// The client-provided external ID. Used to reconcile client transactions with PayPal transactions.
         /// Returned in transaction and settlement reports. Only supported for the PayPal payment method.
         ///
+        /// This property can be set using the `Unit.set(_:)` method. This method
+        /// validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 127.
-        public var invoice: String?
+        public private(set) var invoice: String?
         
         /// The API caller-provided external invoice ID for this order. Only supported for the PayPal payment method.
         ///
+        /// This property can be set using the `Unit.set(_:)` method. This method
+        /// validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 256.
-        public var custom: String?
+        public private(set) var custom: String?
         
         /// The payment descriptor on the buyer credit card statement of account activity.
         ///
+        /// This property can be set using the `Unit.set(_:)` method. This method
+        /// validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 22.
-        public var paymentDescriptor: String?
+        public private(set) var paymentDescriptor: String?
         
         /// An array of items that the customer is purchasing from the merchant.
         public var items: [Item]?
         
         /// The payment notifications URL.
         ///
+        /// This property can be set using the `Unit.set(_:)` method. This method
+        /// validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 2048.
-        public var notify: String?
+        public private(set) var notify: String?
         
         /// The shipping address details.
         public var shippingAddress: Address?
@@ -65,8 +83,11 @@ extension Order {
         /// An ID that groups multiple linked purchase units. The purchase transactions are linked only for the payment and not for refund.
         /// A refund is processed only for the specific transaction within the same linked group.
         ///
+        /// This property can be set using the `Unit.set(_:)` method. This method
+        /// validates the new value before assigning it to the property.
+        ///
         /// Minimum value: 1. Maximum value: 100.
-        public var paymentGroup: Int?
+        public private(set) var paymentGroup: Int?
         
         /// The name-and-value pairs that contain external data, such as user, user feedback, score, and so on.
         public var metadata: Metadata?
