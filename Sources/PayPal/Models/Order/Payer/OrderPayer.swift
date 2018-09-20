@@ -5,6 +5,8 @@ extension Order {
 }
     
 extension Order.Payer {
+    
+    /// The payment method used by a payer in an order.
     public enum Method: String, Hashable, CaseIterable, Content {
         
         /// Credit card.
@@ -24,5 +26,18 @@ extension Order.Payer {
         
         /// Bank
         case bank = "bank"
+    }
+}
+
+extension Order.Payer {
+    
+    /// The status of a payer's PayPal account.
+    public enum Status: String, Hashable, CaseIterable, Content {
+        
+        /// `VERIFIED`.
+        case verified = "VERIFIED"
+        
+        /// `UNVERIFIED`.
+        case unverified = "UNVERIFIED"
     }
 }
