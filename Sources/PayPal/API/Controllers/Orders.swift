@@ -81,5 +81,39 @@ public final class Orders: PayPalController {
             return try client.get(self.path() + orderID, as: Order.self)
         }
     }
+    
+    /// Initiates a PayPal payment that a buyer has approved.
+    ///
+    /// - Note: For Marketplace use cases, use the `disbursement_mode` to indicate whether to disburse funds to the merchant and marketplace accounts
+    ///   immediately or later. If you delay disbursement, you must call
+    ///   [disburse funds](https://developer.paypal.com/docs/marketplaces/integrate/move-money/#3-disburse-funds) to disburse funds to the merchant and marketplace.
+    ///
+    /// A successful request returns the HTTP `202 Accepted` status code and a JSON response body that shows order and payment details.
+    ///
+    /// - Note: Applies to existing asynchronous payment processing integrations.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the order for which to execute a payment.
+    ///   - body: The information used to make the payment to the specified order.
+    ///   - partner: For tracking transactions which are associtaed with the partner who the ID belongs to.
+    ///   - request: A user-generated ID that you can use to enforce idempotency.
+    ///
+    /// - Returns: The order the payment is made for, wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func pay(order id: String, with body: Order.PaymentRequest, partner partnerID: String? = nil, request requestID: String? = nil) -> Future<Order> {
+        return Future.flatMap(on: self.container) { () -> Future<Order> in
+            let client = try self.container.make(PayPalClient.self)
+            var headers: HTTPHeaders = [:]
+            
+            if let partner = partnerID {
+                headers.add(name: "PayPal-Partner-Attribution-Id", value: partner)
+            }
+            if let request = requestID {
+                headers.add(name: "PayPal-Request-Id", value: request)
+            }
+            
+            return try client.post(self.path() + id + "/pay", headers: headers, body: body, as: Order.self)
+        }
+    }
 }
 
