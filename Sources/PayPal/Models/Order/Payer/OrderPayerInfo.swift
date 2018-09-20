@@ -1,22 +1,59 @@
 import Vapor
 
 extension Order.Payer {
+    
+    /// The payer information for an order's payer.
     public struct Info: Content, Equatable {
-        public let salutation: String?
-        public let firstname: String?
-        public let middlename: String?
-        public let lastname: String?
-        public let suffix: String?
-        public let payer: String?
-        public let shipping: Address?
         
+        /// The payer's salutation.
+        public let salutation: String?
+        
+        /// The payer's first name.
+        public let firstname: String?
+        
+        /// The payer's middle name.
+        public let middlename: String?
+        
+        /// The payer's last name.
+        public let lastname: String?
+        
+        /// The payer's suffix.
+        public let suffix: String?
+        
+        /// The PayPal-assigned encrypted payer ID.
+        public let payer: String?
+        
+        
+        /// The payer's email address. Maximum length is 127 characters.
         public var email: String?
+        
+        /// The birth date of the payer, in [Internet date format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, `1990-04-12`.
         public var birthdate: String?
+        
+        /// The payer's tax ID. Supported for the PayPal payment method only.
+        ///
+        /// Maximum length: 14.
         public var tax: String?
+        
+        /// The payer's tax ID type. Supported for the PayPal payment method only.
         public var taxType: TaxType?
+        
+        /// The payer's [two-character IS0-3166-1 country code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/).
         public var country: String?
+        
+        /// The payer's billing address.
         public var billing: Address?
         
+        
+        /// Creates a mew `Order.Payer.Info` instance.
+        ///
+        /// - Parameters:
+        ///   - email: The payer's email address.
+        ///   - birthdate: The birth date of the payer.
+        ///   - tax: The payer's tax ID.
+        ///   - taxType: The payer's tax ID type.
+        ///   - country: The payer's country code.
+        ///   - billing: The payer's billing address.
         public init(
             email: String?,
             birthdate: String?,
@@ -31,7 +68,6 @@ extension Order.Payer {
             self.lastname = nil
             self.suffix = nil
             self.payer = nil
-            self.shipping = nil
             
             self.email = email
             self.birthdate = birthdate
