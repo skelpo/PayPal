@@ -70,7 +70,7 @@ extension Order.Payer {
             taxType: TaxType?,
             country: String?,
             billing: Address?
-        ) {
+        )throws {
             self.salutation = nil
             self.firstname = nil
             self.middlename = nil
@@ -84,6 +84,32 @@ extension Order.Payer {
             self.taxType = taxType
             self.country = country
             self.billing = billing
+            
+            try self.set(\.email <~ email)
+            try self.set(\.tax <~ tax)
+            try self.set(\.country <~ country)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            self.salutation = try container.decodeIfPresent(String.self, forKey: .salutation)
+            self.firstname = try container.decodeIfPresent(String.self, forKey: .firstname)
+            self.middlename = try container.decodeIfPresent(String.self, forKey: .middlename)
+            self.lastname = try container.decodeIfPresent(String.self, forKey: .lastname)
+            self.suffix = try container.decodeIfPresent(String.self, forKey: .suffix)
+            self.payer = try container.decodeIfPresent(String.self, forKey: .payer)
+            self.email = try container.decodeIfPresent(String.self, forKey: .email)
+            self.birthdate = try container.decodeIfPresent(String.self, forKey: .birthdate)
+            self.tax = try container.decodeIfPresent(String.self, forKey: .tax)
+            self.taxType = try container.decodeIfPresent(TaxType.self, forKey: .taxType)
+            self.country = try container.decodeIfPresent(String.self, forKey: .country)
+            self.billing = try container.decodeIfPresent(Address.self, forKey: .billing)
+            
+            try self.set(\.email <~ email)
+            try self.set(\.tax <~ tax)
+            try self.set(\.country <~ country)
         }
         
         /// See `ValidationSetable.setterValidations()`.
