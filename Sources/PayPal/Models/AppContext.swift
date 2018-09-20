@@ -79,8 +79,8 @@ public struct AppContext: Content, ValidationSetable, Equatable {
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         try self.init(
-            brand: container.decodeIfPresent(String.self, forKey: .locale),
-            locale: container.decodeIfPresent(String.self, forKey: .brand),
+            brand: container.decodeIfPresent(String.self, forKey: .brand),
+            locale: container.decodeIfPresent(String.self, forKey: .locale),
             landingPage: container.decodeIfPresent(String.self, forKey: .landingPage),
             shipping: container.decodeIfPresent(Shipping.self, forKey: .shipping),
             userAction: container.decodeIfPresent(String.self, forKey: .userAction),
