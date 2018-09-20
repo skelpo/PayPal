@@ -68,11 +68,31 @@ final class OrdersTests: XCTestCase {
         XCTAssertEqual(order.id, id)
     }
     
+    func testPayEndpoint()throws {
+        let id = ""
+        let body = try Order.PaymentRequest(
+            disbursement: .instant,
+            payer: Order.Payer(
+                method: .creditCard,
+                funding: [
+                    FundingInstrument(token: CreditCard.Token(creditCard: "C324C867-B0D8-4522-881E-6D788A159DB4", payer: "C324C867-B0D8-4522-881E-6D788A159DB4"))
+                ],
+                info: Order.Payer.Info(email: "email@example.com", birthdate: nil, tax: nil, taxType: nil, country: "US", billing: nil)
+            )
+        )
+        
+        let orders = try self.app.make(Orders.self)
+        let order = try orders.pay(order: id, with: body).wait()
+        
+        XCTAssertEqual(order.id, id)
+    }
+    
     static var allTests: [(String, (OrdersTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoints", testCreateEndpoints),
         ("testCancelEndpoints", testCancelEndpoints),
-        ("testDetailsEndpoint", testDetailsEndpoint)
+        ("testDetailsEndpoint", testDetailsEndpoint),
+        ("testPayEndpoint", testPayEndpoint)
     ]
 }
 
