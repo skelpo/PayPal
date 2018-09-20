@@ -6,7 +6,8 @@ public struct Order: Content, Equatable {
     /// The ID of the order.
     public let id: String?
     
-    /// The status of the order. After the customer approves the order, the status is `APPROVED`. After the payment is made for the order and the order completes, the status is `COMPLETED`.
+    /// The status of the order. After the customer approves the order, the status is `APPROVED`.
+    /// After the payment is made for the order and the order completes, the status is `COMPLETED`.
     public let status: Status?
     
     /// The date and time when the resource was created, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
