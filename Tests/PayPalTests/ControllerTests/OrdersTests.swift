@@ -53,9 +53,17 @@ final class OrdersTests: XCTestCase {
         XCTAssertEqual(created.context?.brand, "Example Inc.")
     }
     
+    func testCancelEndpoints()throws {
+        let orders = try self.app.make(Orders.self)
+        let status = try orders.cancel(order: "").wait()
+        
+        XCTAssertEqual(status, .noContent)
+    }
+    
     static var allTests: [(String, (OrdersTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
-        ("testCreateEndpoints", testCreateEndpoints)
+        ("testCreateEndpoints", testCreateEndpoints),
+        ("testCancelEndpoints", testCancelEndpoints)
     ]
 }
 
