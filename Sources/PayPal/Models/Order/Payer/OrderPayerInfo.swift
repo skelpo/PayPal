@@ -3,7 +3,7 @@ import Vapor
 extension Order.Payer {
     
     /// The payer information for an order's payer.
-    public struct Info: Content, Equatable {
+    public struct Info: Content, ValidationSetable, Equatable {
         
         /// The payer's salutation.
         public let salutation: String?
@@ -25,21 +25,30 @@ extension Order.Payer {
         
         
         /// The payer's email address. Maximum length is 127 characters.
-        public var email: String?
+        ///
+        /// This property can be set using the `Inof.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        public private(set) var email: String?
         
         /// The birth date of the payer, in [Internet date format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, `1990-04-12`.
         public var birthdate: String?
         
         /// The payer's tax ID. Supported for the PayPal payment method only.
         ///
+        /// This property can be set using the `Inof.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 14.
-        public var tax: String?
+        public private(set) var tax: String?
         
         /// The payer's tax ID type. Supported for the PayPal payment method only.
         public var taxType: TaxType?
         
         /// The payer's [two-character IS0-3166-1 country code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/).
-        public var country: String?
+        ///
+        /// This property can be set using the `Inof.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        public private(set) var country: String?
         
         /// The payer's billing address.
         public var billing: Address?
@@ -75,6 +84,30 @@ extension Order.Payer {
             self.taxType = taxType
             self.country = country
             self.billing = billing
+        }
+        
+        /// See `ValidationSetable.setterValidations()`.
+        public func setterValidations() -> SetterValidations<Info> {
+            var validations = SetterValidations(Info.self)
+            
+            validations.set(\.email) { email in
+                guard email?.count ?? 0 <= 127 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`email` value must have a length of 127 or less")
+                }
+            }
+            validations.set(\.tax) { tax in
+                guard tax?.count ?? 0 <= 14 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`tax_id` value must have a length of 14 or less")
+                }
+            }
+            validations.set(\.country) { country in
+                guard let country = country else { return }
+                guard country.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
+                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`country` value must match RegEx pattern `^([A-Z]{2}|C2)$`")
+                }
+            }
+            
+            return validations
         }
         
         enum CodingKeys: String, CodingKey {
