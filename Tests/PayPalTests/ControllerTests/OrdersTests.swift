@@ -20,8 +20,42 @@ final class OrdersTests: XCTestCase {
         _ = try app.make(Orders.self)
     }
     
+    func testCreateEndpoints()throws {
+        let sales = try [
+            Sale(amount: DetailedAmount(currency: .usd, total: "150.78", details:
+                DetailedAmount.Detail(
+                    subtotal: "140.00",
+                    shipping: "9.00",
+                    tax: "1.78",
+                    handlingFee: nil,
+                    shippingDiscount: nil,
+                    insurance: nil,
+                    giftWrap: nil)
+                ),
+                transaction: Amount(currency: .usd, value: "1.50")
+            )
+        ]
+        
+        let order = try Order(
+            intent: .sale,
+            units: [],
+            payment: .init(captures: nil, refunds: nil, sales: sales, authorizations: nil),
+            total: Amount(currency: .usd, value: "150.78"),
+            context: AppContext(brand: "Example Inc.", locale: "us-AZ", landingPage: nil, shipping: .buyer, userAction: nil, data: nil),
+            metadata: nil,
+            redirects: .init(return: "https://example.com/approved", cancel: "https://example.com/cancel")
+        )
+        
+        let orders = try self.app.make(Orders.self)
+        let created = try orders.create(order: order, partnerID: nil).wait()
+        
+        XCTAssertNotNil(created.id)
+        XCTAssertEqual(created.context?.brand, "Example Inc.")
+    }
+    
     static var allTests: [(String, (OrdersTests) -> ()throws -> ())] = [
-        ("testServiceExists", testServiceExists)
+        ("testServiceExists", testServiceExists),
+        ("testCreateEndpoints", testCreateEndpoints)
     ]
 }
 
