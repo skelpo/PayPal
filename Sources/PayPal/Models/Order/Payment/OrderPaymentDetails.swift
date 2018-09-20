@@ -18,7 +18,7 @@ extension Order {
     }
 }
 
-extension Order.PaymentDetails {
+extension Order {
     
     /// Indicates whether to disburse an order payment instantly or delay the payment.
     public enum DisbursementMode: String, Hashable, CaseIterable, Content {

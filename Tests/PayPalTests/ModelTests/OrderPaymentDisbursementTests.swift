@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-typealias Disbursement = Order.PaymentDetails.DisbursementMode
+typealias Disbursement = Order.DisbursementMode
 
 final class OrderPaymentDisbursementTests: XCTestCase {
     struct Or: Codable {
