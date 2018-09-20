@@ -15,7 +15,7 @@ extension CreditCard {
         public let expireMonth: Int?
         
         /// The four-digit expiration year.
-        public let expiredYear: Int?
+        public let expireYear: Int?
         
         
         /// The ID of credit card that is stored in the PayPal vault.
@@ -39,10 +39,19 @@ extension CreditCard {
             self.suffix = nil
             self.type = nil
             self.expireMonth = nil
-            self.expiredYear = nil
+            self.expireYear = nil
             
             self.creditCard = creditCard
             self.payer = payer
+        }
+        
+        enum CodingKeys: String, CodingKey {
+            case creditCard = "credit_card_id"
+            case payer = "payer_id"
+            case suffix = "last4"
+            case type
+            case expireMonth = "expire_month"
+            case expireYear = "expire_year"
         }
     }
 }
