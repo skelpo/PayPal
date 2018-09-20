@@ -76,6 +76,19 @@ extension Order.Payer {
             self.country = country
             self.billing = billing
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case email, salutation, suffix
+            case firstname = "first_name"
+            case middlename = "middle_name"
+            case lastname = "last_name"
+            case payer = "payer_id"
+            case birthdate = "birth_date"
+            case tax = "tax_id"
+            case taxType = "tax_id_type"
+            case country = "country_code"
+            case billing = "billing_address"
+        }
     }
 }
 
