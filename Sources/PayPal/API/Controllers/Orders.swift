@@ -65,5 +65,21 @@ public final class Orders: PayPalController {
             return try client.delete(self.path() + id, as: HTTPStatus.self)
         }
     }
+    
+    /// Shows details for an order, by ID.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows order details.
+    ///
+    /// - Parameters:
+    ///   - orderID: The ID of the order for which to show details.
+    ///
+    /// - Returns: The order for the ID passed in, wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func details(for orderID: String) -> Future<Order> {
+        return Future.flatMap(on: self.container) { () -> Future<Order> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path() + orderID, as: Order.self)
+        }
+    }
 }
 
