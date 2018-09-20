@@ -75,4 +75,15 @@ public struct Order: Content, Equatable {
         self.metadata = metadata
         self.redirects = redirects
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, status, links, intent, metadata
+        case units = "purchase_units"
+        case payment = "payment_details"
+        case total = "gross_total_amount"
+        case context = "application_context"
+        case redirects = "redirect_urls"
+        case created = "create_time"
+        case updated = "update_time"
+    }
 }
