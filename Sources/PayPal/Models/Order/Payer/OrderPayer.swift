@@ -1,7 +1,20 @@
 import Vapor
 
 extension Order {
-    public struct Payer {}
+    public struct Payer: Content, Equatable {
+        public let status: Status?
+        
+        public var method: Method?
+        public var funding: [FundingInstrument]?
+        public var info: Info?
+        
+        public init(method: Method?, funding: [FundingInstrument]?, info: Info?) {
+            self.status = nil
+            self.method = method
+            self.funding = funding
+            self.info = info
+        }
+    }
 }
     
 extension Order.Payer {
