@@ -48,5 +48,22 @@ public final class Orders: PayPalController {
             }
         }
     }
+    
+    /// Cancels an order, by ID, and deletes the order. To call this method, the order status must be `CREATED` or `APPROVED`.
+    ///
+    /// A successful request returns the HTTP `204 No Content` status code with no JSON response body. If the order is already paid,
+    /// the order cannot be canceled and the request returns the HTTP `422 Unprocessable Entity` status code with the message, `This order is in progress`.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the order to cancel.
+    ///
+    /// - Returns: An HTTP status, which will be `204 No Content`, wrapped in a future. If an error response was sent back instead,
+    ///   it gets converted to a Swift error and the future wraps that instead.
+    public func cancel(order id: String) -> Future<HTTPStatus> {
+        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.delete(self.path() + id, as: HTTPStatus.self)
+        }
+    }
 }
 
