@@ -38,6 +38,13 @@ extension Order {
             self.funding = funding
             self.info = info
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case status
+            case method = "payment_method"
+            case funding = "funding_instruments"
+            case info = "payer_info"
+        }
     }
 }
     
