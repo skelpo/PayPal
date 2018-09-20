@@ -21,5 +21,10 @@ extension Order {
             self.disbursement = disbursement
             self.payer = payer
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case disbursement = "disbursement_mode"
+            case payer
+        }
     }
 }
