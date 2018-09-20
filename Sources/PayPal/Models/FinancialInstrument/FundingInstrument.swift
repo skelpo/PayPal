@@ -12,4 +12,8 @@ public struct FundingInstrument: Content, Equatable {
     public init(token: CreditCard.Token?) {
         self.token = token
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case token = "credit_card_token"
+    }
 }
