@@ -1,10 +1,10 @@
 import XCTest
 @testable import PayPal
 
-typealias Intent = Order.Intent
+fileprivate typealias Intent = Order.Intent
 
 final class OrderIntentTests: XCTestCase {
-    struct Or: Codable {
+    private struct Or: Codable {
         let intent: Intent
     }
     
