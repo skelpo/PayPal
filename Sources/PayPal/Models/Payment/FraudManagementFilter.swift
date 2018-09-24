@@ -1,9 +1,21 @@
 import Vapor
 
+/// The Fraud Management Filter (FMF) details that are applied to a payment that result in an accept, deny, or pending action.
+public typealias FMF = FraudManagementFilter
+
+/// The Fraud Management Filter (FMF) details that are applied to a payment that result in an accept, deny, or pending action.
 public struct FraudManagementFilter: Content, Equatable {
+    
+    /// The filter type.
     public let type: FilterType
+    
+    /// The filter ID.
     public let id: ID
+    
+    /// The filter name.
     public let name: String?
+    
+    /// The filter description.
     public let description: String?
 }
 
