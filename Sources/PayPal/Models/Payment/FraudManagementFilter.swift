@@ -69,7 +69,7 @@ extension FraudManagementFilter {
         case riskyDomainCheck = "RISKY_EMAIL_ADDRESS_DOMAIN_CHECK"
         
         /// Risky bank identification number check.
-        case riskyBankIDheck = "RISKY_BANK_IDENTIFICATION_NUMBER_CHECK"
+        case riskyBankIDCheck = "RISKY_BANK_IDENTIFICATION_NUMBER_CHECK"
         
         /// Risky IP address range.
         case riskyIPRange = "RISKY_IP_ADDRESS_RANGE"
