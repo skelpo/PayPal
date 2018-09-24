@@ -22,3 +22,25 @@ extension RelatedResource.Sale {
         case echeck = "ECHECK"
     }
 }
+
+extension RelatedResource.Sale {
+    
+    /// The state of a sale transaction.
+    public enum State: String, Hashable, CaseIterable, Content {
+        
+        /// `completed`.
+        case completed
+        
+        /// `partially_refunded`.
+        case partiallyRefunded = "partially_refunded"
+        
+        /// `pending`.
+        case pending
+        
+        /// `refunded`.
+        case refunded
+        
+        /// `denied`.
+        case denied
+    }
+}
