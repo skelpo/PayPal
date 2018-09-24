@@ -1,7 +1,14 @@
 import Vapor
 
 extension RelatedResource.Sale {
-    public struct ProcessorResponse {}
+    public struct ProcessorResponse: Content, Equatable {
+        public let code: String
+        public let avs: String?
+        public let cvv: String?
+        public let advice: AdviceCode?
+        public let eci: String?
+        public let vpas: String?
+    }
 }
 
 extension RelatedResource.Sale.ProcessorResponse {
