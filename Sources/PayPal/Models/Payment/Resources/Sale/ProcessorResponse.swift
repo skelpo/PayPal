@@ -1,12 +1,32 @@
 import Vapor
 
 extension RelatedResource.Sale {
+    
+    /// The processor-provided response codes that describe a submitted payment.
     public struct ProcessorResponse: Content, Equatable {
+        
+        /// The PayPal normalized response code, which is generated from the processor's specific response code.
+        ///
+        /// Maximum length: 4.
         public let code: String
+        
+        /// The [Address Verification System (AVS)](https://developer.paypal.com/webapps/developer/docs/classic/api/AVSResponseCodes/) response code.
+        ///
+        /// Maximum length: 1. Pattern: `[A-z0-9]{1}`.
         public let avs: String?
+        
+        /// The [CVV](https://developer.paypal.com/webapps/developer/docs/classic/api/AVSResponseCodes/) system response code.
+        ///
+        /// Maximum length: 1. Pattern: `[A-z0-9]{1}`.
         public let cvv: String?
+        
+        /// The merchant advice on how to handle declines for recurring payments.
         public let advice: AdviceCode?
+        
+        /// The processor-provided authorization response.
         public let eci: String?
+        
+        /// The processor-provided Visa Payer Authentication Service (VPAS) status.
         public let vpas: String?
     }
 }
