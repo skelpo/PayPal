@@ -1,6 +1,6 @@
 import Vapor
 
-extension Payment {
+extension BillingPayment {
     
     /// The source of the funds for a payment.
     public typealias Payer = PaymentPayer

@@ -8,7 +8,7 @@ final class BillingPlanTests: XCTestCase {
             description: "Your water payment",
             type: .infinite,
             payments: [
-                Payment(
+                BillingPayment(
                     name: "Water Charge",
                     type: .regular,
                     interval: "1",
@@ -33,7 +33,7 @@ final class BillingPlanTests: XCTestCase {
         XCTAssertEqual(plan.type, .infinite)
         XCTAssertEqual(plan.preferances, nil)
         XCTAssertEqual(plan.paymentDefinitions?.count, 1)
-        try XCTAssertEqual(plan.paymentDefinitions?.first, Payment(
+        try XCTAssertEqual(plan.paymentDefinitions?.first, BillingPayment(
             name: "Water Charge",
             type: .regular,
             interval: "1",
@@ -65,7 +65,7 @@ final class BillingPlanTests: XCTestCase {
             description: "Your water payment",
             type: .infinite,
             payments: [
-                Payment(
+                BillingPayment(
                     name: "Water Charge",
                     type: .regular,
                     interval: "1",
@@ -97,7 +97,7 @@ final class BillingPlanTests: XCTestCase {
             description: "Your water payment",
             type: .infinite,
             payments: [
-                Payment(
+                BillingPayment(
                     name: "Water Charge",
                     type: .regular,
                     interval: "1",

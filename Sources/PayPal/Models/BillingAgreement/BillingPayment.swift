@@ -1,7 +1,7 @@
 import Vapor
 
 /// The payment made during each cycle of a billing agreement.
-public struct Payment<M>: Content, ValidationSetable, Equatable where M: Monitary {
+public struct BillingPayment<M>: Content, ValidationSetable, Equatable where M: Monitary {
     
     /// The PayPal-generated ID for the resource.
     ///
@@ -35,9 +35,9 @@ public struct Payment<M>: Content, ValidationSetable, Equatable where M: Monitar
     /// An array of shipping fee and tax information for this definition.
     public var charges: [Charge]?
     
-    /// Creatse a new `Payment` instance.
+    /// Creatse a new `BillingPayment` instance.
     ///
-    ///     Payment(
+    ///     BillingPayment(
     ///         name: "Service Membership",
     ///         type: .regular,
     ///         interval: "2",
@@ -77,8 +77,8 @@ public struct Payment<M>: Content, ValidationSetable, Equatable where M: Monitar
         try self.set(\.interval <~ interval)
     }
     
-    public func setterValidations() -> SetterValidations<Payment> {
-        var validations = SetterValidations(Payment.self)
+    public func setterValidations() -> SetterValidations<BillingPayment> {
+        var validations = SetterValidations(BillingPayment.self)
         
         validations.set(\.name) { name in
             guard name.count <= 128 else {

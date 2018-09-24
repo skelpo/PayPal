@@ -1,9 +1,9 @@
 import XCTest
 @testable import PayPal
 
-final class PaymentTests: XCTestCase {
+final class BillingPaymentTests: XCTestCase {
     func testInit()throws {
-        let payment = try Payment(
+        let payment = try BillingPayment(
             name: "Service Membership",
             type: .regular,
             interval: "2",
@@ -22,7 +22,7 @@ final class PaymentTests: XCTestCase {
         XCTAssertEqual(payment.charges, nil)
         try XCTAssertEqual(payment.amount, Money(currency: .usd, value: "24.99"))
         
-        try XCTAssertThrowsError(Payment(
+        try XCTAssertThrowsError(BillingPayment(
             name: "Service Membership",
             type: .regular,
             interval: "i",
@@ -31,7 +31,7 @@ final class PaymentTests: XCTestCase {
             amount: Money(currency: .usd, value: "24.99"),
             charges: nil
         ))
-        try XCTAssertThrowsError(Payment(
+        try XCTAssertThrowsError(BillingPayment(
             name: "Service Membership",
             type: .regular,
             interval: "i",
@@ -40,7 +40,7 @@ final class PaymentTests: XCTestCase {
             amount: Money(currency: .usd, value: "24.99"),
             charges: nil
         ))
-        try XCTAssertThrowsError(Payment(
+        try XCTAssertThrowsError(BillingPayment(
             name: "Service Membership",
             type: .regular,
             interval: "13",
@@ -53,7 +53,7 @@ final class PaymentTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let payment = try Payment(
+        let payment = try BillingPayment(
             name: "Service Membership",
             type: .regular,
             interval: "2",
@@ -79,7 +79,7 @@ final class PaymentTests: XCTestCase {
     
     func testDecoding()throws {
         let decoder = JSONDecoder()
-        let payment = try Payment(
+        let payment = try BillingPayment(
             name: "Service Membership",
             type: .regular,
             interval: "2",
@@ -129,12 +129,12 @@ final class PaymentTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        try XCTAssertEqual(payment, decoder.decode(Payment<Money>.self, from: valid))
-        try XCTAssertThrowsError(decoder.decode(Payment<Money>.self, from: cyclesError))
-        try XCTAssertThrowsError(decoder.decode(Payment<Money>.self, from: intervalError))
+        try XCTAssertEqual(payment, decoder.decode(BillingPayment<Money>.self, from: valid))
+        try XCTAssertThrowsError(decoder.decode(BillingPayment<Money>.self, from: cyclesError))
+        try XCTAssertThrowsError(decoder.decode(BillingPayment<Money>.self, from: intervalError))
     }
     
-    static var allTests: [(String, (PaymentTests) -> ()throws -> ())] = [
+    static var allTests: [(String, (BillingPaymentTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

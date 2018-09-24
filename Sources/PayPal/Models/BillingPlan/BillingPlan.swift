@@ -39,7 +39,7 @@ public struct BillingPlan: Content, ValidationSetable, Equatable {
     public let updated: Date?
     
     /// An array of payment definitions for this plan.
-    public var paymentDefinitions: [Payment<Amount>]?
+    public var paymentDefinitions: [BillingPayment<Amount>]?
     
     /// An array of terms for this plan.
     public let terms: [Term]?
@@ -66,7 +66,7 @@ public struct BillingPlan: Content, ValidationSetable, Equatable {
     ///         description: "Your water payment",
     ///         type: .infinate,
     ///         payments: [
-    ///             Payment(
+    ///             BillingPayment(
     ///                 name: "Water Charge",
     ///                 type: .regular,
     ///                 interval: "1",
@@ -79,7 +79,7 @@ public struct BillingPlan: Content, ValidationSetable, Equatable {
     ///         preferances: nil
     ///     )
     public init(
-        name: String, description: String, type: BillingPlan.PlanType, payments: [Payment<Amount>]?, preferances: MerchantPreferances<Amount>?
+        name: String, description: String, type: BillingPlan.PlanType, payments: [BillingPayment<Amount>]?, preferances: MerchantPreferances<Amount>?
     )throws {
         self.id = nil
         self.state = nil
@@ -117,7 +117,7 @@ public struct BillingPlan: Content, ValidationSetable, Equatable {
         self.state = try container.decodeIfPresent(BillingPlan.State.self, forKey: .state)
         self.created = try container.decodeIfPresent(Date.self, forKey: .created)
         self.updated = try container.decodeIfPresent(Date.self, forKey: .updated)
-        self.paymentDefinitions = try container.decodeIfPresent([Payment].self, forKey: .paymentDefinitions)
+        self.paymentDefinitions = try container.decodeIfPresent([BillingPayment].self, forKey: .paymentDefinitions)
         self.terms = try container.decodeIfPresent([Term].self, forKey: .terms)
         self.preferances = try container.decodeIfPresent(MerchantPreferances<Amount>.self, forKey: .preferances)
         self.currency = try container.decodeIfPresent(Currency.self, forKey: .currency)

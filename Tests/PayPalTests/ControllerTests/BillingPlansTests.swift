@@ -32,7 +32,7 @@ final class BillingPlansTests: XCTestCase {
             description: "Your water payment",
             type: .infinite,
             payments: [
-                Payment(
+                BillingPayment(
                     name: "Water Charge",
                     type: .regular,
                     interval: "1",

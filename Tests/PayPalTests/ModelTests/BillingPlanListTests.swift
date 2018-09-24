@@ -9,7 +9,7 @@ final class BillingPlanListTests: XCTestCase {
                 description: "Your water payment",
                 type: .infinite,
                 payments: [
-                    Payment(
+                    BillingPayment(
                         name: "Water Charge",
                         type: .regular,
                         interval: "1",
@@ -30,7 +30,7 @@ final class BillingPlanListTests: XCTestCase {
             description: "Your water payment",
             type: .infinite,
             payments: [
-                Payment(
+                BillingPayment(
                     name: "Water Charge",
                     type: .regular,
                     interval: "1",
@@ -52,7 +52,7 @@ final class BillingPlanListTests: XCTestCase {
                 description: "Your water payment",
                 type: .infinite,
                 payments: [
-                    Payment(
+                    BillingPayment(
                         name: "Water Charge",
                         type: .regular,
                         interval: "1",
@@ -121,7 +121,7 @@ final class BillingPlanListTests: XCTestCase {
             description: "Your water payment",
             type: .infinite,
             payments: [
-                Payment(
+                BillingPayment(
                     name: "Water Charge",
                     type: .regular,
                     interval: "1",
