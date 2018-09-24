@@ -90,3 +90,19 @@ extension RelatedResource.Sale {
         case awaitingFunding = "TRANSACTION_APPROVED_AWAITING_FUNDING"
     }
 }
+
+extension RelatedResource.Sale {
+    
+    /// The merchant protection level in effect for a transaction.
+    public enum Protection: String, Hashable, CaseIterable, Content {
+        
+        /// `ELIGIBLE`.
+        case eligible = "ELIGIBLE"
+        
+        /// `PARTIALLY_ELIGIBLE`.
+        case partiallyEligible = "PARTIALLY_ELIGIBLE"
+        
+        /// `INELIGIBLE`.
+        case ineligible = "INELIGIBLE"
+    }
+}
