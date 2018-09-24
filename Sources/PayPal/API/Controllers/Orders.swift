@@ -40,7 +40,7 @@ public final class Orders: PayPalController {
             if order.units == nil || order.redirects == nil {
                 var order = order
                 if order.units == nil { order.units = [] }
-                if order.redirects == nil { order.redirects = Order.Redirects(return: nil, cancel: nil) }
+                if order.redirects == nil { order.redirects = Redirects(return: nil, cancel: nil) }
                 
                 return try client.post(self.path(), headers: headers, body: order, as: Order.self)
             } else {

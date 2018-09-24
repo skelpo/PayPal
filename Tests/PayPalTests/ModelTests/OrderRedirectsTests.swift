@@ -1,9 +1,9 @@
 import XCTest
 @testable import PayPal
 
-final class OrderRedirectsTests: XCTestCase {
+final class RedirectsTests: XCTestCase {
     func testInit()throws {
-        let redirects = Order.Redirects(return: "https://example.com/return", cancel: "https://example.com/cancel")
+        let redirects = Redirects(return: "https://example.com/return", cancel: "https://example.com/cancel")
         
         XCTAssertEqual(redirects.return, "https://example.com/return")
         XCTAssertEqual(redirects.cancel, "https://example.com/cancel")
@@ -11,7 +11,7 @@ final class OrderRedirectsTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let redirects = Order.Redirects(return: "https://example.com/return", cancel: "https://example.com/cancel")
+        let redirects = Redirects(return: "https://example.com/return", cancel: "https://example.com/cancel")
         let generated = try String(data: encoder.encode(redirects), encoding: .utf8)
         
         XCTAssertEqual(generated, "{\"return_url\":\"https:\\/\\/example.com\\/return\",\"cancel_url\":\"https:\\/\\/example.com\\/cancel\"}")
@@ -27,13 +27,10 @@ final class OrderRedirectsTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        try XCTAssertEqual(
-            Order.Redirects(return: "https://example.com/return", cancel: "https://example.com/cancel"),
-            decoder.decode(Order.Redirects.self, from: json)
-        )
+        try XCTAssertEqual(Redirects(return: "https://example.com/return", cancel: "https://example.com/cancel"), decoder.decode(Redirects.self, from: json))
     }
     
-    static var allTests: [(String, (OrderRedirectsTests) -> ()throws -> ())] = [
+    static var allTests: [(String, (RedirectsTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

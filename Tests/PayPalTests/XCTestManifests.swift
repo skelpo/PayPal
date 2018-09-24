@@ -169,7 +169,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(OrderPaymentDisbursementTests.allCases),
         testCase(OrderPaymentDetailTests.allCases),
         testCase(OrderMetadataTests.allCases),
-        testCase(OrderRedirectsTests.allCases),
+        testCase(RedirectsTests.allCases),
         testCase(DetailedAmountDetailTests.allCases),
         testCase(DetailedAmountTests.allCases),
         testCase(DisplayPhoneTests.allCases),
