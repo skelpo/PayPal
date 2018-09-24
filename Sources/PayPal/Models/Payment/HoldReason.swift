@@ -6,7 +6,7 @@ extension Payment {
     public enum HoldReason: String, Hashable, CaseIterable, Content {
         
         /// `PAYMENT_HOLD`.
-        case pyment = "PAYMENT_HOLD"
+        case payment = "PAYMENT_HOLD"
         
         /// `SHIPPING_RISK_HOLD`.
         case shipping = "SHIPPING_RISK_HOLD"
