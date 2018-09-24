@@ -1,6 +1,11 @@
 import Vapor
 
-public struct FraudManagementFilter {}
+public struct FraudManagementFilter: Content, Equatable {
+    public let type: FilterType
+    public let id: ID
+    public let name: String?
+    public let description: String?
+}
 
 extension FraudManagementFilter {
     
