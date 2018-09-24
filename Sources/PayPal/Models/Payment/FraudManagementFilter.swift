@@ -20,3 +20,61 @@ extension FraudManagementFilter {
         case report = "REPORT"
     }
 }
+
+extension FraudManagementFilter {
+    
+    /// The ID of a Fraud Management Filter.
+    public enum ID: String, Hashable, CaseIterable, Content {
+        
+        /// AVS no match.
+        case avsNoMatch = "AVS_NO_MATCH"
+        
+        /// AVS partial match.
+        case avsPartialMatch = "AVS_PARTIAL_MATCH"
+        
+        /// AVS unavailable or unsupported.
+        case avsUnavailable = "AVS_UNAVAILABLE_OR_UNSUPPORTED"
+        
+        /// Card security code mismatch.
+        case securityCodeMismatch = "CARD_SECURITY_CODE_MISMATCH"
+        
+        /// The maximum transaction amount.
+        case maxAmount = "MAXIMUM_TRANSACTION_AMOUNT"
+        
+        /// Unconfirmed address.
+        case unconfirmedAddress = "UNCONFIRMED_ADDRESS"
+        
+        /// Country monitor.
+        case countryMonitor = "COUNTRY_MONITOR"
+        
+        /// Large order number.
+        case largeOrderNumber = "LARGE_ORDER_NUMBER"
+        
+        /// Billing or shipping address mismatch.
+        case addressMismatch = "BILLING_OR_SHIPPING_ADDRESS_MISMATCH"
+        
+        /// Risky zip code.
+        case riskyZip = "RISKY_ZIP_CODE"
+        
+        /// Suspected freight forwarder check.
+        case freightCheck = "SUSPECTED_FREIGHT_FORWARDER_CHECK"
+        
+        /// Total purchase price minimum.
+        case purchaseMin = "TOTAL_PURCHASE_PRICE_MINIMUM"
+        
+        /// IP address velocity.
+        case ipVelocity = "IP_ADDRESS_VELOCITY"
+        
+        /// Risky email address domain check.
+        case riskyDomainCheck = "RISKY_EMAIL_ADDRESS_DOMAIN_CHECK"
+        
+        /// Risky bank identification number check.
+        case riskyBankIDheck = "RISKY_BANK_IDENTIFICATION_NUMBER_CHECK"
+        
+        /// Risky IP address range.
+        case riskyIPRange = "RISKY_IP_ADDRESS_RANGE"
+        
+        /// PayPal fraud model.
+        case fraudModel = "PAYPAL_FRAUD_MODEL"
+    }
+}
