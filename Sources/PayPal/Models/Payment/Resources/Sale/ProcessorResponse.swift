@@ -28,6 +28,15 @@ extension RelatedResource.Sale {
         
         /// The processor-provided Visa Payer Authentication Service (VPAS) status.
         public let vpas: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case code = "response_code"
+            case avs = "avs_code"
+            case cvv = "cvv_code"
+            case advice = "advice_code"
+            case eci = "eci_submitted"
+            case vpas
+        }
     }
 }
 
