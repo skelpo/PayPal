@@ -10,14 +10,14 @@ final class OrderTests: XCTestCase {
             total: Amount(currency: .usd, value: "150.78"),
             context: AppContext(),
             metadata: Order.Metadata(data: [:]),
-            redirects: Order.Redirects(return: "https://example.com/approved", cancel: "https://example.com/canceled")
+            redirects: Redirects(return: "https://example.com/approved", cancel: "https://example.com/canceled")
         )
         
         XCTAssertEqual(order.intent, .sale)
         XCTAssertEqual(order.units, [])
         XCTAssertEqual(order.payment, Order.Payment(captures: nil, refunds: nil, sales: nil, authorizations: nil))
         XCTAssertEqual(order.metadata, Order.Metadata(data: [:]))
-        XCTAssertEqual(order.redirects, Order.Redirects(return: "https://example.com/approved", cancel: "https://example.com/canceled"))
+        XCTAssertEqual(order.redirects, Redirects(return: "https://example.com/approved", cancel: "https://example.com/canceled"))
         try XCTAssertEqual(order.total, Amount(currency: .usd, value: "150.78"))
         try XCTAssertEqual(order.context, AppContext())
     }
@@ -31,7 +31,7 @@ final class OrderTests: XCTestCase {
             total: Amount(currency: .usd, value: "150.78"),
             context: AppContext(),
             metadata: Order.Metadata(data: [:]),
-            redirects: Order.Redirects(return: nil, cancel: nil)
+            redirects: Redirects(return: nil, cancel: nil)
         )
         
         let generated = try String(data: encoder.encode(order), encoding: .utf8)!
@@ -78,7 +78,7 @@ final class OrderTests: XCTestCase {
         XCTAssertEqual(order.units, [])
         XCTAssertEqual(order.payment, Order.Payment(captures: nil, refunds: nil, sales: nil, authorizations: nil))
         XCTAssertEqual(order.metadata, Order.Metadata(data: [:]))
-        XCTAssertEqual(order.redirects, Order.Redirects(return: nil, cancel: nil))
+        XCTAssertEqual(order.redirects, Redirects(return: nil, cancel: nil))
         XCTAssertEqual(order.status, .created)
         XCTAssertEqual(order.created, "2018-09-20T13:17:47+0000")
         XCTAssertEqual(order.updated, "2018-09-20T13:18:03+0000")
