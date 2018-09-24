@@ -32,7 +32,7 @@ final class PaymentSaleProtectionTests: XCTestCase {
         let decoder = JSONDecoder()
         let ineligible = """
         {
-            "protection": "INELIGIBLE"
+            "protection": "DELAYED_TRANSFER"
         }
         """.data(using: .utf8)!
         let eligible = """
