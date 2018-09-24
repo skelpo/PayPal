@@ -17,6 +17,12 @@ public struct FraudManagementFilter: Content, Equatable {
     
     /// The filter description.
     public let description: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case name, description
+        case type = "filter_type"
+        case id = "filter_id"
+    }
 }
 
 extension FraudManagementFilter {
