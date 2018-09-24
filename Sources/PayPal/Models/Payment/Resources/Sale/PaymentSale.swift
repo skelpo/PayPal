@@ -106,3 +106,16 @@ extension RelatedResource.Sale {
         case ineligible = "INELIGIBLE"
     }
 }
+
+extension RelatedResource.Sale {
+    
+    /// The merchant protection type in effect for a transaction.
+    public enum ProtectionType: String, Hashable, CaseIterable, Content {
+        
+        /// `ITEM_NOT_RECEIVED_ELIGIBLE`.
+        case itemNotReceived = "ITEM_NOT_RECEIVED_ELIGIBLE"
+        
+        /// `UNAUTHORIZED_PAYMENT_ELIGIBLE`.
+        case unauthorizedPayment = "UNAUTHORIZED_PAYMENT_ELIGIBLE"
+    }
+}
