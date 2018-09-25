@@ -1,6 +1,6 @@
 import Vapor
 
-extension RelatedResource.Sale {
+extension RelatedResource {
     
     /// The processor-provided response codes that describe a submitted payment.
     public struct ProcessorResponse: Content, Equatable {
@@ -40,7 +40,7 @@ extension RelatedResource.Sale {
     }
 }
 
-extension RelatedResource.Sale.ProcessorResponse {
+extension RelatedResource.ProcessorResponse {
     
     /// The merchant advice on how to handle declines for recurring payments.
     public enum AdviceCode: String, Hashable, CaseIterable, Content {

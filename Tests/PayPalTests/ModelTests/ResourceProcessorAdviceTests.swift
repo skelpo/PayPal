@@ -1,9 +1,9 @@
 import XCTest
 @testable import PayPal
 
-fileprivate typealias Advice = RelatedResource.Sale.ProcessorResponse.AdviceCode
+fileprivate typealias Advice = RelatedResource.ProcessorResponse.AdviceCode
 
-final class ResourceSaleProcessorAdviceTests: XCTestCase {
+final class ResourceProcessorAdviceTests: XCTestCase {
     private struct Processor: Codable {
         let advice: Advice
     }
@@ -51,7 +51,7 @@ final class ResourceSaleProcessorAdviceTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Processor.self, from: dontTry).advice, .dontTry)
     }
     
-    static var allTests: [(String, (ResourceSaleProcessorAdviceTests) -> ()throws -> ())] = [
+    static var allTests: [(String, (ResourceProcessorAdviceTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

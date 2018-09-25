@@ -133,7 +133,7 @@ final class RelatedResourceSaleTests: XCTestCase {
         XCTAssertEqual(sale.links, [])
         XCTAssertEqual(
             sale.processor,
-            RelatedResource.Sale.ProcessorResponse(code: "6399", avs: "e", cvv: "h", advice: .newAccount, eci: "152823", vpas: "stat")
+            RelatedResource.ProcessorResponse(code: "6399", avs: "e", cvv: "h", advice: .newAccount, eci: "152823", vpas: "stat")
         )
         
         try XCTAssertEqual(sale.receivable, Amount(currency: .usd, value: "42.00"))

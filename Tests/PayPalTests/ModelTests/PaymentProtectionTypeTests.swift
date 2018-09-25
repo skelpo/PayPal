@@ -1,9 +1,9 @@
 import XCTest
 @testable import PayPal
 
-fileprivate typealias Type = RelatedResource.Sale.ProtectionType
+fileprivate typealias Type = RelatedResource.ProtectionType
 
-final class PaymentSaleProtectionTypeTests: XCTestCase {
+final class PaymentProtectionTypeTests: XCTestCase {
     private struct Protection: Codable {
         let type: Type
     }
@@ -11,11 +11,12 @@ final class PaymentSaleProtectionTypeTests: XCTestCase {
     func testCaseRawValues() {
         XCTAssertEqual(Type.itemNotReceived.rawValue, "ITEM_NOT_RECEIVED_ELIGIBLE")
         XCTAssertEqual(Type.unauthorizedPayment.rawValue, "UNAUTHORIZED_PAYMENT_ELIGIBLE")
+        XCTAssertEqual(Type.all.rawValue, "ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE")
     }
     
     func testAllCase() {
-        XCTAssertEqual(Type.allCases.count, 2)
-        XCTAssertEqual(Type.allCases, [.itemNotReceived, .unauthorizedPayment])
+        XCTAssertEqual(Type.allCases.count, 3)
+        XCTAssertEqual(Type.allCases, [.itemNotReceived, .unauthorizedPayment, .all])
     }
     
     func testEncoding()throws {
@@ -29,9 +30,9 @@ final class PaymentSaleProtectionTypeTests: XCTestCase {
     
     func testDecoding()throws {
         let decoder = JSONDecoder()
-        let unauthorizedPayment = """
+        let all = """
         {
-            "type": "UNAUTHORIZED_PAYMENT_ELIGIBLE"
+            "type": "ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE"
         }
         """.data(using: .utf8)!
         let itemNotReceived = """
@@ -40,11 +41,11 @@ final class PaymentSaleProtectionTypeTests: XCTestCase {
         }
         """
         
-        try XCTAssertEqual(decoder.decode(Protection.self, from: unauthorizedPayment).type, .unauthorizedPayment)
+        try XCTAssertEqual(decoder.decode(Protection.self, from: all).type, .all)
         try XCTAssertEqual(decoder.decode(Protection.self, from: itemNotReceived).type, .itemNotReceived)
     }
     
-    static var allTests: [(String, (PaymentSaleProtectionTypeTests) -> ()throws -> ())] = [
+    static var allTests: [(String, (PaymentProtectionTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

@@ -241,7 +241,7 @@ extension RelatedResource.Sale {
     }
 }
 
-extension RelatedResource.Sale {
+extension RelatedResource {
     
     /// The merchant protection level in effect for a transaction.
     public enum Protection: String, Hashable, CaseIterable, Content {
@@ -257,7 +257,7 @@ extension RelatedResource.Sale {
     }
 }
 
-extension RelatedResource.Sale {
+extension RelatedResource {
     
     /// The merchant protection type in effect for a transaction.
     public enum ProtectionType: String, Hashable, CaseIterable, Content {

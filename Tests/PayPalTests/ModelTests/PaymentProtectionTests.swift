@@ -1,9 +1,9 @@
 import XCTest
 @testable import PayPal
 
-fileprivate typealias Protection = RelatedResource.Sale.Protection
+fileprivate typealias Protection = RelatedResource.Protection
 
-final class PaymentSaleProtectionTests: XCTestCase {
+final class PaymentProtectionTests: XCTestCase {
     private struct Sale: Codable {
         let protection: Protection
     }
@@ -32,7 +32,7 @@ final class PaymentSaleProtectionTests: XCTestCase {
         let decoder = JSONDecoder()
         let ineligible = """
         {
-            "protection": "DELAYED_TRANSFER"
+            "protection": "INELIGIBLE"
         }
         """.data(using: .utf8)!
         let eligible = """
@@ -45,7 +45,7 @@ final class PaymentSaleProtectionTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Sale.self, from: eligible).protection, .eligible)
     }
     
-    static var allTests: [(String, (PaymentSaleProtectionTests) -> ()throws -> ())] = [
+    static var allTests: [(String, (PaymentProtectionTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

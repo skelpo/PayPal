@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class RelatedSaleProcessorTests: XCTestCase {
+final class RelatedProcessorTests: XCTestCase {
     func testDecoding()throws {
         let json = """
         {
@@ -14,7 +14,7 @@ final class RelatedSaleProcessorTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        let processor = try JSONDecoder().decode(RelatedResource.Sale.ProcessorResponse.self, from: json)
+        let processor = try JSONDecoder().decode(RelatedResource.ProcessorResponse.self, from: json)
         
         XCTAssertEqual(processor.code, "8219")
         XCTAssertEqual(processor.avs, "3")
@@ -24,7 +24,7 @@ final class RelatedSaleProcessorTests: XCTestCase {
         XCTAssertEqual(processor.vpas, "3326")
     }
     
-    static var allTests: [(String, (RelatedSaleProcessorTests) -> ()throws -> ())] = [
+    static var allTests: [(String, (RelatedProcessorTests) -> ()throws -> ())] = [
         ("testDecoding", testDecoding)
     ]
 }
