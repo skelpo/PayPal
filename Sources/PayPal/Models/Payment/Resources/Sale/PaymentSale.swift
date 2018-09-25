@@ -1,7 +1,67 @@
 import Vapor
 
 extension RelatedResource {
-    public struct Sale {}
+    public struct Sale: Content, Equatable {
+        public let id: String
+        public let purchaseID: String?
+        public let mode: PaymentMode?
+        public let state: State
+        public let reason: Reason?
+        public let protection: Protection?
+        public let protectionType: ProtectionType?
+        public let clearing: String?
+        public let holdStatus: String?
+        public let holdReason: Payment.HoldReason?
+        public let receipt: String?
+        public let parent: String
+        public let billingAgreement: String?
+        public let created: String
+        public let updated: String?
+        public let links: [LinkDescription]?
+        
+        public var amount: DetailedAmount
+        public var transaction: Amount?
+        public var receivable: Amount?
+        public var exchangeRate: String?
+        public var fmf: FraudManagementFilter?
+        public var processor: ProcessorResponse?
+        
+        public init(
+            id: String,
+            amount: DetailedAmount,
+            state: State,
+            transaction: Amount? = nil,
+            receivable: Amount? = nil,
+            exchangeRate: String? = nil,
+            fmf: FraudManagementFilter? = nil,
+            processor: ProcessorResponse? = nil,
+            parent: String,
+            created: String = Date().iso8601
+        ) {
+            self.id = id
+            self.purchaseID = nil
+            self.mode = nil
+            self.state = state
+            self.reason = nil
+            self.protection = nil
+            self.protectionType = nil
+            self.clearing = nil
+            self.holdStatus = nil
+            self.holdReason = nil
+            self.receipt = nil
+            self.parent = parent
+            self.billingAgreement = nil
+            self.created = created
+            self.updated = nil
+            self.links = nil
+            self.amount = amount
+            self.transaction = transaction
+            self.receivable = receivable
+            self.exchangeRate = exchangeRate
+            self.fmf = fmf
+            self.processor = processor
+        }
+    }
 }
 
 extension RelatedResource.Sale {
