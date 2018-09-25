@@ -3,7 +3,7 @@ import Vapor
 extension RelatedResource {
     
     /// An authorization that is related to a payment's transaction.
-    public struct Authorization {
+    public struct Authorization: Content, Equatable {
         
         /// The ID of the authorization.
         public let id: String?
