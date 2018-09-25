@@ -61,18 +61,12 @@ public struct ShippingInfo: Content, ValidationSetable, Equatable {
     /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let firstName = try container.decodeIfPresent(String.self, forKey: .firstName)
-        let lastName = try container.decodeIfPresent(String.self, forKey: .lastName)
-        let businessName = try container.decodeIfPresent(String.self, forKey: .businessName)
-        
-        self.firstName = firstName
-        self.lastName = lastName
-        self.businessName = businessName
-        self.address = try container.decodeIfPresent(Address.self, forKey: .address)
-        
-        try self.set(\.firstName <~ firstName)
-        try self.set(\.lastName <~ lastName)
-        try self.set(\.businessName <~ businessName)
+        try self.init(
+            firstName: container.decodeIfPresent(String.self, forKey: .firstName),
+            lastName: container.decodeIfPresent(String.self, forKey: .lastName),
+            businessName: container.decodeIfPresent(String.self, forKey: .businessName),
+            address: container.decodeIfPresent(Address.self, forKey: .address)
+        )
     }
     
     /// See `ValidationSetable.setterValidations()`.
