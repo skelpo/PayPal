@@ -45,3 +45,31 @@ extension RelatedResource.Order {
         case voided
     }
 }
+
+extension RelatedResource.Order {
+    
+    /// The reason code that describes why a transaction state is pending or reversed.
+    public enum Reason: String, Hashable, CaseIterable, Content {
+        
+        /// `PAYER_SHIPPING_UNCONFIRMED`.
+        case shippingUnconfirmed = "PAYER_SHIPPING_UNCONFIRMED"
+        
+        /// `MULTI_CURRENCY`.
+        case multiCurrency = "MULTI_CURRENCY"
+        
+        /// `RISK_REVIEW`.
+        case risk = "RISK_REVIEW"
+        
+        /// `REGULATORY_REVIEW`.
+        case regulatory = "REGULATORY_REVIEW"
+        
+        /// `VERIFICATION_REQUIRED`.
+        case verification = "VERIFICATION_REQUIRED"
+        
+        /// `ORDER`.
+        case order = "ORDER"
+        
+        /// `OTHER`.
+        case other = "OTHER"
+    }
+}
