@@ -129,6 +129,28 @@ extension RelatedResource {
             self.fmf = fmf
             self.processor = processor
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case id, amount, state, links
+            case purchaseID = "purchase_unit_reference_id"
+            case mode = "payment_mode"
+            case reason = "reason_code"
+            case protection = "protection_eligibility"
+            case protectionType = "protection_eligibility_type"
+            case clearing = "clearing_time"
+            case holdStatus = "payment_hold_status"
+            case holdReasons = "payment_hold_reasons"
+            case transaction = "transaction_fee"
+            case receivable = "receivable_amount"
+            case exchangeRate = "exchange_rate"
+            case fmf = "fmf_details"
+            case receipt = "receipt_id"
+            case parent = "parent_payment"
+            case processor = "processor_response"
+            case billingAgreement = "billing_agreement_id"
+            case created = "create_time"
+            case updated = "update_time"
+        }
     }
 }
 
