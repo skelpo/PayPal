@@ -26,6 +26,11 @@ public struct PayPalAPIError: Error, AbortError, Content, Equatable {
     ///         message: "No permission for the requested operation"
     ///         informationLink: nil
     ///     )
+    ///
+    /// - Parameters:
+    ///   - identifier: A machine readable string that ideentifies the error.
+    ///   - reason: A human readable message that describes the error.
+    ///   - informationLink: A link to the error's documentation.
     public init(identifier: String, reason: String, informationLink: String?) {
         self.identifier = identifier
         self.reason = reason
@@ -66,6 +71,10 @@ public struct PayPalAPIIdentityError: Error, AbortError, Content, Equatable {
     /// Creates a new `PayPalAPIIdentityError` instance.
     ///
     ///     PayPalAPIIdentityError(identifier: "invalid_client", reason: "Client Authentication failed")
+    ///
+    /// - Parameters:
+    ///   - identifier: A machine readable string that ideentifies the error.
+    ///   - reason: A human readable message that describes the error.
     public init(identifier: String, reason: String) {
         self.reason = reason
         self.identifier = identifier
