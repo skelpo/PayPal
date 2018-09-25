@@ -1,12 +1,48 @@
 import Vapor
 
 extension RelatedResource {
-    public struct Authorization {}
+    public struct Authorization {
+        public let id: String?
+        public let mode: PaymentMode?
+        public let state: State?
+        public let reason: Reason?
+        public let protection: Protection?
+        public let protectionType: ProtectionType?
+        public let payment: String?
+        public let expiration: String?
+        public let created: String?
+        public let updated: String?
+        public let receipt: String?
+        public let links: [LinkDescription]?
+        
+        public var amount: DetailedAmount
+        public var fmf: FraudManagementFilter?
+        public var processor: ProcessorResponse?
+        
+        public init(amount: DetailedAmount, fmf: FraudManagementFilter?, processor: ProcessorResponse?) {
+            self.id = nil
+            self.mode = nil
+            self.state = nil
+            self.reason = nil
+            self.protection = nil
+            self.protectionType = nil
+            self.payment = nil
+            self.expiration = nil
+            self.created = nil
+            self.updated = nil
+            self.receipt = nil
+            self.links = nil
+            
+            self.amount = amount
+            self.fmf = fmf
+            self.processor = processor
+        }
+    }
 }
 
 extension RelatedResource.Authorization {
     
-    /// The payment mode of an authorization. 
+    /// The payment mode of an authorization.
     public enum PaymentMode: String, Hashable, CaseIterable, Content {
         
         /// Instant transfer.
