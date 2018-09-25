@@ -52,6 +52,8 @@ extension PayPalClient {
     
     /// Gets an access token from the PayPal API using the registered client ID and secret,
     /// populating the container's `AuthInfo` instance.
+    ///
+    /// - Returns: A void future that can be used to get notified when the auth information has been fetched and stored.
     public func authenticate() -> Future<Void> {
         return Future.flatMap(on: self.container) { () -> Future<Response> in
             let config = try self.container.make(Configuration.self)
