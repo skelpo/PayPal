@@ -40,3 +40,13 @@ extension RelatedResource.Authorization {
         case voided
     }
 }
+
+extension RelatedResource.Authorization {
+    
+    /// The reason code for the pending transaction state.
+    public enum Reason: String, Hashable, CaseIterable, Content {
+        
+        /// `AUTHORIZATION`.
+        case authorization = "AUTHORIZATION"
+    }
+}
