@@ -98,10 +98,11 @@ public struct QueryParamaters: Content {
         ]
         values.merge(self.custom ?? [:]) { _, value in return value }
         
-        return (values).reduce(into: []) { query, parameter in
-            if let value = parameter.value {
-                query.append("\(parameter.key)=\(value.description)")
+        return values.compactMap { paramater -> String? in
+            if let value = paramater.value {
+                return paramater.key + "=" + value.description
             }
+            return nil
         }.joined(separator: "&")
     }
 }
