@@ -91,7 +91,7 @@ public final class Configuration: Service {
     /// The PayPal environment to send requests to.
     /// This value is based on the app's current environment.
     ///
-    /// If the app was boot in the a release environment, it will
+    /// If the app was boot in a release environment, it will
     /// be `.production`, otherwise it will be `.sandbox`.
     public internal(set) var environment: PayPal.Environment!
     
