@@ -82,6 +82,7 @@ public struct QueryParamaters: Content {
         self.startID = startID
         self.startIndex = startIndex
         self.startTime = startTime
+        self.custom = custom
     }
     
     /// Converts the query's properties to a query string representation.
