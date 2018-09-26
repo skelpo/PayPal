@@ -67,6 +67,16 @@ extension RelatedResource {
             self.invoice = invoice
             self.description = description
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case id, state, links, amount, reason, description
+            case sale = "sale_id"
+            case capture = "capture_id"
+            case payment = "parent_payment"
+            case created = "create_time"
+            case updated = "update_time"
+            case invoice = "invoice_number"
+        }
     }
 }
 
