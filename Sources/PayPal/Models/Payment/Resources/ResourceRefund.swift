@@ -55,7 +55,7 @@ extension RelatedResource {
         ///   - reason: The reason that the transaction is being refunded.
         ///   - invoice: The invoice or tracking ID number.
         ///   - description: The refund description.
-        public init(amount: DetailedAmount?, reason: String?, invoice: String?, description: String?) {
+        public init(amount: DetailedAmount?, reason: String?, invoice: String?, description: String?)throws {
             self.id = nil
             self.state = nil
             self.sale = nil
@@ -69,6 +69,28 @@ extension RelatedResource {
             self.reason = reason
             self.invoice = invoice
             self.description = description
+            
+            try self.set(\.invoice <~ invoice)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            self.id = try container.decodeIfPresent(String.self, forKey: .id)
+            self.state = try container.decodeIfPresent(State.self, forKey: .state)
+            self.sale = try container.decodeIfPresent(String.self, forKey: .sale)
+            self.capture = try container.decodeIfPresent(String.self, forKey: .capture)
+            self.payment = try container.decodeIfPresent(String.self, forKey: .payment)
+            self.created = try container.decodeIfPresent(String.self, forKey: .created)
+            self.updated = try container.decodeIfPresent(String.self, forKey: .updated)
+            self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
+            self.amount = try container.decodeIfPresent(DetailedAmount.self, forKey: .amount)
+            self.reason = try container.decodeIfPresent(String.self, forKey: .reason)
+            self.invoice = try container.decodeIfPresent(String.self, forKey: .invoice)
+            self.description = try container.decodeIfPresent(String.self, forKey: .description)
+            
+            try self.set(\.invoice <~ invoice)
         }
         
         /// See `ValidationSetable.setterValidations()`.
