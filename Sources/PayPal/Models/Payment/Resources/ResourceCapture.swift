@@ -1,7 +1,37 @@
 import Vapor
 
 extension RelatedResource {
-    public struct Capture {}
+    public struct Capture: Content, Equatable {
+        public let id: String?
+        public let state: State?
+        public let reason: Reason?
+        public let parent: String?
+        public let created: String?
+        public let updated: String?
+        public let links: [LinkDescription]?
+        
+        public var amount: DetailedAmount?
+        public var isFinal: Bool?
+        public var invoice: String?
+        public var transaction: Amount?
+        public var payerNote: String?
+        
+        public init(amount: DetailedAmount?, isFinal: Bool?, invoice: String?, transaction: Amount?, payerNote: String?) {
+            self.id = nil
+            self.state = nil
+            self.reason = nil
+            self.parent = nil
+            self.created = nil
+            self.updated = nil
+            self.links = nil
+            
+            self.amount = amount
+            self.isFinal = isFinal
+            self.invoice = invoice
+            self.transaction = transaction
+            self.payerNote = payerNote
+        }
+    }
 }
 
 extension RelatedResource.Capture {
