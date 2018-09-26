@@ -3,7 +3,7 @@ import Vapor
 extension Payment {
     
     /// An array of items that are being purchased in a PayPal payment.
-    public struct ItemList: Content, Equatable {
+    public struct ItemList: Content, ValidationSetable, Equatable {
         
         /// An array of items that are being purchased.
         public var items: [Item]?
@@ -31,6 +31,19 @@ extension Payment {
             self.items = items
             self.address = address
             self.phoneNumber = phoneNumber
+        }
+        
+        /// See `ValidationSetable.setterValidations()`.
+        public func setterValidations() -> SetterValidations<Payment.ItemList> {
+            var validations = SetterValidations(Payment.ItemList.self)
+            
+            validations.set(\.phoneNumber) { number in
+                guard (1...50).contains(number?.count ?? 1) else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`phoneNumber` value length must be in range 1...50")
+                }
+            }
+            
+            return validations
         }
         
         enum CodingKeys: String, CodingKey {
