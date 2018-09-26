@@ -62,7 +62,7 @@ extension RelatedResource {
         ///   - invoice: The invoice number to track this payment.
         ///   - transaction: The currency and amount of the transaction fee for this payment.
         ///   - payerNote: A free-form field that clients can use to send a note to the payer.
-        public init(amount: DetailedAmount?, isFinal: Bool?, invoice: String?, transaction: Amount?, payerNote: String?) {
+        public init(amount: DetailedAmount?, isFinal: Bool?, invoice: String?, transaction: Amount?, payerNote: String?)throws {
             self.id = nil
             self.state = nil
             self.reason = nil
@@ -76,6 +76,29 @@ extension RelatedResource {
             self.invoice = invoice
             self.transaction = transaction
             self.payerNote = payerNote
+            
+            try self.set(\.invoice <~ invoice)
+            try self.set(\.payerNote <~ payerNote)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.id = try container.decodeIfPresent(String.self, forKey: .id)
+            self.state = try container.decodeIfPresent(State.self, forKey: .state)
+            self.reason = try container.decodeIfPresent(Reason.self, forKey: .reason)
+            self.parent = try container.decodeIfPresent(String.self, forKey: .parent)
+            self.created = try container.decodeIfPresent(String.self, forKey: .created)
+            self.updated = try container.decodeIfPresent(String.self, forKey: .updated)
+            self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
+            self.amount = try container.decodeIfPresent(DetailedAmount.self, forKey: .amount)
+            self.isFinal = try container.decodeIfPresent(Bool.self, forKey: .isFinal)
+            self.invoice = try container.decodeIfPresent(String.self, forKey: .invoice)
+            self.transaction = try container.decodeIfPresent(Amount.self, forKey: .transaction)
+            self.payerNote = try container.decodeIfPresent(String.self, forKey: .payerNote)
+            
+            try self.set(\.invoice <~ invoice)
+            try self.set(\.payerNote <~ payerNote)
         }
         
         /// See `ValidationSetable.setterValidations()`.
