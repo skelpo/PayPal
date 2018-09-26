@@ -1,21 +1,60 @@
 import Vapor
 
 extension RelatedResource {
+    
+    /// The details of an order transaction.
     public struct Order: Content, Equatable {
+        
+        /// The ID of the order transaction.
         public let id: String?
+        
+        /// The transaction payment mode.
         public let mode: PaymentMode?
+        
+        /// The state of the order transaction.
         public let state: State?
+        
+        /// The reason code that describes why the transaction state is pending or reversed.
+        /// Eventually, this parameter will replace the `pending_reason` parameter. Supported only for PayPal payments.
         public let reason: Reason?
+        
+        /// The level of seller protection in effect for the transaction.
         public let protection: Protection?
+        
+        /// The kind of seller protection in effect for the transaction. Returned only when the `protection_eligibility`
+        /// property is `ELIGIBLE` or `PARTIALLY_ELIGIBLE`. Supported only for PayPal payments.
         public let protectionType: ProtectionType?
+        
+        /// The ID of the payment on which this transaction is based.
         public let parent: String?
+        
+        /// The date and time when the resource was created, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
         public let created: String?
+        
+        /// The date and time when the resource was last updated, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
         public let updated: String?
+        
+        /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
         public let links: [LinkDescription]?
         
+        
+        /// The amount to collect.
+        ///
+        /// - Note: For an order authorization, you cannot include amount details.
         public var amount: DetailedAmount
+        
+        /// The Fraud Management Filter (FMF) details that are applied to the payment that result in an accept, deny, or pending action.
+        /// Returned in a payment response only if the merchant has enabled FMF in the profile settings and one of the fraud filters was
+        /// triggered based on those settings. For more information, see
+        /// [Fraud Management Filters Summary](https://developer.paypal.com/docs/classic/fmf/integration-guide/FMFSummary/).
         public var fmf: FraudManagementFilter?
         
+        
+        /// Creates a new `RelatedResource.Order` instance.
+        ///
+        /// - Parameters:
+        ///   - amount: The amount to collect.
+        ///   - fmf: The Fraud Management Filter (FMF) details that are applied to the payment that result in an accept, deny, or pending action.
         public init(amount: DetailedAmount, fmf: FraudManagementFilter?) {
             self.id = nil
             self.mode = nil
