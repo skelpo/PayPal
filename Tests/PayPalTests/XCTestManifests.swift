@@ -222,6 +222,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(ResourceOrderStateTests.allCases),
         testCase(ResourceOrderReasonTests.allCases),
         testCase(QueryParamaterTests.allCases),
+        testCase(ResourceCaptureStateTests.allCases),
         
         // Controller Tests
         testCase(APITests.allTests),
