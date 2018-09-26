@@ -113,6 +113,9 @@ extension Payment {
             }
             validations.set(\.price) { price in
                 let regex = "^[0-9]{0,10}(\\.[0-9]{0,2})?$"
+                guard price.count <= 10 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`price` value must have a length of 10 or less")
+                }
                 guard price.range(of: regex, options: .regularExpression) != nil else {
                     throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`price` must match RegEx pattern `\(regex)`")
                 }
