@@ -18,6 +18,20 @@ public struct FraudManagementFilter: Content, Equatable {
     /// The filter description.
     public let description: String?
     
+    /// Creayes a new `FraudManagementFilter` instance.
+    ///
+    /// - Parameters:
+    ///   - type: The filter type.
+    ///   - id: The filter ID.
+    ///   - name: The filter name.
+    ///   - description: The filter description.
+    public init(type: FilterType, id: ID, name: String?, description: String?) {
+        self.type = type
+        self.id = id
+        self.name = name
+        self.description = description
+    }
+    
     enum CodingKeys: String, CodingKey {
         case name, description
         case type = "filter_type"
