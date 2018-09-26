@@ -11,5 +11,11 @@ extension Payment {
             self.address = address
             self.phoneNumber = phoneNumber
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case items
+            case address = "shipping_address"
+            case phoneNumber = "shipping_phone_number"
+        }
     }
 }
