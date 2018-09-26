@@ -1,21 +1,57 @@
 import Vapor
 
 extension RelatedResource {
+    
+    /// The details of a capture transaction.
     public struct Capture: Content, Equatable {
+        
+        /// The ID of the capture transaction.
         public let id: String?
+        
+        /// The state of the capture.
         public let state: State?
+        
+        /// The reason code that describes why the transaction state is pending or reversed.
         public let reason: Reason?
+        
+        /// The ID of the payment on which this transaction is based.
         public let parent: String?
+        
+        /// The date and time of the capture, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
         public let created: String?
+        
+        /// The date and time when the resource was last updated, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6)
         public let updated: String?
+        
+        /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
         public let links: [LinkDescription]?
         
+        
+        /// The amount to capture. If the amount matches the originally authorized amount,
+        /// the state of the authorization changes to `captured`. Otherwise, the state changes to `partially_captured`.
         public var amount: DetailedAmount?
+        
+        /// Indicates whether to release all remaining held funds.
         public var isFinal: Bool?
+        
+        /// The invoice number to track this payment.
         public var invoice: String?
+        
+        /// The currency and amount of the transaction fee for this payment.
         public var transaction: Amount?
+        
+        /// A free-form field that clients can use to send a note to the payer.
         public var payerNote: String?
         
+        
+        /// Creates a new `RelatedResource.Capture` struct.
+        ///
+        /// - Parameters:
+        ///   - amount: The amount to capture.
+        ///   - isFinal: Indicates whether to release all remaining held funds.
+        ///   - invoice: The invoice number to track this payment.
+        ///   - transaction: The currency and amount of the transaction fee for this payment.
+        ///   - payerNote: A free-form field that clients can use to send a note to the payer.
         public init(amount: DetailedAmount?, isFinal: Bool?, invoice: String?, transaction: Amount?, payerNote: String?) {
             self.id = nil
             self.state = nil
