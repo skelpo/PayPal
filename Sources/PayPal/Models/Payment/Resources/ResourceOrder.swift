@@ -1,7 +1,37 @@
 import Vapor
 
 extension RelatedResource {
-    public struct Order {}
+    public struct Order: Content, Equatable {
+        public let id: String?
+        public let mode: PaymentMode?
+        public let state: State?
+        public let reason: Reason?
+        public let protection: Protection?
+        public let protectionType: ProtectionType?
+        public let parent: String?
+        public let created: String?
+        public let updated: String?
+        public let links: [LinkDescription]?
+        
+        public var amount: DetailedAmount
+        public var fmf: FraudManagementFilter?
+        
+        public init(amount: DetailedAmount, fmf: FraudManagementFilter?) {
+            self.id = nil
+            self.mode = nil
+            self.state = nil
+            self.reason = nil
+            self.protection = nil
+            self.protectionType = nil
+            self.parent = nil
+            self.created = nil
+            self.updated = nil
+            self.links = nil
+            
+            self.amount = amount
+            self.fmf = fmf
+        }
+    }
 }
 
 extension RelatedResource.Order {
