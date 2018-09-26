@@ -70,6 +70,18 @@ extension RelatedResource {
             self.amount = amount
             self.fmf = fmf
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case id, state, links, amount
+            case mode = "payment_mode"
+            case reason = "reason_code"
+            case protection = "protection_eligibility"
+            case protectionType = "protection_eligibility_type"
+            case parent = "parent_payment"
+            case created = "create_time"
+            case updated = "update_time"
+            case fmf = "fmf_details"
+        }
     }
 }
 
