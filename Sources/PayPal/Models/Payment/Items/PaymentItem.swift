@@ -72,7 +72,7 @@ extension Payment {
             name: String?,
             description: String?,
             tax: String?
-        ) {
+        )throws {
             self.quantity = quantity
             self.price = price
             self.currency = currency
@@ -80,6 +80,25 @@ extension Payment {
             self.name = name
             self.description = description
             self.tax = tax
+            
+            try self.set(\.quantity <~ quantity)
+            try self.set(\.price <~ price)
+            try self.set(\.sku <~ sku)
+            try self.set(\.name <~ name)
+            try self.set(\.description <~ description)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            try self.init(
+                quantity: container.decode(String.self, forKey: .quantity),
+                price: container.decode(String.self, forKey: .price),
+                currency: container.decode(Currency.self, forKey: .currency),
+                sku: container.decodeIfPresent(String.self, forKey: .sku),
+                name: container.decodeIfPresent(String.self, forKey: .name),
+                description: container.decodeIfPresent(String.self, forKey: .description),
+                tax: container.decodeIfPresent(String.self, forKey: .tax))
         }
         
         /// See `ValidationSetable.setterValidations()`.
