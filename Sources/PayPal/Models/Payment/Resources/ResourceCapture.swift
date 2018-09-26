@@ -67,6 +67,18 @@ extension RelatedResource {
             self.transaction = transaction
             self.payerNote = payerNote
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case id, amount, state, links
+            case reason = "reason_code"
+            case parent = "parent_payment"
+            case created = "create_time"
+            case updated = "update_time"
+            case isFinal = "is_final_capture"
+            case invoice = "invoice_number"
+            case transaction = "transaction_fee"
+            case payerNote = "note_to_payer"
+        }
     }
 }
 
