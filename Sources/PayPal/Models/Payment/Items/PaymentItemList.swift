@@ -18,8 +18,11 @@ extension Payment {
         /// The final contact number for the payer who is associated with the transaction might be
         /// the same as or different from the shipping_phone_number based on the payer’s action on PayPal.
         ///
+        /// This property can be set using the `ItemList.set(_:)` method. This method
+        /// validates the new value before assigning it to the property.
+        ///
         /// Minimum length: 1. Maximum length: 50.
-        public var phoneNumber: String?
+        public private(set) var phoneNumber: String?
         
         /// Creates a new `Payment.ItemList` instance.
         ///
@@ -27,10 +30,22 @@ extension Payment {
         ///   - items: An array of items that are being purchased.
         ///   - address: The shipping address details.
         ///   - phoneNumber: The shipping phone number, in its canonical international format as defined by the E.164 numbering plan.
-        public init(items: [Item]?, address: Address?, phoneNumber: String?) {
+        public init(items: [Item]?, address: Address?, phoneNumber: String?)throws {
             self.items = items
             self.address = address
             self.phoneNumber = phoneNumber
+            
+            try self.set(\.phoneNumber <~ phoneNumber)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            try self.init(
+                items: container.decodeIfPresent([Item].self, forKey: .items),
+                address: container.decodeIfPresent(Address.self, forKey: .address),
+                phoneNumber: container.decodeIfPresent(String.self, forKey: .phoneNumber)
+            )
         }
         
         /// See `ValidationSetable.setterValidations()`.
