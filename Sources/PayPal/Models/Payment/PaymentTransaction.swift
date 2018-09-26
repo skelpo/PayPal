@@ -15,7 +15,7 @@ extension Payment.Transaction {
         /// Merchant requires that the customer pays with an instant funding source, such as a credit card or PayPal balance.
         /// All payments are processed instantly. However, payments that require a manual review are marked as pending.
         /// Merchants must handle the pending state as if the payment is not yet complete.
-        case INSTANT_FUNDING_SOURCE
+        case instantFunding = "INSTANT_FUNDING_SOURCE"
         
         /// Processes all payments immediately. Any payment that requires a manual review is marked failed.case
         case immediate = "IMMEDIATE_PAY"
