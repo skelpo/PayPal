@@ -3,7 +3,7 @@ import Vapor
 extension RelatedResource {
     
     /// The details of a capture transaction.
-    public struct Capture: Content, Equatable {
+    public struct Capture: Content, ValidationSetable, Equatable {
         
         /// The ID of the capture transaction.
         public let id: String?
@@ -35,13 +35,23 @@ extension RelatedResource {
         public var isFinal: Bool?
         
         /// The invoice number to track this payment.
-        public var invoice: String?
+        ///
+        /// This property can be set using the `Capture.set(_:)` method. This
+        /// method validates the new value before assigning it to the property.
+        ///
+        /// Maximum length: 127.
+        public private(set) var invoice: String?
         
         /// The currency and amount of the transaction fee for this payment.
         public var transaction: Amount?
         
         /// A free-form field that clients can use to send a note to the payer.
-        public var payerNote: String?
+        ///
+        /// This property can be set using the `Capture.set(_:)` method. This
+        /// method validates the new value before assigning it to the property.
+        ///
+        /// Maximum length: 255.
+        public private(set) var payerNote: String?
         
         
         /// Creates a new `RelatedResource.Capture` struct.
@@ -66,6 +76,24 @@ extension RelatedResource {
             self.invoice = invoice
             self.transaction = transaction
             self.payerNote = payerNote
+        }
+        
+        /// See `ValidationSetable.setterValidations()`.
+        public func setterValidations() -> SetterValidations<RelatedResource.Capture> {
+            var validations = SetterValidations(RelatedResource.Capture.self)
+            
+            validations.set(\.invoice) { invoice in
+                guard invoice?.count ?? 0 <= 127 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`invoice` value must have a length of 127 or less")
+                }
+            }
+            validations.set(\.payerNote) { note in
+                guard note?.count ?? 0 <= 255 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`payerNote` value lnegth must be 255 or less")
+                }
+            }
+            
+            return validations
         }
         
         enum CodingKeys: String, CodingKey {
