@@ -134,6 +134,34 @@ public final class Payments: PayPalController {
         }
     }
     
+    /// Executes a PayPal payment that the customer has approved. You can optionally update one or more transactions when you execute the payment.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows details for the executed payment.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the payment to execute.
+    ///   - executor: Transactions to update when the payment is executed.
+    ///   - request: A user-generated ID that you can use to enforce idempotency.
+    ///   - partner: For tracking transactions which are associtaed with the partner who the ID belongs to.
+    ///
+    /// - Returns: The payment model that was executed, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func execute(payment id: String, with executor: Payment.Executor, request: String? = nil, partner: String? = nil) -> Future<Payment> {
+        return Future.flatMap(on: self.container) { () -> Future<Payment> in
+            let client = try self.container.make(PayPalClient.self)
+            var headers: HTTPHeaders = [:]
+            
+            if let request = request {
+                headers.add(name: "PayPal-Request-Id", value: request)
+            }
+            if let partner = partner {
+                headers.add(name: "PayPal-Partner-Attribution-Id", value: partner)
+            }
+            
+            return try client.post(self.path(for: .payment) + id, headers: headers, body: executor, as: Payment.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
