@@ -20,6 +20,8 @@ import Vapor
 /// [Payments](https://developer.paypal.com/docs/integration/direct/payments/).
 public final class Payments: PayPalController {
     
+    // MARK: - PayPalController
+    
     /// See `PayPalController.container`.
     public let container: Container
     
@@ -34,12 +36,46 @@ public final class Payments: PayPalController {
         self.resource = "payments"
     }
     
+    // MARK: - /payment
+    
+    /// Creates a sale, an authorized payment to be captured later, or an order.
+    ///
+    /// To create a sale, authorization, or order, include the payment details in the JSON request body. Set the `intent` to `sale`,
+    /// `authorize`, or `order`.
+    ///
+    /// - Note: TPP Clients (Third Party Providers in the context of PSD2 regulation) are restricted from using `authorize` and `order` intents.
+    ///
+    /// Include payer, transaction details, and, for PayPal payments only, redirect URLs. The combination of the `payment_method`
+    /// and `funding_instrument` determines the type of payment that is created. For more information, see
+    /// [Payments REST API](https://developer.paypal.com/docs/integration/direct/payments/).
+    ///
+    /// - Note: Authorizations are guaranteed for up to three days, though you can attempt to capture an authorization for up to 29 days.
+    ///   After the three-day honor period authorization expires, you can
+    ///   [reauthorize](https://developer.paypal.com/docs/api/payments/v1/#authorization_reauthorize) the payment.
+    ///
+    /// A successful request returns the HTTP `201 Created` status code and a JSON response body that shows payment details.
+    ///
+    /// - Parameters:
+    ///   - payment: The data used to create a new payment.
+    ///   - partner: For tracking transactions which are associtaed with the partner who the ID belongs to.
+    ///
+    /// - Returns: The payment that was created, wrapped in a future. If PayPal returns an error response instead,
+    ///   it will get converted to a Swift error and the future will wrap that.
+    public func create(payment: Payment, partner: String? = nil) -> Future<Payment> {
+        return Future.flatMap(on: self.container) { () -> Future<Payment> in
+            let client = try self.container.make(PayPalClient.self)
+            let headers: HTTPHeaders = partner == nil ? [:] : ["PayPal-Partner-Attribution-Id": partner!]
+            
+            return try client.post(self.path(for: .payment), headers: headers, body: payment, as: Payment.self)
+        }
+    }
+    
+    // MARK: - Internal Helpers
+    
     internal func path(for resource: Resource)throws -> String {
         return try self.path() + resource.rawValue + "/"
     }
-}
-
-extension Payments {
+    
     internal enum Resource: String {
         case payment
         case sale
