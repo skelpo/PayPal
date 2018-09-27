@@ -1,7 +1,7 @@
 import Vapor
 
 /// The payment data for a sale, authorized payment, or order.
-public struct Payment: Content, Equatable {
+public struct Payment: Content, ValidationSetable, Equatable {
     
     /// The ID of the payment.
     public let id: String?
@@ -41,8 +41,11 @@ public struct Payment: Content, Equatable {
     
     /// A free-form field that clients can use to send a note to the payer.
     ///
+    /// This property can be set using the `Payment.set(_:)` method.
+    /// This method validates the new value before assigning it to the property.
+    ///
     /// Maximum length: 165.
-    public var payerNote: String?
+    public private(set) var payerNote: String?
     
     /// A set of redirect URLs that you provide for PayPal-based payments.
     public var redirects: Redirects?
@@ -81,6 +84,19 @@ public struct Payment: Content, Equatable {
         self.experience = experience
         self.payerNote = payerNote
         self.redirects = redirects
+    }
+    
+    /// See `ValidationSetable.setterValidations()`.
+    public func setterValidations() -> SetterValidations<Payment> {
+        var validations = SetterValidations(Payment.self)
+        
+        validations.set(\.payerNote) { note in
+            guard note?.count ?? 0 <= 165 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note_to_payer` length must be 165 or less.")
+            }
+        }
+        
+        return validations
     }
     
     enum CodingKeys: String, CodingKey {
