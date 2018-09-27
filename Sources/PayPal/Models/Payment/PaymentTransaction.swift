@@ -94,7 +94,7 @@ extension Payment {
             payment: PaymentMethod?,
             itemList: ItemList?,
             notify: String?
-        ) {
+        )throws {
             self.resources = nil
             self.amount = amount
             self.payee = payee
@@ -106,6 +106,37 @@ extension Payment {
             self.payment = payment
             self.itemList = itemList
             self.notify = notify
+            
+            try self.set(\.description <~ description)
+            try self.set(\.payeeNote <~ payeeNote)
+            try self.set(\.custom <~ custom)
+            try self.set(\.invoice <~ invoice)
+            try self.set(\.softDescriptor <~ softDescriptor)
+            try self.set(\.notify <~ notify)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            self.resources = try container.decodeIfPresent([RelatedResource].self, forKey: .resources)
+            self.amount = try container.decodeIfPresent(DetailedAmount.self, forKey: .amount)
+            self.payee = try container.decodeIfPresent(Payee.self, forKey: .payee)
+            self.description = try container.decodeIfPresent(String.self, forKey: .description)
+            self.payeeNote = try container.decodeIfPresent(String.self, forKey: .payeeNote)
+            self.custom = try container.decodeIfPresent(String.self, forKey: .custom)
+            self.invoice = try container.decodeIfPresent(String.self, forKey: .invoice)
+            self.softDescriptor = try container.decodeIfPresent(String.self, forKey: .softDescriptor)
+            self.payment = try container.decodeIfPresent(PaymentMethod.self, forKey: .payment)
+            self.itemList = try container.decodeIfPresent(ItemList.self, forKey: .itemList)
+            self.notify = try container.decodeIfPresent(String.self, forKey: .notify)
+            
+            try self.set(\.description <~ description)
+            try self.set(\.payeeNote <~ payeeNote)
+            try self.set(\.custom <~ custom)
+            try self.set(\.invoice <~ invoice)
+            try self.set(\.softDescriptor <~ softDescriptor)
+            try self.set(\.notify <~ notify)
         }
         
         /// See `ValidationSetable.setterValidations()`.
