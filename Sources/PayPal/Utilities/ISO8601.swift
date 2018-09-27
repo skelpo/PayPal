@@ -21,4 +21,18 @@ extension Date {
     public var iso8601: String {
         return DateFormatter.iso8601.string(for: self) ?? self.description
     }
+    
+    public init?(iso8601: String) {
+        if #available(OSX 10.12, *) {
+            if let formatter = DateFormatter.iso8601 as? ISO8601DateFormatter, let date = formatter.date(from: iso8601) {
+                self = date
+                return
+            }
+        }
+        if let formatter = DateFormatter.iso8601 as? DateFormatter, let date = formatter.date(from: iso8601) {
+            self = date
+        } else {
+            return nil
+        }
+    }
 }
