@@ -150,7 +150,7 @@ extension Payment {
             }
             validations.set(\.payeeNote) { note in
                 guard note?.count ?? 0 <= 255 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note_to_payee` value length must be 127 or less")
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note_to_payee` value length must be 255 or less")
                 }
             }
             validations.set(\.custom) { custom in
