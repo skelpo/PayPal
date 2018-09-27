@@ -40,9 +40,29 @@ final class PaymentsTests: XCTestCase {
         XCTAssertEqual(result.state, .created)
     }
     
+    func testListEndpoint()throws {
+        let payments = try self.app.make(Payments.self)
+        let yesturday = Date() - (60 * 60 * 24)
+        let parameters = QueryParamaters(count: 15, startTime: yesturday, page: 0, sortBy: "create_time", sortOrder: .descending)
+        
+        let list = try payments.list(parameters: parameters).wait()
+        
+        XCTAssertEqual(list.count, 15)
+        XCTAssertLessThanOrEqual(list.payments?.count ?? 0, 15)
+        
+        if list.payments?.count ?? 0 > 1 {
+            let now = Date()
+            let sorted = list.payments?.sorted { first, second in
+                return (Date(iso8601: first.created ?? now.iso8601) ?? now > Date(iso8601: second.created ?? now.iso8601) ?? now)
+            }
+            XCTAssertEqual(sorted, list.payments)
+        }
+    }
+    
     static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
-        ("testCreateEndpoint", testCreateEndpoint)
+        ("testCreateEndpoint", testCreateEndpoint),
+        ("testListEndpoint", testListEndpoint)
     ]
 }
 
