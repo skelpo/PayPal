@@ -3,7 +3,7 @@ import Vapor
 extension Payment {
     
     /// A definition of what the payment is for and who will fulfill the payment.
-    public struct Transaction: Content, Equatable {
+    public struct Transaction: Content, ValidationSetable, Equatable {
         
         /// An array of payment-related transactions. A transaction defines what the payment is for and who fulfills the payment.
         public let resources: [RelatedResource]?
@@ -17,28 +17,43 @@ extension Payment {
         
         /// The purchase description.
         ///
+        /// This property can be set using the `Transaction.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 127.
-        public var description: String?
+        public private(set) var description: String?
         
         /// The note to the recipient of the funds in this transaction.
         ///
+        /// This property can be set using the `Transaction.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 255.
-        public var payeeNote: String?
+        public private(set) var payeeNote: String?
         
         /// The free-form field for the client's use.
         ///
+        /// This property can be set using the `Transaction.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 127.
-        public var custom: String?
+        public private(set) var custom: String?
         
         /// The invoice number to track this payment.
         ///
+        /// This property can be set using the `Transaction.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 127.
-        public var invoice: String?
+        public private(set) var invoice: String?
         
         /// The soft descriptor to use to charge this funding source. If greater than the maximum allowed length, the API truncates the string.
         ///
+        /// This property can be set using the `Transaction.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 22.
-        public var softDescriptor: String?
+        public private(set) var softDescriptor: String?
         
         /// The payment options for this transaction.
         public var payment: PaymentMethod?
@@ -48,8 +63,11 @@ extension Payment {
         
         /// The URL to send payment notifications.
         ///
+        /// This property can be set using the `Transaction.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 2048.
-        public var notify: String?
+        public private(set) var notify: String?
         
         
         /// Creates a new `Payment.Transaction` instance.
@@ -88,6 +106,44 @@ extension Payment {
             self.payment = payment
             self.itemList = itemList
             self.notify = notify
+        }
+        
+        /// See `ValidationSetable.setterValidations()`.
+        public func setterValidations() -> SetterValidations<Payment.Transaction> {
+            var validations = SetterValidations(Payment.Transaction.self)
+            
+            validations.set(\.description) { description in
+                guard description?.count ?? 0 <= 127 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`description` value length must be 127 or less")
+                }
+            }
+            validations.set(\.payeeNote) { note in
+                guard note?.count ?? 0 <= 255 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note_to_payee` value length must be 127 or less")
+                }
+            }
+            validations.set(\.custom) { custom in
+                guard custom?.count ?? 0 <= 127 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`custom` value length must be 127 or less")
+                }
+            }
+            validations.set(\.invoice) { invoice in
+                guard invoice?.count ?? 0 <= 127 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`invoice_number` value length must be 127 or less")
+                }
+            }
+            validations.set(\.softDescriptor) { softDescriptor in
+                guard softDescriptor?.count ?? 0 <= 22 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`soft_descriptor` value length must be 22 or less")
+                }
+            }
+            validations.set(\.notify) { notify in
+                guard notify?.count ?? 0 <= 2048 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`notify_url` value length must be 2048 or less")
+                }
+            }
+            
+            return validations
         }
         
         enum CodingKeys: String, CodingKey {
