@@ -98,6 +98,27 @@ public final class Payments: PayPalController {
         }
     }
     
+    /// Partially updates a payment, by ID.
+    ///
+    /// You can update the amount, shipping address, invoice ID, and custom data. You cannot update a payment after the payment executes.
+    ///
+    /// - Note: TPP Clients (Third Party Providers in the context of PSD2 regulation) are restricted from patching amount once authorized.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows payment details.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the payment to update.
+    ///   - patches: An array of JSON patch objects to apply partial updates to resources.
+    ///
+    /// - Returns: The payment that was updated, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func patch(payment id: String, with patches: [Patch]) -> Future<Payment> {
+        return Future.flatMap(on: self.container) { () -> EventLoopFuture<Payment> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.patch(self.path(for: .payment) + id, body: patches, as: Payment.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
