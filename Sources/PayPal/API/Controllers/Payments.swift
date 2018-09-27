@@ -119,6 +119,21 @@ public final class Payments: PayPalController {
         }
     }
     
+    /// Shows details for a payment, by ID, that has yet to complete. For example, shows details for a payment that was created, approved, or failed.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows payment details.
+    ///
+    /// - Parameter id: The ID of the payment for which to show details.
+    ///
+    /// - Returns: The payment for the ID passed in. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func get(payment id: String) -> Future<Payment> {
+        return Future.flatMap(on: self.container) { () -> Future<Payment> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path(for: .payment) + id, as: Payment.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
