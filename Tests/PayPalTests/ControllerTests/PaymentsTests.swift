@@ -71,11 +71,19 @@ final class PaymentsTests: XCTestCase {
         XCTAssertEqual(updated.payerNote, "Come Again!")
     }
     
+    func testGetEndpoint()throws {
+        let payments = try self.app.make(Payments.self)
+        let details = try payments.get(payment: self.id).wait()
+        
+        XCTAssertEqual(details.id, self.id)
+    }
+    
     static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testListEndpoint", testListEndpoint),
-        ("testPatchEndpoint", testPatchEndpoint)
+        ("testPatchEndpoint", testPatchEndpoint),
+        ("testGetEndpoint", testGetEndpoint)
     ]
 }
 
