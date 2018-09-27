@@ -82,4 +82,15 @@ public struct Payment: Content, Equatable {
         self.payerNote = payerNote
         self.redirects = redirects
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case id, intent, payer, transactions, state, links
+        case context = "application_context"
+        case experience = "experience_profile_id"
+        case payerNote = "note_to_payer"
+        case redirects = "redirect_urls"
+        case failure = "failure_reason"
+        case created = "create_time"
+        case updated = "update_time"
+    }
 }
