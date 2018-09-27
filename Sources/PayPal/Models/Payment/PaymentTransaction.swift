@@ -89,6 +89,17 @@ extension Payment {
             self.itemList = itemList
             self.notify = notify
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case amount, payee, description, custom
+            case payeeNote = "note_to_payee"
+            case invoice = "invoice_number"
+            case softDescriptor = "soft_descriptor"
+            case payment = "payment_options"
+            case itemList = "item_list"
+            case notify = "notify_url"
+            case resources = "related_resources"
+        }
     }
 }
 
