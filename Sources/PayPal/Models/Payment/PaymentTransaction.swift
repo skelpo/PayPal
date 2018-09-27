@@ -203,7 +203,7 @@ extension Payment.Transaction {
         /// Merchants must handle the pending state as if the payment is not yet complete.
         case instantFunding = "INSTANT_FUNDING_SOURCE"
         
-        /// Processes all payments immediately. Any payment that requires a manual review is marked failed.case
+        /// Processes all payments immediately. Any payment that requires a manual review is marked failed.
         case immediate = "IMMEDIATE_PAY"
     }
 }
