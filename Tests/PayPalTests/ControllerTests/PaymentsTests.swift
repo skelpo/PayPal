@@ -78,12 +78,24 @@ final class PaymentsTests: XCTestCase {
         XCTAssertEqual(details.id, self.id)
     }
     
+    func testExecuteEndpoint()throws {
+        let payments = try self.app.make(Payments.self)
+        let amounts = try [
+            DetailedAmount(currency: .usd, total: "152.38", details: nil)
+        ]
+        
+        let details = try payments.execute(payment: self.id, with: Payment.Executor(payer: nil, amounts: amounts)).wait()
+        
+        XCTAssertEqual(details.id, self.id)
+    }
+    
     static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testListEndpoint", testListEndpoint),
         ("testPatchEndpoint", testPatchEndpoint),
-        ("testGetEndpoint", testGetEndpoint)
+        ("testGetEndpoint", testGetEndpoint),
+        ("testExecuteEndpoint", testExecuteEndpoint)
     ]
 }
 
