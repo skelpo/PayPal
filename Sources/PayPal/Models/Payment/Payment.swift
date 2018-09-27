@@ -69,7 +69,7 @@ public struct Payment: Content, ValidationSetable, Equatable {
        experience: String?,
        payerNote: String?,
        redirects: Redirects?
-    ) {
+    )throws {
         self.id = nil
         self.state = nil
         self.failure = nil
@@ -84,6 +84,29 @@ public struct Payment: Content, ValidationSetable, Equatable {
         self.experience = experience
         self.payerNote = payerNote
         self.redirects = redirects
+        
+        try self.set(\.payerNote <~ payerNote)
+    }
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.id = try container.decodeIfPresent(String.self, forKey: .id)
+        self.state = try container.decodeIfPresent(State.self, forKey: .state)
+        self.failure = try container.decodeIfPresent(Failure.self, forKey: .failure)
+        self.created = try container.decodeIfPresent(String.self, forKey: .created)
+        self.updated = try container.decodeIfPresent(String.self, forKey: .updated)
+        self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
+        self.intent = try container.decodeIfPresent(Intent.self, forKey: .intent)
+        self.payer = try container.decodeIfPresent(PaymentPayer.self, forKey: .payer)
+        self.context = try container.decodeIfPresent(AppContext.self, forKey: .context)
+        self.transactions = try container.decodeIfPresent([Transaction].self, forKey: .transactions)
+        self.experience = try container.decodeIfPresent(String.self, forKey: .experience)
+        self.payerNote = try container.decodeIfPresent(String.self, forKey: .payerNote)
+        self.redirects = try container.decodeIfPresent(Redirects.self, forKey: .redirects)
+        
+        try self.set(\.payerNote <~ payerNote)
     }
     
     /// See `ValidationSetable.setterValidations()`.
