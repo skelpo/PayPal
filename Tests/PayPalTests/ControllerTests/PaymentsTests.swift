@@ -4,6 +4,7 @@ import Vapor
 
 final class PaymentsTests: XCTestCase {
     
+    var id: String!
     var app: Application!
     var context: PaymentTestsContext!
     
@@ -16,6 +17,7 @@ final class PaymentsTests: XCTestCase {
         
         self.app = try! Application.testable(services: services)
         self.context = try! PaymentTestsContext()
+        self.id = try! self.app.make(Payments.self).list().wait().payments?.first?.id
     }
     
     func testServiceExists()throws {
@@ -59,10 +61,21 @@ final class PaymentsTests: XCTestCase {
         }
     }
     
+    func testPatchEndpoint()throws {
+        let payments = try self.app.make(Payments.self)
+        let patches = try [ Patch(operation: .replace, path: "note_to_payer", value: "Come Again!") ]
+        
+        let updated = try payments.patch(payment: self.id, with: patches).wait()
+        
+        XCTAssertEqual(updated.id, self.id)
+        XCTAssertEqual(updated.payerNote, "Come Again!")
+    }
+    
     static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
-        ("testListEndpoint", testListEndpoint)
+        ("testListEndpoint", testListEndpoint),
+        ("testPatchEndpoint", testPatchEndpoint)
     ]
 }
 
