@@ -162,6 +162,23 @@ public final class Payments: PayPalController {
         }
     }
     
+    // MARK: - /sale
+    
+    /// Shows details for a sale, by ID. Returns only sales that were created through the REST API.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows sale details.
+    ///
+    /// - Parameter id: The ID of the sale for which to show details.
+    ///
+    /// - Returns: The sale object for the ID passed in, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func get(sale id: String) -> Future<RelatedResource.Sale> {
+        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Sale> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path(for: .sale) + id, as: RelatedResource.Sale.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
