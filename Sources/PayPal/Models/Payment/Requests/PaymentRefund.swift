@@ -13,5 +13,10 @@ extension Payment {
             self.reason = reason
             self.invoice = invoice
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case amount, description, reason
+            case invoice = "invoice_number"
+        }
     }
 }
