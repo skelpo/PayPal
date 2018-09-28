@@ -40,11 +40,26 @@ extension Payment {
         ///   - description: The refund description.
         ///   - reason: The refund reason description.
         ///   - invoice: The invoice number that tracks this payment.
-        public init(amount: DetailedAmount?, description: String?, reason: String?, invoice: String?) {
+        public init(amount: DetailedAmount?, description: String?, reason: String?, invoice: String?)throws {
             self.amount = amount
             self.description = description
             self.reason = reason
             self.invoice = invoice
+            
+            try self.set(\.description <~ description)
+            try self.set(\.reason <~ reason)
+            try self.set(\.invoice <~ invoice)
+        }
+        
+        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            try self.init(
+                amount: container.decodeIfPresent(DetailedAmount.self, forKey: .amount),
+                description: container.decodeIfPresent(String.self, forKey: .description),
+                reason: container.decodeIfPresent(String.self, forKey: .reason),
+                invoice: container.decodeIfPresent(String.self, forKey: .invoice)
+            )
         }
         
         /// See `ValidationSetable.setterValidations()`.
