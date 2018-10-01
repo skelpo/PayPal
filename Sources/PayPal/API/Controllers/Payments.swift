@@ -200,6 +200,23 @@ public final class Payments: PayPalController {
         }
     }
     
+    // MARK: - /authorization
+    
+    /// Shows details for an authorization, by ID.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows authorization details.
+    ///
+    /// - Parameter id: The ID of the authorization.
+    ///
+    /// - Returns: The authorization for the ID passed in, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func get(authorization id: String) -> Future<RelatedResource.Authorization> {
+        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Authorization> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path(for: .authorization) + id, as: RelatedResource.Authorization.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
