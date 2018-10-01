@@ -37,6 +37,10 @@ import Vapor
 /// ## Capture
 ///
 /// Use the `/capture` resource and sub-resources to show details for and refund captured payments.
+///
+/// ## Refund
+///
+/// Use the `/refund` resource to show details for a refund on direct and captured payments.
 public final class Payments: PayPalController {
     
     // MARK: - PayPalController
@@ -403,6 +407,23 @@ public final class Payments: PayPalController {
             let headers: HTTPHeaders = request == nil ? [:] : ["PayPal-Request-Id": request!]
             
             return try client.post(self.path(for: .capture) + id + "/refund", headers: headers, body: refund, as: RelatedResource.Capture.self)
+        }
+    }
+    
+    // MARK: - /refund
+    
+    /// Shows details for a refund, by ID.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows refund details.
+    ///
+    /// - Parameter id: The ID of the refund for which to show details.
+    ///
+    /// - Returns: The refund details, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func get(refund id: String) -> Future<RelatedResource.Refund> {
+        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Refund> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path(for: .refund) + id, as: RelatedResource.Refund.self)
         }
     }
     
