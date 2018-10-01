@@ -179,6 +179,27 @@ public final class Payments: PayPalController {
         }
     }
     
+    /// Refunds a sale, by ID. For a full refund, do not include the `amount` object in the JSON request body.
+    /// For a partial refund, include an `amount` object in the JSON request body.
+    ///
+    /// A successful request returns the HTTP `201 Created` status code and a JSON response body that shows details for the refunded sale.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the sale transaction to refund.
+    ///   - refund: The refund data for the sale.
+    ///   - request: A user-generated ID that you can use to enforce idempotency.
+    ///
+    /// - Returns: The details of the refund, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func refund(sale id: String, with refund: Payment.Refund, request: String? = nil) -> Future<Payment.RefundResult> {
+        return Future.flatMap(on: self.container) { () -> Future<Payment.RefundResult> in
+            let client = try self.container.make(PayPalClient.self)
+            let headers: HTTPHeaders = request == nil ? [:] : ["PayPal-Request-Id": request!]
+            
+            return try client.post(self.path(for: .sale) + id + "/refund", headers: headers, body: refund, as: Payment.RefundResult.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
