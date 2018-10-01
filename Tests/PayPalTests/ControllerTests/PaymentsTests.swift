@@ -140,6 +140,22 @@ final class PaymentsTests: XCTestCase {
         XCTAssertEqual(authorization.id, id)
     }
     
+    func testReauthAuthorizationTests()throws {
+        let payments = try self.app.make(Payments.self)
+        guard let id = self.context.authorization else {
+            throw Abort(.internalServerError, reason: "Cannot get authorization ID")
+        }
+        let auth = try RelatedResource.Authorization(
+            amount: DetailedAmount(currency: .usd, total: "5.60", details: nil),
+            fmf: FraudManagementFilter(type: .pending, id: .unconfirmedAddress, name: "Unconfirmed Shipping Address", description: nil),
+            processor: nil
+        )
+        
+        let authorization = try payments.reauthorize(authorization: id, with: auth).wait()
+        
+        XCTAssertEqual(authorization.id, id)
+    }
+    
     static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
@@ -150,7 +166,8 @@ final class PaymentsTests: XCTestCase {
         ("testGetSaleEndpoint", testGetSaleEndpoint),
         ("testRefundSaleEndpoint", testRefundSaleEndpoint),
         ("testGetAuthorizationEndpoint", testGetAuthorizationEndpoint),
-        ("testCaptureAuthorizationEndpoint", testCaptureAuthorizationEndpoint)
+        ("testCaptureAuthorizationEndpoint", testCaptureAuthorizationEndpoint),
+        ("testReauthAuthorizationTests", testReauthAuthorizationTests)
     ]
 }
 
