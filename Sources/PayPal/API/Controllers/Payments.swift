@@ -258,6 +258,25 @@ public final class Payments: PayPalController {
         }
     }
     
+    /// Voids, or cancels, an authorization, by ID. You cannot void a fully captured authorization.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows details for the voided authorization.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the authorization to void.
+    ///   - request: A user-generated ID that you can use to enforce idempotency.
+    ///
+    /// - Returns: The voided authorization, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func void(authorization id: String, request: String? = nil) -> Future<RelatedResource.Authorization> {
+        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Authorization> in
+            let client = try self.container.make(PayPalClient.self)
+            let headers: HTTPHeaders = request == nil ? [:] : ["PayPal-Request-Id": request!]
+            
+            return try client.post(self.path(for: .authorization) + id + "/void", headers: headers, as: RelatedResource.Authorization.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
