@@ -256,6 +256,7 @@ internal struct PaymentTestsContext {
     private(set) var sale: String?
     private(set) var authorization: String?
     private(set) var order: String?
+    private(set) var capture: String?
     private(set) var payment: String?
     
     init()throws {
@@ -317,6 +318,7 @@ internal struct PaymentTestsContext {
         context.sale = payment?.transactions?.compactMap{$0.resources}.joined(separator:[]).compactMap{$0.sale}.first?.id
         context.authorization = payment?.transactions?.compactMap{$0.resources}.joined(separator:[]).compactMap{$0.authorization}.first?.id
         context.order = payment?.transactions?.compactMap{$0.resources}.joined(separator:[]).compactMap{$0.order}.first?.id
+        context.capture = payment?.transactions?.compactMap{$0.resources}.joined(separator:[]).compactMap{$0.capture}.first?.id
         
         return context
     }
