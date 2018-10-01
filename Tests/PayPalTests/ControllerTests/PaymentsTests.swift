@@ -236,6 +236,18 @@ final class PaymentsTests: XCTestCase {
         XCTAssertEqual(capture.id, id)
     }
     
+    func testRefundCapture()throws {
+        let payments = try self.app.make(Payments.self)
+        guard let id = self.context.capture else {
+            throw Abort(.internalServerError, reason: "Cannot get capture ID")
+        }
+        let refund = try Payment.Refund(amount: nil, description: "Refunding a Captued Transaction", reason: "I have to do it this way", invoice: nil)
+        
+        let capture = try payments.refund(captured: id, with: refund).wait()
+        
+        XCTAssertEqual(capture.id, id)
+    }
+    
     static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
@@ -253,7 +265,8 @@ final class PaymentsTests: XCTestCase {
         ("testAuthorizeOrderEndpoint", testAuthorizeOrderEndpoint),
         ("testCaptureOrderTests", testCaptureOrderTests),
         ("testVoidOrderEndpoint", testVoidOrderEndpoint),
-        ("testGetCapturedEndpoint", testGetCapturedEndpoint)
+        ("testGetCapturedEndpoint", testGetCapturedEndpoint),
+        ("testRefundCapture", testRefundCapture)
     ]
 }
 
