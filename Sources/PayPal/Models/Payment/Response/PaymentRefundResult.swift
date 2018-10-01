@@ -47,6 +47,10 @@ extension Payment {
         /// The refund description. Value must be single-byte alphanumeric characters.
         public var description: String?
         
+        /// The note to the payer in this transaction.
+        ///
+        /// Maximum length: 127.
+        public var custom: String?
         
         /// See `ValidationSetable.setterValidations()`.
         public func setterValidations() -> SetterValidations<Payment.RefundResult> {
@@ -57,12 +61,17 @@ extension Payment {
                     throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`invoice_number` value length must be 127 or less")
                 }
             }
+            validations.set(\.custom) { custom in
+                guard custom?.count ?? 0 <= 127 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`custom` value length must be 127 or less")
+                }
+            }
             
             return validations
         }
         
         enum CodingKeys: String, CodingKey {
-            case id, amount, state, reason, description, links
+            case id, amount, state, reason, description, links, custom
             case invoice = "invoice_number"
             case sale = "sale_id"
             case capture = "capture_id"
