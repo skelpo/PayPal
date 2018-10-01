@@ -309,6 +309,24 @@ public final class Payments: PayPalController {
         }
     }
     
+    /// Authorizes an order, by ID. In the JSON request body, include an `amount` object.
+    ///
+    /// A successful request returns the HTTP `201 Created` status code and a JSON response body that shows details for the authorized order.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the order to authorize.
+    ///   - authorization: The authorization details for the order. The `processor` is not used by this endpoint.
+    ///
+    ///     **Note**: For an order authorization, you cannot include amount `details`.
+    ///
+    /// - Returns:
+    public func authorize(order id: String, with authorization: RelatedResource.Authorization) -> Future<RelatedResource.Order> {
+        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Order> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path(for: .orders) + id + "/authorize", body: authorization, as: RelatedResource.Order.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
