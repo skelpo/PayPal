@@ -29,11 +29,11 @@ final class InvoicesTests: XCTestCase {
     func testCreateEndpoint()throws {
         let invoices = try self.app.make(Invoices.self)
         
-        let now = Date().iso8601
+        let now = Date().isoTZ
         let invoice = try Invoice(
             number: nil,
             merchant: MerchantInfo(
-                email: "hello@vapor.codes",
+                email: "dispute@skelpo.com",
                 business: "Qutheory LLC.",
                 firstName: "Tanner",
                 lastName: "Nelson",
@@ -44,7 +44,29 @@ final class InvoicesTests: XCTestCase {
                 taxID: nil,
                 info: nil
             ),
-            billing: [],
+            billing: [
+                BillingInfo(
+                    email: "payer@example.com",
+                    phone: nil,
+                    firstName: "Lester",
+                    lastName: "Dickerson",
+                    businessName: nil,
+                    address: Address(
+                        recipientName: "Lester Dickerson",
+                        defaultAddress: true,
+                        line1: "314 New Berry ln.",
+                        line2: nil,
+                        city: "Chancer",
+                        state: "KY",
+                        countryCode: "US",
+                        postalCode: "489156",
+                        phone: nil,
+                        type: nil
+                    ),
+                    language: .en_US,
+                    info: nil
+                )
+            ],
             shipping: nil,
             cc: [Invoice.Participant(email: "collective@vapor.codes"), Invoice.Participant(email: "donator@example.com")],
             items: nil,
@@ -53,7 +75,7 @@ final class InvoicesTests: XCTestCase {
             reference: "PO number",
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")),
+            custom: CustomAmount(label: "Dough", amount: Amount(currency: .usd, value: "10.00")),
             allowPartialPayment: false,
             minimumDue: Amount(currency: .usd, value: "1.00"),
             taxCalculatedAfterDiscount: true,
@@ -83,7 +105,7 @@ final class InvoicesTests: XCTestCase {
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
         }
-        let now = Date().iso8601
+        let now = Date().isoTZ
         let invoice = try Invoice(
             number: nil,
             merchant: MerchantInfo(
@@ -190,7 +212,7 @@ final class InvoicesTests: XCTestCase {
     }
     
     func testPaymentEndpoint()throws {
-        let now = Date().iso8601
+        let now = Date().isoTZ
         let invoices = try self.app.make(Invoices.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
@@ -203,7 +225,7 @@ final class InvoicesTests: XCTestCase {
     }
     
     func testRefundEndpoint()throws {
-        let now = Date().iso8601
+        let now = Date().isoTZ
         let invoices = try self.app.make(Invoices.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
@@ -294,4 +316,21 @@ final class InvoicesTests: XCTestCase {
         ("testNumberEndpoint", testNumberEndpoint),
         ("testSearchEndpoint", testSearchEndpoint)
     ]
+}
+
+extension DateFormatter {
+    static let isoTZ: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd z"
+        return formatter
+    }()
+}
+
+extension Date {
+    var isoTZ: String {
+        return DateFormatter.isoTZ.string(from: self)
+    }
 }
