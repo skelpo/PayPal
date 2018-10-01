@@ -1,7 +1,21 @@
 import Vapor
 
 extension Payment {
-    public struct RefundResult {}
+    public struct RefundResult: Content, Equatable {
+        public let id: String?
+        public let state: State?
+        public let sale: String?
+        public let capture: String?
+        public let parent: String?
+        public let created: String?
+        public let updated: String?
+        public let links: [LinkDescription]?
+        
+        public var amount: Amount?
+        public var reason: String?
+        public var invoice: String?
+        public var description: String?
+    }
 }
 
 extension Payment.RefundResult {
