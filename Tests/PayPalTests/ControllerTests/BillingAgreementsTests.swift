@@ -15,6 +15,10 @@ final class BillingAgreementsTests: XCTestCase {
         try! services.register(PayPalProvider())
         
         app = try! Application.testable(services: services)
+        
+        if self.id == nil {
+            try! self.testCreateEndpoint()
+        }
     }
     
     func testServiceExists()throws {
@@ -44,6 +48,7 @@ final class BillingAgreementsTests: XCTestCase {
         
         let agreement = try agreements.create(with: new).wait()
         
+        self.id = id
         XCTAssertEqual(agreement.name, "Nia's Maggot Loaf")
     }
     
