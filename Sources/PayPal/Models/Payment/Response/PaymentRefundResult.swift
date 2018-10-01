@@ -43,6 +43,16 @@ extension Payment {
         
         /// The refund description. Value must be single-byte alphanumeric characters.
         public var description: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case id, amount, state, reason, description, links
+            case invoice = "invoice_number"
+            case sale = "sale_id"
+            case capture = "capture_id"
+            case parent = "parent_payment"
+            case created = "create_time"
+            case updated = "update_time"
+        }
     }
 }
 
