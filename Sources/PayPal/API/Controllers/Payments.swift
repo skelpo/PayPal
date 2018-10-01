@@ -230,7 +230,7 @@ public final class Payments: PayPalController {
     public func capture(authorization id: String, with capture: RelatedResource.Capture) -> Future<RelatedResource.Authorization> {
         return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Authorization> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path(for: .authorization), body: capture, as: RelatedResource.Authorization.self)
+            return try client.post(self.path(for: .authorization) + id + "/capture", body: capture, as: RelatedResource.Authorization.self)
         }
     }
     
