@@ -19,7 +19,7 @@ final class CustomerDisputesTests: XCTestCase {
         
         let disputes = try! self.app.make(CustomerDisputes.self)
         let list = try! disputes.list().wait()
-        self.id = list.items?.first?.id
+        self.id = list.items?.filter { $0.status != .resolved }.first?.id
     }
     
     func testServiceExists()throws {
