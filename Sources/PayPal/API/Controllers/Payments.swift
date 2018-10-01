@@ -217,6 +217,23 @@ public final class Payments: PayPalController {
         }
     }
     
+    /// Captures and processes an authorization, by ID. The original payment call must specify an intent of `authorize`.
+    ///
+    /// A successful request returns the HTTP `201 Created` status code and a JSON response body that shows details for the captured authorization.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the authorization to capture.
+    ///   - capture: The capture data for the authorization.
+    ///
+    /// - Returns: The captured authorization, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func capture(authorization id: String, with capture: RelatedResource.Capture) -> Future<RelatedResource.Authorization> {
+        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Authorization> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path(for: .authorization), body: capture, as: RelatedResource.Authorization.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
