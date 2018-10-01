@@ -18,6 +18,21 @@ import Vapor
 /// that a customer has approved but for which the funds are not placed on hold. You can also use this resource to execute approved
 /// PayPal payments and show details for, update, and list payments. For more information, see also
 /// [Payments](https://developer.paypal.com/docs/integration/direct/payments/).
+///
+/// ## Sale
+///
+/// A sale is a completed payment. Use the `/sale` resource to show sale details and refund a sale. For more information, see also Refund payments.
+///
+/// ## Authorization
+///
+/// Use the `/authorization` resource and related sub-resources to show details for, capture, void, and reauthorize an authorization.
+///
+/// ## Orders
+///
+/// Use the `/orders` resource to authorize, capture, void, and show details for an order.
+///
+/// - Note: You cannot refund an order directly. Instead, you must refund a completed payment for an order.
+///   For integration information, see Orders and refund a payment.
 public final class Payments: PayPalController {
     
     // MARK: - PayPalController
