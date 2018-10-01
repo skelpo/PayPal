@@ -48,7 +48,7 @@ final class BillingAgreementsTests: XCTestCase {
         
         let agreement = try agreements.create(with: new).wait()
         
-        self.id = id
+        self.id = agreement.id
         XCTAssertEqual(agreement.name, "Nia's Maggot Loaf")
     }
     
