@@ -1,19 +1,47 @@
 import Vapor
 
 extension Payment {
+    
+    /// The response object returned when refunding payments, from API endpoints such as `POST /v1/payments/refund/{refund_id}`.
     public struct RefundResult: Content, Equatable {
+        
+        /// The ID of the refund transaction. Maximum length is 17 characters.
         public let id: String?
+        
+        /// The state of the refund.
         public let state: State?
+        
+        /// The ID of the sale transaction being refunded.
         public let sale: String?
+        
+        /// The ID of the sale transaction being refunded.
         public let capture: String?
+        
+        /// The ID of the payment on which this transaction is based.
         public let parent: String?
+        
+        /// The date and time when the refund was created, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
         public let created: String?
+        
+        /// The date and time when the resource was last updated, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
         public let updated: String?
+        
+        /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
         public let links: [LinkDescription]?
         
+        
+        /// The refund amount. Includes both the amount refunded to the payer and amount of the fee refunded to the payee.
         public var amount: Amount?
+        
+        /// The reason that the transaction is being refunded.
         public var reason: String?
+        
+        /// The invoice or tracking ID number.
+        ///
+        /// Maximum length: 127.
         public var invoice: String?
+        
+        /// The refund description. Value must be single-byte alphanumeric characters.
         public var description: String?
     }
 }
