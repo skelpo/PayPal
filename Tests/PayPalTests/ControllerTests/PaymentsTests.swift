@@ -111,6 +111,17 @@ final class PaymentsTests: XCTestCase {
         XCTAssertNotNil(result.id)
     }
     
+    func testGetAuthorizationEndpoint()throws {
+        let payments = try self.app.make(Payments.self)
+        guard let id = self.context.authorization else {
+            throw Abort(.internalServerError, reason: "Cannot get authorization ID")
+        }
+        
+        let authorization = try payments.get(authorization: id).wait()
+        
+        XCTAssertEqual(authorization.id, id)
+    }
+    
     static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
@@ -119,7 +130,8 @@ final class PaymentsTests: XCTestCase {
         ("testGetEndpoint", testGetEndpoint),
         ("testExecuteEndpoint", testExecuteEndpoint),
         ("testGetSaleEndpoint", testGetSaleEndpoint),
-        ("testRefundSaleEndpoint", testRefundSaleEndpoint)
+        ("testRefundSaleEndpoint", testRefundSaleEndpoint),
+        ("testGetAuthorizationEndpoint", testGetAuthorizationEndpoint)
     ]
 }
 
@@ -132,6 +144,7 @@ internal struct PaymentTestsContext {
     let transaction: Payment.Transaction
     
     private(set) var sale: String?
+    private(set) var authorization: String?
     private(set) var payment: String?
     
     init()throws {
@@ -193,6 +206,8 @@ internal struct PaymentTestsContext {
         if let id = context.payment {
             context.sale = try payments.get(payment: id).wait()
                 .transactions?.compactMap{$0.resources}.joined(separator:[]).compactMap{$0.sale}.first?.id
+            context.authorization = try payments.get(payment: id).wait()
+                .transactions?.compactMap{$0.resources}.joined(separator:[]).compactMap{$0.authorization}.first?.id
         }
         
         return context
