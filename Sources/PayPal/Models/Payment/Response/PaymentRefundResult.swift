@@ -31,7 +31,7 @@ extension Payment {
         
         
         /// The refund amount. Includes both the amount refunded to the payer and amount of the fee refunded to the payee.
-        public var amount: Amount?
+        public var amount: DetailedAmount?
         
         /// The reason that the transaction is being refunded.
         public var reason: String?
