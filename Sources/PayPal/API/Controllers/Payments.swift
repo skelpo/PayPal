@@ -371,6 +371,21 @@ public final class Payments: PayPalController {
     
     // MARK: - /capture
     
+    /// Shows details for a captured payment, by ID.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows details for the captured payment.
+    ///
+    /// - Parameter id: The ID of the captured payment for which to show details.
+    ///
+    /// - Returns: The captured transaction, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func get(captured id: String) -> Future<RelatedResource.Capture> {
+        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Capture> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.get(self.path(for: .capture) + id, as: RelatedResource.Capture.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
