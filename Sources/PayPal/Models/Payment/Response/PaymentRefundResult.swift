@@ -3,7 +3,7 @@ import Vapor
 extension Payment {
     
     /// The response object returned when refunding payments, from API endpoints such as `POST /v1/payments/refund/{refund_id}`.
-    public struct RefundResult: Content, Equatable {
+    public struct RefundResult: Content, ValidationSetable, Equatable {
         
         /// The ID of the refund transaction. Maximum length is 17 characters.
         public let id: String?
@@ -38,11 +38,28 @@ extension Payment {
         
         /// The invoice or tracking ID number.
         ///
+        /// This property can be set using the `RefundResult.set(_:)` method.
+        /// This method validates the new value before assigning it to the property.
+        ///
         /// Maximum length: 127.
-        public var invoice: String?
+        public private(set) var invoice: String?
         
         /// The refund description. Value must be single-byte alphanumeric characters.
         public var description: String?
+        
+        
+        /// See `ValidationSetable.setterValidations()`.
+        public func setterValidations() -> SetterValidations<Payment.RefundResult> {
+            var validations = SetterValidations(Payment.RefundResult.self)
+            
+            validations.set(\.invoice) { invoice in
+                guard invoice?.count ?? 0 <= 127 else {
+                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`invoice_number` value length must be 127 or less")
+                }
+            }
+            
+            return validations
+        }
         
         enum CodingKeys: String, CodingKey {
             case id, amount, state, reason, description, links
