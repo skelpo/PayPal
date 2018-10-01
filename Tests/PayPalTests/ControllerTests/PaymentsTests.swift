@@ -193,6 +193,7 @@ internal struct PaymentTestsContext {
     
     private(set) var sale: String?
     private(set) var authorization: String?
+    private(set) var order: String?
     private(set) var payment: String?
     
     init()throws {
@@ -249,14 +250,12 @@ internal struct PaymentTestsContext {
     static func initialize(on container: Container)throws -> PaymentTestsContext {
         var context = try self.init()
         let payments = try container.make(Payments.self)
+        let payment = try container.make(Payments.self).list().wait().payments?.first
         
-        context.payment = try container.make(Payments.self).list().wait().payments?.first?.id
-        if let id = context.payment {
-            context.sale = try payments.get(payment: id).wait()
-                .transactions?.compactMap{$0.resources}.joined(separator:[]).compactMap{$0.sale}.first?.id
-            context.authorization = try payments.get(payment: id).wait()
-                .transactions?.compactMap{$0.resources}.joined(separator:[]).compactMap{$0.authorization}.first?.id
-        }
+        context.payment = payment?.id
+        context.sale = payment?.transactions?.compactMap{$0.resources}.joined(separator:[]).compactMap{$0.sale}.first?.id
+        context.authorization = payment?.transactions?.compactMap{$0.resources}.joined(separator:[]).compactMap{$0.authorization}.first?.id
+        context.order = payment?.transactions?.compactMap{$0.resources}.joined(separator:[]).compactMap{$0.order}.first?.id
         
         return context
     }
