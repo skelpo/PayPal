@@ -192,6 +192,7 @@ final class PaymentsTests: XCTestCase {
         let order = try payments.authorize(order: id, with: auth).wait()
         
         XCTAssertEqual(order.id, id)
+        XCTAssertEqual(order.state, .authorized)
     }
     
     func testCaptureOrderTests()throws {
@@ -210,6 +211,18 @@ final class PaymentsTests: XCTestCase {
         let order = try payments.capture(order: id, with: capture).wait()
         
         XCTAssertEqual(order.id, id)
+        XCTAssertEqual(order.state, .captured)
+    }
+    
+    func testVoidOrderEndpoint()throws {
+        let payments = try self.app.make(Payments.self)
+        guard let id = self.context.order else {
+            throw Abort(.internalServerError, reason: "Cannot get order ID")
+        }
+        
+        let order = try payments.void(order: id).wait()
+        XCTAssertEqual(order.id, id)
+        XCTAssertEqual(order.state, .voided)
     }
     
     static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
@@ -227,7 +240,8 @@ final class PaymentsTests: XCTestCase {
         ("testVoidAuthorizationEndpoint", testVoidAuthorizationEndpoint),
         ("testGetOrderEndpoint", testGetOrderEndpoint),
         ("testAuthorizeOrderEndpoint", testAuthorizeOrderEndpoint),
-        ("testCaptureOrderTests", testCaptureOrderTests)
+        ("testCaptureOrderTests", testCaptureOrderTests).
+        ("testVoidOrderEndpoint", testVoidOrderEndpoint)
     ]
 }
 
