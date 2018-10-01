@@ -346,6 +346,25 @@ public final class Payments: PayPalController {
         }
     }
     
+    /// Voids, or cancels, an order, by ID. You cannot void an order if the payment has already been partially or fully captured.
+    ///
+    /// A successful request returns the HTTP `200 OK` status code and a JSON response body that shows details for the voided order.
+    ///
+    /// - Parameters:
+    ///   - order: The ID of the order to void.
+    ///   - request: A user-generated ID that you can use to enforce idempotency.
+    ///
+    /// - Returns: The voided order, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func void(order id: String, request: String? = nil) -> Future<RelatedResource.Order> {
+        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Order> in
+            let client = try self.container.make(PayPalClient.self)
+            let headers: HTTPHeaders = request == nil ? [:] : ["PayPal-Request-Id": request!]
+            
+            return try client.post(self.path(for: .orders) + id + "/do-void", headers: headers, as: RelatedResource.Order.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
