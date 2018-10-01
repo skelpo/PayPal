@@ -140,7 +140,7 @@ final class PaymentsTests: XCTestCase {
         XCTAssertEqual(authorization.id, id)
     }
     
-    func testReauthAuthorizationTests()throws {
+    func testReauthAuthorizationEndpoint()throws {
         let payments = try self.app.make(Payments.self)
         guard let id = self.context.authorization else {
             throw Abort(.internalServerError, reason: "Cannot get authorization ID")
@@ -156,6 +156,17 @@ final class PaymentsTests: XCTestCase {
         XCTAssertEqual(authorization.id, id)
     }
     
+    func testVoidAuthorizationEndpoint()throws {
+        let payments = try self.app.make(Payments.self)
+        guard let id = self.context.authorization else {
+            throw Abort(.internalServerError, reason: "Cannot get authorization ID")
+        }
+        
+        let authorization = try payments.void(authorization: id).wait()
+        
+        XCTAssertEqual(authorization.id, id)
+    }
+    
     static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
@@ -167,7 +178,8 @@ final class PaymentsTests: XCTestCase {
         ("testRefundSaleEndpoint", testRefundSaleEndpoint),
         ("testGetAuthorizationEndpoint", testGetAuthorizationEndpoint),
         ("testCaptureAuthorizationEndpoint", testCaptureAuthorizationEndpoint),
-        ("testReauthAuthorizationTests", testReauthAuthorizationTests)
+        ("testReauthAuthorizationEndpoint", testReauthAuthorizationEndpoint),
+        ("testVoidAuthorizationEndpoint", testVoidAuthorizationEndpoint)
     ]
 }
 
