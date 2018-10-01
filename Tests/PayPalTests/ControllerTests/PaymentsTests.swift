@@ -16,8 +16,8 @@ final class PaymentsTests: XCTestCase {
         try! services.register(PayPalProvider())
         
         self.app = try! Application.testable(services: services)
-        self.context = try! PaymentTestsContext()
-        self.id = try! self.app.make(Payments.self).list().wait().payments?.first?.id
+        self.context = try! PaymentTestsContext.initialize(on: self.app)
+        self.id = self.context.payment
     }
     
     func testServiceExists()throws {
@@ -91,11 +91,24 @@ final class PaymentsTests: XCTestCase {
     
     func testGetSaleEndpoint()throws {
         let payments = try self.app.make(Payments.self)
-        let sale = try payments.get(payment: self.id).wait().transactions?.compactMap{$0.resources}.joined(separator:[]).compactMap{$0.sale}.first
-        guard let id = sale?.id else { return }
+        guard let id = self.context.sale else {
+            throw Abort(.internalServerError, reason: "Cannot get sale ID")
+        }
         
         let details = try payments.get(sale: id).wait()
         XCTAssertEqual(details.id, id)
+    }
+    
+    func testRefundSaleEndpoint()throws {
+        let payments = try self.app.make(Payments.self)
+        guard let id = self.context.sale else {
+            throw Abort(.internalServerError, reason: "Cannot get sale ID")
+        }
+        let refund = try Payment.Refund(amount: nil, description: "A description of the refund", reason: "NOT_AS_MARKETED", invoice: nil)
+        
+        let result = try payments.refund(sale: id, with: refund).wait()
+        
+        XCTAssertNotNil(result.id)
     }
     
     static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
@@ -105,7 +118,8 @@ final class PaymentsTests: XCTestCase {
         ("testPatchEndpoint", testPatchEndpoint),
         ("testGetEndpoint", testGetEndpoint),
         ("testExecuteEndpoint", testExecuteEndpoint),
-        ("testGetSaleEndpoint", testGetSaleEndpoint)
+        ("testGetSaleEndpoint", testGetSaleEndpoint),
+        ("testRefundSaleEndpoint", testRefundSaleEndpoint)
     ]
 }
 
@@ -116,6 +130,9 @@ internal struct PaymentTestsContext {
     let amount: DetailedAmount
     let items: Payment.ItemList
     let transaction: Payment.Transaction
+    
+    private(set) var sale: String?
+    private(set) var payment: String?
     
     init()throws {
         self.address = try Address(
@@ -166,5 +183,18 @@ internal struct PaymentTestsContext {
             itemList: items,
             notify: "https://example.com/notify"
         )
+    }
+    
+    static func initialize(on container: Container)throws -> PaymentTestsContext {
+        var context = try self.init()
+        let payments = try container.make(Payments.self)
+        
+        context.payment = try container.make(Payments.self).list().wait().payments?.first?.id
+        if let id = context.payment {
+            context.sale = try payments.get(payment: id).wait()
+                .transactions?.compactMap{$0.resources}.joined(separator:[]).compactMap{$0.sale}.first?.id
+        }
+        
+        return context
     }
 }
