@@ -319,7 +319,8 @@ public final class Payments: PayPalController {
     ///
     ///     **Note**: For an order authorization, you cannot include amount `details`.
     ///
-    /// - Returns:
+    /// - Returns:The authorized order, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
     public func authorize(order id: String, with authorization: RelatedResource.Authorization) -> Future<RelatedResource.Order> {
         return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Order> in
             let client = try self.container.make(PayPalClient.self)
