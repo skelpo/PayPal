@@ -33,6 +33,10 @@ import Vapor
 ///
 /// - Note: You cannot refund an order directly. Instead, you must refund a completed payment for an order.
 ///   For integration information, see Orders and refund a payment.
+///
+/// ## Capture
+///
+/// Use the `/capture` resource and sub-resources to show details for and refund captured payments.
 public final class Payments: PayPalController {
     
     // MARK: - PayPalController
@@ -364,6 +368,8 @@ public final class Payments: PayPalController {
             return try client.post(self.path(for: .orders) + id + "/do-void", headers: headers, as: RelatedResource.Order.self)
         }
     }
+    
+    // MARK: - /capture
     
     // MARK: - Internal Helpers
     
