@@ -234,6 +234,30 @@ public final class Payments: PayPalController {
         }
     }
     
+    /// Re-authorizes a PayPal account payment, by authorization ID.
+    ///
+    /// To ensure that funds are still available, re-authorize a payment after the initial three-day honor period.
+    /// Supports only the `amount` request parameter. You can re-authorize a payment only once from four to 29 days after three-day honor period
+    /// for the original authorization expires. If 30 days have passed from the original authorization, you must create a new authorization instead.
+    /// A re-authorized payment itself has a new three-day honor period. You can re-authorize a transaction once for up to 115% of the originally
+    /// authorized amount, not to exceed an increase of $75 USD.
+    ///
+    /// A successful request returns the HTTP `201 Created` status code and a JSON response body that shows details
+    /// for the re-authorized authorization.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the authorization to re-authorize.
+    ///   - authorization: The authorization details for re-authorizing.
+    ///
+    /// - Returns: The re-authorized authorization, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func reauthorize(authorization id: String, with authorization: RelatedResource.Authorization) -> Future<RelatedResource.Authorization> {
+        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Authorization> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path(for: .authorization) + id + "/reauthorize", body: authorization, as: RelatedResource.Authorization.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
