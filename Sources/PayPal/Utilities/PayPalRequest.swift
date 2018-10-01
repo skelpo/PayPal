@@ -38,6 +38,10 @@ extension Container {
         body: Body?,
         as response: Result.Type = Result.self
     ) -> Future<Result> where Body: Content, Result: Content {
+        #if DEBUG
+        var req: Request?
+        #endif
+        
         return Future.flatMap(on: self) { () -> Future<Void> in
             if try self.make(AuthInfo.self).tokenExpired == true {
                 return try self.make(PayPalClient.self).authenticate()
@@ -46,9 +50,18 @@ extension Container {
             }
         }.flatMap(to: Response.self) {
             let request = try self.paypal(method, path, parameters: parameters, headers: headers, auth: true, body: body)
+            
+            #if DEBUG
+            if Env.get("PAYPAL_LOG_API_ERROR") == "TRUE" { req = request }
+            #endif
+            
             return try self.client().send(request)
         }.flatMap(to: Result.self) { response in
             if !(200...299).contains(response.http.status.code) {
+                #if DEBUG
+                if Env.get("PAYPAL_LOG_API_ERROR") == "TRUE" { print(req!, "\n\n", response) }
+                #endif
+                
                 guard response.http.headers.firstValue(name: .contentType) == "application/json" else {
                     let body = response.http.body.data ?? Data()
                     let error = String(data: body, encoding: .utf8)
