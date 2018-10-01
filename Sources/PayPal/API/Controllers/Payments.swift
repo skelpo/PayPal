@@ -386,6 +386,26 @@ public final class Payments: PayPalController {
         }
     }
     
+    /// Refunds a captured payment, by ID. In the JSON request body, include an `amount` object.
+    ///
+    /// A successful request returns the HTTP `201 OK` _[sic]_ status code and a JSON response body that shows details for the captured payment.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the captured payment to refund.
+    ///   - refund: The refund data for the captured payment.
+    ///   - request: A user-generated ID that you can use to enforce idempotency.
+    ///
+    /// - Returns: The refunded capture transaction, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func refund(captured id: String, with refund: Payment.Refund, request: String? = nil) -> Future<RelatedResource.Capture> {
+        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Capture> in
+            let client = try self.container.make(PayPalClient.self)
+            let headers: HTTPHeaders = request == nil ? [:] : ["PayPal-Request-Id": request!]
+            
+            return try client.post(self.path(for: .capture) + id + "/refund", headers: headers, body: refund, as: RelatedResource.Capture.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
