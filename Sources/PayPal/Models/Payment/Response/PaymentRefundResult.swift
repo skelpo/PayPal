@@ -52,6 +52,9 @@ extension Payment {
         /// Maximum length: 127.
         public var custom: String?
         
+        /// The currency and amount of the transaction fee that is refunded to original the recipient of payment.
+        public var transactionFee: Amount?
+        
         /// See `ValidationSetable.setterValidations()`.
         public func setterValidations() -> SetterValidations<Payment.RefundResult> {
             var validations = SetterValidations(Payment.RefundResult.self)
@@ -78,6 +81,8 @@ extension Payment {
             case parent = "parent_payment"
             case created = "create_time"
             case updated = "update_time"
+            case transactionFee = "refund_from_transaction_fee"
+            
         }
     }
 }
