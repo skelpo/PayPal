@@ -328,6 +328,24 @@ public final class Payments: PayPalController {
         }
     }
     
+    /// Captures a payment for an order, by ID. To use this call, the original payment call must specify an `order` intent.
+    /// In the JSON request body, include the payment amount and indicate whether this capture is the final capture for the authorization.
+    ///
+    /// A successful request returns the HTTP `201 Created` status code and a JSON response body that shows details for the captured order.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the order to capture.
+    ///   - capture: The capture details for the order.
+    ///
+    /// - Returns: The captured order, wrapped in a future. If PayPal returns an error response,
+    ///   it will get converted to a Swift error and the future will wrap that instead.
+    public func capture(order id: String, with capture: RelatedResource.Capture) -> Future<RelatedResource.Order> {
+        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Order> in
+            let client = try self.container.make(PayPalClient.self)
+            return try client.post(self.path(for: .orders) + id + "/capture", body: capture, as: RelatedResource.Order.self)
+        }
+    }
+    
     // MARK: - Internal Helpers
     
     internal func path(for resource: Resource)throws -> String {
