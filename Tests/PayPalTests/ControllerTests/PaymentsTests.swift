@@ -297,7 +297,6 @@ internal struct PaymentTestsContext {
     
     static func initialize(on container: Container)throws -> PaymentTestsContext {
         var context = try self.init()
-        let payments = try container.make(Payments.self)
         let payment = try container.make(Payments.self).list().wait().payments?.first
         
         context.payment = payment?.id
