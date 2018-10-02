@@ -23,7 +23,7 @@ final class PaymentTransactionTests: XCTestCase {
         XCTAssertEqual(transaction.custom, "custom")
         XCTAssertEqual(transaction.invoice, "12-654-89")
         XCTAssertEqual(transaction.softDescriptor, "22")
-        XCTAssertEqual(transaction.payment, .unrestricted)
+        XCTAssertEqual(transaction.payment, Payment.Options(allowed: .unrestricted))
         XCTAssertEqual(transaction.notify, "https://example.com/notify")
         try XCTAssertEqual(transaction.itemList, .init(items: nil, address: nil, phoneNumber: nil))
     }
@@ -106,8 +106,8 @@ final class PaymentTransactionTests: XCTestCase {
         let generated = try String(data: encoder.encode(transaction), encoding: .utf8)!
         let json =
             "{\"amount\":{\"currency\":\"USD\",\"total\":\"54.56\"},\"custom\":\"custom\",\"item_list\":{}," +
-            "\"notify_url\":\"https:\\/\\/example.com\\/notify\",\"payment_options\":\"UNRESTRICTED\",\"soft_descriptor\":\"22\"," +
-            "\"description\":\"Description\",\"invoice_number\":\"12-654-89\",\"payee\":{},\"note_to_payee\":\"noted\"}"
+            "\"notify_url\":\"https:\\/\\/example.com\\/notify\",\"payment_options\":{\"allowed_payment_method\":\"UNRESTRICTED\"}," +
+            "\"soft_descriptor\":\"22\",\"description\":\"Description\",\"invoice_number\":\"12-654-89\",\"payee\":{},\"note_to_payee\":\"noted\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -128,7 +128,9 @@ final class PaymentTransactionTests: XCTestCase {
                 "total": "54.56"
             },
             "item_list": {},
-            "payment_options": "UNRESTRICTED",
+            "payment_options": {
+                "allowed_payment_method": "UNRESTRICTED"
+            },
             "soft_descriptor": "22",
             "invoice_number": "12-654-89",
             "custom": "custom",
@@ -148,7 +150,7 @@ final class PaymentTransactionTests: XCTestCase {
         XCTAssertEqual(transaction.custom, "custom")
         XCTAssertEqual(transaction.invoice, "12-654-89")
         XCTAssertEqual(transaction.softDescriptor, "22")
-        XCTAssertEqual(transaction.payment, .unrestricted)
+        XCTAssertEqual(transaction.payment, Payment.Options(allowed: .unrestricted))
         XCTAssertEqual(transaction.notify, "https://example.com/notify")
         XCTAssertEqual(transaction.resources, [])
         try XCTAssertEqual(transaction.itemList, .init(items: nil, address: nil, phoneNumber: nil))
