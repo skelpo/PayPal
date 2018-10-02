@@ -12,6 +12,12 @@ extension Payment {
             self.skipFMF = nil
             self.allowed = allowed
         }
+        
+        enum CodingKeys: String, CodingKey {
+            case recurring = "recurring_flag"
+            case skipFMF = "skip_fmf"
+            case allowed = "allowed_payment_method"
+        }
     }
 }
 
