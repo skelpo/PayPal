@@ -56,7 +56,7 @@ extension Payment {
         public private(set) var softDescriptor: String?
         
         /// The payment options for this transaction.
-        public var payment: PaymentMethod?
+        public var payment: Options?
         
         /// An array of items that are being purchased.
         public var itemList: ItemList?
@@ -91,7 +91,7 @@ extension Payment {
             custom: String?,
             invoice: String?,
             softDescriptor: String?,
-            payment: PaymentMethod?,
+            payment: Options.Method?,
             itemList: ItemList?,
             notify: String?
         )throws {
@@ -103,7 +103,7 @@ extension Payment {
             self.custom = custom
             self.invoice = invoice
             self.softDescriptor = softDescriptor
-            self.payment = payment
+            self.payment = Options(allowed: payment)
             self.itemList = itemList
             self.notify = notify
             
@@ -127,7 +127,7 @@ extension Payment {
             self.custom = try container.decodeIfPresent(String.self, forKey: .custom)
             self.invoice = try container.decodeIfPresent(String.self, forKey: .invoice)
             self.softDescriptor = try container.decodeIfPresent(String.self, forKey: .softDescriptor)
-            self.payment = try container.decodeIfPresent(PaymentMethod.self, forKey: .payment)
+            self.payment = try container.decodeIfPresent(Options.self, forKey: .payment)
             self.itemList = try container.decodeIfPresent(ItemList.self, forKey: .itemList)
             self.notify = try container.decodeIfPresent(String.self, forKey: .notify)
             
