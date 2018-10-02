@@ -1,12 +1,24 @@
 import Vapor
 
 extension Payment {
+    
+    /// The payment options for a transaction.
     public struct Options: Content, Equatable {
+        
+        /// Undocumented by PayPal. Maybe to create a recurring payment?
         public let recurring: Bool?
+        
+        /// Undocumented by PayPal. Maybe used to skip fraud filters?
         public let skipFMF: Bool?
         
+        
+        /// The payment method for this transaction. This field does not apply to the credit card payment method.
         public var allowed: Method?
         
+        
+        /// Creates a new `Payment.Options` instance.
+        ///
+        /// - Parameter allowed: The payment method for this transaction.
         public init(allowed: Method?) {
             self.recurring = nil
             self.skipFMF = nil
