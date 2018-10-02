@@ -10,5 +10,8 @@ extension Order {
         
         /// An authorization.
         case authorize = "AUTHORIZE"
+        
+        /// A capture.
+        case capture = "CAPTURE"
     }
 }

@@ -11,11 +11,12 @@ final class OrderIntentTests: XCTestCase {
     func testCaseRawValues() {
         XCTAssertEqual(Intent.sale.rawValue, "SALE")
         XCTAssertEqual(Intent.authorize.rawValue, "AUTHORIZE")
+        XCTAssertEqual(Intent.capture.rawValue, "CAPTURE")
     }
     
     func testAllCase() {
-        XCTAssertEqual(Intent.allCases.count, 2)
-        XCTAssertEqual(Intent.allCases, [.sale, .authorize])
+        XCTAssertEqual(Intent.allCases.count, 3)
+        XCTAssertEqual(Intent.allCases, [.sale, .authorize, .capture])
     }
     
     func testEncoding()throws {
@@ -29,9 +30,9 @@ final class OrderIntentTests: XCTestCase {
     
     func testDecoding()throws {
         let decoder = JSONDecoder()
-        let sale = """
+        let capture = """
         {
-            "intent": "SALE"
+            "intent": "CAPTURE"
         }
         """.data(using: .utf8)!
         let authorize = """
@@ -40,7 +41,7 @@ final class OrderIntentTests: XCTestCase {
         }
         """
         
-        try XCTAssertEqual(decoder.decode(Or.self, from: sale).intent, .sale)
+        try XCTAssertEqual(decoder.decode(Or.self, from: capture).intent, .capture)
         try XCTAssertEqual(decoder.decode(Or.self, from: authorize).intent, .authorize)
     }
     
