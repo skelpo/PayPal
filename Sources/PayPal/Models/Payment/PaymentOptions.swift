@@ -1,7 +1,18 @@
 import Vapor
 
 extension Payment {
-    public struct Options {}
+    public struct Options: Content, Equatable {
+        public let recurring: Bool?
+        public let skipFMF: Bool?
+        
+        public var allowed: Method?
+        
+        public init(allowed: Method?) {
+            self.recurring = nil
+            self.skipFMF = nil
+            self.allowed = allowed
+        }
+    }
 }
 
 extension Payment.Options {
