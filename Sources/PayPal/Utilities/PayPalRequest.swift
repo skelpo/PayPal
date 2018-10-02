@@ -10,7 +10,8 @@ extension Container {
         body: Body? = nil
     )throws -> Request where Body: Content {
         let config = try self.make(Configuration.self)
-        let path = config.environment.domain + "/" + path + "?" + parameters.encode()
+        let querystring = parameters.encode()
+        let path = config.environment.domain + "/" + path + (querystring == "" ? "" : "?" + querystring)
         
         var http = HTTPRequest(method: method, url: path, headers: headers)
         if auth {
