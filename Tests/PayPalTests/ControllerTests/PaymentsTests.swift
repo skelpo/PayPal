@@ -45,7 +45,7 @@ final class PaymentsTests: XCTestCase {
     func testListEndpoint()throws {
         let payments = try self.app.make(Payments.self)
         let yesturday = Date() - (60 * 60 * 24)
-        let parameters = QueryParamaters(count: 15, startTime: yesturday, page: 0, sortBy: "create_time", sortOrder: .descending)
+        let parameters = QueryParamaters(count: 15, startTime: yesturday, page: 0, sortBy: "create_time")
         
         let list = try payments.list(parameters: parameters).wait()
         
@@ -331,7 +331,7 @@ internal struct PaymentTestsContext {
         self.amount = try DetailedAmount(currency: .usd, total: "150.00", details: details)
         self.items = try Payment.ItemList(
             items: [item],
-            address: address,
+            address: nil,
             phoneNumber: nil
         )
         self.transaction = try Payment.Transaction(
