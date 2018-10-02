@@ -33,8 +33,8 @@ public struct PhoneNumber: Content, ValidationSetable, Equatable {
     /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.country = try container.decode(String.self, forKey: .country)
-        self.number = try container.decode(String.self, forKey: .number)
+        self.country = try container.decodeIfPresent(String.self, forKey: .country)
+        self.number = try container.decodeIfPresent(String.self, forKey: .number)
         
         try self.set(\.country <~ country)
         try self.set(\.number <~ number)
