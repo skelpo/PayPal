@@ -5,6 +5,7 @@ import Vapor
 final class OrdersTests: XCTestCase {
     
     var app: Application!
+    var id: String?
     
     override func setUp() {
         super.setUp()
@@ -14,6 +15,10 @@ final class OrdersTests: XCTestCase {
         try! services.register(PayPalProvider())
         
         app = try! Application.testable(services: services)
+        
+        if self.id == nil {
+            try! self.testCreateEndpoints()
+        }
     }
     
     func testServiceExists()throws {
@@ -90,17 +95,24 @@ final class OrdersTests: XCTestCase {
         
         XCTAssertNotNil(created.id)
         XCTAssertEqual(created.context?.brand, "Example Inc.")
+        
+        self.id = created.id
     }
     
     func testCancelEndpoints()throws {
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get ID for test")
+        }
         let orders = try self.app.make(Orders.self)
-        let status = try orders.cancel(order: "").wait()
+        let status = try orders.cancel(order: id).wait()
         
         XCTAssertEqual(status, .noContent)
     }
     
     func testDetailsEndpoint()throws {
-        let id = ""
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get ID for test")
+        }
         let orders = try self.app.make(Orders.self)
         let order = try orders.details(for: id).wait()
         
@@ -108,7 +120,9 @@ final class OrdersTests: XCTestCase {
     }
     
     func testPayEndpoint()throws {
-        let id = ""
+        guard let id = self.id else {
+            throw Abort(.internalServerError, reason: "Cannot get ID for test")
+        }
         let body = try Order.PaymentRequest(
             disbursement: .instant,
             payer: Order.Payer(
