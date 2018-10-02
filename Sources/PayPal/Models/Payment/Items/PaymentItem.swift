@@ -91,8 +91,15 @@ extension Payment {
         /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
         public init(from decoder: Decoder)throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
+            let quantity: String
+            do {
+                quantity = try container.decode(String.self, forKey: .quantity)
+            } catch {
+                quantity = try String(describing: container.decode(Int.self, forKey: .quantity))
+            }
+            
             try self.init(
-                quantity: container.decode(String.self, forKey: .quantity),
+                quantity: quantity,
                 price: container.decode(String.self, forKey: .price),
                 currency: container.decode(Currency.self, forKey: .currency),
                 sku: container.decodeIfPresent(String.self, forKey: .sku),
