@@ -105,7 +105,7 @@ public final class Payments: PayPalController {
     /// - Parameter parameters: The query parameters sent in the request URI. The parameters used are `count`, `start_id`, `start_index`,
     ///   `start_time`, `end_time`, `payee_id`, `sort_by`, and `sort_order`.
     ///
-    ///   The API use 10 as the `count` if none is passed in. The max `count` is 20.
+    ///   The API use 10 as the `count` if none is passed in. The max `count` is 20. The only valid value for the `sort_order` key is `desc`.
     ///
     /// - Returns: A list of payments which match the query parameters passed in, along with the amount of elements return in each
     ///   range of payments and the ID of the element to use to get the next range of results. If PayPal returns an error response,
@@ -113,7 +113,7 @@ public final class Payments: PayPalController {
     public func list(parameters: QueryParamaters = QueryParamaters()) -> Future<PaymentList> {
         return Future.flatMap(on: self.container) { () -> Future<PaymentList> in
             guard parameters.count ?? 0 <= 20 else {
-                throw PayPalError(status: .internalServerError, identifier: "invalidCount", reason: "`count` query paramater msu be 20 or less")
+                throw PayPalError(status: .internalServerError, identifier: "invalidCount", reason: "`count` query paramater must be 20 or less")
             }
             
             let client = try self.container.make(PayPalClient.self)
