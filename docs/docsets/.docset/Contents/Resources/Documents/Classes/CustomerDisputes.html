@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CustomerDisputes Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/CustomerDisputes" class="dashAnchor"></a>
+    <a title="CustomerDisputes Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (98% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        CustomerDisputes Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Activities.html">Activities</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthInfo.html">AuthInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BillingAgreements.html">BillingAgreements</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BillingPlans.html">BillingPlans</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Configuration.html">Configuration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CustomerDisputes.html">CustomerDisputes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Identity.html">Identity</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Invoices.html">Invoices</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ManagedAccounts.html">ManagedAccounts</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Orders.html">Orders</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PayPalClient.html">PayPalClient</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PayPalProvider.html">PayPalProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Payments.html">Payments</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Templates.html">Templates</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Term.html">Term</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AccountStatus.html">AccountStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ActivityType.html">ActivityType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AdjudicationOutcome.html">AdjudicationOutcome</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AgreementState.html">AgreementState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AutoBill.html">AutoBill</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CCEmailKeys.html">CCEmailKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Carrier.html">Carrier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ChargeType.html">ChargeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CreditCardState.html">CreditCardState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CreditDebitCode.html">CreditDebitCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/EmailAddressKeys.html">EmailAddressKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/EmailKeys.html">EmailKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Environment.html">Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Frequency.html">Frequency</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/FundingOption.html">FundingOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/InitialFailAction.html">InitialFailAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Language.html">Language</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Method.html">Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Operation.html">Operation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PaymentMethod.html">PaymentMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PaymentType.html">PaymentType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PhoneType.html">PhoneType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResponseSortOrder.html">ResponseSortOrder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Role.html">Role</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SetterValidationError.html">SetterValidationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TermType.html">TermType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Timezone.html">Timezone</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/UpdateAction.html">UpdateAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Venue.html">Venue</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DateFormatter.html">DateFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Dictionary.html">Dictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Future.html">Future</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/HTTPStatus.html">HTTPStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/MediaType.html">MediaType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/MultipartPart.html">MultipartPart</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Optional.html">Optional</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:6PayPal2ltoiyAA6SetterVyxq_Gs15WritableKeyPathCyxq_G_q_tKr0_lF">&lt;~(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/DictionaryElement.html">DictionaryElement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EmailCodingKey.html">EmailCodingKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Monitary.html">Monitary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PayPalController.html">PayPalController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ValidationSetable.html">ValidationSetable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AcceptDisputeBody.html">AcceptDisputeBody</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AcceptDisputeBody/Reason.html">– Reason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountError.html">AccountError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountError/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountOwnerRelationship.html">AccountOwnerRelationship</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountPermission.html">AccountPermission</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountPermission/Permission.html">– Permission</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountRelation.html">AccountRelation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountRelation/RelationType.html">– RelationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ActivitiesResponse.html">ActivitiesResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Activity.html">Activity</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Activity/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Activity/SubType.html">– SubType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Address.html">Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Address/Normalization.html">– Normalization</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Amount.html">Amount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Amount/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AppContext.html">AppContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AppContext/Shipping.html">– Shipping</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BalanceResponse.html">BalanceResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingAgreement.html">BillingAgreement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingInfo.html">BillingInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPayment.html">BillingPayment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPlan.html">BillingPlan</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPlan/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPlan/PlanType.html">– PlanType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPlanList.html">BillingPlanList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BirthPlace.html">BirthPlace</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business.html">Business</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/Name.html">– Name</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/Sales.html">– Sales</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/SubType.html">– SubType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/BusinessType.html">– BusinessType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/Designation.html">– Designation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/Stakeholder.html">– Stakeholder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BusinessOwner.html">BusinessOwner</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BusinessOwner/Address.html">– Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Buyer.html">Buyer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Capture.html">Capture</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Capture/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Capture/Reason.html">– Reason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Charge.html">Charge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CounterParty.html">CounterParty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreatedMerchantResponse.html">CreatedMerchantResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreditCard.html">CreditCard</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreditCard/Token.html">– Token</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Currency.html">Currency</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomAmount.html">CustomAmount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute.html">CustomerDispute</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/Channel.html">– Channel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/LifeCycleStage.html">– LifeCycleStage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/Outcome.html">– Outcome</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/ResolutionOffer.html">– ResolutionOffer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDisputeList.html">CustomerDisputeList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerService.html">CustomerService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerService/Message.html">– Message</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DetailedAmount.html">DetailedAmount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DetailedAmount/Detail.html">– Detail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Details.html">Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Discount.html">Discount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DisplayPhone.html">DisplayPhone</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Document.html">Document</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EmailType.html">EmailType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Establishment.html">Establishment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Evidence.html">Evidence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Evidence/Info.html">– Info</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Evidence/EvidenceType.html">– EvidenceType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Extensions.html">Extensions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FileAttachment.html">FileAttachment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FinancialInstrument.html">FinancialInstrument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FinancialInstrument/AccountType.html">– AccountType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FinancialInstrument/InstrumentType.html">– InstrumentType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FinancialInstruments.html">FinancialInstruments</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FraudManagementFilter.html">FraudManagementFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FraudManagementFilter/FilterType.html">– FilterType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FraudManagementFilter/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FundingInstrument.html">FundingInstrument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/GovernmentBody.html">GovernmentBody</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ID.html">ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Identification.html">Identification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Identification/IDType.html">– IDType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice.html">Invoice</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Item.html">– Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Payment.html">– Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Reminder.html">– Reminder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Search.html">– Search</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Measure.html">– Measure</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Participant.html">– Participant</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Metadata.html">– Metadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/InvoiceList.html">InvoiceList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/InvoiceProperties.html">InvoiceProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Item.html">Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Item/Reason.html">– Reason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KeyValue.html">KeyValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LegalAgreement.html">LegalAgreement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LegalAgreement/AgreementType.html">– AgreementType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LinkDescription.html">LinkDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MerchantAccount.html">MerchantAccount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MerchantInfo.html">MerchantInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MerchantPreferances.html">MerchantPreferances</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Message.html">Message</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Message/Poster.html">– Poster</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Money.html">Money</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Money/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MoneyRange.html">MoneyRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Name.html">Name</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NameValue.html">NameValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NewAgreement.html">NewAgreement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NotificationOptions.html">NotificationOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NotificationOptions/EmailFrequency.html">– EmailFrequency</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Offer.html">Offer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Offer/OfferType.html">– OfferType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order.html">Order</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Intent.html">– Intent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Item.html">– Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Metadata.html">– Metadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/PaymentRequest.html">– PaymentRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Unit.html">– Unit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Payment.html">– Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/PaymentDetails.html">– PaymentDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/DisbursementMode.html">– DisbursementMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Payer.html">– Payer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/OverrideCharge.html">OverrideCharge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PartnerFee.html">PartnerFee</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PartnerOptions.html">PartnerOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Patch.html">Patch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PayPalAPIError.html">PayPalAPIError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PayPalAPIIdentityError.html">PayPalAPIIdentityError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PayPalError.html">PayPalError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payee.html">Payee</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payee/Metadata.html">– Metadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payer.html">Payer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PayerInfo.html">PayerInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment.html">Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Failure.html">– Failure</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/HoldReason.html">– HoldReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Item.html">– Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/ItemList.html">– ItemList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Intent.html">– Intent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Options.html">– Options</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Transaction.html">– Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Executor.html">– Executor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Refund.html">– Refund</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/RefundResult.html">– RefundResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentDetail.html">PaymentDetail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentDetail/Method.html">– Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentDetail/DetailType.html">– DetailType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentDetail/TransactionType.html">– TransactionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentList.html">PaymentList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentPayer.html">PaymentPayer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentPayer/Method.html">– Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentPayer/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentProperties.html">PaymentProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentProperties/ExternalSubType.html">– ExternalSubType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentReceivingPreferences.html">PaymentReceivingPreferences</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentSummary.html">PaymentSummary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentTerm.html">PaymentTerm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentTerm/TermType.html">– TermType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PercentRange.html">PercentRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PhoneNumber.html">PhoneNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/QueryParamaters.html">QueryParamaters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Redirects.html">Redirects</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Refund.html">Refund</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Refund/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RefundDetail.html">RefundDetail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource.html">RelatedResource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/ProcessorResponse.html">– ProcessorResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Protection.html">– Protection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/ProtectionType.html">– ProtectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Authorization.html">– Authorization</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Capture.html">– Capture</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Order.html">– Order</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Refund.html">– Refund</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Sale.html">– Sale</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RoleObjectProperties.html">RoleObjectProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Sale.html">Sale</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Sale/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SalesVenue.html">SalesVenue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Seller.html">Seller</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Setter.html">Setter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SetterValidations.html">SetterValidations</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ShippingCosts.html">ShippingCosts</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ShippingInfo.html">ShippingInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SignupOptions.html">SignupOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tax.html">Tax</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Template.html">Template</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Template/Data.html">– Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Template/ListFields.html">– ListFields</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Template/Settings.html">– Settings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TemplateList.html">TemplateList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TimelessDate.html">TimelessDate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tracking.html">Tracking</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Transaction.html">Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Transaction/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransactionInfo.html">TransactionInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransactionInfo/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TypedPhoneNumber.html">TypedPhoneNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UserInfo.html">UserInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UserInfo/AccountType.html">– AccountType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UserInfo/Address.html">– Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/WebExperiencePreference.html">WebExperiencePreference</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal7CCEmaila">CCEmail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal5Emaila">Email</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal12EmailAddressa">EmailAddress</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal3FMFa">FMF</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal22MoneyRequestPropertiesa">MoneyRequestProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal15OrderPropertiesa">OrderProperties</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>CustomerDisputes</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">CustomerDisputes</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PayPalController.html">PayPalController</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>Occasionally, something goes wrong with a customer&rsquo;s order. To dispute a charge, a customer can create a dispute with PayPal.
+PayPal merchants, partners, and external developers can use the PayPal Customer Disputes API to manage customer disputes.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Merchants cannot create disputes but can only respond to customer-created disputes.
+
+</div>
+
+<p>A customer can also ask his or her bank or credit card company to dispute and reverse a charge, which is known as a chargeback. For more information,
+see <a href="https://www.paypal.com/us/brc/article/customer-disputes-claims-chargebacks-bank-reversals">Disputes, claims, chargebacks, and bank reversals</a>.</p>
+
+<p>When a customer disputes a charge, you can use this API to provide evidence that the charge is legitimate. To provide evidence or
+appeal a dispute, you submit a proof of delivery or proof of refund document or notes, which can include logs.</p>
+
+<p>Normally, an agent at PayPal updates the status of disputes and settles them, but now you can run test cases in the sandbox that complete these operations.</p>
+
+<p>For details, see <a href="https://developer.paypal.com/docs/integration/direct/customer-disputes/">Customer Disputes Integration Guide</a>
+and the <a href="https://developer.paypal.com/docs/marketplaces/how-to/manage-disputes/">Marketplace Disputes Integration Guide</a>.</p>
+
+<p>Use the <code>/customer/disputes/</code> resource to list disputes, show dispute details, send a message to the other party, make an offer to resolve a dispute,
+escalate a dispute to a claim, provide evidence, accept a claim, and appeal a dispute. Normally, an agent at PayPal updates the status of disputes and
+settles them, but now you can run test cases in the sandbox that update the dispute status and settle disputes.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal16CustomerDisputesC9container7Service9Container_pvp"></a>
+                    <a name="//apple_ref/swift/Property/container" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal16CustomerDisputesC9container7Service9Container_pvp">container</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>See <code><a href="../Protocols/PayPalController.html#/s:6PayPal0aB10ControllerP9container7Service9Container_pvp">PayPalController.container</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">container</span><span class="p">:</span> <span class="kt">Container</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal16CustomerDisputesC8resourceSSvp"></a>
+                    <a name="//apple_ref/swift/Property/resource" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal16CustomerDisputesC8resourceSSvp">resource</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Value is <code>&quot;customer/disputes&quot;</code>.</p>
+
+<p>See <code><a href="../Protocols/PayPalController.html#/s:6PayPal0aB10ControllerP8resourceSSvp">PayPalController.resource</a></code> for more information.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal16CustomerDisputesC9containerAC7Service9Container_p_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(container:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal16CustomerDisputesC9containerAC7Service9Container_p_tcfc">init(container:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>See <code><a href="../Protocols/PayPalController.html#/s:6PayPal0aB10ControllerP9containerx7Service9Container_p_tcfc">PayPalController.init(container:)</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">container</span><span class="p">:</span> <span class="kt">Container</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal16CustomerDisputesC4list10parameters3NIO15EventLoopFutureCyAA0C11DisputeListVGAA15QueryParamatersV_tF"></a>
+                    <a name="//apple_ref/swift/Method/list(parameters:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal16CustomerDisputesC4list10parameters3NIO15EventLoopFutureCyAA0C11DisputeListVGAA15QueryParamatersV_tF">list(parameters:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Lists disputes with a full or summary set of details. Default is a summary set of details, which shows
+the <code>dispute_id</code>, <code>reason</code>, <code>status</code>, <code>dispute_amount</code>, <code>create_time</code>, and <code>update_time fields</code>.</p>
+
+<p>To filter the disputes in the response, specify one or more optional query parameters.
+To limit the number of disputes in the response, specify the <code>page_size</code> query parameter.</p>
+
+<p>To list multiple disputes, set these query parameters in the request:</p>
+
+<ul>
+<li><code>page_size=2</code></li>
+<li><code>start_time</code> instead of <code>disputed_transaction_id</code></li>
+</ul>
+
+<p>If the response contains more than two disputes, it lists two disputes and includes a HATEOAS link to the next page of results.</p>
+
+<p>The querystring parameters that this endpoint can use are <code>startTime</code>, <code>pageSize</code>, and <code>page</code>. Along with these standard querystrings,
+there are two parameters that are endpoint specific:</p>
+
+<ul>
+<li><code>disputed_transaction_id</code>: Filters the disputes in the response by a transaction, by ID.
+You can specify either but not both the start_time and disputed_transaction_id query parameter.</li>
+<li><code>dispute_state</code>: Filters the disputes in the response by a state. The allowed values are:
+
+<ul>
+<li><code>REQUIRED_ACTION</code>: Filters the disputes in the response in REQUIRED_ACTION dispute_state</li>
+<li><code>REQUIRED_OTHER_PARTY_ACTION</code>: Filters the disputes in the response in REQUIRED_OTHER_PARTY_ACTION state</li>
+<li><code>UNDER_PAYPAL_REVIEW</code>: Filters the disputes in the response in UNDER_PAYPAL_REVIEW state</li>
+<li><code>RESOLVED</code>: Filters the disputes in the response in RESOLVED state</li>
+<li><code>OPEN_INQUIRIES</code>: Filters the disputes in the response in OPEN_INQUIRIES state</li>
+</ul></li>
+</ul>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that lists disputes with a full or summary set of details.
+Default is a summary set of details, which shows the <code>dispute_id</code>, <code>reason</code>, <code>status</code>, <code>dispute_amount</code>, <code>create_time</code>, and <code>update_time</code>
+fields for each dispute.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">list</span><span class="p">(</span><span class="nv">parameters</span><span class="p">:</span> <span class="kt"><a href="../Structs/QueryParamaters.html">QueryParamaters</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/QueryParamaters.html">QueryParamaters</a></span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/CustomerDisputeList.html">CustomerDisputeList</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>parameters</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The querystring paramaters sent with the request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A list of customer disputes wrapped in a future. If an error response was sent back instead, it gets converted
+to a Swift error and the future wraps that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal16CustomerDisputesC7details3for3NIO15EventLoopFutureCyAA0C7DisputeVGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/details(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal16CustomerDisputesC7details3for3NIO15EventLoopFutureCyAA0C7DisputeVGSS_tF">details(for:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Shows details for a dispute, by ID.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    The fields that appear in the response depend on whether you access this call through first- or third-party access.
+For example, if the merchant shows dispute details through third-party access, the customer&rsquo;s email ID does not appear.
+
+</div>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body with dispute details.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">details</span><span class="p">(</span><span class="k">for</span> <span class="nv">disputeID</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/CustomerDispute.html">CustomerDispute</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A customer dispute wrapped in a future. If an error response was sent back instead, it gets converted
+to a Swift error and the future wraps that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal16CustomerDisputesC6accept5claim4with3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_AA17AcceptDisputeBodyVtF"></a>
+                    <a name="//apple_ref/swift/Method/accept(claim:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal16CustomerDisputesC6accept5claim4with3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_AA17AcceptDisputeBodyVtF">accept(claim:with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Accepts liability for a claim, by ID, which closes the dispute in the customer’s favor.
+PayPal automatically refunds money to the customer from the merchant&rsquo;s account.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that includes a link to the dispute.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">accept</span><span class="p">(</span><span class="n">claim</span> <span class="nv">disputeID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">with</span> <span class="nv">body</span><span class="p">:</span> <span class="kt"><a href="../Structs/AcceptDisputeBody.html">AcceptDisputeBody</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/LinkDescription.html">LinkDescription</a></span><span class="p">]</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>disputeID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the dispute for which to accept a claim.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>body</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The body of the request.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array containing a link to the dispute wrapped in a future. If an error response was sent back instead,
+it gets converted to a Swift error and the future wraps that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal16CustomerDisputesC6settle7dispute7outcome3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_AA19AdjudicationOutcomeOtKF"></a>
+                    <a name="//apple_ref/swift/Method/settle(dispute:outcome:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal16CustomerDisputesC6settle7dispute7outcome3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_AA19AdjudicationOutcomeOtKF">settle(dispute:outcome:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sandbox only. Settles a dispute in either the customer&rsquo;s or merchant&rsquo;s favor. Merchants can make this call in the sandbox
+to complete end-to-end dispute resolution testing, which mimics the dispute resolution that PayPal agents normally complete.
+To make this call, the dispute <code>status</code> must be <code>UNDER_REVIEW</code>.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that includes a link to the dispute.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>A <code>500 Internal Server Error</code> if you call this method in a production environment.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">settle</span><span class="p">(</span><span class="n">dispute</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">outcome</span><span class="p">:</span> <span class="kt"><a href="../Enums/AdjudicationOutcome.html">AdjudicationOutcome</a></span><span class="p">)</span><span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/LinkDescription.html">LinkDescription</a></span><span class="p">]</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the dispute to settle.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>outcome</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The outcome of the settled dispute.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array containing a link to the dispute wrapped in a future. If an error response was sent back instead,
+it gets converted to a Swift error and the future wraps that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal16CustomerDisputesC6appeal7dispute8evidence3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_SayAA8EvidenceVGtF"></a>
+                    <a name="//apple_ref/swift/Method/appeal(dispute:evidence:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal16CustomerDisputesC6appeal7dispute8evidence3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_SayAA8EvidenceVGtF">appeal(dispute:evidence:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Appeals a dispute, by ID. To appeal a dispute, use the <code>appeal</code> link in the
+<a href="https://developer.paypal.com/docs/api/overview/#hateoas-links">HATEOAS links</a> from the show dispute details response.
+If this link does not appear, you cannot appeal the dispute. Submit new evidence as a document or notes in the JSON request body.
+For information about dispute reasons,
+see <a href="https://developer.paypal.com/docs/integration/direct/customer-disputes/integration-guide/#dispute-reasons">dispute reasons</a>.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that includes a link to the dispute.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">appeal</span><span class="p">(</span><span class="n">dispute</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">evidence</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Evidence.html">Evidence</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/LinkDescription.html">LinkDescription</a></span><span class="p">]</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The PayPal dispute ID.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>evidences</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of evidences for the dispute.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of request-related <a href="https://developer.paypal.com/docs/api/overview/#hateoas-links">HATEOAS links</a>.
+If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal16CustomerDisputesC8escalate7dispute4note3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/escalate(dispute:note:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal16CustomerDisputesC8escalate7dispute4note3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_SStF">escalate(dispute:note:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Escalates the dispute, by ID, to a PayPal claim. To make this call, the stage in the dispute lifecycle must be <code>INQUIRY</code>.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that includes a link to the dispute.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">escalate</span><span class="p">(</span><span class="n">dispute</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">note</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/LinkDescription.html">LinkDescription</a></span><span class="p">]</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The PayPal dispute ID.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>note</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The notes about the escalation of the dispute to a claim. Length must be between 1 and 2,000.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of request-related <a href="https://developer.paypal.com/docs/api/overview/#hateoas-links">HATEOAS links</a>.
+If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal16CustomerDisputesC15offerResolution3for0E03NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_AA0C7DisputeV0F5OfferVtF"></a>
+                    <a name="//apple_ref/swift/Method/offerResolution(for:offer:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal16CustomerDisputesC15offerResolution3for0E03NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_AA0C7DisputeV0F5OfferVtF">offerResolution(for:offer:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Makes an offer to the other party to resolve a dispute, by ID. To make this call, the stage in the dispute lifecycle must be <code>INQUIRY</code>.
+If the customer accepts the offer, PayPal automatically makes a refund.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that includes a link to the dispute.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">offerResolution</span><span class="p">(</span><span class="k">for</span> <span class="nv">disputeID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">offer</span><span class="p">:</span> <span class="kt"><a href="../Structs/CustomerDispute.html">CustomerDispute</a></span><span class="o">.</span><span class="kt">ResolutionOffer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/LinkDescription.html">LinkDescription</a></span><span class="p">]</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>disputeID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the dispute to make the resoultion offer on.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>offer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The specific information about the offer. This is the body of the request sent to the PayPal API.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of request-related <a href="https://developer.paypal.com/docs/api/overview/#hateoas-links">HATEOAS links</a>.
+If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal16CustomerDisputesC8evidence3for4file9evidences3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_4Core4FileVSayAA8EvidenceVGtF"></a>
+                    <a name="//apple_ref/swift/Method/evidence(for:file:evidences:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal16CustomerDisputesC8evidence3for4file9evidences3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_4Core4FileVSayAA8EvidenceVGtF">evidence(for:file:evidences:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Provides evidence for a dispute, by ID. A merchant can provide evidence for disputes with the <code>WAITING_FOR_SELLER_RESPONSE</code> status while customers
+can provide evidence for disputes with the <code>WAITING_FOR_BUYER_RESPONSE</code> status. Evidence can be a proof of delivery or proof of refund document or notes,
+which can include logs. A proof of delivery document includes a tracking number while a proof of refund document includes a refund ID.</p>
+
+<p>The following rules apply to document file types and sizes:</p>
+
+<ul>
+<li>The merchant can upload up to 10 MB of files for a case.</li>
+<li>Individual files must be smaller than 5 MB.</li>
+<li>The supported file formats are JPG, GIF, PNG, and PDF.</li>
+</ul>
+
+<p>To make this request, specify the dispute ID in the URI and specify the evidence in the JSON request body. For information about dispute reasons,
+see <a href="https://developer.paypal.com/docs/integration/direct/customer-disputes/integration-guide/#dispute-reasons">dispute reasons</a>.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that includes a link to the dispute.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">evidence</span><span class="p">(</span><span class="k">for</span> <span class="nv">disputeID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">file</span><span class="p">:</span> <span class="kt">File</span><span class="p">,</span> <span class="nv">evidences</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Evidence.html">Evidence</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/LinkDescription.html">LinkDescription</a></span><span class="p">]</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>disputeID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the dispute for which to submit evidence.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>file</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of a file with evidence.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>evidences</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of evidences for the dispute.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of request-related <a href="https://developer.paypal.com/docs/api/overview/#hateoas-links">HATEOAS links</a>.
+If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal16CustomerDisputesC12updateStatus2of4with3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_AA12UpdateActionOtKF"></a>
+                    <a name="//apple_ref/swift/Method/updateStatus(of:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal16CustomerDisputesC12updateStatus2of4with3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_AA12UpdateActionOtKF">updateStatus(of:with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sandbox only. Updates the status of a dispute, by ID, from UNDER_REVIEW to either <code>WAITING_FOR_BUYER_RESPONSE</code> or <code>WAITING_FOR_SELLER_RESPONSE</code>.</p>
+
+<p>This status change enables either the customer or merchant to submit evidence for the dispute. To make this call,
+the dispute <code>status</code> must be <code>UNDER_REVIEW</code>. Specify an <code>action</code> value in the JSON request body to indicate whether the status change
+enables the customer or merchant to submit evidence.</p>
+
+<p>If the <code>action</code> is <code>BUYER_EVIDENCE</code>, The <code>status</code> updates to <code>WAITING_FOR_BUYER_RESPONSE</code>.
+If the <code>action</code> is <code>SELLER_EVIDENCE</code>, The <code>status</code> updates to <code>WAITING_FOR_SELLER_RESPONSE</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateStatus</span><span class="p">(</span><span class="n">of</span> <span class="nv">disputeID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">with</span> <span class="nv">action</span><span class="p">:</span> <span class="kt"><a href="../Enums/UpdateAction.html">UpdateAction</a></span><span class="p">)</span><span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/LinkDescription.html">LinkDescription</a></span><span class="p">]</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>disputeID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the dispute that requires evidence.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>action</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The action. Indicates whether the state change enables the customer or merchant to submit evidence.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of request-related <a href="https://developer.paypal.com/docs/api/overview/#hateoas-links">HATEOAS links</a>.
+If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal16CustomerDisputesC7message7dispute7content3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/message(dispute:content:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal16CustomerDisputesC7message7dispute7content3NIO15EventLoopFutureCySayAA15LinkDescriptionVGGSS_SStF">message(dispute:content:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sends a message to the other party in the dispute, by ID.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that includes a link to the dispute.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">message</span><span class="p">(</span><span class="n">dispute</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">content</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Structs/LinkDescription.html">LinkDescription</a></span><span class="p">]</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the dispute for which to send a message.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>content</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The message sent by the merchant to the other party.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An array of request-related <a href="https://developer.paypal.com/docs/api/overview/#hateoas-links">HATEOAS links</a>.
+If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-10-03)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

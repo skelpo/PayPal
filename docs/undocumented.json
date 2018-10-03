@@ -1,0 +1,327 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Address/Address.swift",
+      "line": null,
+      "symbol": "Address",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Address/Address.swift",
+      "line": 3,
+      "symbol": "Address",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/KeyValue.swift",
+      "line": 5,
+      "symbol": "DictionaryElement.Key",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/KeyValue.swift",
+      "line": 6,
+      "symbol": "DictionaryElement.Value",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/KeyValue.swift",
+      "line": 8,
+      "symbol": "DictionaryElement.key",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/KeyValue.swift",
+      "line": 9,
+      "symbol": "DictionaryElement.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/KeyValue.swift",
+      "line": 11,
+      "symbol": "DictionaryElement.init(key:value:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/KeyValue.swift",
+      "line": 34,
+      "symbol": "NameValue.key",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.da_DK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.de_DE",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.en_AU",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.en_GB",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.en_US",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.es_ES",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.es_XC",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.fr_CA",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.fr_FR",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.fr_XC",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.he_IL",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.id_ID",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.it_IT",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 5,
+      "symbol": "Language.ja_JP",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 6,
+      "symbol": "Language.nl_NL",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 6,
+      "symbol": "Language.no_NO",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 6,
+      "symbol": "Language.pl_PL",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 6,
+      "symbol": "Language.pt_BR",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 6,
+      "symbol": "Language.pt_PT",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 6,
+      "symbol": "Language.ru_RU",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 6,
+      "symbol": "Language.sv_SE",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 6,
+      "symbol": "Language.th_TH",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 6,
+      "symbol": "Language.tr_TR",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 6,
+      "symbol": "Language.zh_CN",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 6,
+      "symbol": "Language.zh_HK",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 6,
+      "symbol": "Language.zh_TW",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Language.swift",
+      "line": 6,
+      "symbol": "Language.zh_XC",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Money/Money.swift",
+      "line": 100,
+      "symbol": "Money.CodingKeys.value",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Money/Money.swift",
+      "line": 101,
+      "symbol": "Money.CodingKeys.currency",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Money/Money.swift",
+      "line": 141,
+      "symbol": "Amount.CodingKeys.value",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Money/Money.swift",
+      "line": 142,
+      "symbol": "Amount.CodingKeys.currency",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Template/Template.swift",
+      "line": null,
+      "symbol": "Template",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Template/Template.swift",
+      "line": null,
+      "symbol": "Template",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Template/Template.swift",
+      "line": null,
+      "symbol": "Template",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Models/Template/Template.swift",
+      "line": 3,
+      "symbol": "Template",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Utilities/ISO8601.swift",
+      "line": 6,
+      "symbol": "DateFormatter.iso8601",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Utilities/ISO8601.swift",
+      "line": 21,
+      "symbol": "Date.iso8601",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/calebkleveter/Development/Skelpo/PayPal/Sources/PayPal/Utilities/ISO8601.swift",
+      "line": 25,
+      "symbol": "Date.init(iso8601:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/calebkleveter/Development/Skelpo/PayPal"
+}
