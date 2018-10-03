@@ -181,7 +181,7 @@ public final class Payments: PayPalController {
                 headers.add(name: "PayPal-Partner-Attribution-Id", value: partner)
             }
             
-            return try client.post(self.path(for: .payment) + id, headers: headers, body: executor, as: Payment.self)
+            return try client.post(self.path(for: .payment) + id + "/execute", headers: headers, body: executor, as: Payment.self)
         }
     }
     
