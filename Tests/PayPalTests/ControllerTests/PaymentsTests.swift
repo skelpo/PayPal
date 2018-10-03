@@ -81,7 +81,7 @@ final class PaymentsTests: XCTestCase {
     func testExecuteEndpoint()throws {
         let payments = try self.app.make(Payments.self)
         let amounts = try [
-            DetailedAmount(currency: .usd, total: "152.38", details: nil)
+            DetailedAmount(currency: .usd, total: "150.00", details: nil)
         ]
         
         let details = try payments.execute(payment: self.id, with: Payment.Executor(payer: nil, amounts: amounts)).wait()
