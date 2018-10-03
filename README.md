@@ -125,7 +125,7 @@ If the payment is approved by the buyer, they will be redirected back to your 'a
 
 ```swift
 func approved(_ request: Request)throws -> Future<SOME-TYPE> {
-	let paymentID = try request.query.get(String.self, at: "paymentId")
+    let paymentID = try request.query.get(String.self, at: "paymentId")
     let payerID = try request.query.get(String.self, at: "PayerID")
     let payments = try request.make(Payments.self)
     let executor = try Payment.Executor(payer: payerID, amounts: [ DetailedAmount(currency: .usd, total: "150.00", details: nil) ])
