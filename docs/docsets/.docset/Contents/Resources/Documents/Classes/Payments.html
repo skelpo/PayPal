@@ -1,0 +1,2279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Payments Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Payments" class="dashAnchor"></a>
+    <a title="Payments Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (98% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Payments Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Activities.html">Activities</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthInfo.html">AuthInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BillingAgreements.html">BillingAgreements</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BillingPlans.html">BillingPlans</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Configuration.html">Configuration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CustomerDisputes.html">CustomerDisputes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Identity.html">Identity</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Invoices.html">Invoices</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ManagedAccounts.html">ManagedAccounts</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Orders.html">Orders</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PayPalClient.html">PayPalClient</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PayPalProvider.html">PayPalProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Payments.html">Payments</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Templates.html">Templates</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Term.html">Term</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AccountStatus.html">AccountStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ActivityType.html">ActivityType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AdjudicationOutcome.html">AdjudicationOutcome</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AgreementState.html">AgreementState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AutoBill.html">AutoBill</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CCEmailKeys.html">CCEmailKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Carrier.html">Carrier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ChargeType.html">ChargeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CreditCardState.html">CreditCardState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CreditDebitCode.html">CreditDebitCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/EmailAddressKeys.html">EmailAddressKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/EmailKeys.html">EmailKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Environment.html">Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Frequency.html">Frequency</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/FundingOption.html">FundingOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/InitialFailAction.html">InitialFailAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Language.html">Language</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Method.html">Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Operation.html">Operation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PaymentMethod.html">PaymentMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PaymentType.html">PaymentType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PhoneType.html">PhoneType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResponseSortOrder.html">ResponseSortOrder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Role.html">Role</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SetterValidationError.html">SetterValidationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TermType.html">TermType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Timezone.html">Timezone</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/UpdateAction.html">UpdateAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Venue.html">Venue</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DateFormatter.html">DateFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Dictionary.html">Dictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Future.html">Future</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/HTTPStatus.html">HTTPStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/MediaType.html">MediaType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/MultipartPart.html">MultipartPart</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Optional.html">Optional</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:6PayPal2ltoiyAA6SetterVyxq_Gs15WritableKeyPathCyxq_G_q_tKr0_lF">&lt;~(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/DictionaryElement.html">DictionaryElement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EmailCodingKey.html">EmailCodingKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Monitary.html">Monitary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PayPalController.html">PayPalController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ValidationSetable.html">ValidationSetable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AcceptDisputeBody.html">AcceptDisputeBody</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AcceptDisputeBody/Reason.html">– Reason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountError.html">AccountError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountError/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountOwnerRelationship.html">AccountOwnerRelationship</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountPermission.html">AccountPermission</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountPermission/Permission.html">– Permission</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountRelation.html">AccountRelation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountRelation/RelationType.html">– RelationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ActivitiesResponse.html">ActivitiesResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Activity.html">Activity</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Activity/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Activity/SubType.html">– SubType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Address.html">Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Address/Normalization.html">– Normalization</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Amount.html">Amount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Amount/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AppContext.html">AppContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AppContext/Shipping.html">– Shipping</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BalanceResponse.html">BalanceResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingAgreement.html">BillingAgreement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingInfo.html">BillingInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPayment.html">BillingPayment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPlan.html">BillingPlan</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPlan/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPlan/PlanType.html">– PlanType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPlanList.html">BillingPlanList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BirthPlace.html">BirthPlace</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business.html">Business</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/Name.html">– Name</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/Sales.html">– Sales</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/SubType.html">– SubType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/BusinessType.html">– BusinessType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/Designation.html">– Designation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/Stakeholder.html">– Stakeholder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BusinessOwner.html">BusinessOwner</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BusinessOwner/Address.html">– Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Buyer.html">Buyer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Capture.html">Capture</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Capture/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Capture/Reason.html">– Reason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Charge.html">Charge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CounterParty.html">CounterParty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreatedMerchantResponse.html">CreatedMerchantResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreditCard.html">CreditCard</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreditCard/Token.html">– Token</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Currency.html">Currency</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomAmount.html">CustomAmount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute.html">CustomerDispute</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/Channel.html">– Channel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/LifeCycleStage.html">– LifeCycleStage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/Outcome.html">– Outcome</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/ResolutionOffer.html">– ResolutionOffer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDisputeList.html">CustomerDisputeList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerService.html">CustomerService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerService/Message.html">– Message</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DetailedAmount.html">DetailedAmount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DetailedAmount/Detail.html">– Detail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Details.html">Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Discount.html">Discount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DisplayPhone.html">DisplayPhone</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Document.html">Document</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EmailType.html">EmailType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Establishment.html">Establishment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Evidence.html">Evidence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Evidence/Info.html">– Info</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Evidence/EvidenceType.html">– EvidenceType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Extensions.html">Extensions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FileAttachment.html">FileAttachment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FinancialInstrument.html">FinancialInstrument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FinancialInstrument/AccountType.html">– AccountType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FinancialInstrument/InstrumentType.html">– InstrumentType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FinancialInstruments.html">FinancialInstruments</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FraudManagementFilter.html">FraudManagementFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FraudManagementFilter/FilterType.html">– FilterType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FraudManagementFilter/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FundingInstrument.html">FundingInstrument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/GovernmentBody.html">GovernmentBody</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ID.html">ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Identification.html">Identification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Identification/IDType.html">– IDType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice.html">Invoice</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Item.html">– Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Payment.html">– Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Reminder.html">– Reminder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Search.html">– Search</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Measure.html">– Measure</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Participant.html">– Participant</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Metadata.html">– Metadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/InvoiceList.html">InvoiceList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/InvoiceProperties.html">InvoiceProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Item.html">Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Item/Reason.html">– Reason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KeyValue.html">KeyValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LegalAgreement.html">LegalAgreement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LegalAgreement/AgreementType.html">– AgreementType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LinkDescription.html">LinkDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MerchantAccount.html">MerchantAccount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MerchantInfo.html">MerchantInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MerchantPreferances.html">MerchantPreferances</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Message.html">Message</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Message/Poster.html">– Poster</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Money.html">Money</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Money/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MoneyRange.html">MoneyRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Name.html">Name</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NameValue.html">NameValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NewAgreement.html">NewAgreement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NotificationOptions.html">NotificationOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NotificationOptions/EmailFrequency.html">– EmailFrequency</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Offer.html">Offer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Offer/OfferType.html">– OfferType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order.html">Order</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Intent.html">– Intent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Item.html">– Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Metadata.html">– Metadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/PaymentRequest.html">– PaymentRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Unit.html">– Unit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Payment.html">– Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/PaymentDetails.html">– PaymentDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/DisbursementMode.html">– DisbursementMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Payer.html">– Payer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/OverrideCharge.html">OverrideCharge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PartnerFee.html">PartnerFee</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PartnerOptions.html">PartnerOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Patch.html">Patch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PayPalAPIError.html">PayPalAPIError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PayPalAPIIdentityError.html">PayPalAPIIdentityError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PayPalError.html">PayPalError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payee.html">Payee</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payee/Metadata.html">– Metadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payer.html">Payer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PayerInfo.html">PayerInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment.html">Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Failure.html">– Failure</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/HoldReason.html">– HoldReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Item.html">– Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/ItemList.html">– ItemList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Intent.html">– Intent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Options.html">– Options</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Transaction.html">– Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Executor.html">– Executor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Refund.html">– Refund</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/RefundResult.html">– RefundResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentDetail.html">PaymentDetail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentDetail/Method.html">– Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentDetail/DetailType.html">– DetailType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentDetail/TransactionType.html">– TransactionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentList.html">PaymentList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentPayer.html">PaymentPayer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentPayer/Method.html">– Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentPayer/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentProperties.html">PaymentProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentProperties/ExternalSubType.html">– ExternalSubType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentReceivingPreferences.html">PaymentReceivingPreferences</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentSummary.html">PaymentSummary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentTerm.html">PaymentTerm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentTerm/TermType.html">– TermType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PercentRange.html">PercentRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PhoneNumber.html">PhoneNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/QueryParamaters.html">QueryParamaters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Redirects.html">Redirects</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Refund.html">Refund</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Refund/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RefundDetail.html">RefundDetail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource.html">RelatedResource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/ProcessorResponse.html">– ProcessorResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Protection.html">– Protection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/ProtectionType.html">– ProtectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Authorization.html">– Authorization</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Capture.html">– Capture</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Order.html">– Order</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Refund.html">– Refund</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Sale.html">– Sale</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RoleObjectProperties.html">RoleObjectProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Sale.html">Sale</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Sale/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SalesVenue.html">SalesVenue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Seller.html">Seller</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Setter.html">Setter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SetterValidations.html">SetterValidations</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ShippingCosts.html">ShippingCosts</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ShippingInfo.html">ShippingInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SignupOptions.html">SignupOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tax.html">Tax</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Template.html">Template</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Template/Data.html">– Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Template/ListFields.html">– ListFields</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Template/Settings.html">– Settings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TemplateList.html">TemplateList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TimelessDate.html">TimelessDate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tracking.html">Tracking</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Transaction.html">Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Transaction/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransactionInfo.html">TransactionInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransactionInfo/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TypedPhoneNumber.html">TypedPhoneNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UserInfo.html">UserInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UserInfo/AccountType.html">– AccountType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UserInfo/Address.html">– Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/WebExperiencePreference.html">WebExperiencePreference</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal7CCEmaila">CCEmail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal5Emaila">Email</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal12EmailAddressa">EmailAddress</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal3FMFa">FMF</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal22MoneyRequestPropertiesa">MoneyRequestProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal15OrderPropertiesa">OrderProperties</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Payments</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Payments</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PayPalController.html">PayPalController</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>Use the Payments REST API to easily and securely accept online and mobile payments.
+The payments name space contains resource collections for payments, sales, refunds, authorizations, captures, and orders.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    The use of the PayPal REST /payments APIs to accept credit card payments is restricted.
+Instead, you can accept credit card payments with <a href="https://www.braintreepayments.com/products/braintree-direct">Braintree Direct</a>.
+
+</div>
+
+<p>You can enable customers to make PayPal and credit card payments with only a few clicks, depending on the country.
+You can accept an immediate payment or authorize a payment and capture it later. You can show details for completed payments, refunds,
+and authorizations. You can make full or partial refunds. You also can void or re-authorize authorizations. For more information,
+see the <a href="https://developer.paypal.com/docs/integration/direct/payments/">Payments overview</a>.</p>
+<h2 id='payment' class='heading'>Payment</h2>
+
+<p>Use the <code>/payment</code> resource to create a <em>sale</em>, an <em>authorized payment</em>, or an <em>order</em>. A sale is a direct credit card payment,
+stored credit card payment, or PayPal payment. An authorized payment places funds on hold to be captured later. An order is a purchase
+that a customer has approved but for which the funds are not placed on hold. You can also use this resource to execute approved
+PayPal payments and show details for, update, and list payments. For more information, see also
+<a href="https://developer.paypal.com/docs/integration/direct/payments/">Payments</a>.</p>
+<h2 id='sale' class='heading'>Sale</h2>
+
+<p>A sale is a completed payment. Use the <code>/sale</code> resource to show sale details and refund a sale. For more information, see also Refund payments.</p>
+<h2 id='authorization' class='heading'>Authorization</h2>
+
+<p>Use the <code>/authorization</code> resource and related sub-resources to show details for, capture, void, and reauthorize an authorization.</p>
+<h2 id='orders' class='heading'>Orders</h2>
+
+<p>Use the <code>/orders</code> resource to authorize, capture, void, and show details for an order.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    You cannot refund an order directly. Instead, you must refund a completed payment for an order.
+For integration information, see Orders and refund a payment.
+
+</div>
+<h2 id='capture' class='heading'>Capture</h2>
+
+<p>Use the <code>/capture</code> resource and sub-resources to show details for and refund captured payments.</p>
+<h2 id='refund' class='heading'>Refund</h2>
+
+<p>Use the <code>/refund</code> resource to show details for a refund on direct and captured payments.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/PayPalController"></a>
+                <a name="//apple_ref/swift/Section/PayPalController" class="dashAnchor"></a>
+                <a href="#/PayPalController">
+                  <h3 class="section-name">PayPalController</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC9container7Service9Container_pvp"></a>
+                    <a name="//apple_ref/swift/Property/container" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC9container7Service9Container_pvp">container</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>See <code><a href="../Protocols/PayPalController.html#/s:6PayPal0aB10ControllerP9container7Service9Container_pvp">PayPalController.container</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">container</span><span class="p">:</span> <span class="kt">Container</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC8resourceSSvp"></a>
+                    <a name="//apple_ref/swift/Property/resource" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC8resourceSSvp">resource</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Value is <code>&quot;payments&quot;</code>.</p>
+
+<p>See <code><a href="../Protocols/PayPalController.html#/s:6PayPal0aB10ControllerP8resourceSSvp">PayPalController.resource</a></code> for more information.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC9containerAC7Service9Container_p_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(container:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC9containerAC7Service9Container_p_tcfc">init(container:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>See <code><a href="../Protocols/PayPalController.html#/s:6PayPal0aB10ControllerP9containerx7Service9Container_p_tcfc">PayPalController.init(container:)</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">container</span><span class="p">:</span> <span class="kt">Container</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="//payment"></a>
+                <a name="//apple_ref/swift/Section//payment" class="dashAnchor"></a>
+                <a href="#//payment">
+                  <h3 class="section-name">/payment</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC6create7payment7partner3NIO15EventLoopFutureCyAA7PaymentVGAK_SSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/create(payment:partner:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC6create7payment7partner3NIO15EventLoopFutureCyAA7PaymentVGAK_SSSgtF">create(payment:partner:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a sale, an authorized payment to be captured later, or an order.</p>
+
+<p>To create a sale, authorization, or order, include the payment details in the JSON request body. Set the <code>intent</code> to <code>sale</code>,
+<code>authorize</code>, or <code>order</code>.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    TPP Clients (Third Party Providers in the context of PSD2 regulation) are restricted from using <code>authorize</code> and <code>order</code> intents.
+
+</div>
+
+<p>Include payer, transaction details, and, for PayPal payments only, redirect URLs. The combination of the <code>payment_method</code>
+and <code>funding_instrument</code> determines the type of payment that is created. For more information, see
+<a href="https://developer.paypal.com/docs/integration/direct/payments/">Payments REST API</a>.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Authorizations are guaranteed for up to three days, though you can attempt to capture an authorization for up to 29 days.
+After the three-day honor period authorization expires, you can
+<a href="https://developer.paypal.com/docs/api/payments/v1/#authorization_reauthorize">reauthorize</a> the payment.
+
+</div>
+
+<p>A successful request returns the HTTP <code>201 Created</code> status code and a JSON response body that shows payment details.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">create</span><span class="p">(</span><span class="nv">payment</span><span class="p">:</span> <span class="kt"><a href="../Structs/Payment.html">Payment</a></span><span class="p">,</span> <span class="nv">partner</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Payment.html">Payment</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>payment</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data used to create a new payment.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>partner</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>For tracking transactions which are associtaed with the partner who the ID belongs to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The payment that was created, wrapped in a future. If PayPal returns an error response instead,
+it will get converted to a Swift error and the future will wrap that.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC4list10parameters3NIO15EventLoopFutureCyAA11PaymentListVGAA15QueryParamatersV_tF"></a>
+                    <a name="//apple_ref/swift/Method/list(parameters:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC4list10parameters3NIO15EventLoopFutureCyAA11PaymentListVGAA15QueryParamatersV_tF">list(parameters:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Lists payments that were created by the <a href="https://developer.paypal.com/docs/api/payments/v1/#payment_create">create payment</a>
+call and that are in any state.</p>
+
+<p>The list shows the payments that are made to the merchant who makes the call.
+To filter the payments that appear in the response, you can specify one or more optional query and pagination parameters.
+See <a href="https://developer.paypal.com/docs/api/overview/#query-parameters">Filtering and pagination</a>.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that lists payments with payment details.</p>
+
+<p>The API use 10 as the <code>count</code> if none is passed in. The max <code>count</code> is 20. The only valid value for the <code>sort_order</code> key is <code>desc</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">list</span><span class="p">(</span><span class="nv">parameters</span><span class="p">:</span> <span class="kt"><a href="../Structs/QueryParamaters.html">QueryParamaters</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/QueryParamaters.html">QueryParamaters</a></span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/PaymentList.html">PaymentList</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>parameters</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The query parameters sent in the request URI. The parameters used are <code>count</code>, <code>start_id</code>, <code>start_index</code>,
+<code>start_time</code>, <code>end_time</code>, <code>payee_id</code>, <code>sort_by</code>, and <code>sort_order</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A list of payments which match the query parameters passed in, along with the amount of elements return in each
+range of payments and the ID of the element to use to get the next range of results. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC5patch7payment4with3NIO15EventLoopFutureCyAA7PaymentVGSS_SayAA5PatchVGtF"></a>
+                    <a name="//apple_ref/swift/Method/patch(payment:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC5patch7payment4with3NIO15EventLoopFutureCyAA7PaymentVGSS_SayAA5PatchVGtF">patch(payment:with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Partially updates a payment, by ID.</p>
+
+<p>You can update the amount, shipping address, invoice ID, and custom data. You cannot update a payment after the payment executes.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    TPP Clients (Third Party Providers in the context of PSD2 regulation) are restricted from patching amount once authorized.
+
+</div>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that shows payment details.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">patch</span><span class="p">(</span><span class="n">payment</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">with</span> <span class="nv">patches</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Patch.html">Patch</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Payment.html">Payment</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the payment to update.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>patches</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of JSON patch objects to apply partial updates to resources.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The payment that was updated, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC3get7payment3NIO15EventLoopFutureCyAA7PaymentVGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/get(payment:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC3get7payment3NIO15EventLoopFutureCyAA7PaymentVGSS_tF">get(payment:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Shows details for a payment, by ID, that has yet to complete. For example, shows details for a payment that was created, approved, or failed.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that shows payment details.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">get</span><span class="p">(</span><span class="n">payment</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Payment.html">Payment</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the payment for which to show details.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The payment for the ID passed in. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC7execute7payment4with7request7partner3NIO15EventLoopFutureCyAA7PaymentVGSS_AM8ExecutorVSSSgAQtF"></a>
+                    <a name="//apple_ref/swift/Method/execute(payment:with:request:partner:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC7execute7payment4with7request7partner3NIO15EventLoopFutureCyAA7PaymentVGSS_AM8ExecutorVSSSgAQtF">execute(payment:with:request:partner:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Executes a PayPal payment that the customer has approved. You can optionally update one or more transactions when you execute the payment.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that shows details for the executed payment.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">execute</span><span class="p">(</span><span class="n">payment</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">with</span> <span class="nv">executor</span><span class="p">:</span> <span class="kt"><a href="../Structs/Payment.html">Payment</a></span><span class="o">.</span><span class="kt">Executor</span><span class="p">,</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">partner</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Payment.html">Payment</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the payment to execute.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>executor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Transactions to update when the payment is executed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A user-generated ID that you can use to enforce idempotency.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>partner</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>For tracking transactions which are associtaed with the partner who the ID belongs to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The payment model that was executed, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="//sale"></a>
+                <a name="//apple_ref/swift/Section//sale" class="dashAnchor"></a>
+                <a href="#//sale">
+                  <h3 class="section-name">/sale</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC3get4sale3NIO15EventLoopFutureCyAA15RelatedResourceV4SaleVGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/get(sale:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC3get4sale3NIO15EventLoopFutureCyAA15RelatedResourceV4SaleVGSS_tF">get(sale:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Shows details for a sale, by ID. Returns only sales that were created through the REST API.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that shows sale details.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">get</span><span class="p">(</span><span class="n">sale</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt"><a href="../Structs/Sale.html">Sale</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the sale for which to show details.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The sale object for the ID passed in, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC6refund4sale4with7request3NIO15EventLoopFutureCyAA7PaymentV12RefundResultVGSS_AL0M0VSSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/refund(sale:with:request:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC6refund4sale4with7request3NIO15EventLoopFutureCyAA7PaymentV12RefundResultVGSS_AL0M0VSSSgtF">refund(sale:with:request:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Refunds a sale, by ID. For a full refund, do not include the <code>amount</code> object in the JSON request body.
+For a partial refund, include an <code>amount</code> object in the JSON request body.</p>
+
+<p>A successful request returns the HTTP <code>201 Created</code> status code and a JSON response body that shows details for the refunded sale.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">refund</span><span class="p">(</span><span class="n">sale</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">with</span> <span class="nv">refund</span><span class="p">:</span> <span class="kt"><a href="../Structs/Payment.html">Payment</a></span><span class="o">.</span><span class="kt"><a href="../Structs/Refund.html">Refund</a></span><span class="p">,</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Payment.html">Payment</a></span><span class="o">.</span><span class="kt">RefundResult</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the sale transaction to refund.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>refund</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The refund data for the sale.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A user-generated ID that you can use to enforce idempotency.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The details of the refund, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="//authorization"></a>
+                <a name="//apple_ref/swift/Section//authorization" class="dashAnchor"></a>
+                <a href="#//authorization">
+                  <h3 class="section-name">/authorization</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC3get13authorization3NIO15EventLoopFutureCyAA15RelatedResourceV13AuthorizationVGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/get(authorization:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC3get13authorization3NIO15EventLoopFutureCyAA15RelatedResourceV13AuthorizationVGSS_tF">get(authorization:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Shows details for an authorization, by ID.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that shows authorization details.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">get</span><span class="p">(</span><span class="n">authorization</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt">Authorization</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the authorization.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The authorization for the ID passed in, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC7capture13authorization4with3NIO15EventLoopFutureCyAA15RelatedResourceV13AuthorizationVGSS_AK7CaptureVtF"></a>
+                    <a name="//apple_ref/swift/Method/capture(authorization:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC7capture13authorization4with3NIO15EventLoopFutureCyAA15RelatedResourceV13AuthorizationVGSS_AK7CaptureVtF">capture(authorization:with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Captures and processes an authorization, by ID. The original payment call must specify an intent of <code>authorize</code>.</p>
+
+<p>A successful request returns the HTTP <code>201 Created</code> status code and a JSON response body that shows details for the captured authorization.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">capture</span><span class="p">(</span><span class="n">authorization</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">with</span> <span class="nv">capture</span><span class="p">:</span> <span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt"><a href="../Structs/Capture.html">Capture</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt">Authorization</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the authorization to capture.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>capture</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The capture data for the authorization.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The captured authorization, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC11reauthorize13authorization4with3NIO15EventLoopFutureCyAA15RelatedResourceV13AuthorizationVGSS_AMtF"></a>
+                    <a name="//apple_ref/swift/Method/reauthorize(authorization:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC11reauthorize13authorization4with3NIO15EventLoopFutureCyAA15RelatedResourceV13AuthorizationVGSS_AMtF">reauthorize(authorization:with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Re-authorizes a PayPal account payment, by authorization ID.</p>
+
+<p>To ensure that funds are still available, re-authorize a payment after the initial three-day honor period.
+Supports only the <code>amount</code> request parameter. You can re-authorize a payment only once from four to 29 days after three-day honor period
+for the original authorization expires. If 30 days have passed from the original authorization, you must create a new authorization instead.
+A re-authorized payment itself has a new three-day honor period. You can re-authorize a transaction once for up to 115% of the originally
+authorized amount, not to exceed an increase of $75 USD.</p>
+
+<p>A successful request returns the HTTP <code>201 Created</code> status code and a JSON response body that shows details
+for the re-authorized authorization.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">reauthorize</span><span class="p">(</span><span class="n">authorization</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">with</span> <span class="nv">authorization</span><span class="p">:</span> <span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt">Authorization</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt">Authorization</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the authorization to re-authorize.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>authorization</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The authorization details for re-authorizing.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The re-authorized authorization, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC4void13authorization7request3NIO15EventLoopFutureCyAA15RelatedResourceV13AuthorizationVGSS_SSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/void(authorization:request:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC4void13authorization7request3NIO15EventLoopFutureCyAA15RelatedResourceV13AuthorizationVGSS_SSSgtF">void(authorization:request:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Voids, or cancels, an authorization, by ID. You cannot void a fully captured authorization.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that shows details for the voided authorization.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">void</span><span class="p">(</span><span class="n">authorization</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt">Authorization</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the authorization to void.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A user-generated ID that you can use to enforce idempotency.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The voided authorization, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="//orders"></a>
+                <a name="//apple_ref/swift/Section//orders" class="dashAnchor"></a>
+                <a href="#//orders">
+                  <h3 class="section-name">/orders</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC3get5order3NIO15EventLoopFutureCyAA15RelatedResourceV4SaleVGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/get(order:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC3get5order3NIO15EventLoopFutureCyAA15RelatedResourceV4SaleVGSS_tF">get(order:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Shows details for an order, by ID.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that shows details for the voided authorization.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">get</span><span class="p">(</span><span class="n">order</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt"><a href="../Structs/Sale.html">Sale</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the order for which to show details.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The order details for the ID, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC9authorize5order4with3NIO15EventLoopFutureCyAA15RelatedResourceV5OrderVGSS_AK13AuthorizationVtF"></a>
+                    <a name="//apple_ref/swift/Method/authorize(order:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC9authorize5order4with3NIO15EventLoopFutureCyAA15RelatedResourceV5OrderVGSS_AK13AuthorizationVtF">authorize(order:with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Authorizes an order, by ID. In the JSON request body, include an <code>amount</code> object.</p>
+
+<p>A successful request returns the HTTP <code>201 Created</code> status code and a JSON response body that shows details for the authorized order.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">authorize</span><span class="p">(</span><span class="n">order</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">with</span> <span class="nv">authorization</span><span class="p">:</span> <span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt">Authorization</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt"><a href="../Structs/Order.html">Order</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the order to authorize.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>authorization</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The authorization details for the order. The <code>processor</code> is not used by this endpoint.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The authorized order, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC7capture5order4with3NIO15EventLoopFutureCyAA15RelatedResourceV5OrderVGSS_AK7CaptureVtF"></a>
+                    <a name="//apple_ref/swift/Method/capture(order:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC7capture5order4with3NIO15EventLoopFutureCyAA15RelatedResourceV5OrderVGSS_AK7CaptureVtF">capture(order:with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Captures a payment for an order, by ID. To use this call, the original payment call must specify an <code>order</code> intent.
+In the JSON request body, include the payment amount and indicate whether this capture is the final capture for the authorization.</p>
+
+<p>A successful request returns the HTTP <code>201 Created</code> status code and a JSON response body that shows details for the captured order.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">capture</span><span class="p">(</span><span class="n">order</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">with</span> <span class="nv">capture</span><span class="p">:</span> <span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt"><a href="../Structs/Capture.html">Capture</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt"><a href="../Structs/Order.html">Order</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the order to capture.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>capture</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The capture details for the order.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The captured order, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC4void5order7request3NIO15EventLoopFutureCyAA15RelatedResourceV5OrderVGSS_SSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/void(order:request:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC4void5order7request3NIO15EventLoopFutureCyAA15RelatedResourceV5OrderVGSS_SSSgtF">void(order:request:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Voids, or cancels, an order, by ID. You cannot void an order if the payment has already been partially or fully captured.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that shows details for the voided order.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">void</span><span class="p">(</span><span class="n">order</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt"><a href="../Structs/Order.html">Order</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>order</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the order to void.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A user-generated ID that you can use to enforce idempotency.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The voided order, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="//capture"></a>
+                <a name="//apple_ref/swift/Section//capture" class="dashAnchor"></a>
+                <a href="#//capture">
+                  <h3 class="section-name">/capture</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC3get8captured3NIO15EventLoopFutureCyAA15RelatedResourceV7CaptureVGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/get(captured:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC3get8captured3NIO15EventLoopFutureCyAA15RelatedResourceV7CaptureVGSS_tF">get(captured:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Shows details for a captured payment, by ID.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that shows details for the captured payment.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">get</span><span class="p">(</span><span class="n">captured</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt"><a href="../Structs/Capture.html">Capture</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the captured payment for which to show details.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The captured transaction, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC6refund8captured4with7request3NIO15EventLoopFutureCyAA15RelatedResourceV7CaptureVGSS_AA7PaymentV6RefundVSSSgtF"></a>
+                    <a name="//apple_ref/swift/Method/refund(captured:with:request:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC6refund8captured4with7request3NIO15EventLoopFutureCyAA15RelatedResourceV7CaptureVGSS_AA7PaymentV6RefundVSSSgtF">refund(captured:with:request:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Refunds a captured payment, by ID. In the JSON request body, include an <code>amount</code> object.</p>
+
+<p>A successful request returns the HTTP <code>201 OK</code> <em>[sic]</em> status code and a JSON response body that shows details for the captured payment.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">refund</span><span class="p">(</span><span class="n">captured</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">with</span> <span class="nv">refund</span><span class="p">:</span> <span class="kt"><a href="../Structs/Payment.html">Payment</a></span><span class="o">.</span><span class="kt"><a href="../Structs/Refund.html">Refund</a></span><span class="p">,</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt"><a href="../Structs/Capture.html">Capture</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the captured payment to refund.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>refund</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The refund data for the captured payment.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A user-generated ID that you can use to enforce idempotency.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The refunded capture transaction, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="//refund"></a>
+                <a name="//apple_ref/swift/Section//refund" class="dashAnchor"></a>
+                <a href="#//refund">
+                  <h3 class="section-name">/refund</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8PaymentsC3get6refund3NIO15EventLoopFutureCyAA15RelatedResourceV6RefundVGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/get(refund:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8PaymentsC3get6refund3NIO15EventLoopFutureCyAA15RelatedResourceV6RefundVGSS_tF">get(refund:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Shows details for a refund, by ID.</p>
+
+<p>A successful request returns the HTTP <code>200 OK</code> status code and a JSON response body that shows refund details.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">get</span><span class="p">(</span><span class="n">refund</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Future</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/RelatedResource.html">RelatedResource</a></span><span class="o">.</span><span class="kt"><a href="../Structs/Refund.html">Refund</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the refund for which to show details.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The refund details, wrapped in a future. If PayPal returns an error response,
+it will get converted to a Swift error and the future will wrap that instead.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-10-03)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

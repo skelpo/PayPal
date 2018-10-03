@@ -1,0 +1,3784 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Timezone Enumeration Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Enum/Timezone" class="dashAnchor"></a>
+    <a title="Timezone Enumeration Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (98% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Timezone Enumeration Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Activities.html">Activities</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AuthInfo.html">AuthInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BillingAgreements.html">BillingAgreements</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/BillingPlans.html">BillingPlans</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Configuration.html">Configuration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CustomerDisputes.html">CustomerDisputes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Identity.html">Identity</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Invoices.html">Invoices</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ManagedAccounts.html">ManagedAccounts</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Orders.html">Orders</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PayPalClient.html">PayPalClient</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PayPalProvider.html">PayPalProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Payments.html">Payments</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Templates.html">Templates</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Term.html">Term</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AccountStatus.html">AccountStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ActivityType.html">ActivityType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AdjudicationOutcome.html">AdjudicationOutcome</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AgreementState.html">AgreementState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AutoBill.html">AutoBill</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CCEmailKeys.html">CCEmailKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Carrier.html">Carrier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ChargeType.html">ChargeType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CreditCardState.html">CreditCardState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CreditDebitCode.html">CreditDebitCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/EmailAddressKeys.html">EmailAddressKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/EmailKeys.html">EmailKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Environment.html">Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Frequency.html">Frequency</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/FundingOption.html">FundingOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/InitialFailAction.html">InitialFailAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Language.html">Language</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Method.html">Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Operation.html">Operation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PaymentMethod.html">PaymentMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PaymentType.html">PaymentType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/PhoneType.html">PhoneType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResponseSortOrder.html">ResponseSortOrder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Role.html">Role</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SetterValidationError.html">SetterValidationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TermType.html">TermType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Timezone.html">Timezone</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/UpdateAction.html">UpdateAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Venue.html">Venue</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/DateFormatter.html">DateFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Dictionary.html">Dictionary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Future.html">Future</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/HTTPStatus.html">HTTPStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/MediaType.html">MediaType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/MultipartPart.html">MultipartPart</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Optional.html">Optional</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:6PayPal2ltoiyAA6SetterVyxq_Gs15WritableKeyPathCyxq_G_q_tKr0_lF">&lt;~(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/DictionaryElement.html">DictionaryElement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EmailCodingKey.html">EmailCodingKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Monitary.html">Monitary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PayPalController.html">PayPalController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ValidationSetable.html">ValidationSetable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AcceptDisputeBody.html">AcceptDisputeBody</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AcceptDisputeBody/Reason.html">– Reason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountError.html">AccountError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountError/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountOwnerRelationship.html">AccountOwnerRelationship</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountPermission.html">AccountPermission</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountPermission/Permission.html">– Permission</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountRelation.html">AccountRelation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AccountRelation/RelationType.html">– RelationType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ActivitiesResponse.html">ActivitiesResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Activity.html">Activity</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Activity/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Activity/SubType.html">– SubType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Address.html">Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Address/Normalization.html">– Normalization</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Amount.html">Amount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Amount/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AppContext.html">AppContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AppContext/Shipping.html">– Shipping</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BalanceResponse.html">BalanceResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingAgreement.html">BillingAgreement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingInfo.html">BillingInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPayment.html">BillingPayment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPlan.html">BillingPlan</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPlan/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPlan/PlanType.html">– PlanType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BillingPlanList.html">BillingPlanList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BirthPlace.html">BirthPlace</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business.html">Business</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/Name.html">– Name</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/Sales.html">– Sales</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/SubType.html">– SubType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/BusinessType.html">– BusinessType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/Designation.html">– Designation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Business/Stakeholder.html">– Stakeholder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BusinessOwner.html">BusinessOwner</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BusinessOwner/Address.html">– Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Buyer.html">Buyer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Capture.html">Capture</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Capture/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Capture/Reason.html">– Reason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Charge.html">Charge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CounterParty.html">CounterParty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreatedMerchantResponse.html">CreatedMerchantResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreditCard.html">CreditCard</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CreditCard/Token.html">– Token</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Currency.html">Currency</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomAmount.html">CustomAmount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute.html">CustomerDispute</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/Channel.html">– Channel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/LifeCycleStage.html">– LifeCycleStage</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/Outcome.html">– Outcome</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDispute/ResolutionOffer.html">– ResolutionOffer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerDisputeList.html">CustomerDisputeList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerService.html">CustomerService</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/CustomerService/Message.html">– Message</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DetailedAmount.html">DetailedAmount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DetailedAmount/Detail.html">– Detail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Details.html">Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Discount.html">Discount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DisplayPhone.html">DisplayPhone</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Document.html">Document</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EmailType.html">EmailType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Establishment.html">Establishment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Evidence.html">Evidence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Evidence/Info.html">– Info</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Evidence/EvidenceType.html">– EvidenceType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Extensions.html">Extensions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FileAttachment.html">FileAttachment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FinancialInstrument.html">FinancialInstrument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FinancialInstrument/AccountType.html">– AccountType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FinancialInstrument/InstrumentType.html">– InstrumentType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FinancialInstruments.html">FinancialInstruments</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FraudManagementFilter.html">FraudManagementFilter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FraudManagementFilter/FilterType.html">– FilterType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FraudManagementFilter/ID.html">– ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FundingInstrument.html">FundingInstrument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/GovernmentBody.html">GovernmentBody</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ID.html">ID</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Identification.html">Identification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Identification/IDType.html">– IDType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice.html">Invoice</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Item.html">– Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Payment.html">– Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Reminder.html">– Reminder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Search.html">– Search</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Measure.html">– Measure</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Participant.html">– Participant</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Invoice/Metadata.html">– Metadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/InvoiceList.html">InvoiceList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/InvoiceProperties.html">InvoiceProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Item.html">Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Item/Reason.html">– Reason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/KeyValue.html">KeyValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LegalAgreement.html">LegalAgreement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LegalAgreement/AgreementType.html">– AgreementType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LinkDescription.html">LinkDescription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MerchantAccount.html">MerchantAccount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MerchantInfo.html">MerchantInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MerchantPreferances.html">MerchantPreferances</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Message.html">Message</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Message/Poster.html">– Poster</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Money.html">Money</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Money/CodingKeys.html">– CodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MoneyRange.html">MoneyRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Name.html">Name</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NameValue.html">NameValue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NewAgreement.html">NewAgreement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NotificationOptions.html">NotificationOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NotificationOptions/EmailFrequency.html">– EmailFrequency</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Offer.html">Offer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Offer/OfferType.html">– OfferType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order.html">Order</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Intent.html">– Intent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Item.html">– Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Metadata.html">– Metadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/PaymentRequest.html">– PaymentRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Unit.html">– Unit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Payment.html">– Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/PaymentDetails.html">– PaymentDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/DisbursementMode.html">– DisbursementMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Order/Payer.html">– Payer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/OverrideCharge.html">OverrideCharge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PartnerFee.html">PartnerFee</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PartnerOptions.html">PartnerOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Patch.html">Patch</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PayPalAPIError.html">PayPalAPIError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PayPalAPIIdentityError.html">PayPalAPIIdentityError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PayPalError.html">PayPalError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payee.html">Payee</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payee/Metadata.html">– Metadata</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payer.html">Payer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PayerInfo.html">PayerInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment.html">Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Failure.html">– Failure</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/HoldReason.html">– HoldReason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Item.html">– Item</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/ItemList.html">– ItemList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Intent.html">– Intent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Options.html">– Options</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Transaction.html">– Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Executor.html">– Executor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/Refund.html">– Refund</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Payment/RefundResult.html">– RefundResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentDetail.html">PaymentDetail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentDetail/Method.html">– Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentDetail/DetailType.html">– DetailType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentDetail/TransactionType.html">– TransactionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentList.html">PaymentList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentPayer.html">PaymentPayer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentPayer/Method.html">– Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentPayer/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentProperties.html">PaymentProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentProperties/ExternalSubType.html">– ExternalSubType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentReceivingPreferences.html">PaymentReceivingPreferences</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentSummary.html">PaymentSummary</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentTerm.html">PaymentTerm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentTerm/TermType.html">– TermType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PercentRange.html">PercentRange</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PhoneNumber.html">PhoneNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/QueryParamaters.html">QueryParamaters</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Redirects.html">Redirects</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Refund.html">Refund</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Refund/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RefundDetail.html">RefundDetail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource.html">RelatedResource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/ProcessorResponse.html">– ProcessorResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Protection.html">– Protection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/ProtectionType.html">– ProtectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Authorization.html">– Authorization</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Capture.html">– Capture</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Order.html">– Order</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Refund.html">– Refund</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RelatedResource/Sale.html">– Sale</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/RoleObjectProperties.html">RoleObjectProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Sale.html">Sale</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Sale/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SalesVenue.html">SalesVenue</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Seller.html">Seller</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Setter.html">Setter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SetterValidations.html">SetterValidations</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ShippingCosts.html">ShippingCosts</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ShippingInfo.html">ShippingInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SignupOptions.html">SignupOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tax.html">Tax</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Template.html">Template</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Template/Data.html">– Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Template/ListFields.html">– ListFields</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Template/Settings.html">– Settings</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TemplateList.html">TemplateList</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TimelessDate.html">TimelessDate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Tracking.html">Tracking</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Transaction.html">Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Transaction/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransactionInfo.html">TransactionInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransactionInfo/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TypedPhoneNumber.html">TypedPhoneNumber</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UserInfo.html">UserInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UserInfo/AccountType.html">– AccountType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UserInfo/Address.html">– Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/WebExperiencePreference.html">WebExperiencePreference</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal7CCEmaila">CCEmail</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal5Emaila">Email</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal12EmailAddressa">EmailAddress</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal3FMFa">FMF</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal22MoneyRequestPropertiesa">MoneyRequestProperties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:6PayPal15OrderPropertiesa">OrderProperties</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Timezone</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Timezone</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">CaseIterable</span><span class="p">,</span> <span class="kt">Content</span></code></pre>
+
+                </div>
+              </div>
+            <p>The existing time zones that a tangible object can be located in.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8honoluluyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/honolulu" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8honoluluyA2CmF">honolulu</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Pacific/Honolulu</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">honolulu</span> <span class="o">=</span> <span class="s">"Pacific/Honolulu"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO9anchorageyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/anchorage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO9anchorageyA2CmF">anchorage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Anchorage</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">anchorage</span> <span class="o">=</span> <span class="s">"America/Anchorage"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO10losAngelesyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/losAngeles" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO10losAngelesyA2CmF">losAngeles</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Los_Angeles</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">losAngeles</span> <span class="o">=</span> <span class="s">"America/Los_Angeles"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7phoenixyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/phoenix" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7phoenixyA2CmF">phoenix</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Phoenix</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">phoenix</span> <span class="o">=</span> <span class="s">"America/Phoenix"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6denveryA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/denver" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6denveryA2CmF">denver</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Denver</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">denver</span> <span class="o">=</span> <span class="s">"America/Denver"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7chicagoyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/chicago" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7chicagoyA2CmF">chicago</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Chicago</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">chicago</span> <span class="o">=</span> <span class="s">"America/Chicago"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO12indianapolisyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/indianapolis" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO12indianapolisyA2CmF">indianapolis</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Indianapolis</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">indianapolis</span> <span class="o">=</span> <span class="s">"America/Indianapolis"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7newYorkyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/newYork" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7newYorkyA2CmF">newYork</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/New_York</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">newYork</span> <span class="o">=</span> <span class="s">"America/New_York"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO9puertoRicyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/puertoRic" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO9puertoRicyA2CmF">puertoRic</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Puerto_Rico</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">puertoRic</span> <span class="o">=</span> <span class="s">"America/Puerto_Rico"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO9vancouveryA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/vancouver" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO9vancouveryA2CmF">vancouver</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Vancouver</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">vancouver</span> <span class="o">=</span> <span class="s">"America/Vancouver"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO11dawsonCreekyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/dawsonCreek" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO11dawsonCreekyA2CmF">dawsonCreek</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Dawson_Creek</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">dawsonCreek</span> <span class="o">=</span> <span class="s">"America/Dawson_Creek"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8edmontonyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/edmonton" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8edmontonyA2CmF">edmonton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Edmonton</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">edmonton</span> <span class="o">=</span> <span class="s">"America/Edmonton"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6reginayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/regina" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6reginayA2CmF">regina</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Regina</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">regina</span> <span class="o">=</span> <span class="s">"America/Regina"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8winnipegyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/winnipeg" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8winnipegyA2CmF">winnipeg</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Winnipeg</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">winnipeg</span> <span class="o">=</span> <span class="s">"America/Winnipeg"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8atikokanyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/atikokan" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8atikokanyA2CmF">atikokan</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Atikokan</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">atikokan</span> <span class="o">=</span> <span class="s">"America/Atikokan"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7torontoyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/toronto" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7torontoyA2CmF">toronto</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Toronto</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">toronto</span> <span class="o">=</span> <span class="s">"America/Toronto"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7halifaxyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/halifax" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7halifaxyA2CmF">halifax</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Halifax</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">halifax</span> <span class="o">=</span> <span class="s">"America/Halifax"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8gooseBayyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/gooseBay" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8gooseBayyA2CmF">gooseBay</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Goose_Bay</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">gooseBay</span> <span class="o">=</span> <span class="s">"America/Goose_Bay"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO11blancSablonyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/blancSablon" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO11blancSablonyA2CmF">blancSablon</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Blanc-Sablon</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">blancSablon</span> <span class="o">=</span> <span class="s">"America/Blanc-Sablon"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7stJohnsyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/stJohns" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7stJohnsyA2CmF">stJohns</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/St_Johns</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">stJohns</span> <span class="o">=</span> <span class="s">"America/St_Johns"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7tijuanayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/tijuana" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7tijuanayA2CmF">tijuana</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Tijuana</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">tijuana</span> <span class="o">=</span> <span class="s">"America/Tijuana"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO10hermosilloyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/hermosillo" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO10hermosilloyA2CmF">hermosillo</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Hermosillo</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">hermosillo</span> <span class="o">=</span> <span class="s">"America/Hermosillo"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO9chihuahuayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/chihuahua" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO9chihuahuayA2CmF">chihuahua</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Chihuahua</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">chihuahua</span> <span class="o">=</span> <span class="s">"America/Chihuahua"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO10mexicoCityyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/mexicoCity" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO10mexicoCityyA2CmF">mexicoCity</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Mexico_City</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">mexicoCity</span> <span class="o">=</span> <span class="s">"America/Mexico_City"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO9rioBrancoyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/rioBranco" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO9rioBrancoyA2CmF">rioBranco</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Rio_Branco</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">rioBranco</span> <span class="o">=</span> <span class="s">"America/Rio_Branco"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6manausyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/manaus" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6manausyA2CmF">manaus</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Manaus</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">manaus</span> <span class="o">=</span> <span class="s">"America/Manaus"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO11campoGrandeyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/campoGrande" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO11campoGrandeyA2CmF">campoGrande</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Campo_Grande</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">campoGrande</span> <span class="o">=</span> <span class="s">"America/Campo_Grande"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO11buenosAiresyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/buenosAires" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO11buenosAiresyA2CmF">buenosAires</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Argentina/Buenos_Aires</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">buenosAires</span> <span class="o">=</span> <span class="s">"America/Argentina/Buenos_Aires"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8saoPauloyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/saoPaulo" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8saoPauloyA2CmF">saoPaulo</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Sao_Paulo</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">saoPaulo</span> <span class="o">=</span> <span class="s">"America/Sao_Paulo"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO9fortalezayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/fortaleza" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO9fortalezayA2CmF">fortaleza</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Fortaleza</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">fortaleza</span> <span class="o">=</span> <span class="s">"America/Fortaleza"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7noronhayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/noronha" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7noronhayA2CmF">noronha</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Noronha</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">noronha</span> <span class="o">=</span> <span class="s">"America/Noronha"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO5thuleyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/thule" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO5thuleyA2CmF">thule</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Thule</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">thule</span> <span class="o">=</span> <span class="s">"America/Thule"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7godthabyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/godthab" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7godthabyA2CmF">godthab</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Godthab</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">godthab</span> <span class="o">=</span> <span class="s">"America/Godthab"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO12scoresbysundyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/scoresbysund" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO12scoresbysundyA2CmF">scoresbysund</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Scoresbysund</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">scoresbysund</span> <span class="o">=</span> <span class="s">"America/Scoresbysund"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO13danmarkshavanyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/danmarkshavan" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO13danmarkshavanyA2CmF">danmarkshavan</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>America/Danmarkshavn</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">danmarkshavan</span> <span class="o">=</span> <span class="s">"America/Danmarkshavn"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6azoresyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/azores" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6azoresyA2CmF">azores</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Atlantic/Azores</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">azores</span> <span class="o">=</span> <span class="s">"Atlantic/Azores"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6lisbonyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/lisbon" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6lisbonyA2CmF">lisbon</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Lisbon</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">lisbon</span> <span class="o">=</span> <span class="s">"Europe/Lisbon"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6dublinyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/dublin" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6dublinyA2CmF">dublin</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Dublin</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">dublin</span> <span class="o">=</span> <span class="s">"Europe/Dublin"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6londonyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/london" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6londonyA2CmF">london</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/London</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">london</span> <span class="o">=</span> <span class="s">"Europe/London"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO10luxembourgyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/luxembourg" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO10luxembourgyA2CmF">luxembourg</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Luxembourg</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">luxembourg</span> <span class="o">=</span> <span class="s">"Europe/Luxembourg"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6berlinyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/berlin" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6berlinyA2CmF">berlin</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Berlin</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">berlin</span> <span class="o">=</span> <span class="s">"Europe/Berlin"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO5faroeyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/faroe" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO5faroeyA2CmF">faroe</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Atlantic/Faroe</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">faroe</span> <span class="o">=</span> <span class="s">"Atlantic/Faroe"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO4osloyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/oslo" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO4osloyA2CmF">oslo</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Oslo</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">oslo</span> <span class="o">=</span> <span class="s">"Europe/Oslo"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO10copenhagenyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/copenhagen" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO10copenhagenyA2CmF">copenhagen</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Copenhagen</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">copenhagen</span> <span class="o">=</span> <span class="s">"Europe/Copenhagen"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO9stockholmyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/stockholm" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO9stockholmyA2CmF">stockholm</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Stockholm</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">stockholm</span> <span class="o">=</span> <span class="s">"Europe/Stockholm"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8helsinkiyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/helsinki" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8helsinkiyA2CmF">helsinki</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Helsinki</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">helsinki</span> <span class="o">=</span> <span class="s">"Europe/Helsinki"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6pragueyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/prague" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6pragueyA2CmF">prague</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Prague</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">prague</span> <span class="o">=</span> <span class="s">"Europe/Prague"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO10bratislavayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/bratislava" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO10bratislavayA2CmF">bratislava</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Bratislava</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">bratislava</span> <span class="o">=</span> <span class="s">"Europe/Bratislava"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6athensyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/athens" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6athensyA2CmF">athens</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Athens</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">athens</span> <span class="o">=</span> <span class="s">"Europe/Athens"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8istanbulyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/istanbul" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8istanbulyA2CmF">istanbul</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Istanbul</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">istanbul</span> <span class="o">=</span> <span class="s">"Europe/Istanbul"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO12johannesburgyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/johannesburg" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO12johannesburgyA2CmF">johannesburg</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Africa/Johannesburg</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">johannesburg</span> <span class="o">=</span> <span class="s">"Africa/Johannesburg"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO9jerusalemyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/jerusalem" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO9jerusalemyA2CmF">jerusalem</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Jerusalem</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">jerusalem</span> <span class="o">=</span> <span class="s">"Asia/Jerusalem"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO5dubaiyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/dubai" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO5dubaiyA2CmF">dubai</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Dubai</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">dubai</span> <span class="o">=</span> <span class="s">"Asia/Dubai"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO11kaliningradyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/kaliningrad" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO11kaliningradyA2CmF">kaliningrad</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Kaliningrad</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">kaliningrad</span> <span class="o">=</span> <span class="s">"Europe/Kaliningrad"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO4kievyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/kiev" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO4kievyA2CmF">kiev</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Kiev</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">kiev</span> <span class="o">=</span> <span class="s">"Europe/Kiev"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6moscowyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/moscow" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6moscowyA2CmF">moscow</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Moscow</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">moscow</span> <span class="o">=</span> <span class="s">"Europe/Moscow"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6samarayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/samara" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6samarayA2CmF">samara</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Samara</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">samara</span> <span class="o">=</span> <span class="s">"Europe/Samara"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO13yekaterinburgyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/yekaterinburg" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO13yekaterinburgyA2CmF">yekaterinburg</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Yekaterinburg</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">yekaterinburg</span> <span class="o">=</span> <span class="s">"Asia/Yekaterinburg"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO4omskyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/omsk" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO4omskyA2CmF">omsk</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Omsk</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">omsk</span> <span class="o">=</span> <span class="s">"Asia/Omsk"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO11krasnoyarskyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/krasnoyarsk" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO11krasnoyarskyA2CmF">krasnoyarsk</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Krasnoyarsk</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">krasnoyarsk</span> <span class="o">=</span> <span class="s">"Asia/Krasnoyarsk"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7irkutskyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/irkutsk" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7irkutskyA2CmF">irkutsk</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Irkutsk</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">irkutsk</span> <span class="o">=</span> <span class="s">"Asia/Irkutsk"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7yakutskyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/yakutsk" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7yakutskyA2CmF">yakutsk</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Yakutsk</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">yakutsk</span> <span class="o">=</span> <span class="s">"Asia/Yakutsk"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO11vladivostokyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/vladivostok" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO11vladivostokyA2CmF">vladivostok</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Vladivostok</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">vladivostok</span> <span class="o">=</span> <span class="s">"Asia/Vladivostok"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7magadanyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/magadan" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7magadanyA2CmF">magadan</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Magadan</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">magadan</span> <span class="o">=</span> <span class="s">"Asia/Magadan"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO9kamchatkayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/kamchatka" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO9kamchatkayA2CmF">kamchatka</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Kamchatka</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">kamchatka</span> <span class="o">=</span> <span class="s">"Asia/Kamchatka"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8calcuttayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/calcutta" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8calcuttayA2CmF">calcutta</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Calcutta</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">calcutta</span> <span class="o">=</span> <span class="s">"Asia/Calcutta"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7bangkokyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/bangkok" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7bangkokyA2CmF">bangkok</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Bangkok</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">bangkok</span> <span class="o">=</span> <span class="s">"Asia/Bangkok"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7jakartayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/jakarta" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7jakartayA2CmF">jakarta</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Jakarta</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">jakarta</span> <span class="o">=</span> <span class="s">"Asia/Jakarta"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6saigonyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/saigon" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6saigonyA2CmF">saigon</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Saigon</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">saigon</span> <span class="o">=</span> <span class="s">"Asia/Saigon"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO11kualaLumpuryA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/kualaLumpur" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO11kualaLumpuryA2CmF">kualaLumpur</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Kuala_Lumpur</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">kualaLumpur</span> <span class="o">=</span> <span class="s">"Asia/Kuala_Lumpur"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO9singaporeyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/singapore" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO9singaporeyA2CmF">singapore</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Singapore</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">singapore</span> <span class="o">=</span> <span class="s">"Asia/Singapore"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8hongKongyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/hongKong" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8hongKongyA2CmF">hongKong</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Hong_Kong</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">hongKong</span> <span class="o">=</span> <span class="s">"Asia/Hong_Kong"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8makassaryA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/makassar" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8makassaryA2CmF">makassar</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Makassar</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">makassar</span> <span class="o">=</span> <span class="s">"Asia/Makassar"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6manilayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/manila" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6manilayA2CmF">manila</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Manila</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">manila</span> <span class="o">=</span> <span class="s">"Asia/Manila"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6taipeiyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/taipei" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6taipeiyA2CmF">taipei</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Taipei</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">taipei</span> <span class="o">=</span> <span class="s">"Asia/Taipei"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8shanghaiyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/shanghai" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8shanghaiyA2CmF">shanghai</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Shanghai</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">shanghai</span> <span class="o">=</span> <span class="s">"Asia/Shanghai"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO5seoulyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/seoul" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO5seoulyA2CmF">seoul</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Seoul</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">seoul</span> <span class="o">=</span> <span class="s">"Asia/Seoul"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO5tokyoyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/tokyo" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO5tokyoyA2CmF">tokyo</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Tokyo</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">tokyo</span> <span class="o">=</span> <span class="s">"Asia/Tokyo"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8jayapurayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/jayapura" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8jayapurayA2CmF">jayapura</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Asia/Jayapura</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">jayapura</span> <span class="o">=</span> <span class="s">"Asia/Jayapura"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO5perthyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/perth" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO5perthyA2CmF">perth</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Australia/Perth</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">perth</span> <span class="o">=</span> <span class="s">"Australia/Perth"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6darwinyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/darwin" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6darwinyA2CmF">darwin</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Australia/Darwin</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">darwin</span> <span class="o">=</span> <span class="s">"Australia/Darwin"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8adelaideyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/adelaide" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8adelaideyA2CmF">adelaide</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Australia/Adelaide</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">adelaide</span> <span class="o">=</span> <span class="s">"Australia/Adelaide"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6hobartyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/hobart" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6hobartyA2CmF">hobart</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Australia/Hobart</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">hobart</span> <span class="o">=</span> <span class="s">"Australia/Hobart"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO6sydneyyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/sydney" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO6sydneyyA2CmF">sydney</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Australia/Sydney</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">sydney</span> <span class="o">=</span> <span class="s">"Australia/Sydney"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8brisbaneyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/brisbane" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8brisbaneyA2CmF">brisbane</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Australia/Brisbane</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">brisbane</span> <span class="o">=</span> <span class="s">"Australia/Brisbane"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8lordHoweyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/lordHowe" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8lordHoweyA2CmF">lordHowe</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Australia/Lord_Howe</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">lordHowe</span> <span class="o">=</span> <span class="s">"Australia/Lord_Howe"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO8aucklandyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/auckland" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO8aucklandyA2CmF">auckland</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Pacific/Auckland</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">auckland</span> <span class="o">=</span> <span class="s">"Pacific/Auckland"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7chathamyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/chatham" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7chathamyA2CmF">chatham</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Pacific/Chatham</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">chatham</span> <span class="o">=</span> <span class="s">"Pacific/Chatham"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO4niueyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/niue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO4niueyA2CmF">niue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Pacific/Niue</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">niue</span> <span class="o">=</span> <span class="s">"Pacific/Niue"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO7fakaofoyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/fakaofo" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO7fakaofoyA2CmF">fakaofo</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Pacific/Fakaofo</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">fakaofo</span> <span class="o">=</span> <span class="s">"Pacific/Fakaofo"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO9rarotongayA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/rarotonga" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO9rarotongayA2CmF">rarotonga</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Pacific/Rarotonga</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">rarotonga</span> <span class="o">=</span> <span class="s">"Pacific/Rarotonga"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO9bucharestyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/bucharest" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO9bucharestyA2CmF">bucharest</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Europe/Bucharest</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">bucharest</span> <span class="o">=</span> <span class="s">"Europe/Bucharest"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6PayPal8TimezoneO3gmtyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/gmt" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6PayPal8TimezoneO3gmtyA2CmF">gmt</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>GMT</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">gmt</span> <span class="o">=</span> <span class="s">"GMT"</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-10-03)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
