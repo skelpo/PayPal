@@ -38,7 +38,7 @@ public final class PayPalProvider: Vapor.Provider {
             throw PayPalError(identifier: "envVarNotFound", reason: "Environment variable 'PAYPAL_CLIENT_ID' was not found")
         }
         guard let secret = Env.get("PAYPAL_CLIENT_SECRET") else {
-            throw PayPalError(identifier: "envVarNotFound", reason: "Environment variable 'PAYPAL_SECRET_ID' was not found")
+            throw PayPalError(identifier: "envVarNotFound", reason: "Environment variable 'PAYPAL_CLIENT_SECRET' was not found")
         }
         
         if Float(Int(self.version)) == self.version {
