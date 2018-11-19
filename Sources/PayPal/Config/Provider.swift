@@ -14,7 +14,7 @@ typealias Env = Vapor.Environment
 /// - `PAYPAL_CLIENT_SECRET`: Your PayPal client secret.
 public final class PayPalProvider: Vapor.Provider {
     
-    let version: Float
+    let version: Version
     let clientID: String
     let clientSecret: String
     
@@ -27,13 +27,7 @@ public final class PayPalProvider: Vapor.Provider {
     ///   - version: The version of the PayPal API to use when making requests.
     ///   - id: The client ID for the PayPal app the connect to.
     ///   - secret: The client secret for the PayPal app to connect to.
-    public init(version: Float = 1, id: String, secret: String)throws {
-        let validVersions: [Float] = [1]
-        
-        guard validVersions.contains(version) else {
-            throw Abort(.internalServerError, reason: "API version \(version) is not supported.")
-        }
-        
+    public init(version: Version = .v1, id: String, secret: String)throws {
         self.version = version
         self.clientID = id
         self.clientSecret = secret
@@ -41,11 +35,7 @@ public final class PayPalProvider: Vapor.Provider {
     
     /// Registers all services to the app's services.
     public func register(_ services: inout Services) throws {
-        if Float(Int(self.version)) == self.version {
-            services.register(Configuration(id: self.clientID, secret: self.clientSecret, version: String(describing: Int(self.version))))
-        } else {
-            services.register(Configuration(id: self.clientID, secret: self.clientSecret, version: String(describing: self.version)))
-        }
+        services.register(Configuration(id: self.clientID, secret: self.clientSecret, version: self.version.rawValue))
         
         services.register(AuthInfo())
         services.register(PayPalClient.self)
