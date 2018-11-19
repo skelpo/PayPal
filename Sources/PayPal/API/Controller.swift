@@ -34,4 +34,17 @@ extension PayPalController {
     public var path: String {
         return "v" + self.version.rawValue + "/" + resource + "/"
     }
+    
+    /// Fetches the registered `PayPalClient` instance from the container and makes it
+    /// availible in a closure, so any errors that are thrown can be caught and returned in the resulting future.
+    ///
+    /// - Parameter closure: The closure you have access to the `PayPalClient` in.
+    public func client<T>(_ closure: (PayPalClient)throws -> (Future<T>)) -> Future<T> {
+        do {
+            let client = try self.container.make(PayPalClient.self)
+            return try closure(client)
+        } catch let error {
+            return self.container.future(error: error)
+        }
+    }
 }
