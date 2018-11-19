@@ -30,7 +30,7 @@ public final class PayPalProvider: Vapor.Provider {
     
     /// Registers all services to the app's services.
     public func register(_ services: inout Services) throws {
-        services.register(Configuration(id: self.clientID, secret: self.clientSecret, version: self.version.rawValue))
+        services.register(Configuration(id: self.clientID, secret: self.clientSecret, version: self.version))
         
         services.register(AuthInfo())
         services.register(PayPalClient.self)
@@ -72,7 +72,7 @@ public final class Configuration: Service {
     public let secret: String
     
     /// The version of the PayPal API being used.
-    public let version: String
+    public let version: Version
     
     /// The PayPal environment to send requests to.
     /// This value is based on the app's current environment.
@@ -81,7 +81,7 @@ public final class Configuration: Service {
     /// be `.production`, otherwise it will be `.sandbox`.
     public internal(set) var environment: PayPal.Environment!
     
-    init(id: String, secret: String, version: String) {
+    init(id: String, secret: String, version: Version) {
         self.id = id
         self.secret = secret
         self.environment = nil
