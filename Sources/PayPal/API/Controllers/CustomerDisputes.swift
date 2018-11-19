@@ -75,8 +75,7 @@ public final class CustomerDisputes: PayPalController {
     /// - Returns: A list of customer disputes wrapped in a future. If an error response was sent back instead, it gets converted
     ///   to a Swift error and the future wraps that instead.
     public func list(parameters: QueryParamaters = QueryParamaters()) -> Future<CustomerDisputeList> {
-        return Future.flatMap(on: self.container) { () -> Future<CustomerDisputeList> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.get(self.path, parameters: parameters, as: CustomerDisputeList.self)
         }
     }
@@ -91,8 +90,7 @@ public final class CustomerDisputes: PayPalController {
     /// - Returns: A customer dispute wrapped in a future. If an error response was sent back instead, it gets converted
     ///   to a Swift error and the future wraps that instead.
     public func details(for disputeID: String) -> Future<CustomerDispute> {
-        return Future.flatMap(on: self.container) { () -> Future<CustomerDispute> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.get(self.path + disputeID, as: CustomerDispute.self)
         }
     }
@@ -109,8 +107,7 @@ public final class CustomerDisputes: PayPalController {
     /// - Returns: An array containing a link to the dispute wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func accept(claim disputeID: String, with body: AcceptDisputeBody) -> Future<[LinkDescription]> {
-        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path + disputeID + "/accept-claim", body: body, as: LinkResponse.self)["links", []]
         }
     }
@@ -133,8 +130,7 @@ public final class CustomerDisputes: PayPalController {
         guard try self.container.make(Configuration.self).environment == .sandbox else {
             throw Abort(.internalServerError, reason: "Dispute settlement endpoint only availible in sandbox environment.")
         }
-        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path + id + "/adjudicate", body: ["adjudication_outcome": outcome], as: LinkResponse.self)["links", []]
         }
     }
@@ -154,8 +150,7 @@ public final class CustomerDisputes: PayPalController {
     /// - Returns: An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
     ///   If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
     public func appeal(dispute id: String, evidence: [Evidence]) -> Future<[LinkDescription]> {
-        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path + id + "/appeal", body: evidence, as: LinkResponse.self)["links", []]
         }
     }
@@ -171,12 +166,10 @@ public final class CustomerDisputes: PayPalController {
     /// - Returns: An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
     ///   If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
     public func escalate(dispute id: String, note: String) -> Future<[LinkDescription]> {
-        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
+        return self.client { client in
             guard note.count >= 1 && note.count <= 2000 else {
                 throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note` property must have a length between 0 and 2000")
             }
-            
-            let client = try self.container.make(PayPalClient.self)
             return client.post(self.path + id + "/escalate", body: ["note": note], as: LinkResponse.self)["links", []]
         }
     }
@@ -193,8 +186,7 @@ public final class CustomerDisputes: PayPalController {
     /// - Returns: An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
     ///   If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
     public func offerResolution(for disputeID: String, offer: CustomerDispute.ResolutionOffer) -> Future<[LinkDescription]> {
-        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path + disputeID + "/make-offer", body: offer, as: LinkResponse.self)["links", []]
         }
     }
@@ -272,8 +264,7 @@ public final class CustomerDisputes: PayPalController {
         guard try self.container.make(Configuration.self).environment == .sandbox else {
             throw Abort(.internalServerError, reason: "Dispute settlement endpoint only availible in sandbox environment.")
         }
-        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path + disputeID + "/require-evidence", body: ["action": action], as: LinkResponse.self)["links", []]
         }
     }
@@ -289,8 +280,7 @@ public final class CustomerDisputes: PayPalController {
     /// - Returns: An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
     ///   If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
     public func message(dispute id: String, content: String) -> Future<[LinkDescription]> {
-        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path + id + "/send-message", body: ["message": content], as: LinkResponse.self)["links", []]
         }
     }

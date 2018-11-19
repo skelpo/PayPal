@@ -89,8 +89,7 @@ public final class Payments: PayPalController {
     /// - Returns: The payment that was created, wrapped in a future. If PayPal returns an error response instead,
     ///   it will get converted to a Swift error and the future will wrap that.
     public func create(payment: Payment, partner: String? = nil) -> Future<Payment> {
-        return Future.flatMap(on: self.container) { () -> Future<Payment> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             let headers: HTTPHeaders = partner == nil ? [:] : ["PayPal-Partner-Attribution-Id": partner!]
             
             return client.post(self.path(for: .payment), headers: headers, body: payment, as: Payment.self)
@@ -115,12 +114,10 @@ public final class Payments: PayPalController {
     ///   range of payments and the ID of the element to use to get the next range of results. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func list(parameters: QueryParamaters = QueryParamaters()) -> Future<PaymentList> {
-        return Future.flatMap(on: self.container) { () -> Future<PaymentList> in
+        return self.client { client in
             guard parameters.count ?? 0 <= 20 else {
                 throw PayPalError(status: .internalServerError, identifier: "invalidCount", reason: "`count` query paramater must be 20 or less")
             }
-            
-            let client = try self.container.make(PayPalClient.self)
             return client.get(self.path(for: .payment), parameters: parameters, as: PaymentList.self)
         }
     }
@@ -140,8 +137,7 @@ public final class Payments: PayPalController {
     /// - Returns: The payment that was updated, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func patch(payment id: String, with patches: [Patch]) -> Future<Payment> {
-        return Future.flatMap(on: self.container) { () -> EventLoopFuture<Payment> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.patch(self.path(for: .payment) + id, body: patches, as: Payment.self)
         }
     }
@@ -155,8 +151,7 @@ public final class Payments: PayPalController {
     /// - Returns: The payment for the ID passed in. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func get(payment id: String) -> Future<Payment> {
-        return Future.flatMap(on: self.container) { () -> Future<Payment> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.get(self.path(for: .payment) + id, as: Payment.self)
         }
     }
@@ -174,15 +169,14 @@ public final class Payments: PayPalController {
     /// - Returns: The payment model that was executed, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func execute(payment id: String, with executor: Payment.Executor, request: String? = nil, partner: String? = nil) -> Future<Payment> {
-        return Future.flatMap(on: self.container) { () -> Future<Payment> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             var headers: HTTPHeaders = [:]
             
             if let request = request {
-                headers.add(name: "PayPal-Request-Id", value: request)
+                headers.add(name: .paypalRequest, value: request)
             }
             if let partner = partner {
-                headers.add(name: "PayPal-Partner-Attribution-Id", value: partner)
+                headers.add(name: .paypalAttribution, value: partner)
             }
             
             return client.post(self.path(for: .payment) + id + "/execute", headers: headers, body: executor, as: Payment.self)
@@ -200,8 +194,7 @@ public final class Payments: PayPalController {
     /// - Returns: The sale object for the ID passed in, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func get(sale id: String) -> Future<RelatedResource.Sale> {
-        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Sale> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.get(self.path(for: .sale) + id, as: RelatedResource.Sale.self)
         }
     }
@@ -219,9 +212,8 @@ public final class Payments: PayPalController {
     /// - Returns: The details of the refund, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func refund(sale id: String, with refund: Payment.Refund, request: String? = nil) -> Future<Payment.RefundResult> {
-        return Future.flatMap(on: self.container) { () -> Future<Payment.RefundResult> in
-            let client = try self.container.make(PayPalClient.self)
-            let headers: HTTPHeaders = request == nil ? [:] : ["PayPal-Request-Id": request!]
+        return self.client { client in
+            let headers: HTTPHeaders = request == nil ? [:] : [HTTPHeaderName.paypalRequest.description: request!]
             
             return client.post(self.path(for: .sale) + id + "/refund", headers: headers, body: refund, as: Payment.RefundResult.self)
         }
@@ -238,8 +230,7 @@ public final class Payments: PayPalController {
     /// - Returns: The authorization for the ID passed in, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func get(authorization id: String) -> Future<RelatedResource.Authorization> {
-        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Authorization> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.get(self.path(for: .authorization) + id, as: RelatedResource.Authorization.self)
         }
     }
@@ -255,8 +246,7 @@ public final class Payments: PayPalController {
     /// - Returns: The captured authorization, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func capture(authorization id: String, with capture: RelatedResource.Capture) -> Future<RelatedResource.Authorization> {
-        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Authorization> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path(for: .authorization) + id + "/capture", body: capture, as: RelatedResource.Authorization.self)
         }
     }
@@ -279,8 +269,7 @@ public final class Payments: PayPalController {
     /// - Returns: The re-authorized authorization, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func reauthorize(authorization id: String, with authorization: RelatedResource.Authorization) -> Future<RelatedResource.Authorization> {
-        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Authorization> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path(for: .authorization) + id + "/reauthorize", body: authorization, as: RelatedResource.Authorization.self)
         }
     }
@@ -296,9 +285,8 @@ public final class Payments: PayPalController {
     /// - Returns: The voided authorization, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func void(authorization id: String, request: String? = nil) -> Future<RelatedResource.Authorization> {
-        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Authorization> in
-            let client = try self.container.make(PayPalClient.self)
-            let headers: HTTPHeaders = request == nil ? [:] : ["PayPal-Request-Id": request!]
+        return self.client { client in
+            let headers: HTTPHeaders = request == nil ? [:] : [HTTPHeaderName.paypalRequest.description: request!]
             
             return client.post(self.path(for: .authorization) + id + "/void", headers: headers, as: RelatedResource.Authorization.self)
         }
@@ -315,8 +303,7 @@ public final class Payments: PayPalController {
     /// - Returns: The order details for the ID, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func get(order id: String) -> Future<RelatedResource.Sale> {
-        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Sale> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.get(self.path(for: .orders) + id, as: RelatedResource.Sale.self)
         }
     }
@@ -334,8 +321,7 @@ public final class Payments: PayPalController {
     /// - Returns:The authorized order, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func authorize(order id: String, with authorization: RelatedResource.Authorization) -> Future<RelatedResource.Order> {
-        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Order> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path(for: .orders) + id + "/authorize", body: authorization, as: RelatedResource.Order.self)
         }
     }
@@ -352,8 +338,7 @@ public final class Payments: PayPalController {
     /// - Returns: The captured order, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func capture(order id: String, with capture: RelatedResource.Capture) -> Future<RelatedResource.Order> {
-        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Order> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path(for: .orders) + id + "/capture", body: capture, as: RelatedResource.Order.self)
         }
     }
@@ -369,9 +354,8 @@ public final class Payments: PayPalController {
     /// - Returns: The voided order, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func void(order id: String, request: String? = nil) -> Future<RelatedResource.Order> {
-        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Order> in
-            let client = try self.container.make(PayPalClient.self)
-            let headers: HTTPHeaders = request == nil ? [:] : ["PayPal-Request-Id": request!]
+        return self.client { client in
+            let headers: HTTPHeaders = request == nil ? [:] : [HTTPHeaderName.paypalRequest.description: request!]
             
             return client.post(self.path(for: .orders) + id + "/do-void", headers: headers, as: RelatedResource.Order.self)
         }
@@ -388,8 +372,7 @@ public final class Payments: PayPalController {
     /// - Returns: The captured transaction, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func get(captured id: String) -> Future<RelatedResource.Capture> {
-        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Capture> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.get(self.path(for: .capture) + id, as: RelatedResource.Capture.self)
         }
     }
@@ -406,9 +389,8 @@ public final class Payments: PayPalController {
     /// - Returns: The refunded capture transaction, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func refund(captured id: String, with refund: Payment.Refund, request: String? = nil) -> Future<RelatedResource.Capture> {
-        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Capture> in
-            let client = try self.container.make(PayPalClient.self)
-            let headers: HTTPHeaders = request == nil ? [:] : ["PayPal-Request-Id": request!]
+        return self.client { client in
+            let headers: HTTPHeaders = request == nil ? [:] : [HTTPHeaderName.paypalRequest.description: request!]
             
             return client.post(self.path(for: .capture) + id + "/refund", headers: headers, body: refund, as: RelatedResource.Capture.self)
         }
@@ -425,8 +407,7 @@ public final class Payments: PayPalController {
     /// - Returns: The refund details, wrapped in a future. If PayPal returns an error response,
     ///   it will get converted to a Swift error and the future will wrap that instead.
     public func get(refund id: String) -> Future<RelatedResource.Refund> {
-        return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Refund> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.get(self.path(for: .refund) + id, as: RelatedResource.Refund.self)
         }
     }

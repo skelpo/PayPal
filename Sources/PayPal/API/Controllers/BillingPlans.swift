@@ -50,10 +50,8 @@ public final class BillingPlans: PayPalController {
     /// - Returns: The created billing plan wrapped in a future. If an error response was sent back instead, it gets converted
     ///   to a Swift error and the future wraps that instead.
     public func create(with plan: BillingPlan) -> Future<BillingPlan> {
-        return Future.flatMap(on: self.container) { () -> Future<BillingPlan> in
+        return self.client { client in
             guard plan.type != nil else { throw PayPalError(identifier: "nilValue", reason: "BillingPlan `type` value must not be `nil`.") }
-            
-            let client = try self.container.make(PayPalClient.self)
             return client.post(self.path, body: plan, as: BillingPlan.self)
         }
     }
@@ -70,8 +68,7 @@ public final class BillingPlans: PayPalController {
     /// - Returns: A list of the billing plans wrapped in a future. If an error response was sent back instead, it gets converted
     ///   to a Swift error and the future wraps that instead.
     public func list(state: BillingPlan.State? = nil, parameters: QueryParamaters = QueryParamaters()) -> Future<BillingPlanList> {
-        return Future.flatMap(on: self.container) { () -> Future<BillingPlanList> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             var params = parameters
             
             if let state = state, params.custom == nil {
@@ -95,8 +92,7 @@ public final class BillingPlans: PayPalController {
     /// - Returns: The HTTP status of the response, in this case `200 OK`. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func update(plan id: String, patches: [Patch]) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.patch(self.path + id, body: patches, as: HTTPStatus.self)
         }
     }
@@ -110,8 +106,7 @@ public final class BillingPlans: PayPalController {
     /// - Returns: The billing plan for the ID passed in, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func details(plan id: String) -> Future<BillingPlan> {
-        return Future.flatMap(on: self.container) { () -> Future<BillingPlan> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.get(self.path + id, as: BillingPlan.self)
         }
     }

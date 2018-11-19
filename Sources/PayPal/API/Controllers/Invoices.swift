@@ -36,8 +36,7 @@ public class Invoices: PayPalController {
     ///
     /// - Returns: The saved Invoice. If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
     public func create(invoice: Invoice) -> Future<Invoice> {
-        return Future.flatMap(on: self.container) { () -> EventLoopFuture<Invoice> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path, body: invoice, as: Invoice.self)
         }
     }
@@ -52,8 +51,7 @@ public class Invoices: PayPalController {
     /// - Returns: The list of invoices that match the query parameters passed in. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func list(parameters: QueryParamaters = QueryParamaters()) -> Future<InvoiceList> {
-        return Future.flatMap(on: self.container) { () -> EventLoopFuture<InvoiceList> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.get(self.path, parameters: parameters, as: InvoiceList.self)
         }
     }
@@ -69,8 +67,7 @@ public class Invoices: PayPalController {
     ///
     /// - Returns: The updated invoice object. If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
     public func update(invoice id: String, with body: Invoice, notifyMerchant notify: Bool = true) -> Future<Invoice> {
-        return Future.flatMap(on: self.container) { () -> EventLoopFuture<Invoice> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.put(self.path + id, parameters: QueryParamaters(custom: ["notify_merchant": notify.description]), body: body, as: Invoice.self)
         }
     }
@@ -84,8 +81,7 @@ public class Invoices: PayPalController {
     /// - Returns: The invoice data for the ID passed in. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func details(for invoiceID: String) -> Future<Invoice> {
-        return Future.flatMap(on: self.container) { () -> Future<Invoice> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.get(self.path + invoiceID, as: Invoice.self)
         }
     }
@@ -101,8 +97,7 @@ public class Invoices: PayPalController {
     /// - Returns: The HTTP status of the response, which will be 204 (No Content). If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func deleteDraft(invoice id: String) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.delete(self.path + id, as: HTTPStatus.self)
         }
     }
@@ -116,8 +111,7 @@ public class Invoices: PayPalController {
     /// - Returns: The HTTP status of the response, which will be 204 (No Content). If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func cancel(invoice id: String) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path + id + "/cancel", as: HTTPStatus.self)
         }
     }
@@ -133,8 +127,7 @@ public class Invoices: PayPalController {
     /// - Returns: The HTTP status of the response, which will be 204 (No Content). If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func delete(payment: String, forInvoice invoice: String) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.delete(self.path + invoice + "/payment-records/" + payment, as: HTTPStatus.self)
         }
     }
@@ -156,12 +149,10 @@ public class Invoices: PayPalController {
     /// - Returns: The base64-encoded image of the `image/png` type. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func generateQR(for invoiceID: String, width: Int = 500, height: Int = 500) -> Future<String> {
-        return Future.flatMap(on: self.container) { () -> Future<String> in
+        return self.client { client in
             guard (150...500).contains(width) && (150...500).contains(height) else {
                 throw Abort(.internalServerError, reason: "Height and width values for QR code must be between 150 and 500")
             }
-            
-            let client = try self.container.make(PayPalClient.self)
             let parameters = QueryParamaters(custom: ["width": width.description, "height": height.description])
             
             return client.get(self.path + invoiceID + "/qr-code", parameters: parameters, as: [String: String].self)["image"].unwrap(
@@ -181,8 +172,7 @@ public class Invoices: PayPalController {
     /// - Returns: The HTTP status of the response, which will be 200 (OK). If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func pay(invoice id: String, payment: Invoice.Payment) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path + id + "/record-payment", body: payment, as: HTTPStatus.self)
         }
     }
@@ -198,8 +188,7 @@ public class Invoices: PayPalController {
     /// - Returns: The HTTP status of the response, which will be 200 (OK). If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func refund(invoice id: String, payment: Invoice.Payment) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path + id + "/record-refund", body: payment, as: HTTPStatus.self)
         }
     }
@@ -215,8 +204,7 @@ public class Invoices: PayPalController {
     /// - Returns: The HTTP status of the response, which will be 204 (No Content). If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func delete(refund: String, forInvoice invoice: String) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.delete(self.path + invoice + "/refund-records/" + refund, as: HTTPStatus.self)
         }
     }
@@ -233,8 +221,7 @@ public class Invoices: PayPalController {
     /// - Returns: The HTTP status of the response, which will be 202 (Accepted). If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func remind(invoice id: String, with reminder: Invoice.Reminder) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path + id + "/remind", body: reminder, as: HTTPStatus.self)
         }
     }
@@ -254,8 +241,7 @@ public class Invoices: PayPalController {
     /// - Returns: An array containing a link to the dispute wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func schedule(invoice id: String) -> Future<[LinkDescription]> {
-        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path + id + "/schedule", as: LinkResponse.self)["links", []]
         }
     }
@@ -273,8 +259,7 @@ public class Invoices: PayPalController {
     /// - Returns: The HTTP status of the response, which will be 202 (Accepted). If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func send(invoice id: String, notifyMerchant notify: Bool = true) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             let parameters = QueryParamaters(custom: ["notify_merchant": notify.description])
             
             return client.post(self.path + id + "/send", parameters: parameters, as: HTTPStatus.self)
@@ -289,8 +274,7 @@ public class Invoices: PayPalController {
     /// - Returns: The new invoice number, incremented from the last number. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func nextNumber() -> Future<String> {
-        return Future.flatMap(on: self.container) { () -> Future<String> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             return client.post(self.path, as: [String: String].self)["number"].unwrap(
                 or: Abort(.failedDependency, reason: "`number` key not found in PayPal response")
             )
@@ -306,8 +290,7 @@ public class Invoices: PayPalController {
     /// - Returns: The list of invoices that match the search criteria passed in, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func search(with body: Invoice.Search) -> Future<InvoiceList> {
-        return  Future.flatMap(on: self.container) { () -> Future<InvoiceList> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             let config = try self.container.make(Configuration.self)
             let path = "v" + config.version.rawValue + "/invoicing/search"
             
