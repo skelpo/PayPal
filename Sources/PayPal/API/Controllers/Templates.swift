@@ -16,10 +16,14 @@ public final class Templates: PayPalController {
     /// See `PayPalController.resource` for more information.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "invoicing/templates"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     
@@ -37,7 +41,7 @@ public final class Templates: PayPalController {
     public func create(template: Template) -> Future<Template> {
         return Future.flatMap(on: self.container) { () -> Future<Template> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path(), body: template, as: Template.self)
+            return client.post(self.path, body: template, as: Template.self)
         }
     }
     
@@ -58,7 +62,7 @@ public final class Templates: PayPalController {
             let client = try self.container.make(PayPalClient.self)
             let parameters = QueryParamaters(custom: ["fields": fields.rawValue])
             
-            return try client.get(self.path(), parameters: parameters, as: TemplateList.self)
+            return client.get(self.path, parameters: parameters, as: TemplateList.self)
         }
     }
     
@@ -75,7 +79,7 @@ public final class Templates: PayPalController {
     public func update(template id: String, with data: Template) -> Future<Template> {
         return Future.flatMap(on: self.container) { () -> Future<Template> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.put(self.path() + id, body: data, as: Template.self)
+            return client.put(self.path + id, body: data, as: Template.self)
         }
     }
     
@@ -90,7 +94,7 @@ public final class Templates: PayPalController {
     public func delete(template id: String) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.delete(self.path() + id, as: HTTPStatus.self)
+            return client.delete(self.path + id, as: HTTPStatus.self)
         }
     }
     
@@ -105,7 +109,7 @@ public final class Templates: PayPalController {
     public func details(for templateID: String) -> Future<Template> {
         return Future.flatMap(on: self.container) { () -> Future<Template> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + templateID, as: Template.self)
+            return client.get(self.path + templateID, as: Template.self)
         }
     }
 }

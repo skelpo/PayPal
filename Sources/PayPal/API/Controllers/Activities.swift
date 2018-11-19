@@ -15,10 +15,14 @@ public final class Activities: PayPalController {
     /// See `PayPalController.resource`.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "activities"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     /// Sends a request to the PayPal `GET /v{Configuration.version}/activities/activities` endpoint.
@@ -30,7 +34,7 @@ public final class Activities: PayPalController {
     public func activities(parameters: QueryParamaters = QueryParamaters()) -> Future<ActivitiesResponse> {
         return Future.flatMap(on: self.container) { () -> Future<ActivitiesResponse> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + "activities", parameters: parameters)
+            return client.get(self.path + "activities", parameters: parameters)
         }
     }
 }

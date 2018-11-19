@@ -53,10 +53,14 @@ public final class Payments: PayPalController {
     /// See `PayPalController.resource` for more information.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "payments"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     // MARK: - /payment
@@ -89,7 +93,7 @@ public final class Payments: PayPalController {
             let client = try self.container.make(PayPalClient.self)
             let headers: HTTPHeaders = partner == nil ? [:] : ["PayPal-Partner-Attribution-Id": partner!]
             
-            return try client.post(self.path(for: .payment), headers: headers, body: payment, as: Payment.self)
+            return client.post(self.path(for: .payment), headers: headers, body: payment, as: Payment.self)
         }
     }
     
@@ -117,7 +121,7 @@ public final class Payments: PayPalController {
             }
             
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path(for: .payment), parameters: parameters, as: PaymentList.self)
+            return client.get(self.path(for: .payment), parameters: parameters, as: PaymentList.self)
         }
     }
     
@@ -138,7 +142,7 @@ public final class Payments: PayPalController {
     public func patch(payment id: String, with patches: [Patch]) -> Future<Payment> {
         return Future.flatMap(on: self.container) { () -> EventLoopFuture<Payment> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.patch(self.path(for: .payment) + id, body: patches, as: Payment.self)
+            return client.patch(self.path(for: .payment) + id, body: patches, as: Payment.self)
         }
     }
     
@@ -153,7 +157,7 @@ public final class Payments: PayPalController {
     public func get(payment id: String) -> Future<Payment> {
         return Future.flatMap(on: self.container) { () -> Future<Payment> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path(for: .payment) + id, as: Payment.self)
+            return client.get(self.path(for: .payment) + id, as: Payment.self)
         }
     }
     
@@ -181,7 +185,7 @@ public final class Payments: PayPalController {
                 headers.add(name: "PayPal-Partner-Attribution-Id", value: partner)
             }
             
-            return try client.post(self.path(for: .payment) + id + "/execute", headers: headers, body: executor, as: Payment.self)
+            return client.post(self.path(for: .payment) + id + "/execute", headers: headers, body: executor, as: Payment.self)
         }
     }
     
@@ -198,7 +202,7 @@ public final class Payments: PayPalController {
     public func get(sale id: String) -> Future<RelatedResource.Sale> {
         return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Sale> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path(for: .sale) + id, as: RelatedResource.Sale.self)
+            return client.get(self.path(for: .sale) + id, as: RelatedResource.Sale.self)
         }
     }
     
@@ -219,7 +223,7 @@ public final class Payments: PayPalController {
             let client = try self.container.make(PayPalClient.self)
             let headers: HTTPHeaders = request == nil ? [:] : ["PayPal-Request-Id": request!]
             
-            return try client.post(self.path(for: .sale) + id + "/refund", headers: headers, body: refund, as: Payment.RefundResult.self)
+            return client.post(self.path(for: .sale) + id + "/refund", headers: headers, body: refund, as: Payment.RefundResult.self)
         }
     }
     
@@ -236,7 +240,7 @@ public final class Payments: PayPalController {
     public func get(authorization id: String) -> Future<RelatedResource.Authorization> {
         return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Authorization> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path(for: .authorization) + id, as: RelatedResource.Authorization.self)
+            return client.get(self.path(for: .authorization) + id, as: RelatedResource.Authorization.self)
         }
     }
     
@@ -253,7 +257,7 @@ public final class Payments: PayPalController {
     public func capture(authorization id: String, with capture: RelatedResource.Capture) -> Future<RelatedResource.Authorization> {
         return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Authorization> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path(for: .authorization) + id + "/capture", body: capture, as: RelatedResource.Authorization.self)
+            return client.post(self.path(for: .authorization) + id + "/capture", body: capture, as: RelatedResource.Authorization.self)
         }
     }
     
@@ -277,7 +281,7 @@ public final class Payments: PayPalController {
     public func reauthorize(authorization id: String, with authorization: RelatedResource.Authorization) -> Future<RelatedResource.Authorization> {
         return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Authorization> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path(for: .authorization) + id + "/reauthorize", body: authorization, as: RelatedResource.Authorization.self)
+            return client.post(self.path(for: .authorization) + id + "/reauthorize", body: authorization, as: RelatedResource.Authorization.self)
         }
     }
     
@@ -296,7 +300,7 @@ public final class Payments: PayPalController {
             let client = try self.container.make(PayPalClient.self)
             let headers: HTTPHeaders = request == nil ? [:] : ["PayPal-Request-Id": request!]
             
-            return try client.post(self.path(for: .authorization) + id + "/void", headers: headers, as: RelatedResource.Authorization.self)
+            return client.post(self.path(for: .authorization) + id + "/void", headers: headers, as: RelatedResource.Authorization.self)
         }
     }
     
@@ -313,7 +317,7 @@ public final class Payments: PayPalController {
     public func get(order id: String) -> Future<RelatedResource.Sale> {
         return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Sale> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path(for: .orders) + id, as: RelatedResource.Sale.self)
+            return client.get(self.path(for: .orders) + id, as: RelatedResource.Sale.self)
         }
     }
     
@@ -332,7 +336,7 @@ public final class Payments: PayPalController {
     public func authorize(order id: String, with authorization: RelatedResource.Authorization) -> Future<RelatedResource.Order> {
         return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Order> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path(for: .orders) + id + "/authorize", body: authorization, as: RelatedResource.Order.self)
+            return client.post(self.path(for: .orders) + id + "/authorize", body: authorization, as: RelatedResource.Order.self)
         }
     }
     
@@ -350,7 +354,7 @@ public final class Payments: PayPalController {
     public func capture(order id: String, with capture: RelatedResource.Capture) -> Future<RelatedResource.Order> {
         return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Order> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path(for: .orders) + id + "/capture", body: capture, as: RelatedResource.Order.self)
+            return client.post(self.path(for: .orders) + id + "/capture", body: capture, as: RelatedResource.Order.self)
         }
     }
     
@@ -369,7 +373,7 @@ public final class Payments: PayPalController {
             let client = try self.container.make(PayPalClient.self)
             let headers: HTTPHeaders = request == nil ? [:] : ["PayPal-Request-Id": request!]
             
-            return try client.post(self.path(for: .orders) + id + "/do-void", headers: headers, as: RelatedResource.Order.self)
+            return client.post(self.path(for: .orders) + id + "/do-void", headers: headers, as: RelatedResource.Order.self)
         }
     }
     
@@ -386,7 +390,7 @@ public final class Payments: PayPalController {
     public func get(captured id: String) -> Future<RelatedResource.Capture> {
         return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Capture> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path(for: .capture) + id, as: RelatedResource.Capture.self)
+            return client.get(self.path(for: .capture) + id, as: RelatedResource.Capture.self)
         }
     }
     
@@ -406,7 +410,7 @@ public final class Payments: PayPalController {
             let client = try self.container.make(PayPalClient.self)
             let headers: HTTPHeaders = request == nil ? [:] : ["PayPal-Request-Id": request!]
             
-            return try client.post(self.path(for: .capture) + id + "/refund", headers: headers, body: refund, as: RelatedResource.Capture.self)
+            return client.post(self.path(for: .capture) + id + "/refund", headers: headers, body: refund, as: RelatedResource.Capture.self)
         }
     }
     
@@ -423,14 +427,14 @@ public final class Payments: PayPalController {
     public func get(refund id: String) -> Future<RelatedResource.Refund> {
         return Future.flatMap(on: self.container) { () -> Future<RelatedResource.Refund> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path(for: .refund) + id, as: RelatedResource.Refund.self)
+            return client.get(self.path(for: .refund) + id, as: RelatedResource.Refund.self)
         }
     }
     
     // MARK: - Internal Helpers
     
-    internal func path(for resource: Resource)throws -> String {
-        return try self.path() + resource.rawValue + "/"
+    internal func path(for resource: Resource) -> String {
+        return self.path + resource.rawValue + "/"
     }
     
     internal enum Resource: String {

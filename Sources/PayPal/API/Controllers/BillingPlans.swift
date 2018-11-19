@@ -26,10 +26,14 @@ public final class BillingPlans: PayPalController {
     /// See `PayPalController.resource` for more information.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "payments/billing-plans"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     
@@ -50,7 +54,7 @@ public final class BillingPlans: PayPalController {
             guard plan.type != nil else { throw PayPalError(identifier: "nilValue", reason: "BillingPlan `type` value must not be `nil`.") }
             
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path(), body: plan, as: BillingPlan.self)
+            return client.post(self.path, body: plan, as: BillingPlan.self)
         }
     }
     
@@ -75,7 +79,7 @@ public final class BillingPlans: PayPalController {
             } else {
                 params.custom?["status"] = state?.rawValue
             }
-            return try client.get(self.path(), parameters: params, as: BillingPlanList.self)
+            return client.get(self.path, parameters: params, as: BillingPlanList.self)
         }
     }
     
@@ -93,7 +97,7 @@ public final class BillingPlans: PayPalController {
     public func update(plan id: String, patches: [Patch]) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.patch(self.path() + id, body: patches, as: HTTPStatus.self)
+            return client.patch(self.path + id, body: patches, as: HTTPStatus.self)
         }
     }
     
@@ -108,7 +112,7 @@ public final class BillingPlans: PayPalController {
     public func details(plan id: String) -> Future<BillingPlan> {
         return Future.flatMap(on: self.container) { () -> Future<BillingPlan> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + id, as: BillingPlan.self)
+            return client.get(self.path + id, as: BillingPlan.self)
         }
     }
     

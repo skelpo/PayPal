@@ -32,10 +32,14 @@ public final class CustomerDisputes: PayPalController {
     /// See `PayPalController.resource` for more information.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "customer/disputes"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     
@@ -73,7 +77,7 @@ public final class CustomerDisputes: PayPalController {
     public func list(parameters: QueryParamaters = QueryParamaters()) -> Future<CustomerDisputeList> {
         return Future.flatMap(on: self.container) { () -> Future<CustomerDisputeList> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path(), parameters: parameters, as: CustomerDisputeList.self)
+            return client.get(self.path, parameters: parameters, as: CustomerDisputeList.self)
         }
     }
     
@@ -89,7 +93,7 @@ public final class CustomerDisputes: PayPalController {
     public func details(for disputeID: String) -> Future<CustomerDispute> {
         return Future.flatMap(on: self.container) { () -> Future<CustomerDispute> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + disputeID, as: CustomerDispute.self)
+            return client.get(self.path + disputeID, as: CustomerDispute.self)
         }
     }
     
@@ -107,7 +111,7 @@ public final class CustomerDisputes: PayPalController {
     public func accept(claim disputeID: String, with body: AcceptDisputeBody) -> Future<[LinkDescription]> {
         return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + disputeID + "/accept-claim", body: body, as: LinkResponse.self)["links", []]
+            return client.post(self.path + disputeID + "/accept-claim", body: body, as: LinkResponse.self)["links", []]
         }
     }
     
@@ -131,7 +135,7 @@ public final class CustomerDisputes: PayPalController {
         }
         return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/adjudicate", body: ["adjudication_outcome": outcome], as: LinkResponse.self)["links", []]
+            return client.post(self.path + id + "/adjudicate", body: ["adjudication_outcome": outcome], as: LinkResponse.self)["links", []]
         }
     }
     
@@ -152,7 +156,7 @@ public final class CustomerDisputes: PayPalController {
     public func appeal(dispute id: String, evidence: [Evidence]) -> Future<[LinkDescription]> {
         return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/appeal", body: evidence, as: LinkResponse.self)["links", []]
+            return client.post(self.path + id + "/appeal", body: evidence, as: LinkResponse.self)["links", []]
         }
     }
     
@@ -173,7 +177,7 @@ public final class CustomerDisputes: PayPalController {
             }
             
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/escalate", body: ["note": note], as: LinkResponse.self)["links", []]
+            return client.post(self.path + id + "/escalate", body: ["note": note], as: LinkResponse.self)["links", []]
         }
     }
     
@@ -191,7 +195,7 @@ public final class CustomerDisputes: PayPalController {
     public func offerResolution(for disputeID: String, offer: CustomerDispute.ResolutionOffer) -> Future<[LinkDescription]> {
         return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + disputeID + "/make-offer", body: offer, as: LinkResponse.self)["links", []]
+            return client.post(self.path + disputeID + "/make-offer", body: offer, as: LinkResponse.self)["links", []]
         }
     }
     
@@ -226,7 +230,7 @@ public final class CustomerDisputes: PayPalController {
             let json = try MultipartPart(data: JSONEncoder().encode(evidences), headers: ["Content-Type": "application/json"])
             let body: [String: MultipartPartConvertible] = ["input": json, "file1": file]
             
-            let request: Request = try self.container.paypal(.POST, self.path() + disputeID + "/provide-evidence", body: nil as [Int]?)
+            let request: Request = try self.container.paypal(.POST, self.path + disputeID + "/provide-evidence", body: nil as [Int]?)
             try request.content.encode(body.parts(), as: .related)
             
             let response = try self.container.client().send(request)
@@ -270,7 +274,7 @@ public final class CustomerDisputes: PayPalController {
         }
         return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + disputeID + "/require-evidence", body: ["action": action], as: LinkResponse.self)["links", []]
+            return client.post(self.path + disputeID + "/require-evidence", body: ["action": action], as: LinkResponse.self)["links", []]
         }
     }
     
@@ -287,7 +291,7 @@ public final class CustomerDisputes: PayPalController {
     public func message(dispute id: String, content: String) -> Future<[LinkDescription]> {
         return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/send-message", body: ["message": content], as: LinkResponse.self)["links", []]
+            return client.post(self.path + id + "/send-message", body: ["message": content], as: LinkResponse.self)["links", []]
         }
     }
 }

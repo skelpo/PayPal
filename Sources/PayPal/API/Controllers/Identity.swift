@@ -15,10 +15,14 @@ public final class Identity: PayPalController {
     /// See `PayPalController.resource` for more information.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "identity"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     /// Retrieves the authenticated user's profile attributes.
@@ -28,7 +32,7 @@ public final class Identity: PayPalController {
     public func info() -> Future<UserInfo> {
         return Future.flatMap(on: self.container) { () -> Future<UserInfo> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + "openidconnect/userinfo", parameters: QueryParamaters(custom: ["schema": "openid"]), as: UserInfo.self)
+            return client.get(self.path + "openidconnect/userinfo", parameters: QueryParamaters(custom: ["schema": "openid"]), as: UserInfo.self)
         }
     }
 }

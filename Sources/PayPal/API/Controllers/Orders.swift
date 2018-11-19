@@ -15,10 +15,14 @@ public final class Orders: PayPalController {
     /// See `PayPalController.resource` for more information.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "checkout/orders"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     /// Creates an order.
@@ -42,9 +46,9 @@ public final class Orders: PayPalController {
                 if order.units == nil { order.units = [] }
                 if order.redirects == nil { order.redirects = Redirects(return: nil, cancel: nil) }
                 
-                return try client.post(self.path(), headers: headers, body: order, as: Order.self)
+                return client.post(self.path, headers: headers, body: order, as: Order.self)
             } else {
-                return try client.post(self.path(), headers: headers, body: order, as: Order.self)
+                return client.post(self.path, headers: headers, body: order, as: Order.self)
             }
         }
     }
@@ -62,7 +66,7 @@ public final class Orders: PayPalController {
     public func cancel(order id: String) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.delete(self.path() + id, as: HTTPStatus.self)
+            return client.delete(self.path + id, as: HTTPStatus.self)
         }
     }
     
@@ -78,7 +82,7 @@ public final class Orders: PayPalController {
     public func details(for orderID: String) -> Future<Order> {
         return Future.flatMap(on: self.container) { () -> Future<Order> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + orderID, as: Order.self)
+            return client.get(self.path + orderID, as: Order.self)
         }
     }
     
@@ -112,7 +116,7 @@ public final class Orders: PayPalController {
                 headers.add(name: "PayPal-Request-Id", value: request)
             }
             
-            return try client.post(self.path() + id + "/pay", headers: headers, body: body, as: Order.self)
+            return client.post(self.path + id + "/pay", headers: headers, body: body, as: Order.self)
         }
     }
 }

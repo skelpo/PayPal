@@ -21,10 +21,14 @@ public final class BillingAgreements: PayPalController {
     /// See `PayPalController.resource` for more information.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "payments//billing-agreements"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     /// Creates a billing agreement.
@@ -41,7 +45,7 @@ public final class BillingAgreements: PayPalController {
     public func create(with agreement: NewAgreement) -> Future<BillingAgreement> {
         return Future.flatMap(on: container) { () -> Future<BillingAgreement> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path(), body: agreement, as: BillingAgreement.self)
+            return client.post(self.path, body: agreement, as: BillingAgreement.self)
         }
     }
     
@@ -58,7 +62,7 @@ public final class BillingAgreements: PayPalController {
     public func update(agreement id: String, with patches: [Patch]) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.patch(self.path() + id, body: ["patch_request": patches], as: HTTPStatus.self)
+            return client.patch(self.path + id, body: ["patch_request": patches], as: HTTPStatus.self)
         }
     }
     
@@ -75,7 +79,7 @@ public final class BillingAgreements: PayPalController {
     public func get(agreement id: String) -> Future<BillingAgreement> {
         return Future.flatMap(on: self.container) { () -> Future<BillingAgreement> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + id, as: BillingAgreement.self)
+            return client.get(self.path + id, as: BillingAgreement.self)
         }
     }
     
@@ -97,7 +101,7 @@ public final class BillingAgreements: PayPalController {
             }
             
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + agreementID + "/bill-balance", body: ["note": reason], as: HTTPStatus.self)
+            return client.post(self.path + agreementID + "/bill-balance", body: ["note": reason], as: HTTPStatus.self)
         }
     }
     
@@ -119,7 +123,7 @@ public final class BillingAgreements: PayPalController {
             }
             
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/cancel", body: ["note": reason], as: HTTPStatus.self)
+            return client.post(self.path + id + "/cancel", body: ["note": reason], as: HTTPStatus.self)
         }
     }
     
@@ -141,7 +145,7 @@ public final class BillingAgreements: PayPalController {
             }
             
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/re-activate", body: ["note": reason], as: HTTPStatus.self)
+            return client.post(self.path + id + "/re-activate", body: ["note": reason], as: HTTPStatus.self)
         }
     }
     
@@ -158,7 +162,7 @@ public final class BillingAgreements: PayPalController {
     public func setBalance(for agreementID: String, amount: Money) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + agreementID + "/set-balance", body: amount, as: HTTPStatus.self)
+            return client.post(self.path + agreementID + "/set-balance", body: amount, as: HTTPStatus.self)
         }
     }
     
@@ -179,7 +183,7 @@ public final class BillingAgreements: PayPalController {
             }
             
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/suspend", body: ["note": reason], as: HTTPStatus.self)
+            return client.post(self.path + id + "/suspend", body: ["note": reason], as: HTTPStatus.self)
         }
     }
     
@@ -198,7 +202,7 @@ public final class BillingAgreements: PayPalController {
     public func transactions(for agreementID: String, parameters: QueryParamaters = QueryParamaters()) -> Future<[Transaction]> {
         return Future.flatMap(on: self.container) { () -> Future<[Transaction]> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + agreementID + "/transactions", parameters: parameters, as: [Transaction].self)
+            return client.get(self.path + agreementID + "/transactions", parameters: parameters, as: [Transaction].self)
         }
     }
     
@@ -213,7 +217,7 @@ public final class BillingAgreements: PayPalController {
     public func execute(agreement id: String) -> Future<BillingAgreement> {
         return Future.flatMap(on: self.container) { () -> Future<BillingAgreement> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/agreement-execute", as: BillingAgreement.self)
+            return client.post(self.path + id + "/agreement-execute", as: BillingAgreement.self)
         }
     }
 }

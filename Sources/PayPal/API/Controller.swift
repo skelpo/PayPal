@@ -9,6 +9,11 @@ public protocol PayPalController: ServiceType {
     /// The API resource that the controller connects to.
     var resource: String { get }
     
+    /// The version of the PayPal API to use when making request's to the API.
+    ///
+    /// Defaults to `.v1`.
+    var version: Version { get }
+    
     /// Creates an instance of the controller on a given container.
     ///
     /// Instead of directly initializing the controller, you should register
@@ -16,11 +21,6 @@ public protocol PayPalController: ServiceType {
     ///
     /// - Parameter container: The container that the controller belongs to.
     init(container: Container)
-    
-    /// The controller's path used on the PayPal API.
-    ///
-    /// The default value is `v{Configuration.version}/{resource}/`.
-    func path()throws -> String
 }
 
 extension PayPalController {
@@ -31,10 +31,7 @@ extension PayPalController {
     }
     
     /// The controller's path used on the PayPal API.
-    ///
-    /// The default value is `v{Configuration.version}/{resource}/`.
-    public func path()throws -> String {
-        let config = try self.container.make(Configuration.self)
-        return "v" + config.version + "/" + resource + "/"
+    public var path: String {
+        return "v" + self.version.rawValue + "/" + resource + "/"
     }
 }

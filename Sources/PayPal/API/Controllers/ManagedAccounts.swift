@@ -27,10 +27,14 @@ public final class ManagedAccounts: PayPalController {
     /// See `PayPalController.resource` for more information.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "partners/merchant-accounts"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     /// Creates a merchant account. Submit the merchant account information in the JSON request body.
@@ -44,7 +48,7 @@ public final class ManagedAccounts: PayPalController {
     public func create(account: MerchantAccount) -> Future<CreatedMerchantResponse> {
         return Future.flatMap(on: self.container) { () -> Future<CreatedMerchantResponse> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path(), body: account, as: CreatedMerchantResponse.self)
+            return client.post(self.path, body: account, as: CreatedMerchantResponse.self)
         }
     }
     
@@ -63,7 +67,7 @@ public final class ManagedAccounts: PayPalController {
     public func patch(account id: String, with patchs: [Patch]) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.patch(self.path() + id, body: ["patch_request": patchs], as: HTTPStatus.self)
+            return client.patch(self.path + id, body: ["patch_request": patchs], as: HTTPStatus.self)
         }
     }
     
@@ -80,7 +84,7 @@ public final class ManagedAccounts: PayPalController {
     public func update(account id: String, with data: MerchantAccount) -> Future<HTTPStatus> {
         return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.put(self.path() + id, body: data, as: HTTPStatus.self)
+            return client.put(self.path + id, body: data, as: HTTPStatus.self)
         }
     }
     
@@ -95,7 +99,7 @@ public final class ManagedAccounts: PayPalController {
     public func details(for accountID: String) -> Future<MerchantAccount> {
         return Future.flatMap(on: self.container) { () -> Future<MerchantAccount> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + accountID, as: MerchantAccount.self)
+            return client.get(self.path + accountID, as: MerchantAccount.self)
         }
     }
     
@@ -110,7 +114,7 @@ public final class ManagedAccounts: PayPalController {
     public func balance(for accountID: String) -> Future<BalanceResponse> {
         return Future.flatMap(on: self.container) { () -> Future<BalanceResponse> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + accountID + "/balances", as: BalanceResponse.self)
+            return client.get(self.path + accountID + "/balances", as: BalanceResponse.self)
         }
     }
     
@@ -125,7 +129,7 @@ public final class ManagedAccounts: PayPalController {
     public func financialInstruments(for accountID: String) -> Future<FinancialInstruments> {
         return Future.flatMap(on: self.container) { () -> Future<FinancialInstruments> in
             let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + accountID + "/financial-instruments", as: FinancialInstruments.self)
+            return client.get(self.path + accountID + "/financial-instruments", as: FinancialInstruments.self)
         }
     }
 }
