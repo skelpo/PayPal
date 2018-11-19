@@ -15,14 +15,19 @@ typealias Env = Vapor.Environment
 public final class PayPalProvider: Vapor.Provider {
     
     let version: Float
+    let clientID: String
+    let clientSecret: String
     
     /// Creates a new `PayPal.Provider` instance to register with an
     /// application's `Services`.
     ///
     ///      try services.register(PayPal.Provider())
     ///
-    /// - Parameter version: The version of the PayPal API to use when making requests.
-    public init(version: Float = 1)throws {
+    /// - Parameters:
+    ///   - version: The version of the PayPal API to use when making requests.
+    ///   - id: The client ID for the PayPal app the connect to.
+    ///   - secret: The client secret for the PayPal app to connect to.
+    public init(version: Float = 1, id: String, secret: String)throws {
         let validVersions: [Float] = [1]
         
         guard validVersions.contains(version) else {
@@ -30,21 +35,16 @@ public final class PayPalProvider: Vapor.Provider {
         }
         
         self.version = version
+        self.clientID = id
+        self.clientSecret = secret
     }
     
     /// Registers all services to the app's services.
     public func register(_ services: inout Services) throws {
-        guard let id = Env.get("PAYPAL_CLIENT_ID") else {
-            throw PayPalError(identifier: "envVarNotFound", reason: "Environment variable 'PAYPAL_CLIENT_ID' was not found")
-        }
-        guard let secret = Env.get("PAYPAL_CLIENT_SECRET") else {
-            throw PayPalError(identifier: "envVarNotFound", reason: "Environment variable 'PAYPAL_CLIENT_SECRET' was not found")
-        }
-        
         if Float(Int(self.version)) == self.version {
-            services.register(Configuration(id: id, secret: secret, version: String(describing: Int(self.version))))
+            services.register(Configuration(id: self.clientID, secret: self.clientSecret, version: String(describing: Int(self.version))))
         } else {
-            services.register(Configuration(id: id, secret: secret, version: String(describing: self.version)))
+            services.register(Configuration(id: self.clientID, secret: self.clientSecret, version: String(describing: self.version)))
         }
         
         services.register(AuthInfo())
