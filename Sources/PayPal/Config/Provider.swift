@@ -7,11 +7,6 @@ typealias Env = Vapor.Environment
 /// - `Configuration`
 /// - `AuthInfo`
 /// - `PayPalClient`
-///
-/// This provider needs 2 environment variables:
-///
-/// - `PAYPAL_CLIENT_ID`: Your PayPal dev client ID.
-/// - `PAYPAL_CLIENT_SECRET`: Your PayPal client secret.
 public final class PayPalProvider: Vapor.Provider {
     
     let version: Version
