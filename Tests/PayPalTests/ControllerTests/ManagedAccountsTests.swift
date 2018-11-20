@@ -71,7 +71,7 @@ final class ManagedAccountsTests: XCTestCase {
                 message: []
             ),
             addresses: [],
-            country: "US",
+            country: .unitedStates,
             stakeholders: [],
             designation: .init(title: "CTO", area: "Software Engineering")
         )
@@ -168,7 +168,7 @@ final class ManagedAccountsTests: XCTestCase {
                 message: []
             ),
             addresses: [],
-            country: "US",
+            country: .unitedStates,
             stakeholders: [],
             designation: .init(title: "CTO", area: "Software Engineering")
         )

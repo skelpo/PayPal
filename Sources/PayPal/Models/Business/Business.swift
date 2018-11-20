@@ -71,14 +71,12 @@ public struct Business: Content, ValidationSetable, Equatable {
     /// An array of merchant addresses.
     public var addresses: [Address]
     
-    /// The [two-character ISO 3166-1 code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/) that identifies the country or region.
-    ///
-    /// This property can be set using the `Business.set(_:)` method.
-    /// This method validates the new value before assigning it to the property.
+    /// The [two-character ISO 3166-1 code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/)
+    /// that identifies the country or region.
     ///
     /// - Note: The country code for Great Britain is GB and not UK as used in the top-level domain names for that country.
     ///   Use the C2 country code for China worldwide for comparable uncontrolled price (CUP) method, bank card, and cross-border transactions.
-    public private(set) var country: String?
+    public var country: Country?
     
     /// An array of business stakeholder information.
     public var stakeholders: [Stakeholder]?
@@ -116,7 +114,7 @@ public struct Business: Content, ValidationSetable, Equatable {
     ///             message: []
     ///         ),
     ///         addresses: [],
-    ///         country: "US",
+    ///         country: .unitedStates,
     ///         stakeholders: [],
     ///         designation: .init(title: "CTO", area: "Software Engineering")
     ///     )
@@ -137,7 +135,7 @@ public struct Business: Content, ValidationSetable, Equatable {
         sales: Sales?,
         customerService: CustomerService?,
         addresses: [Address],
-        country: String?,
+        country: Country?,
         stakeholders: [Stakeholder]?,
         designation: Designation?
     )throws {
@@ -188,7 +186,7 @@ public struct Business: Content, ValidationSetable, Equatable {
             sales: container.decodeIfPresent(Sales.self, forKey: .sales),
             customerService: container.decodeIfPresent(CustomerService.self, forKey: .customerService),
             addresses: container.decode([Address].self, forKey: .addresses),
-            country: container.decodeIfPresent(String.self, forKey: .country),
+            country: container.decodeIfPresent(Country.self, forKey: .country),
             stakeholders: container.decodeIfPresent([Stakeholder].self, forKey: .stakeholders),
             designation: container.decodeIfPresent(Designation.self, forKey: .designation)
         )
@@ -214,12 +212,6 @@ public struct Business: Content, ValidationSetable, Equatable {
             guard let category = category else { return }
             guard category.count == 4 else {
                 throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`merchant_category` value must have a length of 4")
-            }
-        }
-        validations.set(\.country) { country in
-            guard let country = country else { return }
-            guard country.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
-                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`country` value must match RegEx pattern `^([A-Z]{2}|C2)$`")
             }
         }
         
