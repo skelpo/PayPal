@@ -39,6 +39,8 @@ extension PayPalController {
     /// availible in a closure, so any errors that are thrown can be caught and returned in the resulting future.
     ///
     /// - Parameter closure: The closure you have access to the `PayPalClient` in.
+    ///
+    /// - Returns: The future returned from the closure passed in.
     public func client<T>(_ closure: (PayPalClient)throws -> (Future<T>)) -> Future<T> {
         do {
             let client = try self.container.make(PayPalClient.self)
