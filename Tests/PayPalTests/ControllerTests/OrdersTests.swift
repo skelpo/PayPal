@@ -130,7 +130,7 @@ final class OrdersTests: XCTestCase {
                 funding: [
                     FundingInstrument(token: CreditCard.Token(creditCard: "C324C867-B0D8-4522-881E-6D788A159DB4", payer: "C324C867-B0D8-4522-881E-6D788A159DB4"))
                 ],
-                info: Order.Payer.Info(email: "email@example.com", birthdate: nil, tax: nil, taxType: nil, country: "US", billing: nil)
+                info: Order.Payer.Info(email: "email@example.com", birthdate: nil, tax: nil, taxType: nil, country: .unitedStates, billing: nil)
             )
         )
         
