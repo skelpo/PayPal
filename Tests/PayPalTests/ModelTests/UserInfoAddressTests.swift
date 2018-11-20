@@ -8,7 +8,7 @@ final class UserInfoAddressTests: XCTestCase {
             "street_address": "Igby Cottage, Dark Sea of Darkness",
             "locality": "Glipwood",
             "postal_code": "1058",
-            "country": "Skree"
+            "country": "CH"
         }
         """.data(using: .utf8)!
         
@@ -18,7 +18,7 @@ final class UserInfoAddressTests: XCTestCase {
         XCTAssertEqual(address.locality, "Glipwood")
         XCTAssertEqual(address.region, nil)
         XCTAssertEqual(address.zip, "1058")
-        XCTAssertEqual(address.country, "Skree")
+        XCTAssertEqual(address.country, .switzerland)
     }
     
     static var allTests: [(String, (UserInfoAddressTests) -> ()throws -> ())] = [
