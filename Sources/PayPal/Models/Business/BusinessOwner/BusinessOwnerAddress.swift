@@ -63,14 +63,15 @@ extension BusinessOwner {
         /// Maximum length is 40 single-byte characters.
         public var state: String?
         
-        /// The [two-character ISO 3166-1 code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/) that identifies the country or region.
+        /// The [two-character ISO 3166-1 code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/)
+        /// that identifies the country or region.
         ///
         /// The value must match the RegEx pattern `^([A-Z]{2}|C2)$`.
         ///
         /// - Note: The country code for Great Britain is `GB` and not `UK` as used in the top-level
         ///   domain names for that country. Use the `C2` country code for China worldwide for comparable
         ///   uncontrolled price (CUP) method, bank card, and cross-border transactions.
-        public var country: String
+        public var country: Country
         
         /// The postal code, which is the zip code or equivalent.
         /// Typically required for countries with a postal code or an equivalent.
@@ -99,7 +100,7 @@ extension BusinessOwner {
             suburb: String?,
             city: String,
             state: String?,
-            country: String,
+            country: Country,
             postalCode: String?
         )throws {
             self.type = type
@@ -130,7 +131,6 @@ extension BusinessOwner {
             let suburb = try container.decodeIfPresent(String.self, forKey: .suburb)
             let city = try container.decode(String.self, forKey: .city)
             let state = try container.decodeIfPresent(String.self, forKey: .state)
-            let country = try container.decode(String.self, forKey: .country)
             
             self.line1 = line1
             self.line2 = line2
@@ -138,7 +138,7 @@ extension BusinessOwner {
             self.suburb = suburb
             self.city = city
             self.state = state
-            self.country = country
+            self.country = try container.decode(Country.self, forKey: .country)
             self.type = try container.decode(AddressType.self, forKey: .type)
             self.postalCode = try container.decodeIfPresent(String.self, forKey: .postalCode)
             
@@ -148,7 +148,6 @@ extension BusinessOwner {
             try self.set(\.suburb <~ suburb)
             try self.set(\.city <~ city)
             try self.set(\.state <~ state)
-            try self.set(\.country <~ country)
         }
         
         /// See `ValidationSetable.setterValidations()`
@@ -186,11 +185,6 @@ extension BusinessOwner {
                         status: .badRequest,
                         identifier: "invalidLength", reason: "`state` property length can be no longer than 40 1-byte characters"
                     )
-                }
-            }
-            validations.set(\.country) { code in
-                guard code.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`country` property must match `([A-Z]{2}|C2)$` RegEx pattern")
                 }
             }
             
