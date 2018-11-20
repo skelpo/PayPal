@@ -22,7 +22,7 @@ public final class PayPalProvider: Vapor.Provider {
     ///   - version: The version of the PayPal API to use when making requests.
     ///   - id: The client ID for the PayPal app the connect to.
     ///   - secret: The client secret for the PayPal app to connect to.
-    public init(version: Version = .v1, id: String, secret: String)throws {
+    public init(version: Version = .v1, id: String, secret: String) {
         self.version = version
         self.clientID = id
         self.clientSecret = secret
