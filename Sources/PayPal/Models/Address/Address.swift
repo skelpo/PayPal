@@ -118,19 +118,6 @@ public struct Address: Content, ValidationSetable, Equatable {
         try self.set(\.phone <~ phone)
     }
     
-    /// Compares two `Address` objects, checking properties for equality.
-    public static func == (lhs: Address, rhs: Address) -> Bool {
-        return
-            (lhs.recipientName == rhs.recipientName) &&
-            (lhs.defaultAddress == rhs.defaultAddress) &&
-            (lhs.line1 == rhs.line1) &&
-            (lhs.line2 == rhs.line2) &&
-            (lhs.city == rhs.city) &&
-            (lhs.state == rhs.state) &&
-            (lhs.country == rhs.country) &&
-            (lhs.postalCode == rhs.postalCode)
-    }
-    
     public func setterValidations() -> SetterValidations<Address> {
         var validations = SetterValidations(Address.self)
         
