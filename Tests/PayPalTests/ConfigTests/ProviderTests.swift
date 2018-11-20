@@ -50,3 +50,8 @@ final class ProviderTests: XCTestCase {
     ]
 }
 
+extension PayPalProvider {
+    convenience init() {
+        self.init(id: Env.get("PAYPAL_CLIENT_ID")!, secret: Env.get("PAYPAL_CLIENT_SECRET")!)
+    }
+}
