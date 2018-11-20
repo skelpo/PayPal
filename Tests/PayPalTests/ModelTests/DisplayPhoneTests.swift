@@ -3,25 +3,15 @@ import XCTest
 
 final class DisplayPhoneTests: XCTestCase {
     func testInit()throws {
-        let phone = try DisplayPhone(country: "US", number: "245364984688834")
+        let phone = DisplayPhone(country: .unitedStates, number: "245364984688834")
         
-        XCTAssertEqual(phone.country, "US")
+        XCTAssertEqual(phone.country, .unitedStates)
         XCTAssertEqual(phone.number, "245364984688834")
-    }
-    
-    func testValidations()throws {
-        try XCTAssertThrowsError(DisplayPhone(country: "usa", number: "245364984688834"))
-        var phone = try DisplayPhone(country: "US", number: "245364984688834")
-        
-        try XCTAssertThrowsError(phone.set(\.country <~ "usa"))
-        try phone.set(\.country <~ "UK")
-        
-        XCTAssertEqual(phone.country, "UK")
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let phone = try DisplayPhone(country: "US", number: "245364984688834")
+        let phone = DisplayPhone(country: .unitedStates, number: "245364984688834")
         let generated = try String(data: encoder.encode(phone), encoding: .utf8)!
         let json = "{\"country_code\":\"US\",\"number\":\"245364984688834\"}"
         
@@ -51,12 +41,11 @@ final class DisplayPhoneTests: XCTestCase {
         """
         
         try XCTAssertThrowsError(decoder.decode(DisplayPhone.self, from: country))
-        try XCTAssertEqual(decoder.decode(DisplayPhone.self, from: json), DisplayPhone(country: "US", number: "245364984688834"))
+        try XCTAssertEqual(decoder.decode(DisplayPhone.self, from: json), DisplayPhone(country: .unitedStates, number: "245364984688834"))
     }
     
     static var allTests: [(String, (DisplayPhoneTests) -> ()throws -> ())] = [
         ("testInit", testInit),
-        ("testValidations", testValidations),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)
     ]
