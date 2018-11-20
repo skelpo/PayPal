@@ -28,7 +28,7 @@ final class PayerTests: XCTestCase {
                     line2: nil,
                     city: "Nowhere",
                     state: "KS",
-                    countryCode: "US",
+                    country: .unitedStates,
                     postalCode: "66167",
                     phone: nil,
                     type: nil
@@ -65,7 +65,7 @@ final class PayerTests: XCTestCase {
                     line2: nil,
                     city: "Nowhere",
                     state: "KS",
-                    countryCode: "US",
+                    country: .unitedStates,
                     postalCode: "66167",
                     phone: nil,
                     type: nil
@@ -101,7 +101,7 @@ final class PayerTests: XCTestCase {
                     line2: nil,
                     city: "Nowhere",
                     state: "KS",
-                    countryCode: "US",
+                    country: .unitedStates,
                     postalCode: "66167",
                     phone: nil,
                     type: nil
@@ -153,7 +153,7 @@ final class PayerTests: XCTestCase {
                     line2: nil,
                     city: "Nowhere",
                     state: "KS",
-                    countryCode: "US",
+                    country: .unitedStates,
                     postalCode: "66167",
                     phone: nil,
                     type: nil

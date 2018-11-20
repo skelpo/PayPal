@@ -11,7 +11,7 @@ final class OrderUnitTests: XCTestCase {
             line2: nil,
             city: "Cupertino",
             state: "CA",
-            countryCode: "US",
+            country: .unitedStates,
             postalCode: "94024",
             phone: nil,
             type: nil
@@ -139,7 +139,7 @@ final class OrderUnitTests: XCTestCase {
             line2: nil,
             city: "Cupertino",
             state: nil,
-            countryCode: "US",
+            country: .unitedStates,
             postalCode: "94024",
             phone: nil,
             type: nil
@@ -191,7 +191,7 @@ final class OrderUnitTests: XCTestCase {
             line2: nil,
             city: "Cupertino",
             state: nil,
-            countryCode: "US",
+            country: .unitedStates,
             postalCode: "94024",
             phone: nil,
             type: nil

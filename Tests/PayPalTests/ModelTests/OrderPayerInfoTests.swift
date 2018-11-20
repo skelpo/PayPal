@@ -11,7 +11,7 @@ final class OrderPayerInfoTests: XCTestCase {
             country: "US",
             billing: Address(
                 recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
-                countryCode: "PU", postalCode: "3552", phone: nil, type: nil
+                country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
             )
         )
         
@@ -29,7 +29,7 @@ final class OrderPayerInfoTests: XCTestCase {
         XCTAssertEqual(info.country, "US")
         try XCTAssertEqual(info.billing, Address(
             recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
-            countryCode: "PU", postalCode: "3552", phone: nil, type: nil
+            country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
         ))
     }
     
@@ -45,7 +45,7 @@ final class OrderPayerInfoTests: XCTestCase {
             country: "US",
             billing: Address(
                 recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
-                countryCode: "PU", postalCode: "3552", phone: nil, type: nil
+                country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
             )
         )
         
@@ -72,7 +72,7 @@ final class OrderPayerInfoTests: XCTestCase {
             country: "US",
             billing: Address(
                 recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
-                countryCode: "PU", postalCode: "3552", phone: nil, type: nil
+                country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
             )
         )
         let generated = try String(data: encoder.encode(info), encoding: .utf8)!
@@ -128,7 +128,7 @@ final class OrderPayerInfoTests: XCTestCase {
         XCTAssertEqual(info.email, "email@example.com")
         try XCTAssertEqual(info.billing, Address(
             recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
-            countryCode: "PU", postalCode: "3552", phone: nil, type: nil
+            country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
         ))
     }
     

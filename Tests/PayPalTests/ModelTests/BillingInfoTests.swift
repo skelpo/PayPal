@@ -16,7 +16,7 @@ final class BillingInfoTests: XCTestCase {
                 line2: nil,
                 city: "London",
                 state: nil,
-                countryCode: "UK",
+                country: .unitedKingdom,
                 postalCode: "42",
                 phone: nil,
                 type: nil
@@ -40,7 +40,7 @@ final class BillingInfoTests: XCTestCase {
             line2: nil,
             city: "London",
             state: nil,
-            countryCode: "UK",
+            country: .unitedKingdom,
             postalCode: "42",
             phone: nil,
             type: nil

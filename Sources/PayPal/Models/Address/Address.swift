@@ -34,14 +34,15 @@ public struct Address: Content, ValidationSetable, Equatable {
     /// Maximum length is 40 single-byte characters.
     public private(set) var state: String?
     
-    /// The [two-character ISO 3166-1 code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/) that identifies the country or region.
+    /// The [two-character ISO 3166-1 code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/)
+    /// that identifies the country or region.
     ///
     /// The value must match the RegEx pattern `^([A-Z]{2}|C2)$`.
     ///
     /// - Note: The country code for Great Britain is `GB` and not `UK` as used in the top-level
     ///   domain names for that country. Use the `C2` country code for China worldwide for comparable
     ///   uncontrolled price (CUP) method, bank card, and cross-border transactions.
-    public private(set) var countryCode: String
+    public var country: Country
     
     /// The postal code, which is the zip code or equivalent.
     /// Typically required for countries with a postal code or an equivalent.
@@ -75,7 +76,7 @@ public struct Address: Content, ValidationSetable, Equatable {
         line2: String?,
         city: String,
         state: String?,
-        countryCode: String,
+        country: Country,
         postalCode: String,
         phone: String?,
         type: String?
@@ -87,13 +88,12 @@ public struct Address: Content, ValidationSetable, Equatable {
         self.line2 = line2
         self.city = city
         self.state = state
-        self.countryCode = countryCode
+        self.country = country
         self.postalCode = postalCode
         self.phone = phone
         self.type = type
         
         try self.set(\.state <~ state)
-        try self.set(\.countryCode <~ countryCode)
         try self.set(\.phone <~ phone)
     }
     
@@ -109,13 +109,12 @@ public struct Address: Content, ValidationSetable, Equatable {
         self.line2 = try container.decodeIfPresent(String.self, forKey: .line2)
         self.city = try container.decode(String.self, forKey: .city)
         self.state = try container.decodeIfPresent(String.self, forKey: .state)
-        self.countryCode = try container.decode(String.self, forKey: .countryCode)
+        self.country = try container.decode(Country.self, forKey: .country)
         self.postalCode = try container.decode(String.self, forKey: .postalCode)
         self.phone = try container.decodeIfPresent(String.self, forKey: .phone)
         self.type = try container.decodeIfPresent(String.self, forKey: .type)
         
         try self.set(\.state <~ state)
-        try self.set(\.countryCode <~ countryCode)
         try self.set(\.phone <~ phone)
     }
     
@@ -128,7 +127,7 @@ public struct Address: Content, ValidationSetable, Equatable {
             (lhs.line2 == rhs.line2) &&
             (lhs.city == rhs.city) &&
             (lhs.state == rhs.state) &&
-            (lhs.countryCode == rhs.countryCode) &&
+            (lhs.country == rhs.country) &&
             (lhs.postalCode == rhs.postalCode)
     }
     
@@ -144,15 +143,6 @@ public struct Address: Content, ValidationSetable, Equatable {
                 )
             }
         }
-        validations.set(\.countryCode) { code in
-            guard code.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
-                throw PayPalError(
-                    status: .badRequest,
-                    identifier: "malformedString",
-                    reason: "`ShippingAddress.countryCode` property must match `([A-Z]{2}|C2)$` RegEx pattern"
-                )
-            }
-        }
         validations.set(\.phone) { phone in
             
         }
@@ -164,7 +154,7 @@ public struct Address: Content, ValidationSetable, Equatable {
         case line1, line2, city, state, phone, type
         case recipientName = "recipient_name"
         case defaultAddress = "default_address"
-        case countryCode = "country_code"
+        case country = "country_code"
         case postalCode = "postal_code"
         case normalization = "normalization_status"
     }

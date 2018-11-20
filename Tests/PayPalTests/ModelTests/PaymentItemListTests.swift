@@ -9,7 +9,7 @@ final class PaymentItemListTests: XCTestCase {
         line2: nil,
         city: "city",
         state: nil,
-        countryCode: "US",
+        country: .unitedStates,
         postalCode: "1",
         phone: nil,
         type: nil
@@ -27,7 +27,7 @@ final class PaymentItemListTests: XCTestCase {
             line2: nil,
             city: "city",
             state: nil,
-            countryCode: "US",
+            country: .unitedStates,
             postalCode: "1",
             phone: nil,
             type: nil

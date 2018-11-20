@@ -58,7 +58,7 @@ final class InvoicesTests: XCTestCase {
                         line2: nil,
                         city: "Chancer",
                         state: "KY",
-                        countryCode: "US",
+                        country: .unitedStates,
                         postalCode: "489156",
                         phone: nil,
                         type: nil

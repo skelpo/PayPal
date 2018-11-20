@@ -305,7 +305,7 @@ internal struct PaymentTestsContext {
             line2: nil,
             city: "New Haven",
             state: "CN",
-            countryCode: "US",
+            country: .unitedStates,
             postalCode: "79812",
             phone: nil,
             type: nil

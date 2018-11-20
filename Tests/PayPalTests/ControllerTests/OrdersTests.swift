@@ -71,7 +71,7 @@ final class OrdersTests: XCTestCase {
                         line2: nil,
                         city: "Armagedon",
                         state: "IL",
-                        countryCode: "US",
+                        country: .unitedStates,
                         postalCode: "456813",
                         phone: nil,
                         type: nil

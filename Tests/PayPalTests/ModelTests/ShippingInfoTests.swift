@@ -14,7 +14,7 @@ final class ShippingInfoTests: XCTestCase {
                 line2: nil,
                 city: "Glipwood",
                 state: nil,
-                countryCode: "SK",
+                country: .switzerland,
                 postalCode: "562",
                 phone: nil,
                 type: nil
@@ -31,7 +31,7 @@ final class ShippingInfoTests: XCTestCase {
             line2: nil,
             city: "Glipwood",
             state: nil,
-            countryCode: "SK",
+            country: .switzerland,
             postalCode: "562",
             phone: nil,
             type: nil
