@@ -59,7 +59,7 @@ extension Business {
             phones: [TypedPhoneNumber]?,
             ids: [Identification]?,
             birthplace: BirthPlace?
-        )throws {
+        ) {
             self.ownership = ownership
             self.type = type
             self.country = country
