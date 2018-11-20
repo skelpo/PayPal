@@ -56,11 +56,11 @@ public final class Templates: PayPalController {
     ///
     /// - Returns: The merchant's template details, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
-    public func list(fields: Template.ListFields = .all) -> Future<TemplateList> {
+    public func list(fields: Template.ListFields = .all) -> Future<Template.List> {
         return self.client { client in
             let parameters = QueryParamaters(custom: ["fields": fields.rawValue])
             
-            return client.get(self.path, parameters: parameters, as: TemplateList.self)
+            return client.get(self.path, parameters: parameters, as: Template.List.self)
         }
     }
     
