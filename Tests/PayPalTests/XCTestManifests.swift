@@ -21,7 +21,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(PayPalAPIErrorTests.allCases),
         testCase(PayPalAPIIdentityErrorTests.allCases),
         testCase(ActivityTests.allCases),
-        testCase(ActivitiesResponseTests.allCases),
+        testCase(ActivityResponseTests.allCases),
         testCase(BillingPlanTypeTests.allCases),
         testCase(OverrideChargeTests.allCases),
         testCase(testValueValidation.allCases),

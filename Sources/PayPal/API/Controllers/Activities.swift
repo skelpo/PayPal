@@ -31,7 +31,7 @@ public final class Activities: PayPalController {
     ///
     /// - Parameter parameters: The querys string parameters to send in the request URL.
     /// - Returns: The endpoint's response, decoded to an `ActivitiesResponse` object, wrapped in a future.
-    public func activities(parameters: QueryParamaters = QueryParamaters()) -> Future<ActivitiesResponse> {
+    public func activities(parameters: QueryParamaters = QueryParamaters()) -> Future<Activity.Response> {
         return self.client { client in
             return client.get(self.path + "activities", parameters: parameters)
         }
