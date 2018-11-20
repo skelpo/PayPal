@@ -5,7 +5,7 @@ final class StakeholderTests: XCTestCase {
     func testInit()throws {
         let holder = try Business.Stakeholder(
             type: .partner,
-            country: "US",
+            country: .unitedStates,
             birth: TimelessDate(date: "2000-06-18"),
             name: Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "auth.", full: "Sir Walter Scott"),
             addresses: [],
@@ -16,7 +16,7 @@ final class StakeholderTests: XCTestCase {
         
         XCTAssertNil(holder.ownership)
         XCTAssertEqual(holder.type, .partner)
-        XCTAssertEqual(holder.country, "US")
+        XCTAssertEqual(holder.country, .unitedStates)
         XCTAssertEqual(holder.addresses, [])
         XCTAssertEqual(holder.phones, [])
         XCTAssertEqual(holder.ids, [])
@@ -25,21 +25,11 @@ final class StakeholderTests: XCTestCase {
         try XCTAssertEqual(holder.name, Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "auth.", full: "Sir Walter Scott"))
     }
     
-    func testValidations()throws {
-        try XCTAssertThrowsError(Business.Stakeholder(type: nil, country: "USA", birth: nil, name: nil, addresses: [], phones: [], ids: [], birthplace: nil))
-        var holder = try Business.Stakeholder(type: nil, country: "US", birth: nil, name: nil, addresses: [], phones: [], ids: [], birthplace: nil)
-        
-        try XCTAssertThrowsError(holder.set(\.country <~ "Aus."))
-        try holder.set(\.country <~ "AU")
-        
-        XCTAssertEqual(holder.country, "AU")
-    }
-    
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let holder = try Business.Stakeholder(
             type: .partner,
-            country: "US",
+            country: .unitedStates,
             birth: TimelessDate(date: "2000-06-18"),
             name: Name(prefix: nil, given: nil, surname: nil, middle: nil, suffix: nil, full: nil),
             addresses: [],
@@ -49,8 +39,8 @@ final class StakeholderTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(holder), encoding: .utf8)!
         let json =
-            "{\"place_of_birth\":{\"country_code\":\"US\",\"city\":\"Boston\"},\"identifications\":[],\"phones\":[],\"addresses\":[],\"name\":{}," +
-            "\"date_of_birth\":{\"date_no_time\":\"2000-06-18\"},\"country_code_of_nationality\":\"US\",\"type\":\"PARTNER\"}"
+            "{\"phones\":[],\"country_code_of_nationality\":\"US\",\"date_of_birth\":{\"date_no_time\":\"2000-06-18\"},\"addresses\":[]," +
+            "\"identifications\":[],\"type\":\"PARTNER\",\"name\":{},\"place_of_birth\":{\"country_code\":\"US\",\"city\":\"Boston\"}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -83,7 +73,7 @@ final class StakeholderTests: XCTestCase {
         """.data(using: .utf8)!
         let holder = try Business.Stakeholder(
             type: .partner,
-            country: "US",
+            country: .unitedStates,
             birth: TimelessDate(date: "2000-06-18"),
             name: Name(prefix: nil, given: nil, surname: nil, middle: nil, suffix: nil, full: nil),
             addresses: [],
@@ -97,7 +87,6 @@ final class StakeholderTests: XCTestCase {
     
     static var allTests: [(String, (StakeholderTests) -> ()throws -> ())] = [
         ("testInit", testInit),
-        ("testValidations", testValidations),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)
     ]
