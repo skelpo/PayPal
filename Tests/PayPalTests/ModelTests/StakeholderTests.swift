@@ -20,8 +20,8 @@ final class StakeholderTests: XCTestCase {
         XCTAssertEqual(holder.addresses, [])
         XCTAssertEqual(holder.phones, [])
         XCTAssertEqual(holder.ids, [])
-        try XCTAssertEqual(holder.birth, TimelessDate(date: "2000-06-18"))
-        try XCTAssertEqual(holder.birthplace, BirthPlace(country: .unitedStates, city: "Boston"))
+        XCTAssertEqual(holder.birth, TimelessDate(date: "2000-06-18"))
+        XCTAssertEqual(holder.birthplace, BirthPlace(country: .unitedStates, city: "Boston"))
         try XCTAssertEqual(holder.name, Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "auth.", full: "Sir Walter Scott"))
     }
     

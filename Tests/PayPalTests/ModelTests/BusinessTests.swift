@@ -50,8 +50,8 @@ final class BusinessTests: XCTestCase {
         XCTAssertEqual(business.designation, Business.Designation(title: "CTO", area: "Software Engineering"))
         
         XCTAssertEqual(business.establishment, Establishment(state: "KS", country: .unitedStates))
-        try XCTAssertEqual(business.establishedDate, TimelessDate(date: "1882-05-13"))
-        try XCTAssertEqual(business.registrationDate, TimelessDate(date: "1975-04-22"))
+        XCTAssertEqual(business.establishedDate, TimelessDate(date: "1882-05-13"))
+        XCTAssertEqual(business.registrationDate, TimelessDate(date: "1975-04-22"))
         try XCTAssertEqual(business.disputeEmail, EmailAddress(email: "disputable@exmaple.com"))
         try XCTAssertEqual(business.sales, Business.Sales.init(
             price: MoneyRange("50"..."60", currency: .usd),
