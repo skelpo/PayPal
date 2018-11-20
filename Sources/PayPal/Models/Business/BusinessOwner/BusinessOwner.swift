@@ -21,11 +21,8 @@ public struct BusinessOwner: Content, ValidationSetable, Equatable {
     /// The [two-character IS0-3166-1 country code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/)
     /// of the account holder's country of residence.
     ///
-    /// This property can be set using the `BusinessOwner.set(_:)` method.
-    /// This method validates the new value before assigning it to the property.
-    ///
     /// Length: 2. Pattern: `^([A-Z]{2}|C2)$`.
-    public private(set) var country: String
+    public var country: Country
     
     /// An array of addresses for the account holder.
     public var addresses: [Address]
@@ -71,7 +68,7 @@ public struct BusinessOwner: Content, ValidationSetable, Equatable {
         email: String,
         name: Name,
         relationships: [AccountOwnerRelationship]?,
-        country: String,
+        country: Country,
         addresses: [Address],
         birthdate: String?,
         language: Language?,
@@ -99,12 +96,11 @@ public struct BusinessOwner: Content, ValidationSetable, Equatable {
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let email = try container.decode(String.self, forKey: .email)
-        let country = try container.decode(String.self, forKey: .country)
         let birthdate = try container.decodeIfPresent(String.self, forKey: .birthdate)
         
         self.email = email
-        self.country = country
         self.birthdate = birthdate
+        self.country = try container.decode(Country.self, forKey: .country)
         self.name = try container.decode(Name.self, forKey: .name)
         self.relationships = try container.decodeIfPresent([AccountOwnerRelationship].self, forKey: .relationships)
         self.addresses = try container.decode([Address].self, forKey: .addresses)
@@ -114,7 +110,6 @@ public struct BusinessOwner: Content, ValidationSetable, Equatable {
         self.occupation = try container.decodeIfPresent(String.self, forKey: .occupation)
         
         try self.set(\.email <~ email)
-        try self.set(\.country <~ country)
         try self.set(\.birthdate <~ birthdate)
     }
     
@@ -125,11 +120,6 @@ public struct BusinessOwner: Content, ValidationSetable, Equatable {
         validations.set(\.email) { email in
             guard email.range(of: "^.+@[^\"\\-].+$", options: .regularExpression) != nil else {
                 throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`email` value must match the RegEx pattern `^.+@[^\"\\-].+$`")
-            }
-        }
-        validations.set(\.country) { country in
-            guard country.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
-                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`country` value must match the RegEx pattern `^([A-Z]{2}|C2)$`")
             }
         }
         validations.set(\.birthdate) { birthdate in
