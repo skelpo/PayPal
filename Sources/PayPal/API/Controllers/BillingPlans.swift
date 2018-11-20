@@ -67,7 +67,7 @@ public final class BillingPlans: PayPalController {
     ///
     /// - Returns: A list of the billing plans wrapped in a future. If an error response was sent back instead, it gets converted
     ///   to a Swift error and the future wraps that instead.
-    public func list(state: BillingPlan.State? = nil, parameters: QueryParamaters = QueryParamaters()) -> Future<BillingPlanList> {
+    public func list(state: BillingPlan.State? = nil, parameters: QueryParamaters = QueryParamaters()) -> Future<BillingPlan.List> {
         return self.client { client in
             var params = parameters
             
@@ -76,7 +76,7 @@ public final class BillingPlans: PayPalController {
             } else {
                 params.custom?["status"] = state?.rawValue
             }
-            return client.get(self.path, parameters: params, as: BillingPlanList.self)
+            return client.get(self.path, parameters: params, as: BillingPlan.List.self)
         }
     }
     

@@ -3,7 +3,7 @@ import XCTest
 
 final class BillingPlanListTests: XCTestCase {
     func testInit()throws {
-        let list = try BillingPlanList(plans: [
+        let list = try BillingPlan.List(plans: [
             BillingPlan(
                 name: "Monthly Water",
                 description: "Your water payment",
@@ -46,7 +46,7 @@ final class BillingPlanListTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let list = try BillingPlanList(plans: [
+        let list = try BillingPlan.List(plans: [
             BillingPlan(
                 name: "Monthly Water",
                 description: "Your water payment",
@@ -110,7 +110,7 @@ final class BillingPlanListTests: XCTestCase {
             ]
         }
         """.data(using: .utf8)!
-        let plan = try decoder.decode(BillingPlanList.self, from: json)
+        let plan = try decoder.decode(BillingPlan.List.self, from: json)
         
         XCTAssertEqual(plan.pages, "1")
         XCTAssertEqual(plan.items, "1")
