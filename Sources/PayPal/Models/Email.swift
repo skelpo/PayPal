@@ -61,20 +61,21 @@ public struct EmailType<Keys>: Content, ValidationSetable, Equatable where Keys:
     /// validate the the new value before assigning it to the property.
     ///
     /// Minimum length: 3. Maximum length: 254. Pattern: `^.+@[^"\-].+$`.
-    public private(set) var email: String?
+    public private(set) var email: String
     
     /// Creates a new `CCEmail` instance.
     ///
     ///     CCEmail(email: "holmer@shlock.com")
-    public init(email: String?)throws {
+    public init(email: String)throws {
         self.email = email
-        
         try self.set(\.email <~ email)
     }
     
     /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
-        self.email = try decoder.singleValueContainer().decode(String?.self)
+        let container = try decoder.singleValueContainer()
+        self.email = try container.decode(String.self)
+
         
         try self.set(\.email <~ self.email)
     }
@@ -90,7 +91,6 @@ public struct EmailType<Keys>: Content, ValidationSetable, Equatable where Keys:
         var validations = SetterValidations(EmailType<Keys>.self)
         
         validations.set(\.email) { email in
-            guard let email = email else { return }
             guard email.count >= 3 && email.count <= 254 else {
                 throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`email` property must have a length between 3 and 254")
             }
