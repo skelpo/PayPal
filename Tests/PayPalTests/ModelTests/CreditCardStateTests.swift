@@ -1,19 +1,21 @@
 import XCTest
 @testable import PayPal
 
+fileprivate typealias CCStaate = CreditCard.State
+
 final class CreditCardStateTests: XCTestCase {
-    struct CC: Codable {
-        let state: CreditCardState
+    private struct CC: Codable {
+        let state: CCStaate
     }
     
     func testCaseRawValues() {
-        XCTAssertEqual(CreditCardState.ok.rawValue, "ok")
-        XCTAssertEqual(CreditCardState.expired.rawValue, "expired")
+        XCTAssertEqual(CCStaate.ok.rawValue, "ok")
+        XCTAssertEqual(CCStaate.expired.rawValue, "expired")
     }
     
     func testAllCase() {
-        XCTAssertEqual(CreditCardState.allCases.count, 2)
-        XCTAssertEqual(CreditCardState.allCases, [.ok, .expired])
+        XCTAssertEqual(CCStaate.allCases.count, 2)
+        XCTAssertEqual(CCStaate.allCases, [.ok, .expired])
     }
     
     func testEncoding()throws {

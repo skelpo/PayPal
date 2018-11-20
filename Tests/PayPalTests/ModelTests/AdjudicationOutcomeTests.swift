@@ -2,10 +2,6 @@ import XCTest
 @testable import PayPal
 
 final class AdjudicationOutcomeTests: XCTestCase {
-    struct CC: Codable {
-        let state: CreditCardState
-    }
-    
     struct Adjudication: Codable {
         let outcome: AdjudicationOutcome
     }
