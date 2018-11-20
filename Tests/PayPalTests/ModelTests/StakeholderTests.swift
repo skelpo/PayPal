@@ -11,7 +11,7 @@ final class StakeholderTests: XCTestCase {
             addresses: [],
             phones: [],
             ids: [],
-            birthplace: BirthPlace(country: "US", city: "Boston")
+            birthplace: BirthPlace(country: .unitedStates, city: "Boston")
         )
         
         XCTAssertNil(holder.ownership)
@@ -21,7 +21,7 @@ final class StakeholderTests: XCTestCase {
         XCTAssertEqual(holder.phones, [])
         XCTAssertEqual(holder.ids, [])
         try XCTAssertEqual(holder.birth, TimelessDate(date: "2000-06-18"))
-        try XCTAssertEqual(holder.birthplace, BirthPlace(country: "US", city: "Boston"))
+        try XCTAssertEqual(holder.birthplace, BirthPlace(country: .unitedStates, city: "Boston"))
         try XCTAssertEqual(holder.name, Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "auth.", full: "Sir Walter Scott"))
     }
     
@@ -35,7 +35,7 @@ final class StakeholderTests: XCTestCase {
             addresses: [],
             phones: [],
             ids: [],
-            birthplace: BirthPlace(country: "US", city: "Boston")
+            birthplace: BirthPlace(country: .unitedStates, city: "Boston")
         )
         let generated = try String(data: encoder.encode(holder), encoding: .utf8)!
         let json =
@@ -79,7 +79,7 @@ final class StakeholderTests: XCTestCase {
             addresses: [],
             phones: [],
             ids: [],
-            birthplace: BirthPlace(country: "US", city: "Boston")
+            birthplace: BirthPlace(country: .unitedStates, city: "Boston")
         )
         
         try XCTAssertEqual(holder, decoder.decode(Business.Stakeholder.self, from: json))

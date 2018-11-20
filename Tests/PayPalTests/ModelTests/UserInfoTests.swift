@@ -20,7 +20,7 @@ final class UserInfoTests: XCTestCase {
             "address": {
                 "locality": "Edinburgh",
                 "postal_code": "1058",
-                "country": "Scotland"
+                "country": "GB"
             },
             "verified_account": true,
             "account_type": "PERSONAL",
@@ -46,7 +46,7 @@ final class UserInfoTests: XCTestCase {
         
         XCTAssertEqual(info.address?.locality, "Edinburgh")
         XCTAssertEqual(info.address?.zip, "1058")
-        XCTAssertEqual(info.address?.country, "Scotland")
+        XCTAssertEqual(info.address?.country, .unitedKingdom)
         
         XCTAssertEqual(info.verified, true)
         XCTAssertEqual(info.accountType, .personal)
