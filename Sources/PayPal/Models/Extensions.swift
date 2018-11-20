@@ -28,16 +28,6 @@ public struct Extensions: Content, Equatable {
         self.orderProperties = orderProperties
     }
     
-    /// Compares two `Extensions` objects, checking that the `paymentProperties`, `requestMoneyProperties`,
-    /// `invoiceProperties`, and `orderProperties` properties are the same
-    public static func == (lhs: Extensions, rhs: Extensions) -> Bool {
-        return
-            (lhs.paymentProperties == rhs.paymentProperties) &&
-            (lhs.requestMoneyProperties == rhs.requestMoneyProperties) &&
-            (lhs.invoiceProperties == rhs.invoiceProperties) &&
-            (lhs.orderProperties == rhs.orderProperties)
-    }
-    
     enum CodingKeys: String, CodingKey {
         case paymentProperties = "payment_properties"
         case requestMoneyProperties = "request_money_properties"
