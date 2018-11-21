@@ -19,7 +19,7 @@ public struct Invoice: Content, ValidationSetable, Equatable {
     public let status: Status?
     
     /// The total amount of the invoice.
-    public let total: Amount?
+    public let total: CurrencyAmount?
     
     /// An array of payment details for the invoice.
     public let payments: [Details]?
@@ -83,13 +83,13 @@ public struct Invoice: Content, ValidationSetable, Equatable {
     public private(set) var reference: String?
     
     /// The invoice level discount, as a percent or an amount value.
-    public var discount: Discount<Amount>?
+    public var discount: Discount<CurrencyAmount>?
     
     /// The shipping amount, as a percent or an amount value.
     public var shippingCost: ShippingCosts?
     
     /// The custom amount to apply to an invoice. If you include a label, you must include a custom amount.
-    public var custom: CustomAmount<Amount>?
+    public var custom: CustomAmount<CurrencyAmount>?
     
     /// Indicates whether the invoice allows a partial payment. If `false`, the invoice must be paid in full. If `true`, the invoice allows partial payments.
     ///
@@ -97,7 +97,7 @@ public struct Invoice: Content, ValidationSetable, Equatable {
     public var allowPartialPayment: Bool?
     
     /// The minimum amount allowed for a partial payment. Valid only if `allow_partial_payment` is true.
-    public var minimumDue: Amount?
+    public var minimumDue: CurrencyAmount?
     
     /// Indicates whether the tax is calculated before or after a discount. If `false`, the tax is calculated before a discount.
     /// If `true`, the tax is calculated after a discount.
@@ -199,11 +199,11 @@ public struct Invoice: Content, ValidationSetable, Equatable {
         date: String? = nil,
         payment: PaymentTerm? = nil,
         reference: String? = nil,
-        discount: Discount<Amount>? = nil,
+        discount: Discount<CurrencyAmount>? = nil,
         shippingCost: ShippingCosts? = nil,
-        custom: CustomAmount<Amount>? = nil,
+        custom: CustomAmount<CurrencyAmount>? = nil,
         allowPartialPayment: Bool? = nil,
-        minimumDue: Amount? = nil,
+        minimumDue: CurrencyAmount? = nil,
         taxCalculatedAfterDiscount: Bool? = nil,
         taxInclusive: Bool? = nil,
         terms: String? = nil,
@@ -274,7 +274,7 @@ public struct Invoice: Content, ValidationSetable, Equatable {
         
         self.id = try container.decodeIfPresent(String.self, forKey: .id)
         self.status = try container.decodeIfPresent(Status.self, forKey: .status)
-        self.total = try container.decodeIfPresent(Amount.self, forKey: .total)
+        self.total = try container.decodeIfPresent(CurrencyAmount.self, forKey: .total)
         self.payments = try container.decodeIfPresent([Details].self, forKey: .payments)
         self.refunds = try container.decodeIfPresent([RefundDetail].self, forKey: .refunds)
         self.metadata = try container.decodeIfPresent(Metadata.self, forKey: .metadata)
@@ -290,11 +290,11 @@ public struct Invoice: Content, ValidationSetable, Equatable {
         self.items = try container.decodeIfPresent([Item].self, forKey: .items)
         self.date = try container.decodeIfPresent(String.self, forKey: .date)
         self.payment = try container.decodeIfPresent(PaymentTerm.self, forKey: .payment)
-        self.discount = try container.decodeIfPresent(Discount<Amount>.self, forKey: .discount)
+        self.discount = try container.decodeIfPresent(Discount<CurrencyAmount>.self, forKey: .discount)
         self.shippingCost = try container.decodeIfPresent(ShippingCosts.self, forKey: .shippingCost)
-        self.custom = try container.decodeIfPresent(CustomAmount<Amount>.self, forKey: .custom)
+        self.custom = try container.decodeIfPresent(CustomAmount<CurrencyAmount>.self, forKey: .custom)
         self.allowPartialPayment = try container.decodeIfPresent(Bool.self, forKey: .allowPartialPayment)
-        self.minimumDue = try container.decodeIfPresent(Amount.self, forKey: .minimumDue)
+        self.minimumDue = try container.decodeIfPresent(CurrencyAmount.self, forKey: .minimumDue)
         self.taxCalculatedAfterDiscount = try container.decodeIfPresent(Bool.self, forKey: .taxCalculatedAfterDiscount)
         self.taxInclusive = try container.decodeIfPresent(Bool.self, forKey: .taxInclusive)
         self.allowTip = try container.decodeIfPresent(Bool.self, forKey: .allowTip)

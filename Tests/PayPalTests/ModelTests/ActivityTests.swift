@@ -2,7 +2,7 @@ import XCTest
 @testable import PayPal
 
 final class ActivityTests: XCTestCase {
-    let activity = try! Activity(
+    let activity = Activity(
         id: "94C67654-A41B-4421-B0D0-81E6CD587CDB",
         timeCreated: "2018-07-12T14:14:56Z",
         type: .payment,
@@ -14,14 +14,8 @@ final class ActivityTests: XCTestCase {
             name: "Jonathan Futher"
         ),
         fee: nil,
-        gross: Money(
-            currency: .usd,
-            value: "19.45"
-        ),
-        net: Money(
-            currency: .usd,
-            value: "19.45"
-        ),
+        gross: CurrencyCodeAmount(currency: .usd, value: 19.45),
+        net: CurrencyCodeAmount(currency: .usd, value: 19.45),
         partnerFee: nil,
         extensions: nil
     )

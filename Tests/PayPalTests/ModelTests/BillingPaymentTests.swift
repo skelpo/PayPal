@@ -9,7 +9,7 @@ final class BillingPaymentTests: XCTestCase {
             interval: "2",
             frequency: .month,
             cycles: "0",
-            amount: Money(currency: .usd, value: "24.99"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 24.99),
             charges: nil
         )
         
@@ -20,7 +20,7 @@ final class BillingPaymentTests: XCTestCase {
         XCTAssertEqual(payment.frequency, .month)
         XCTAssertEqual(payment.cycles, "0")
         XCTAssertEqual(payment.charges, nil)
-        try XCTAssertEqual(payment.amount, Money(currency: .usd, value: "24.99"))
+        XCTAssertEqual(payment.amount, CurrencyCodeAmount(currency: .usd, value: 24.99))
         
         try XCTAssertThrowsError(BillingPayment(
             name: "Service Membership",
@@ -28,7 +28,7 @@ final class BillingPaymentTests: XCTestCase {
             interval: "i",
             frequency: .month,
             cycles: "0",
-            amount: Money(currency: .usd, value: "24.99"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 24.99),
             charges: nil
         ))
         try XCTAssertThrowsError(BillingPayment(
@@ -37,7 +37,7 @@ final class BillingPaymentTests: XCTestCase {
             interval: "i",
             frequency: .month,
             cycles: "y",
-            amount: Money(currency: .usd, value: "24.99"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 24.99),
             charges: nil
         ))
         try XCTAssertThrowsError(BillingPayment(
@@ -46,7 +46,7 @@ final class BillingPaymentTests: XCTestCase {
             interval: "13",
             frequency: .month,
             cycles: "0",
-            amount: Money(currency: .usd, value: "24.99"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 24.99),
             charges: nil
         ))
     }
@@ -59,7 +59,7 @@ final class BillingPaymentTests: XCTestCase {
             interval: "2",
             frequency: .month,
             cycles: "0",
-            amount: Money(currency: .usd, value: "24.99"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 24.99),
             charges: nil
         )
         let generated = try String(data: encoder.encode(payment), encoding: .utf8)!
@@ -85,7 +85,7 @@ final class BillingPaymentTests: XCTestCase {
             interval: "2",
             frequency: .month,
             cycles: "0",
-            amount: Money(currency: .usd, value: "24.99"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 24.99),
             charges: nil
         )
         
@@ -129,9 +129,9 @@ final class BillingPaymentTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        try XCTAssertEqual(payment, decoder.decode(BillingPayment<Money>.self, from: valid))
-        try XCTAssertThrowsError(decoder.decode(BillingPayment<Money>.self, from: cyclesError))
-        try XCTAssertThrowsError(decoder.decode(BillingPayment<Money>.self, from: intervalError))
+        try XCTAssertEqual(payment, decoder.decode(BillingPayment<CurrencyCodeAmount>.self, from: valid))
+        try XCTAssertThrowsError(decoder.decode(BillingPayment<CurrencyCodeAmount>.self, from: cyclesError))
+        try XCTAssertThrowsError(decoder.decode(BillingPayment<CurrencyCodeAmount>.self, from: intervalError))
     }
     
     static var allTests: [(String, (BillingPaymentTests) -> ()throws -> ())] = [

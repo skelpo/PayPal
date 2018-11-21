@@ -3,18 +3,18 @@ import XCTest
 
 final class MoneyRangeTests: XCTestCase {
     func testInit()throws {
-        let range0 = try MoneyRange(min: Money(currency: .usd, value: "12.25"), max: Money(currency: .usd, value: "50.00"))
-        try XCTAssertEqual(range0.minimum, Money(currency: .usd, value: "12.25"))
-        try XCTAssertEqual(range0.maximum, Money(currency: .usd, value: "50.00"))
+        let range0 = MoneyRange(min: CurrencyCodeAmount(currency: .usd, value: 12.25), max: CurrencyCodeAmount(currency: .usd, value: 50.00))
+        XCTAssertEqual(range0.minimum, CurrencyCodeAmount(currency: .usd, value: 12.25))
+        XCTAssertEqual(range0.maximum, CurrencyCodeAmount(currency: .usd, value: 50.00))
         
-        let range1 = try MoneyRange<Money>("12.25"..."50.00", currency: .usd)
-        try XCTAssertEqual(range1.minimum, Money(currency: .usd, value: "12.25"))
-        try XCTAssertEqual(range1.maximum, Money(currency: .usd, value: "50.00"))
+        let range1 = MoneyRange<CurrencyCodeAmount>(12.25...50.00, currency: .usd)
+        XCTAssertEqual(range1.minimum, CurrencyCodeAmount(currency: .usd, value: 12.25))
+        XCTAssertEqual(range1.maximum, CurrencyCodeAmount(currency: .usd, value: 50.00))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let range = try MoneyRange(min: Money(currency: .usd, value: "12.25"), max: Money(currency: .usd, value: "50.00"))
+        let range = MoneyRange(min: CurrencyCodeAmount(currency: .usd, value: 12.25), max: CurrencyCodeAmount(currency: .usd, value: 50.00))
         let generated = try String(data: encoder.encode(range), encoding: .utf8)
         let json = "{\"minimum_amount\":{\"value\":\"12.25\",\"currency_code\":\"USD\"},\"maximum_amount\":{\"value\":\"50.00\",\"currency_code\":\"USD\"}}"
         
@@ -36,7 +36,7 @@ final class MoneyRangeTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        let range = try MoneyRange(min: Money(currency: .usd, value: "12.25"), max: Money(currency: .usd, value: "50.00"))
+        let range = MoneyRange(min: CurrencyCodeAmount(currency: .usd, value: 12.25), max: CurrencyCodeAmount(currency: .usd, value: 50.00))
         try XCTAssertEqual(range, decoder.decode(MoneyRange.self, from: json))
     }
     

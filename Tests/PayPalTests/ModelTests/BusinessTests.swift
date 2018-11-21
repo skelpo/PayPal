@@ -18,8 +18,8 @@ final class BusinessTests: XCTestCase {
             registrationDate: TimelessDate(date: "1975-04-22"),
             disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
             sales: .init(
-                price: MoneyRange("50"..."60", currency: .usd),
-                volume: MoneyRange("50"..."60", currency: .usd),
+                price: MoneyRange(50...60, currency: .usd),
+                volume: MoneyRange(50...60, currency: .usd),
                 venues: [],
                 website: "https://nameless.io",
                 online: PercentRange(0...1)
@@ -54,8 +54,8 @@ final class BusinessTests: XCTestCase {
         XCTAssertEqual(business.registrationDate, TimelessDate(date: "1975-04-22"))
         try XCTAssertEqual(business.disputeEmail, EmailAddress(email: "disputable@exmaple.com"))
         try XCTAssertEqual(business.sales, Business.Sales.init(
-            price: MoneyRange("50"..."60", currency: .usd),
-            volume: MoneyRange("50"..."60", currency: .usd),
+            price: MoneyRange(50...60, currency: .usd),
+            volume: MoneyRange(50...60, currency: .usd),
             venues: [],
             website: "https://nameless.io",
             online: PercentRange(0...1)

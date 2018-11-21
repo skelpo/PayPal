@@ -55,7 +55,7 @@ final class CustomerDisputesTests: XCTestCase {
             reason: .policy,
             invoiceID: "3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5",
             returnAddress: nil,
-            refund: Money(currency: .usd, value: "55.50")
+            refund: CurrencyCodeAmount(currency: .usd, value: 55.50)
         )
         let links = try disputes.accept(claim: id, with: body).wait()
         
@@ -121,7 +121,7 @@ final class CustomerDisputesTests: XCTestCase {
         
         let offer = try CustomerDispute.ResolutionOffer(
             note: "Offer refund with replacement item.",
-            amount: Money(currency: .usd, value: "23"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 23),
             type: .replacement,
             returnAddress: nil,
             invoiceID: nil

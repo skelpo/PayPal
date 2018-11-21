@@ -25,16 +25,16 @@ public struct Activity: Content, Equatable {
     public var counterparty: CounterParty?
     
     /// The PayPal fees that are associated with this activity, in money format.
-    public var fee: Money?
+    public var fee: CurrencyCodeAmount?
     
     /// The amount for this activity before fees are applied.
-    public var gross: Money?
+    public var gross: CurrencyCodeAmount?
     
     /// The amount for this activity after fees are applied.
-    public var net: Money?
+    public var net: CurrencyCodeAmount?
     
     /// The partner fees, in money format.
-    public var partnerFee: Money?
+    public var partnerFee: CurrencyCodeAmount?
     
     /// The extension properties.
     public var extensions: Extensions?
@@ -47,10 +47,10 @@ public struct Activity: Content, Equatable {
         subtype: SubType?,
         status: Status?,
         counterparty: CounterParty?,
-        fee: Money?,
-        gross: Money?,
-        net: Money?,
-        partnerFee: Money?,
+        fee: CurrencyCodeAmount?,
+        gross: CurrencyCodeAmount?,
+        net: CurrencyCodeAmount?,
+        partnerFee: CurrencyCodeAmount?,
         extensions: Extensions?
     ) {
         self.id = id

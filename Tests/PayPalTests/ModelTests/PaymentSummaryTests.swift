@@ -20,8 +20,8 @@ final class PaymentSummaryTests: XCTestCase {
         
         let summary = try decoder.decode(PaymentSummary.self, from: valid)
         
-        try XCTAssertEqual(summary.paypal, Amount(currency: .usd, value: "35"))
-        try XCTAssertEqual(summary.other, Amount(currency: .usd, value: "8.43"))
+        XCTAssertEqual(summary.paypal, CurrencyAmount(currency: .usd, value: 35))
+        XCTAssertEqual(summary.other, CurrencyAmount(currency: .usd, value: 8.43))
     }
     
     static var allTests: [(String, (PaymentSummaryTests) -> ()throws -> ())] = [

@@ -48,7 +48,7 @@ public struct BillingAgreement: Content, ValidationSetable, Equatable {
     /// the agreement uses the default merchant preferences from the plan. The merchant preferences include how much it costs to set up the agreement,
     /// the URLs where the customer can approve or cancel the agreement, the maximum number of allowed failed payment attempts, whether PayPal
     /// automatically bills the outstanding balance in the next billing cycle, and the action if the customer's initial payment fails.
-    public var overrideMerchantPreferances: MerchantPreferances<Money>?
+    public var overrideMerchantPreferances: MerchantPreferances<CurrencyCodeAmount>?
     
     /// An array of charge models to override the charge models in the plan. A charge model defines shipping fee and tax information.
     /// If you omit this parameter, the agreement uses the default shipping fee and tax information from the plan.
@@ -87,7 +87,7 @@ public struct BillingAgreement: Content, ValidationSetable, Equatable {
         details: Details?,
         payer: Payer?,
         shippingAddress: Address?,
-        overrideMerchantPreferances: MerchantPreferances<Money>?,
+        overrideMerchantPreferances: MerchantPreferances<CurrencyCodeAmount>?,
         overrideChargeModels: [OverrideCharge]?,
         plan: BillingPlan?
     )throws {
@@ -127,7 +127,7 @@ public struct BillingAgreement: Content, ValidationSetable, Equatable {
         self.details = try container.decodeIfPresent(Details.self, forKey: .details)
         self.payer = try container.decodeIfPresent(Payer.self, forKey: .payer)
         self.shippingAddress = try container.decodeIfPresent(Address.self, forKey: .shippingAddress)
-        self.overrideMerchantPreferances = try container.decodeIfPresent(MerchantPreferances<Money>.self, forKey: .overrideMerchantPreferances)
+        self.overrideMerchantPreferances = try container.decodeIfPresent(MerchantPreferances<CurrencyCodeAmount>.self, forKey: .overrideMerchantPreferances)
         self.overrideChargeModels = try container.decodeIfPresent([OverrideCharge].self, forKey: .overrideChargeModels)
         self.plan = try container.decodeIfPresent(BillingPlan.self, forKey: .plan)
         self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)

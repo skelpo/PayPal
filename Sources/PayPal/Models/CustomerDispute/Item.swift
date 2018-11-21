@@ -15,7 +15,7 @@ public struct Item: Content, Equatable {
     public var reason: Reason?
     
     /// The amount of the item in the dispute.
-    public var amount: Money?
+    public var amount: CurrencyCodeAmount?
     
     /// Any notes provided with the item.
     public var notes: String?
@@ -29,7 +29,7 @@ public struct Item: Content, Equatable {
     ///         amount: Money(currency: .usd, value: "48.95"),
     ///         notes: nil
     ///     )
-    public init(id: String?, transactionID: String?, reason: Reason?, amount: Money?, notes: String?) {
+    public init(id: String?, transactionID: String?, reason: Reason?, amount: CurrencyCodeAmount?, notes: String?) {
         self.id = id
         self.transactionID = transactionID
         self.reason = reason

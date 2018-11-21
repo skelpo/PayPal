@@ -3,11 +3,11 @@ import XCTest
 
 final class TaxTests: XCTestCase {
     func testInit()throws {
-        let tax = try Tax(name: "Sales", percent: 10, amount: Amount(currency: .usd, value: "0.59"))
+        let tax = try Tax(name: "Sales", percent: 10, amount: CurrencyAmount(currency: .usd, value: 0.59))
         
         XCTAssertEqual(tax.name, "Sales")
         XCTAssertEqual(tax.percent, 10)
-        try XCTAssertEqual(tax.amount, Amount(currency: .usd, value: "0.59"))
+        XCTAssertEqual(tax.amount, CurrencyAmount(currency: .usd, value: 0.59))
     }
     
     func testValidations()throws {

@@ -26,20 +26,20 @@ public struct Transaction: Content, Equatable {
     public let timezone: String?
     
     /// The currency and amount of the transaction.
-    public var amount: Money
+    public var amount: CurrencyCodeAmount
     
     /// The currency and amount of the transaction fee.
-    public var fee: Money
+    public var fee: CurrencyCodeAmount
     
     /// The currency and amount of the transaction net amount.
-    public var net: Money
+    public var net: CurrencyCodeAmount
     
     /// Creates a new `Transaction` instance. Assigns values to the `amount`, `fee`, and `net` properties,
     /// all other properties are `nil`.
     ///
     /// You probably won't ever need this initializer. For the most part,
     /// `.init(from:)` decoder init should be all you need.
-    public init(amount: Money, fee: Money, net: Money) {
+    public init(amount: CurrencyCodeAmount, fee: CurrencyCodeAmount, net: CurrencyCodeAmount) {
         self.id = nil
         self.state = nil
         self.type = nil

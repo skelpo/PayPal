@@ -18,13 +18,13 @@ public struct RefundDetail: Content, Equatable {
     public var note: String?
     
     /// The currency and amount to record as refunded. If you omit the amount, the total invoice paid amount is recorded as refunded.
-    public var amount: Amount?
+    public var amount: CurrencyAmount?
     
     
     /// Creates a new `RefundDetail` instance.
     ///
     ///     RefundDetail(date: Date().iso8601, note: "Hello World", amount: Amount(currency: .usd, value: "4.50"))
-    public init(date: String?, note: String?, amount: Amount?) {
+    public init(date: String?, note: String?, amount: CurrencyAmount?) {
         self.type = nil
         self.transaction = nil
         

@@ -3,7 +3,7 @@ import XCTest
 
 final class PartnerFeeTests: XCTestCase {
     func testInit()throws {
-        let amount = try Amount(currency: .usd, value: "54.96")
+        let amount = CurrencyAmount(currency: .usd, value: 54.96)
         let payee = Payee(email: nil, merchant: nil, metadata: nil)
         let fee = PartnerFee(receiver: payee, amount: amount)
         
@@ -13,9 +13,9 @@ final class PartnerFeeTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let fee = try PartnerFee(
+        let fee = PartnerFee(
             receiver: Payee(email: nil, merchant: nil, metadata: nil),
-            amount: Amount(currency: .usd, value: "54.96")
+            amount: CurrencyAmount(currency: .usd, value: 54.96)
         )
         let generated = try String(data: encoder.encode(fee), encoding: .utf8)
         
@@ -34,9 +34,9 @@ final class PartnerFeeTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        let fee = try PartnerFee(
+        let fee = PartnerFee(
             receiver: Payee(email: nil, merchant: nil, metadata: nil),
-            amount: Amount(currency: .usd, value: "54.96")
+            amount: CurrencyAmount(currency: .usd, value: 54.96)
         )
         try XCTAssertEqual(fee, decoder.decode(PartnerFee.self, from: json))
     }

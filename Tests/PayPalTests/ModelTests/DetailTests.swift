@@ -8,13 +8,13 @@ final class DetailTests: XCTestCase {
     let oneYear = (Date() + (60 * 60 * 24 * 365)).iso8601
     
     func testInit()throws {
-        let details = try Details(
-            outstanding: Money(currency: .usd, value: "599.00"),
+        let details = Details(
+            outstanding: CurrencyCodeAmount(currency: .usd, value: 599.00),
             cyclesRemaining: "30",
             cyclesComplete: "45",
             nextBilling: oneYear,
             lastPaymentDate: now,
-            lastPaymentAmount: Money(currency: .usd, value: "19.97"),
+            lastPaymentAmount: CurrencyCodeAmount(currency: .usd, value: 19.97),
             finalPaymentDate: later,
             failedPaymentCount: "5"
         )
@@ -26,21 +26,21 @@ final class DetailTests: XCTestCase {
         XCTAssertEqual(details.finalPaymentDate, later)
         XCTAssertEqual(details.failedPaymentCount, "5")
         
-        try XCTAssertEqual(details.lastPaymentAmount, Money(currency: .usd, value: "19.97"))
-        try XCTAssertEqual(details.outstanding, Money(currency: .usd, value: "599.00"))
+        XCTAssertEqual(details.lastPaymentAmount, CurrencyCodeAmount(currency: .usd, value: 19.97))
+        XCTAssertEqual(details.outstanding, CurrencyCodeAmount(currency: .usd, value: 599.00))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
         
-        let details = try Details(
-            outstanding: Money(currency: .usd, value: "599.00"),
+        let details = Details(
+            outstanding: CurrencyCodeAmount(currency: .usd, value: 599.00),
             cyclesRemaining: "30",
             cyclesComplete: "45",
             nextBilling: oneYear,
             lastPaymentDate: now,
-            lastPaymentAmount: Money(currency: .usd, value: "19.97"),
+            lastPaymentAmount: CurrencyCodeAmount(currency: .usd, value: 19.97),
             finalPaymentDate: later,
             failedPaymentCount: "5"
         )
@@ -84,13 +84,13 @@ final class DetailTests: XCTestCase {
         """.data(using: .utf8)!
         
         let decoded = try decoder.decode(Details.self, from: json)
-        let details = try Details(
-            outstanding: Money(currency: .usd, value: "599.00"),
+        let details = Details(
+            outstanding: CurrencyCodeAmount(currency: .usd, value: 599.00),
             cyclesRemaining: "30",
             cyclesComplete: "45",
             nextBilling: oneYear,
             lastPaymentDate: now,
-            lastPaymentAmount: Money(currency: .usd, value: "19.97"),
+            lastPaymentAmount: CurrencyCodeAmount(currency: .usd, value: 19.97),
             finalPaymentDate: later,
             failedPaymentCount: "5"
         )

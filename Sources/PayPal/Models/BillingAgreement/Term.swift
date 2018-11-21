@@ -12,13 +12,13 @@ public final class Term: Content, Equatable {
     public var type: TermType
     
     /// The currency and amount of the maximum billing amount associated with this term.
-    public var maxAmount: Money
+    public var maxAmount: CurrencyCodeAmount
     
     /// The number of times that money can be pulled during this term.
     public var occurrences: String
     
     /// The amount range for this term.
-    public var amountRange: Money
+    public var amountRange: CurrencyCodeAmount
     
     /// Indicates whether the customer can edit the amount in this term.
     public var editable: String
@@ -35,9 +35,9 @@ public final class Term: Content, Equatable {
     public init(
         id: String? = nil,
         type: TermType,
-        maxAmount: Money,
+        maxAmount: CurrencyCodeAmount,
         occurrences: String,
-        amountRange: Money,
+        amountRange: CurrencyCodeAmount,
         editable: String
     )throws {
         guard id?.count ?? 0 < 128 else {

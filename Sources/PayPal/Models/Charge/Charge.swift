@@ -12,12 +12,12 @@ public struct Charge: Content, Equatable {
     public var type: ChargeType
     
     /// The currency and amount for this charge model.
-    public var amount: Money
+    public var amount: CurrencyCodeAmount
     
     /// Creates a new `Charge` instance.
     ///
     ///     Charge(type: .tax, amount: Money(currency: .usd, value: "0.53")
-    public init(type: ChargeType, amount: Money) {
+    public init(type: ChargeType, amount: CurrencyCodeAmount) {
         self.id = nil
         self.type = type
         self.amount = amount

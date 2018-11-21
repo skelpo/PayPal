@@ -22,7 +22,7 @@ public struct Capture: Content, Equatable {
     public var amount: DetailedAmount?
     
     /// The currency and amount of the transaction fee
-    public var transaction: Amount?
+    public var transaction: CurrencyAmount?
     
     
     /// Creates a new `Capture` instance.
@@ -32,7 +32,7 @@ public struct Capture: Content, Equatable {
     ///   - transaction: The currency and amount of the transaction fee.
     public init(
         amount: DetailedAmount?,
-        transaction: Amount?
+        transaction: CurrencyAmount?
     ) {
         self.id = nil
         self.links = nil

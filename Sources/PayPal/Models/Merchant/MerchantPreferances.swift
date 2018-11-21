@@ -1,7 +1,7 @@
 import Vapor
 
 /// Merchant preferances that override the default information for a billing agreement.
-public struct MerchantPreferances<M>: Content, ValidationSetable, Equatable where M: Monitary {
+public struct MerchantPreferances<M>: Content, ValidationSetable, Equatable where M: Amount {
     
     /// The PayPal-generated ID for the resource.
     ///

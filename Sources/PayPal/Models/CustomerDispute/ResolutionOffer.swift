@@ -14,7 +14,7 @@ extension CustomerDispute {
         public private(set) var note: String
         
         /// The amount proposed to resolve the dispute.
-        public var amount: Money
+        public var amount: CurrencyCodeAmount
         
         /// The type of offer that the merchant proposes for the dispute.
         public var type: Offer.OfferType
@@ -36,7 +36,7 @@ extension CustomerDispute {
         ///         returnAddress: nil,
         ///         invoiceID: nil
         ///     )
-        public init(note: String, amount: Money, type: Offer.OfferType, returnAddress: Address?, invoiceID: String?)throws {
+        public init(note: String, amount: CurrencyCodeAmount, type: Offer.OfferType, returnAddress: Address?, invoiceID: String?)throws {
             self.note = note
             self.amount = amount
             self.type = type
@@ -52,7 +52,7 @@ extension CustomerDispute {
             let note = try container.decode(String.self, forKey: .note)
             
             self.note = note
-            self.amount = try container.decode(Money.self, forKey: .amount)
+            self.amount = try container.decode(CurrencyCodeAmount.self, forKey: .amount)
             self.type = try container.decode(Offer.OfferType.self, forKey: .type)
             self.returnAddress = try container.decodeIfPresent(Address.self, forKey: .returnAddress)
             self.invoiceID = try container.decodeIfPresent(String.self, forKey: .invoiceID)

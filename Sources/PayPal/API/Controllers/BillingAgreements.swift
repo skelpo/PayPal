@@ -151,7 +151,7 @@ public final class BillingAgreements: PayPalController {
     ///
     /// - Returns: The HTTP status code of the API response, which will be `204`. If an error was returned in the
     ///   response, it will get conveted to a Swift error and be returned in the future instead.
-    public func setBalance(for agreementID: String, amount: Money) -> Future<HTTPStatus> {
+    public func setBalance(for agreementID: String, amount: CurrencyCodeAmount) -> Future<HTTPStatus> {
         return self.client { client in
             return client.post(self.path + agreementID + "/set-balance", body: amount, as: HTTPStatus.self)
         }

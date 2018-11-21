@@ -38,7 +38,7 @@ final class BillingPlansTests: XCTestCase {
                     interval: "1",
                     frequency: .month,
                     cycles: "0",
-                    amount: Amount(currency: .usd, value: "10.00"),
+                    amount: CurrencyAmount(currency: .usd, value: 10.00),
                     charges: nil
                 )
             ],

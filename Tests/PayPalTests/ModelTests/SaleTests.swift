@@ -3,20 +3,20 @@ import XCTest
 
 final class SaleTests: XCTestCase {
     func testInit()throws {
-        let sale = try Sale(amount: DetailedAmount(currency: .usd, total: "10.00", details: nil), transaction: Amount(currency: .usd, value: "1.00"))
+        let sale = try Sale(amount: DetailedAmount(currency: .usd, total: "10.00", details: nil), transaction: CurrencyAmount(currency: .usd, value: 1.00))
         
         XCTAssertNil(sale.id)
         XCTAssertNil(sale.status)
         XCTAssertNil(sale.created)
         XCTAssertNil(sale.updated)
         XCTAssertNil(sale.links)
+        XCTAssertEqual(sale.transaction, CurrencyAmount(currency: .usd, value: 1.00))
         try XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: "10.00", details: nil))
-        try XCTAssertEqual(sale.transaction, Amount(currency: .usd, value: "1.00"))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let sale = try Sale(amount: DetailedAmount(currency: .usd, total: "10.00", details: nil), transaction: Amount(currency: .usd, value: "1.00"))
+        let sale = try Sale(amount: DetailedAmount(currency: .usd, total: "10.00", details: nil), transaction: CurrencyAmount(currency: .usd, value: 1.00))
         let generated = try String(data: encoder.encode(sale), encoding: .utf8)!
         let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"10.00\"},\"transaction_fee\":{\"value\":\"1.00\",\"currency\":\"USD\"}}"
         
@@ -58,8 +58,8 @@ final class SaleTests: XCTestCase {
         XCTAssertEqual(sale.created, "2018-09-18T21:22:51+0000")
         XCTAssertEqual(sale.updated, "2018-09-18T21:23:25+0000")
         XCTAssertEqual(sale.links, [])
+        XCTAssertEqual(sale.transaction, CurrencyAmount(currency: .usd, value: 1.00))
         try XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: "10.00", details: nil))
-        try XCTAssertEqual(sale.transaction, Amount(currency: .usd, value: "1.00"))
     }
     
     static var allTests: [(String, (SaleTests) -> ()throws -> ())] = [

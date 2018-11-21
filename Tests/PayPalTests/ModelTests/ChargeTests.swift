@@ -3,16 +3,16 @@ import XCTest
 
 final class ChargeTests: XCTestCase {
     func testInit()throws {
-        let charge = try Charge(type: .shipping, amount: Money(currency: .usd, value: "314.15"))
+        let charge = Charge(type: .shipping, amount: CurrencyCodeAmount(currency: .usd, value: 314.15))
         
         XCTAssertEqual(charge.id, nil)
         XCTAssertEqual(charge.type, .shipping)
-        try XCTAssertEqual(charge.amount, Money(currency: .usd, value: "314.15"))
+        XCTAssertEqual(charge.amount, CurrencyCodeAmount(currency: .usd, value: 314.15))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let generated = try String(data: encoder.encode(Charge(type: .shipping, amount: Money(currency: .eur, value: "314.15"))), encoding: .utf8)
+        let generated = try String(data: encoder.encode(Charge(type: .shipping, amount: CurrencyCodeAmount(currency: .eur, value: 314.15))), encoding: .utf8)
         
         XCTAssertEqual(generated, "{\"type\":\"SHIPPING\",\"amount\":{\"value\":\"314.15\",\"currency_code\":\"EUR\"}}")
     }
@@ -30,7 +30,7 @@ final class ChargeTests: XCTestCase {
         }
         """.data(using: .utf8)!
 
-        try XCTAssertEqual(Charge(type: .tax, amount: Money(currency: .eur, value: "13.54")), decoder.decode(Charge.self, from: json))
+        try XCTAssertEqual(Charge(type: .tax, amount: CurrencyCodeAmount(currency: .eur, value: 13.54)), decoder.decode(Charge.self, from: json))
     }
     
     static var allTests: [(String, (ChargeTests) -> ()throws -> ())] = [

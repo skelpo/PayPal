@@ -31,7 +31,7 @@ public struct Order: Content, Equatable {
     public var payment: Payment?
     
     /// The currency and amount of the PayPal-computed total of amounts in all purchase units.
-    public var total: Amount?
+    public var total: CurrencyAmount?
     
     /// Customizes the payer experience during the approval process for the payment with PayPal.
     public var context: AppContext?
@@ -57,7 +57,7 @@ public struct Order: Content, Equatable {
         intent: Intent?,
         units: [Unit]?,
         payment: Payment?,
-        total: Amount?,
+        total: CurrencyAmount?,
         context: AppContext?,
         metadata: Metadata?,
         redirects: Redirects?

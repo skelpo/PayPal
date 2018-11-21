@@ -16,14 +16,8 @@ final class ActivityResponseTests: XCTestCase {
                     name: "Jonathan Futher"
                 ),
                 fee: nil,
-                gross: try! Money(
-                    currency: .usd,
-                    value: "19.45"
-                ),
-                net: try! Money(
-                    currency: .usd,
-                    value: "19.45"
-                ),
+                gross: CurrencyCodeAmount(currency: .usd, value: 19.45),
+                net: CurrencyCodeAmount(currency: .usd, value: 19.45),
                 partnerFee: nil,
                 extensions: nil
             )
@@ -47,14 +41,8 @@ final class ActivityResponseTests: XCTestCase {
                     name: "Jonathan Futher"
                 ),
                 fee: nil,
-                gross: try! Money(
-                    currency: .usd,
-                    value: "19.45"
-                ),
-                net: try! Money(
-                    currency: .usd,
-                    value: "19.45"
-                ),
+                gross: CurrencyCodeAmount(currency: .usd, value: 19.45),
+                net: CurrencyCodeAmount(currency: .usd, value: 19.45),
                 partnerFee: nil,
                 extensions: nil
             )

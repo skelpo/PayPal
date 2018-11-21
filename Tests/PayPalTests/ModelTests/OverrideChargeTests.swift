@@ -4,10 +4,10 @@ import XCTest
 final class OverrideChargeTests: XCTestCase {
     func testInit()throws {
         let id = UUID().uuidString
-        let charge = try OverrideCharge(id: id, amount: Money(currency: .usd, value: "314.15"))
+        let charge = OverrideCharge(id: id, amount: CurrencyCodeAmount(currency: .usd, value: 314.15))
         
         XCTAssertEqual(charge.id, id)
-        try XCTAssertEqual(charge.amount, Money(currency: .usd, value: "314.15"))
+        XCTAssertEqual(charge.amount, CurrencyCodeAmount(currency: .usd, value: 314.15))
     }
     
     func testEncoding()throws {
@@ -16,10 +16,10 @@ final class OverrideChargeTests: XCTestCase {
         let randID = UUID().uuidString
         
         let constant = try String(data: encoder.encode(
-           OverrideCharge(id: uuid, amount: Money(currency: .eur, value: "13.54"))
+           OverrideCharge(id: uuid, amount: CurrencyCodeAmount(currency: .eur, value: 13.54))
         ), encoding: .utf8)
         let variable = try String(data: encoder.encode(
-            OverrideCharge(id: randID, amount: Money(currency: .ang, value: "45.31"))
+            OverrideCharge(id: randID, amount: CurrencyCodeAmount(currency: .ang, value: 45.31))
         ), encoding: .utf8)
         
         XCTAssertEqual(constant, "{\"id\":\"94F7A65B-ACEF-45AA-BA01-F141FAF40986\",\"amount\":{\"value\":\"13.54\",\"currency_code\":\"EUR\"}}")
@@ -49,9 +49,9 @@ final class OverrideChargeTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        try XCTAssertEqual(OverrideCharge(id: randID, amount: Money(currency: .ang, value: "45.31")), decoder.decode(OverrideCharge.self, from: variable))
+        try XCTAssertEqual(OverrideCharge(id: randID, amount: CurrencyCodeAmount(currency: .ang, value: 45.31)), decoder.decode(OverrideCharge.self, from: variable))
         try XCTAssertEqual(
-            OverrideCharge(id: "94F7A65B-ACEF-45AA-BA01-F141FAF40986", amount: Money(currency: .eur, value: "13.54")),
+            OverrideCharge(id: "94F7A65B-ACEF-45AA-BA01-F141FAF40986", amount: CurrencyCodeAmount(currency: .eur, value: 13.54)),
             decoder.decode(OverrideCharge.self, from: constant)
         )
     }

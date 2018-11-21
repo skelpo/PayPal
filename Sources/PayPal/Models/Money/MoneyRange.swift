@@ -1,7 +1,7 @@
 import Vapor
 
 /// A range of amounts between two
-public struct MoneyRange<M>: Content, Equatable where M: Monitary {
+public struct MoneyRange<M>: Content, Equatable where M: Amount {
     
     /// The minimum inclusive value of the range.
     public var minimum: M
@@ -20,9 +20,9 @@ public struct MoneyRange<M>: Content, Equatable where M: Monitary {
     /// Creates a new `MoneyRange` instance.
     ///
     ///     MoneyRange("12.25"..."50.00", currency: .usd)
-    public init(_ values: ClosedRange<String>, currency: Currency)throws {
-        try self.minimum = M(currency: currency, value: values.lowerBound)
-        try self.maximum = M(currency: currency, value: values.upperBound)
+    public init(_ values: ClosedRange<Decimal>, currency: Currency) {
+        self.minimum = M(currency: currency, value: values.lowerBound)
+        self.maximum = M(currency: currency, value: values.upperBound)
     }
     
     enum CodingKeys: String, CodingKey {

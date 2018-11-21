@@ -37,7 +37,7 @@ final class OrdersTests: XCTestCase {
                     insurance: nil,
                     giftWrap: nil)
                 ),
-                transaction: Amount(currency: .usd, value: "1.50")
+                transaction: CurrencyAmount(currency: .usd, value: 1.50)
             )
         ]
         

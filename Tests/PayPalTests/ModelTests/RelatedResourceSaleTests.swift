@@ -9,8 +9,8 @@ final class RelatedResourceSaleTests: XCTestCase {
             id: "9FF17892-49F8-47C9-8117-7662F889DAEA",
             amount: DetailedAmount(currency: .usd, total: "42.31", details: nil),
             state: .pending,
-            transaction: Amount(currency: .usd, value: "0.31"),
-            receivable: Amount(currency: .usd, value: "42.00"),
+            transaction: CurrencyAmount(currency: .usd, value: 0.31),
+            receivable: CurrencyAmount(currency: .usd, value: 42.00),
             exchangeRate: "0.0",
             fmf: .init(type: .deny, id: .addressMismatch, name: "Name", description: "Desc."),
             processor: .init(code: "6399", avs: "e", cvv: "h", advice: .newAccount, eci: "152823", vpas: "stat"),
@@ -25,9 +25,9 @@ final class RelatedResourceSaleTests: XCTestCase {
         XCTAssertEqual(sale.processor, .init(code: "6399", avs: "e", cvv: "h", advice: .newAccount, eci: "152823", vpas: "stat"))
         XCTAssertEqual(sale.parent, "E7FBF930-B0F3-4514-B1DD-810BDCD6541F")
         XCTAssertEqual(sale.created, self.now.iso8601)
+        XCTAssertEqual(sale.transaction, CurrencyAmount(currency: .usd, value: 0.31))
+        XCTAssertEqual(sale.receivable, CurrencyAmount(currency: .usd, value: 42.00))
         try XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: "42.31", details: nil))
-        try XCTAssertEqual(sale.transaction, Amount(currency: .usd, value: "0.31"))
-        try XCTAssertEqual(sale.receivable, Amount(currency: .usd, value: "42.00"))
     }
     
     func testEncoding()throws {
@@ -36,8 +36,8 @@ final class RelatedResourceSaleTests: XCTestCase {
             id: "9FF17892-49F8-47C9-8117-7662F889DAEA",
             amount: DetailedAmount(currency: .usd, total: "42.31", details: nil),
             state: .pending,
-            transaction: Amount(currency: .usd, value: "0.31"),
-            receivable: Amount(currency: .usd, value: "42.00"),
+            transaction: CurrencyAmount(currency: .usd, value: 0.31),
+            receivable: CurrencyAmount(currency: .usd, value: 42.00),
             exchangeRate: "0.0",
             fmf: .init(type: .deny, id: .addressMismatch, name: "Name", description: "Desc."),
             processor: .init(code: "6399", avs: "e", cvv: "h", advice: .newAccount, eci: "152823", vpas: "stat"),
@@ -136,8 +136,8 @@ final class RelatedResourceSaleTests: XCTestCase {
             RelatedResource.ProcessorResponse(code: "6399", avs: "e", cvv: "h", advice: .newAccount, eci: "152823", vpas: "stat")
         )
         
-        try XCTAssertEqual(sale.receivable, Amount(currency: .usd, value: "42.00"))
-        try XCTAssertEqual(sale.transaction, Amount(currency: .usd, value: "0.31"))
+        XCTAssertEqual(sale.receivable, CurrencyAmount(currency: .usd, value: 42.00))
+        XCTAssertEqual(sale.transaction, CurrencyAmount(currency: .usd, value: 0.31))
         try XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: "42.31", details: nil))
     }
     

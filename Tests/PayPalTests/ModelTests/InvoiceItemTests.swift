@@ -9,8 +9,8 @@ final class InvoiceItemTests: XCTestCase {
             name: "Widget",
             description: "Round and white, like a ping-pong ball",
             quantity: 3,
-            unitPrice: Amount(currency: .usd, value: "50"),
-            tax: Tax(name: "Sales", percent: 10, amount: Amount(currency: .usd, value: "5.00")),
+            unitPrice: CurrencyAmount(currency: .usd, value: 50),
+            tax: Tax(name: "Sales", percent: 10, amount: CurrencyAmount(currency: .usd, value: 5.00)),
             date: self.now,
             discount: nil,
             unitMeasure: .quantity
@@ -22,8 +22,8 @@ final class InvoiceItemTests: XCTestCase {
         XCTAssertEqual(item.quantity, 3)
         XCTAssertEqual(item.date, self.now)
         XCTAssertEqual(item.unitMeasure, .quantity)
-        try XCTAssertEqual(item.unitPrice, Amount(currency: .usd, value: "50"))
-        try XCTAssertEqual(item.tax, Tax(name: "Sales", percent: 10, amount: Amount(currency: .usd, value: "5.00")))
+        XCTAssertEqual(item.unitPrice, CurrencyAmount(currency: .usd, value: 50))
+        try XCTAssertEqual(item.tax, Tax(name: "Sales", percent: 10, amount: CurrencyAmount(currency: .usd, value: 5.00)))
     }
     
     func testValidations()throws {
@@ -31,7 +31,7 @@ final class InvoiceItemTests: XCTestCase {
             name: String(repeating: "n", count: 201),
             description: "Round and white, like a ping-pong ball",
             quantity: 3,
-            unitPrice: Amount(currency: .usd, value: "50"),
+            unitPrice: CurrencyAmount(currency: .usd, value: 50),
             tax: nil,
             date: nil,
             discount: nil,
@@ -41,7 +41,7 @@ final class InvoiceItemTests: XCTestCase {
             name: "Widget",
             description: String(repeating: "d", count: 1001),
             quantity: 3,
-            unitPrice: Amount(currency: .usd, value: "50"),
+            unitPrice: CurrencyAmount(currency: .usd, value: 50),
             tax: nil,
             date: nil,
             discount: nil,
@@ -51,7 +51,7 @@ final class InvoiceItemTests: XCTestCase {
             name: "Widget",
             description: "Round and white, like a ping-pong ball",
             quantity: -10_001,
-            unitPrice: Amount(currency: .usd, value: "50"),
+            unitPrice: CurrencyAmount(currency: .usd, value: 50),
             tax: nil,
             date: nil,
             discount: nil,
@@ -61,7 +61,7 @@ final class InvoiceItemTests: XCTestCase {
             name: "Widget",
             description: "Round and white, like a ping-pong ball",
             quantity: 3,
-            unitPrice: Amount(currency: .usd, value: "1000001"),
+            unitPrice: CurrencyAmount(currency: .usd, value: 1000001),
             tax: nil,
             date: nil,
             discount: nil,
@@ -72,8 +72,8 @@ final class InvoiceItemTests: XCTestCase {
             name: "Widget",
             description: "Round and white, like a ping-pong ball",
             quantity: 3,
-            unitPrice: Amount(currency: .usd, value: "50"),
-            tax: Tax(name: "Sales", percent: 10, amount: Amount(currency: .usd, value: "5.00")),
+            unitPrice: CurrencyAmount(currency: .usd, value: 50),
+            tax: Tax(name: "Sales", percent: 10, amount: CurrencyAmount(currency: .usd, value: 5.00)),
             date: self.now,
             discount: nil,
             unitMeasure: .quantity
@@ -83,17 +83,17 @@ final class InvoiceItemTests: XCTestCase {
         try XCTAssertThrowsError(item.set(\Invoice.Item.description <~ String(repeating: "d", count: 1001)))
         try XCTAssertThrowsError(item.set(\.quantity <~ -10_001))
         try XCTAssertThrowsError(
-            item.set(\.unitPrice <~ Amount(currency: .usd, value: "1000001"))
+            item.set(\.unitPrice <~ CurrencyAmount(currency: .usd, value: 1000001))
         )
         try item.set(\.name <~ String(repeating: "n", count: 200))
         try item.set(\Invoice.Item.description <~ String(repeating: "d", count: 1000))
         try item.set(\.quantity <~ -10_000)
-        try item.set(\.unitPrice <~ Amount(currency: .usd, value: "50"))
+        try item.set(\.unitPrice <~ CurrencyAmount(currency: .usd, value: 50))
         
         XCTAssertEqual(item.name, String(repeating: "n", count: 200))
         XCTAssertEqual(item.description, String(repeating: "d", count: 1000))
         XCTAssertEqual(item.quantity, -10_000)
-        try XCTAssertEqual(item.unitPrice, Amount(currency: .usd, value: "50"))
+        XCTAssertEqual(item.unitPrice, CurrencyAmount(currency: .usd, value: 50))
     }
     
     func testEncoding()throws {
@@ -102,7 +102,7 @@ final class InvoiceItemTests: XCTestCase {
             name: "Widget",
             description: "Round and white, like a ping-pong ball",
             quantity: 3,
-            unitPrice: Amount(currency: .usd, value: "50"),
+            unitPrice: CurrencyAmount(currency: .usd, value: 50),
             tax: nil,
             date: self.now,
             discount: nil,
@@ -127,7 +127,7 @@ final class InvoiceItemTests: XCTestCase {
             name: "Widget",
             description: "Round and white, like a ping-pong ball",
             quantity: 3,
-            unitPrice: Amount(currency: .usd, value: "50"),
+            unitPrice: CurrencyAmount(currency: .usd, value: 50),
             tax: nil,
             date: self.now,
             discount: nil,

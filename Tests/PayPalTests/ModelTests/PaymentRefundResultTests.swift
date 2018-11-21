@@ -54,9 +54,9 @@ final class PaymentRefundResultTests: XCTestCase {
         XCTAssertEqual(refund.links, [])
         
         try XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: "2.34", details: nil))
-        try XCTAssertEqual(refund.transactionFee, Amount(currency: .usd, value: "0.06"))
-        try XCTAssertEqual(refund.received, Amount(currency: .usd, value: "2.28"))
-        try XCTAssertEqual(refund.total, Amount(currency: .usd, value: "2.34"))
+        XCTAssertEqual(refund.transactionFee, CurrencyAmount(currency: .usd, value: 0.06))
+        XCTAssertEqual(refund.received, CurrencyAmount(currency: .usd, value: 2.28))
+        XCTAssertEqual(refund.total, CurrencyAmount(currency: .usd, value: 2.34))
         
         
         try XCTAssertThrowsError(refund.set(\Payment.RefundResult.invoice, to: String(repeating: "i", count: 128)))

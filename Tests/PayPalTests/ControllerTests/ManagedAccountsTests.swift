@@ -59,8 +59,8 @@ final class ManagedAccountsTests: XCTestCase {
             registrationDate: TimelessDate(date: "1975-04-22"),
             disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
             sales: .init(
-                price: MoneyRange("50"..."60", currency: .usd),
-                volume: MoneyRange("50"..."60", currency: .usd),
+                price: MoneyRange(50...60, currency: .usd),
+                volume: MoneyRange(50...60, currency: .usd),
                 venues: [],
                 website: "https://example.com",
                 online: PercentRange(0...1)
@@ -156,8 +156,8 @@ final class ManagedAccountsTests: XCTestCase {
             registrationDate: TimelessDate(date: "1975-04-22"),
             disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
             sales: .init(
-                price: MoneyRange("50"..."60", currency: .usd),
-                volume: MoneyRange("50"..."60", currency: .usd),
+                price: MoneyRange(50...60, currency: .usd),
+                volume: MoneyRange(50...60, currency: .usd),
                 venues: [],
                 website: "https://example.com",
                 online: PercentRange(0...1)

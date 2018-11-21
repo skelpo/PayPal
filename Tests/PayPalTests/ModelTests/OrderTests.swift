@@ -7,7 +7,7 @@ final class OrderTests: XCTestCase {
             intent: .sale,
             units: [],
             payment: Order.Payment(captures: nil, refunds: nil, sales: nil, authorizations: nil),
-            total: Amount(currency: .usd, value: "150.78"),
+            total: CurrencyAmount(currency: .usd, value: 150.78),
             context: AppContext(),
             metadata: Order.Metadata(data: [:]),
             redirects: Redirects(return: "https://example.com/approved", cancel: "https://example.com/canceled")
@@ -18,7 +18,7 @@ final class OrderTests: XCTestCase {
         XCTAssertEqual(order.payment, Order.Payment(captures: nil, refunds: nil, sales: nil, authorizations: nil))
         XCTAssertEqual(order.metadata, Order.Metadata(data: [:]))
         XCTAssertEqual(order.redirects, Redirects(return: "https://example.com/approved", cancel: "https://example.com/canceled"))
-        try XCTAssertEqual(order.total, Amount(currency: .usd, value: "150.78"))
+        XCTAssertEqual(order.total, CurrencyAmount(currency: .usd, value: 150.78))
         try XCTAssertEqual(order.context, AppContext())
     }
     
@@ -28,7 +28,7 @@ final class OrderTests: XCTestCase {
             intent: .sale,
             units: [],
             payment: Order.Payment(captures: nil, refunds: nil, sales: nil, authorizations: nil),
-            total: Amount(currency: .usd, value: "150.78"),
+            total: CurrencyAmount(currency: .usd, value: 150.78),
             context: AppContext(),
             metadata: Order.Metadata(data: [:]),
             redirects: Redirects(return: nil, cancel: nil)
@@ -83,7 +83,7 @@ final class OrderTests: XCTestCase {
         XCTAssertEqual(order.created, "2018-09-20T13:17:47+0000")
         XCTAssertEqual(order.updated, "2018-09-20T13:18:03+0000")
         XCTAssertEqual(order.links, [])
-        try XCTAssertEqual(order.total, Amount(currency: .usd, value: "150.78"))
+        XCTAssertEqual(order.total, CurrencyAmount(currency: .usd, value: 150.78))
         try XCTAssertEqual(order.context, AppContext())
     }
     

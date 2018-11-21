@@ -6,10 +6,10 @@ extension Business {
     public struct Sales: Content, ValidationSetable, Equatable {
         
         /// The average transaction price.
-        public var price: MoneyRange<Amount>?
+        public var price: MoneyRange<CurrencyAmount>?
         
         /// The average volume of monthly sales.
-        public var volume: MoneyRange<Amount>?
+        public var volume: MoneyRange<CurrencyAmount>?
         
         /// An array of sales venues for the business.
         public var venues: [SalesVenue]?
@@ -35,7 +35,7 @@ extension Business {
         ///         website: "https://finiansbooksteacoffeeetc.com",
         ///         online: PercentRange(0...1)
         ///     )
-        public init(price: MoneyRange<Amount>?, volume: MoneyRange<Amount>?, venues: [SalesVenue]?, website: String?, online: PercentRange?)throws {
+        public init(price: MoneyRange<CurrencyAmount>?, volume: MoneyRange<CurrencyAmount>?, venues: [SalesVenue]?, website: String?, online: PercentRange?)throws {
             self.price = price
             self.volume = volume
             self.venues = venues

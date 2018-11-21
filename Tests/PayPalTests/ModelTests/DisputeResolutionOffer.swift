@@ -5,7 +5,7 @@ final class DisputeResolutionOfferTests: XCTestCase {
     func testInit()throws {
         let offer = try CustomerDispute.ResolutionOffer(
             note: "Offer refund with replacement item.",
-            amount: Money(currency: .usd, value: "23"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 23),
             type: .replacement,
             returnAddress: nil,
             invoiceID: nil
@@ -15,20 +15,20 @@ final class DisputeResolutionOfferTests: XCTestCase {
         XCTAssertNil(offer.returnAddress)
         XCTAssertEqual(offer.type, .replacement)
         XCTAssertEqual(offer.note, "Offer refund with replacement item.")
-        try XCTAssertEqual(offer.amount, Money(currency: .usd, value: "23"))
+        XCTAssertEqual(offer.amount, CurrencyCodeAmount(currency: .usd, value: 23))
     }
     
     func testValidations()throws {
         try XCTAssertThrowsError(CustomerDispute.ResolutionOffer(
             note: String(repeating: "n", count: 2001),
-            amount: Money(currency: .usd, value: "23"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 23),
             type: .replacement,
             returnAddress: nil,
             invoiceID: nil
         ))
         try XCTAssertThrowsError(CustomerDispute.ResolutionOffer(
             note: "",
-            amount: Money(currency: .usd, value: "23"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 23),
             type: .replacement,
             returnAddress: nil,
             invoiceID: nil
@@ -36,7 +36,7 @@ final class DisputeResolutionOfferTests: XCTestCase {
         
         var offer = try CustomerDispute.ResolutionOffer(
             note: "Offer refund with replacement item.",
-            amount: Money(currency: .usd, value: "23"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 23),
             type: .replacement,
             returnAddress: nil,
             invoiceID: nil
@@ -52,7 +52,7 @@ final class DisputeResolutionOfferTests: XCTestCase {
         let encoder = JSONEncoder()
         let offer = try CustomerDispute.ResolutionOffer(
             note: "Notable note.",
-            amount: Money(currency: .usd, value: "23"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 23),
             type: .replacement,
             returnAddress: nil,
             invoiceID: nil
@@ -107,7 +107,7 @@ final class DisputeResolutionOfferTests: XCTestCase {
         try XCTAssertThrowsError(decoder.decode(CustomerDispute.ResolutionOffer.self, from: noteShort))
         try XCTAssertEqual(decoder.decode(CustomerDispute.ResolutionOffer.self, from: json), CustomerDispute.ResolutionOffer(
             note: "Notable note.",
-            amount: Money(currency: .usd, value: "23"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 23),
             type: .replacement,
             returnAddress: nil,
             invoiceID: nil

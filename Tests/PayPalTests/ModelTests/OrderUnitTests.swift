@@ -28,7 +28,7 @@ final class OrderUnitTests: XCTestCase {
             notify: "https://example.com/notify",
             shippingAddress: address,
             shippingMethod: "USPSParcel",
-            partnerFee: PartnerFee(receiver: payee, amount: Amount(currency: .usd, value: "2.50")),
+            partnerFee: PartnerFee(receiver: payee, amount: CurrencyAmount(currency: .usd, value: 2.50)),
             paymentGroup: 1,
             metadata: .init(data: ["name": "value"]),
             payment: .init(captures: nil, refunds: nil, sales: nil, authorizations: nil)
@@ -47,7 +47,7 @@ final class OrderUnitTests: XCTestCase {
         XCTAssertEqual(unit.paymentGroup, 1)
         XCTAssertEqual(unit.metadata, .init(data: ["name": "value"]))
         XCTAssertEqual(unit.payment, .init(captures: nil, refunds: nil, sales: nil, authorizations: nil))
-        try XCTAssertEqual(unit.partnerFee, PartnerFee(receiver: payee, amount: Amount(currency: .usd, value: "2.50")))
+        XCTAssertEqual(unit.partnerFee, PartnerFee(receiver: payee, amount: CurrencyAmount(currency: .usd, value: 2.50)))
         try XCTAssertEqual(unit.amount, DetailedAmount(currency: .usd, total: "5.00", details: nil))
     }
     
@@ -156,7 +156,7 @@ final class OrderUnitTests: XCTestCase {
             notify: "https://example.com/notify",
             shippingAddress: address,
             shippingMethod: "USPSParcel",
-            partnerFee: PartnerFee(receiver: payee, amount: Amount(currency: .usd, value: "2.50")),
+            partnerFee: PartnerFee(receiver: payee, amount: CurrencyAmount(currency: .usd, value: 2.50)),
             paymentGroup: 1,
             metadata: .init(data: [:]),
             payment: .init(captures: nil, refunds: nil, sales: nil, authorizations: nil)
@@ -252,7 +252,7 @@ final class OrderUnitTests: XCTestCase {
         XCTAssertEqual(unit.paymentGroup, 1)
         XCTAssertEqual(unit.metadata, .init(data: [:]))
         XCTAssertEqual(unit.payment, .init(captures: nil, refunds: nil, sales: nil, authorizations: nil))
-        try XCTAssertEqual(unit.partnerFee, PartnerFee(receiver: payee, amount: Amount(currency: .usd, value: "2.50")))
+        XCTAssertEqual(unit.partnerFee, PartnerFee(receiver: payee, amount: CurrencyAmount(currency: .usd, value: 2.50)))
         try XCTAssertEqual(unit.amount, DetailedAmount(currency: .usd, total: "5.00", details: nil))
         
     }

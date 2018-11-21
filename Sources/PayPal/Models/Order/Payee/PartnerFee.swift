@@ -7,14 +7,14 @@ public struct PartnerFee: Content, Equatable {
     public var receiver: Payee
     
     /// The amount and currency of the partner fee.
-    public var amount: Amount
+    public var amount: CurrencyAmount
     
     /// Creates a new `PartnerFee` instance.
     ///
     /// - Parameters:
     ///   - receiver: The partner who receives the partner fee.
     ///   - amount: The amount and currency of the partner fee.
-    public init(receiver: Payee, amount: Amount) {
+    public init(receiver: Payee, amount: CurrencyAmount) {
         self.receiver = receiver
         self.amount = amount
     }
