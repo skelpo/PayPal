@@ -33,12 +33,10 @@ public struct FinancialInstrument: Content, Equatable {
     
     /// Creates a new `FinancialInstrument` instance.
     ///
-    /// - Parameters:
-    ///   - id: The PayPal-generated financial instrument ID. Defaults to `nil`.
-    ///   - accountType: The bank account type. Defaults to `.checking`.
-    public init(id: String? = nil, accountType: AccountType = .checking) {
+    /// - Parameter accountType: The bank account type. Defaults to `.checking`.
+    public init(accountType: AccountType = .checking) {
         self.type = .bank
-        self.id = id
+        self.id = nil
         self.accountType = accountType
     }
     

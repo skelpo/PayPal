@@ -3,10 +3,9 @@ import XCTest
 
 final class FinancialInstrumentTests: XCTestCase {
     func testInit()throws {
-        let id = UUID().uuidString
-        let instrument = FinancialInstrument(id: id)
+        let instrument = FinancialInstrument()
         
-        XCTAssertEqual(instrument.id, id)
+        XCTAssertNil(instrument.id)
         XCTAssertEqual(instrument.type, .bank)
         XCTAssertEqual(instrument.accountType, .checking)
         
@@ -18,26 +17,23 @@ final class FinancialInstrumentTests: XCTestCase {
     func testEncoding()throws {
         let encoder = JSONEncoder()
         
-        let id = UUID().uuidString
-        let instrument = FinancialInstrument(id: id)
+        let instrument = FinancialInstrument()
         let object = try String(data: encoder.encode(instrument), encoding: .utf8)
-        XCTAssertEqual(object, "{\"type\":\"BANK\",\"id\":\"\(id)\",\"account_type\":\"CHECKING\"}")
+        XCTAssertEqual(object, "{\"type\":\"BANK\",\"account_type\":\"CHECKING\"}")
         
         let instruments = FinancialInstruments(instruments: [instrument])
         let array = try String(data: encoder.encode(instruments), encoding: .utf8)
-        XCTAssertEqual(array, "{\"financial_instruments\":[{\"type\":\"BANK\",\"id\":\"\(id)\",\"account_type\":\"CHECKING\"}]}")
+        XCTAssertEqual(array, "{\"financial_instruments\":[{\"type\":\"BANK\",\"account_type\":\"CHECKING\"}]}")
         
     }
     
     func testDecoding()throws {
         let decoder = JSONDecoder()
-        let id = UUID().uuidString
         
         let object = """
         {
             "account_type": "CHECKING",
-            "type": "BANK",
-            "id": "\(id)"
+            "type": "BANK"
         }
         """.data(using: .utf8)!
         let array = """
@@ -45,15 +41,14 @@ final class FinancialInstrumentTests: XCTestCase {
             "financial_instruments": [
                 {
                     "account_type": "CHECKING",
-                    "type": "BANK",
-                    "id": "\(id)"
+                    "type": "BANK"
                 }
             ]
         }
         """.data(using: .utf8)!
         
-        try XCTAssertEqual(FinancialInstrument(id: id), decoder.decode(FinancialInstrument.self, from: object))
-        try XCTAssertEqual(FinancialInstruments(instruments: [FinancialInstrument(id: id)]), decoder.decode(FinancialInstruments.self, from: array))
+        try XCTAssertEqual(FinancialInstrument(), decoder.decode(FinancialInstrument.self, from: object))
+        try XCTAssertEqual(FinancialInstruments(instruments: [FinancialInstrument()]), decoder.decode(FinancialInstruments.self, from: array))
     }
     
     static var allTests: [(String, (FinancialInstrumentTests) -> ()throws -> ())] = [
