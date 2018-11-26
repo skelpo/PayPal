@@ -5,8 +5,8 @@ final class RelatedResourceOrderTests: XCTestCase {
     let now = Date()
     
     func testInit()throws {
-        let order = try RelatedResource.Order(
-            amount: DetailedAmount(currency: .usd, total: "645.12", details: nil),
+        let order = RelatedResource.Order(
+            amount: DetailedAmount(currency: .usd, total: 645.12, details: nil),
             fmf: FraudManagementFilter(type: .accept, id: .maxAmount, name: nil, description: nil)
         )
         
@@ -22,13 +22,13 @@ final class RelatedResourceOrderTests: XCTestCase {
         XCTAssertNil(order.links)
         
         XCTAssertEqual(order.fmf, FraudManagementFilter(type: .accept, id: .maxAmount, name: nil, description: nil))
-        try XCTAssertEqual(order.amount, DetailedAmount(currency: .usd, total: "645.12", details: nil))
+        XCTAssertEqual(order.amount, DetailedAmount(currency: .usd, total: 645.12, details: nil))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let order = try RelatedResource.Order(
-            amount: DetailedAmount(currency: .usd, total: "645.12", details: nil),
+        let order = RelatedResource.Order(
+            amount: DetailedAmount(currency: .usd, total: 645.12, details: nil),
             fmf: FraudManagementFilter(type: .accept, id: .maxAmount, name: nil, description: nil)
         )
         let generated = try String(data: encoder.encode(order), encoding: .utf8)!
@@ -88,7 +88,7 @@ final class RelatedResourceOrderTests: XCTestCase {
         XCTAssertEqual(sale.updated, updated.iso8601)
         XCTAssertEqual(sale.links, [])
         
-        try XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: "645.12", details: nil))
+        XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: 645.12, details: nil))
     }
     
     static var allTests: [(String, (RelatedResourceOrderTests) -> ()throws -> ())] = [

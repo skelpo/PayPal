@@ -5,8 +5,8 @@ final class RelatedResourceAuthorizationTests: XCTestCase {
     let now = Date()
     
     func testInit()throws {
-        let auth = try RelatedResource.Authorization(
-            amount: .init(currency: .usd, total: "5896.00", details: nil),
+        let auth = RelatedResource.Authorization(
+            amount: .init(currency: .usd, total: 5896.00, details: nil),
             fmf: .init(type: .deny, id: .addressMismatch, name: "Name", description: "Desc."),
             processor: .init(code: "6399", avs: "e", cvv: "h", advice: .newAccount, eci: "152823", vpas: "stat")
         )
@@ -26,13 +26,13 @@ final class RelatedResourceAuthorizationTests: XCTestCase {
         
         XCTAssertEqual(auth.fmf, .init(type: .deny, id: .addressMismatch, name: "Name", description: "Desc."))
         XCTAssertEqual(auth.processor, .init(code: "6399", avs: "e", cvv: "h", advice: .newAccount, eci: "152823", vpas: "stat"))
-        try XCTAssertEqual(auth.amount, .init(currency: .usd, total: "5896.00", details: nil))
+        XCTAssertEqual(auth.amount, .init(currency: .usd, total: 5896.00, details: nil))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let auth = try RelatedResource.Authorization(
-            amount: .init(currency: .usd, total: "5896.00", details: nil),
+        let auth = RelatedResource.Authorization(
+            amount: .init(currency: .usd, total: 5896.00, details: nil),
             fmf: .init(type: .deny, id: .addressMismatch, name: "Name", description: "Desc."),
             processor: .init(code: "6399", avs: "e", cvv: "h", advice: .newAccount, eci: "152823", vpas: "stat")
         )
@@ -110,7 +110,7 @@ final class RelatedResourceAuthorizationTests: XCTestCase {
             RelatedResource.ProcessorResponse(code: "6399", avs: "e", cvv: "h", advice: .newAccount, eci: "152823", vpas: "stat")
         )
         
-        try XCTAssertEqual(auth.amount, DetailedAmount(currency: .usd, total: "42.31", details: nil))
+        XCTAssertEqual(auth.amount, DetailedAmount(currency: .usd, total: 42.31, details: nil))
     }
     
     static var allTests: [(String, (RelatedResourceAuthorizationTests) -> ()throws -> ())] = [

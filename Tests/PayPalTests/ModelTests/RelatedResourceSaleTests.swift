@@ -5,9 +5,9 @@ final class RelatedResourceSaleTests: XCTestCase {
     let now = Date()
     
     func testInit()throws {
-        let sale = try RelatedResource.Sale(
+        let sale = RelatedResource.Sale(
             id: "9FF17892-49F8-47C9-8117-7662F889DAEA",
-            amount: DetailedAmount(currency: .usd, total: "42.31", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 42.31, details: nil),
             state: .pending,
             transaction: CurrencyAmount(currency: .usd, value: 0.31),
             receivable: CurrencyAmount(currency: .usd, value: 42.00),
@@ -27,14 +27,14 @@ final class RelatedResourceSaleTests: XCTestCase {
         XCTAssertEqual(sale.created, self.now.iso8601)
         XCTAssertEqual(sale.transaction, CurrencyAmount(currency: .usd, value: 0.31))
         XCTAssertEqual(sale.receivable, CurrencyAmount(currency: .usd, value: 42.00))
-        try XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: "42.31", details: nil))
+        XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: 42.31, details: nil))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let sale = try RelatedResource.Sale(
+        let sale = RelatedResource.Sale(
             id: "9FF17892-49F8-47C9-8117-7662F889DAEA",
-            amount: DetailedAmount(currency: .usd, total: "42.31", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 42.31, details: nil),
             state: .pending,
             transaction: CurrencyAmount(currency: .usd, value: 0.31),
             receivable: CurrencyAmount(currency: .usd, value: 42.00),
@@ -138,7 +138,7 @@ final class RelatedResourceSaleTests: XCTestCase {
         
         XCTAssertEqual(sale.receivable, CurrencyAmount(currency: .usd, value: 42.00))
         XCTAssertEqual(sale.transaction, CurrencyAmount(currency: .usd, value: 0.31))
-        try XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: "42.31", details: nil))
+        XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: 42.31, details: nil))
     }
     
     static var allTests: [(String, (RelatedResourceSaleTests) -> ()throws -> ())] = [

@@ -3,7 +3,7 @@ import XCTest
 
 final class SaleTests: XCTestCase {
     func testInit()throws {
-        let sale = try Sale(amount: DetailedAmount(currency: .usd, total: "10.00", details: nil), transaction: CurrencyAmount(currency: .usd, value: 1.00))
+        let sale = Sale(amount: DetailedAmount(currency: .usd, total: 10.00, details: nil), transaction: CurrencyAmount(currency: .usd, value: 1.00))
         
         XCTAssertNil(sale.id)
         XCTAssertNil(sale.status)
@@ -11,12 +11,12 @@ final class SaleTests: XCTestCase {
         XCTAssertNil(sale.updated)
         XCTAssertNil(sale.links)
         XCTAssertEqual(sale.transaction, CurrencyAmount(currency: .usd, value: 1.00))
-        try XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: "10.00", details: nil))
+        XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: 10.00, details: nil))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let sale = try Sale(amount: DetailedAmount(currency: .usd, total: "10.00", details: nil), transaction: CurrencyAmount(currency: .usd, value: 1.00))
+        let sale = Sale(amount: DetailedAmount(currency: .usd, total: 10.00, details: nil), transaction: CurrencyAmount(currency: .usd, value: 1.00))
         let generated = try String(data: encoder.encode(sale), encoding: .utf8)!
         let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"10.00\"},\"transaction_fee\":{\"value\":\"1.00\",\"currency\":\"USD\"}}"
         
@@ -59,7 +59,7 @@ final class SaleTests: XCTestCase {
         XCTAssertEqual(sale.updated, "2018-09-18T21:23:25+0000")
         XCTAssertEqual(sale.links, [])
         XCTAssertEqual(sale.transaction, CurrencyAmount(currency: .usd, value: 1.00))
-        try XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: "10.00", details: nil))
+        XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: 10.00, details: nil))
     }
     
     static var allTests: [(String, (SaleTests) -> ()throws -> ())] = [

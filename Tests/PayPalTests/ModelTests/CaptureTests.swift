@@ -3,8 +3,8 @@ import XCTest
 
 final class CaptureTests: XCTestCase {
     func testInit()throws {
-        let capture = try Capture(
-            amount: DetailedAmount(currency: .usd, total: "10.00", details: nil),
+        let capture = Capture(
+            amount: DetailedAmount(currency: .usd, total: 10.00, details: nil),
             transaction: CurrencyAmount(currency: .usd, value: 1.00)
         )
         
@@ -13,13 +13,13 @@ final class CaptureTests: XCTestCase {
         XCTAssertNil(capture.status)
         XCTAssertNil(capture.reason)
         XCTAssertEqual(capture.transaction, CurrencyAmount(currency: .usd, value: 1.00))
-        try XCTAssertEqual(capture.amount, DetailedAmount(currency: .usd, total: "10.00", details: nil))
+        XCTAssertEqual(capture.amount, DetailedAmount(currency: .usd, total: 10.00, details: nil))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let capture = try Capture(
-            amount: DetailedAmount(currency: .usd, total: "10.00", details: nil),
+        let capture = Capture(
+            amount: DetailedAmount(currency: .usd, total: 10.00, details: nil),
             transaction: CurrencyAmount(currency: .usd, value: 1.00)
         )
         let generated = try String(data: encoder.encode(capture), encoding: .utf8)
@@ -53,7 +53,7 @@ final class CaptureTests: XCTestCase {
         XCTAssertEqual(capture.links, [])
         XCTAssertEqual(capture.status, .pending)
         XCTAssertEqual(capture.reason, .buyerComplaint)
-        try XCTAssertEqual(capture.amount, DetailedAmount(currency: .usd, total: "10.00", details: nil))
+        XCTAssertEqual(capture.amount, DetailedAmount(currency: .usd, total: 10.00, details: nil))
         XCTAssertEqual(capture.transaction, CurrencyAmount(currency: .usd, value: 1.00))
     }
     

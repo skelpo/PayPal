@@ -26,12 +26,12 @@ final class OrdersTests: XCTestCase {
     }
     
     func testCreateEndpoints()throws {
-        let sales = try [
-            Sale(amount: DetailedAmount(currency: .usd, total: "150.78", details:
+        let sales = [
+            Sale(amount: DetailedAmount(currency: .usd, total: 150.78, details:
                 DetailedAmount.Detail(
-                    subtotal: "140.00",
-                    shipping: "9.00",
-                    tax: "1.78",
+                    subtotal: 140.00,
+                    shipping: 9.00,
+                    tax: 1.78,
                     handlingFee: nil,
                     shippingDiscount: nil,
                     insurance: nil,
@@ -46,7 +46,7 @@ final class OrdersTests: XCTestCase {
             units: [
                 Order.Unit(
                     reference: "FB68DC33-FA23-44D4-B197-C9251D76286E",
-                    amount: DetailedAmount(currency: .usd, total: "140.00", details: nil),
+                    amount: DetailedAmount(currency: .usd, total: 140.00, details: nil),
                     payee: Payee(email: "payee@example.com", merchant: nil, metadata: nil),
                     description: "Unit",
                     invoice: "FB68DC33-FA23-44D4-B197-C9251D76286E",

@@ -3,14 +3,14 @@ import XCTest
 
 final class RefundTests: XCTestCase {
     func testInit()throws {
-        let refund = try Refund(amount: DetailedAmount(currency: .usd, total: "10.00", details: nil))
+        let refund = Refund(amount: DetailedAmount(currency: .usd, total: 10.00, details: nil))
         
-        try XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: "10.00", details: nil))
+        XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: 10.00, details: nil))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let refund = try Refund(amount: DetailedAmount(currency: .usd, total: "10.00", details: nil))
+        let refund = Refund(amount: DetailedAmount(currency: .usd, total: 10.00, details: nil))
         let generated = try String(data: encoder.encode(refund), encoding: .utf8)!
         let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"10.00\"}}"
         
@@ -48,7 +48,7 @@ final class RefundTests: XCTestCase {
         XCTAssertEqual(refund.sale, "3B9C13B1-B7C0-494F-B6F2-DE8365052806")
         XCTAssertEqual(refund.status, .pending)
         XCTAssertEqual(refund.links, [])
-        try XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: "10.00", details: nil))
+        XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: 10.00, details: nil))
     }
     
     static var allTests: [(String, (RefundTests) -> ()throws -> ())] = [

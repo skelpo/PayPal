@@ -2,22 +2,15 @@ import Vapor
 import Core
 
 /// The amount of a purchase which includes details such as shipping, tax, discounts, etc.
-public struct DetailedAmount: Content, ValidationSetable, Equatable {
+public struct DetailedAmount: Content, Equatable {
     
-    /// The [three-character ISO-4217 currency code](https://developer.paypal.com/docs/integration/direct/rest/currency-codes/).
-    /// PayPal does not support all currencies.
-    public var currency: Currency
-    
-    /// The total amount charged to the payee by the payer.
+    /// The currency and amount information for the intance.
     ///
-    /// This property can be set using the `DetailedAmount.set(_:)`.
-    /// This method validates the new value before assigning it to the property.
+    /// The amount's `value` property is the total amount charged to the payee by the payer.
     ///
-    /// For refunds, represents the amount that the payee refunds to the original payer. Maximum length is 10 characters, which includes:
-    /// - Seven digits before the decimal point.
-    /// - The decimal point.
-    /// - Two digits after the decimal point.
-    public private(set) var total: String
+    /// The proprties of this property (`value` and `currency`) are encoded/decoded inline with
+    /// the rest of this type's properties. The coding-key for `value` is `total`.
+    public var amount: CurrencyAmount
     
     /// The additional details about the payment amount.
     public var details: Detail?
@@ -29,146 +22,151 @@ public struct DetailedAmount: Content, ValidationSetable, Equatable {
     ///   - currency: The three-character ISO-4217 currency code
     ///   - total: The total amount charged to the payee by the payer.
     ///   - details: The additional details about the payment amount.
-    public init(currency: Currency, total: String, details: Detail?)throws {
-        self.currency = currency
-        self.total = total
+    public init(currency: Currency, total: Decimal, details: Detail?) {
+        self.amount = CurrencyAmount(currency: currency, value: total)
         self.details = details
-        
-        try self.set(\.total <~ total)
     }
     
     /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        try self.init(
-            currency: container.decode(Currency.self, forKey: .currency),
-            total: container.decode(String.self, forKey: .total),
-            details: container.decodeIfPresent(Detail.self, forKey: .details)
+        
+        self.details = try container.decodeIfPresent(Detail.self, forKey: .details)
+        self.amount = CurrencyAmount(
+            currency: try container.decode(Currency.self, forKey: .currency),
+            value: try Detail.decimal(from: container.decode(String.self, forKey: .total))
         )
     }
     
-    /// See `ValidationSetable.setterValidations()`.
-    public func setterValidations() -> SetterValidations<DetailedAmount> {
-        var validations = SetterValidations(DetailedAmount.self)
-        
-        validations.set(\.total) { total in
-            guard total.range(of: "^[0-9]{0,7}(\\.[0-9]{1,2})?$", options: .regularExpression) != nil else {
-                throw PayPalError(
-                    status: .badRequest, identifier: "malformedString", reason: "`total` value must match RegEx pattern '^[0-9]{0,7}(\\.[0-9]{1,2})?$'"
-                )
-            }
-        }
-        
-        return validations
+    /// See [`Encodable.encode(to:)`](https://developer.apple.com/documentation/swift/encodable/2893603-encode).
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(String(describing: self.amount.value), forKey: .total)
+        try container.encode(self.amount.currency, forKey: .currency)
+        try container.encode(self.details, forKey: .details)
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case currency, total, details
     }
 }
 
 extension DetailedAmount {
     
     /// The additional details about a payment amount.
-    public struct Detail: Content, ValidationSetable, Equatable {
-        private let regex: String = "^[0-9]{0,7}(\\.[0-9]{1,2})?$"
+    public struct Detail: Content, Equatable {
+        internal static func decimal(from value: String)throws -> Decimal {
+            guard Double(value) != nil, var decimal = Decimal(string: value) else {
+                throw PayPalError(status: .badRequest, identifier: "badValue", reason: "Unable to convert string `\(value)` to a decimal number")
+            }
+            guard decimal < 10_000_000 else {
+                throw PayPalError(status: .badRequest, identifier: "invalidDecimal", reason: "Decimal value must be less than 10,000,000")
+            }
+            
+            var rounded = decimal
+            NSDecimalRound(&rounded, &decimal, 2, .bankers)
+            
+            if value == "9876543.210" {
+                print("value:", value, ", decimal:", decimal, ", rounded:", rounded)
+            }
+            
+            return rounded
+        }
+        
+        internal static func string(from value: Decimal?)throws -> String? {
+            guard var decimal = value else { return nil }
+            guard decimal < 10_000_000 else {
+                throw PayPalError(status: .internalServerError, identifier: "invalidDecimal", reason: "Decimal value must be less than 10,000,000")
+            }
+            
+            var rounded = decimal
+            NSDecimalRound(&rounded, &decimal, 2, .bankers)
+            
+            return String(describing: rounded)
+        }
+        
+        internal static func decimal(from value: String?)throws -> Decimal? {
+            if let string = value { return try self.decimal(from: string) as Decimal } else { return nil }
+        }
         
         /// The subtotal amount for the items.
-        ///
-        /// This property can be set using the `DetailedAmount.set(_:)` method.
-        /// This method validates the new value before assigning it to the property.
         ///
         /// If the request includes line items, this property is **required**. Maximum length is 10 characters, which includes:
         /// - Seven digits before the decimal point.
         /// - The decimal point.
         /// - Two digits after the decimal point.
-        public private(set) var subtotal: String
+        public var subtotal: Decimal
         
         /// The shipping fee.
         ///
-        /// This property can be set using the `DetailedAmount.set(_:)` method.
-        /// This method validates the new value before assigning it to the property.
-        ///
         /// Maximum length is 10 characters, which includes:
         /// - Seven digits before the decimal point.
         /// - The decimal point.
         /// - Two digits after the decimal point.
-        public private(set) var shipping: String?
+        public var shipping: Decimal?
         
         /// The tax.
         ///
-        /// This property can be set using the `DetailedAmount.set(_:)` method.
-        /// This method validates the new value before assigning it to the property.
-        ///
         /// Maximum length is 10 characters, which includes:
         /// - Seven digits before the decimal point.
         /// - The decimal point.
         /// - Two digits after the decimal point.
-        public private(set) var tax: String?
+        public var tax: Decimal?
         
         /// The handling fee.
         ///
-        /// This property can be set using the `DetailedAmount.set(_:)` method.
-        /// This method validates the new value before assigning it to the property.
-        ///
         /// Maximum length is 10 characters, which includes:
         /// - Seven digits before the decimal point.
         /// - The decimal point.
         /// - Two digits after the decimal point.
         /// Supported for the PayPal payment method only.
-        public private(set) var handlingFee: String?
+        public var handlingFee: Decimal?
         
         /// The shipping fee discount.
         ///
-        /// This property can be set using the `DetailedAmount.set(_:)` method.
-        /// This method validates the new value before assigning it to the property.
-        ///
         /// Maximum length is 10 characters, which includes:
         /// - Seven digits before the decimal point.
         /// - The decimal point.
         /// - Two digits after the decimal point.
         /// Supported for the PayPal payment method only.
-        public private(set) var shippingDiscount: String?
+        public var shippingDiscount: Decimal?
         
         /// The insurance fee.
-        ///
-        /// This property can be set using the `DetailedAmount.set(_:)` method.
-        /// This method validates the new value before assigning it to the property.
         ///
         /// Maximum length is 10 characters, which includes:
         /// - Seven digits before the decimal point.
         /// - The decimal point.
         /// - Two digits after the decimal point.
         /// Supported only for the PayPal payment method.
-        public private(set) var insurance: String?
+        public var insurance: Decimal?
         
         /// The gift wrap fee.
-        ///
-        /// This property can be set using the `DetailedAmount.set(_:)` method.
-        /// This method validates the new value before assigning it to the property.
         ///
         /// Maximum length is 10 characters, which includes:
         /// - Seven digits before the decimal point.
         /// - The decimal point.
         /// - Two digits after the decimal point.
-        public private(set) var giftWrap: String?
+        public var giftWrap: Decimal?
         
         /// Creates a new `DetailAmount.Detail` instance.
         ///
-        ///     DetailAmount.Detail(
-        ///         subtotal: "134.56",
-        ///         shipping: "5.69",
-        ///         tax: "13.45",
-        ///         handlingFee: "1.00",
-        ///         shippingDiscount: "5.69",
-        ///         insurance: "10.00",
-        ///         giftWrap: "2.50"
-        ///     )
+        /// - Parameters:
+        ///   - subtotal: The subtotal amount for the items in an item list.
+        ///   - shipping: The shipping fee.
+        ///   - tax: The tax.
+        ///   - handlingFee: The handling fee.
+        ///   - shippingDiscount: The discount for shipping.
+        ///   - insurance: The insurance fee.
+        ///   - giftWrap: The gift wrap fee.
         public init(
-            subtotal: String,
-            shipping: String? = nil,
-            tax: String? = nil,
-            handlingFee: String? = nil,
-            shippingDiscount: String? = nil,
-            insurance: String? = nil,
-            giftWrap: String? = nil
-        )throws {
+            subtotal: Decimal,
+            shipping: Decimal? = nil,
+            tax: Decimal? = nil,
+            handlingFee: Decimal? = nil,
+            shippingDiscount: Decimal? = nil,
+            insurance: Decimal? = nil,
+            giftWrap: Decimal? = nil
+        ) {
             self.subtotal = subtotal
             self.shipping = shipping
             self.tax = tax
@@ -176,81 +174,32 @@ extension DetailedAmount {
             self.shippingDiscount = shippingDiscount
             self.insurance = insurance
             self.giftWrap = giftWrap
-            
-            try self.set(\.subtotal <~ subtotal)
-            try self.set(\.shipping <~ shipping)
-            try self.set(\.tax <~ tax)
-            try self.set(\.handlingFee <~ handlingFee)
-            try self.set(\.shippingDiscount <~ shippingDiscount)
-            try self.set(\.insurance <~ insurance)
-            try self.set(\.giftWrap <~ giftWrap)
         }
         
         /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
         public init(from decoder: Decoder)throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            try self.init(
-                subtotal: container.decode(String.self, forKey: .subtotal),
-                shipping: container.decodeIfPresent(String.self, forKey: .shipping),
-                tax: container.decodeIfPresent(String.self, forKey: .tax),
-                handlingFee: container.decodeIfPresent(String.self, forKey: .handlingFee),
-                shippingDiscount: container.decodeIfPresent(String.self, forKey: .shippingDiscount),
-                insurance: container.decodeIfPresent(String.self, forKey: .insurance),
-                giftWrap: container.decodeIfPresent(String.self, forKey: .giftWrap)
-            )
+            
+            self.subtotal         = try Detail.decimal(from: container.decode(String.self, forKey: .subtotal))
+            self.shipping         = try Detail.decimal(from: container.decodeIfPresent(String.self, forKey: .shipping))
+            self.tax              = try Detail.decimal(from: container.decodeIfPresent(String.self, forKey: .tax))
+            self.handlingFee      = try Detail.decimal(from: container.decodeIfPresent(String.self, forKey: .handlingFee))
+            self.shippingDiscount = try Detail.decimal(from: container.decodeIfPresent(String.self, forKey: .shippingDiscount))
+            self.insurance        = try Detail.decimal(from: container.decodeIfPresent(String.self, forKey: .insurance))
+            self.giftWrap         = try Detail.decimal(from: container.decodeIfPresent(String.self, forKey: .giftWrap))
         }
         
-        /// See `ValidationSetable.setterValidations()`.
-        public func setterValidations() -> SetterValidations<DetailedAmount.Detail> {
-            var validations = SetterValidations(Detail.self)
-            
-            validations.set(\.subtotal) { subtotal in
-                guard subtotal.range(of: self.regex, options: .regularExpression) != nil else {
-                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`subtotal` value must match RegEx pattern '\(self.regex)`")
-                }
-            }
-            validations.set(\.shipping) { shipping in
-                guard let shipping = shipping else { return }
-                guard shipping.range(of: self.regex, options: .regularExpression) != nil else {
-                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`shipping` value must match RegEx pattern '\(self.regex)`")
-                }
-            }
-            validations.set(\.tax) { tax in
-                guard let tax = tax else { return }
-                guard tax.range(of: self.regex, options: .regularExpression) != nil else {
-                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`tax` value must match RegEx pattern '\(self.regex)`")
-                }
-            }
-            validations.set(\.handlingFee) { handlingFee in
-                guard let handlingFee = handlingFee else { return }
-                guard handlingFee.range(of: self.regex, options: .regularExpression) != nil else {
-                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`handlingFee` value must match RegEx pattern '\(self.regex)`")
-                }
-            }
-            validations.set(\.shippingDiscount) { shippingDiscount in
-                guard let shippingDiscount = shippingDiscount else { return }
-                guard shippingDiscount.range(of: self.regex, options: .regularExpression) != nil else {
-                    throw PayPalError(
-                        status: .badRequest,
-                        identifier: "malformedString",
-                        reason: "`shippingDiscount` value must match RegEx pattern '\(self.regex)`"
-                    )
-                }
-            }
-            validations.set(\.insurance) { insurance in
-                guard let insurance = insurance else { return }
-                guard insurance.range(of: self.regex, options: .regularExpression) != nil else {
-                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`insurance` value must match RegEx pattern '\(self.regex)`")
-                }
-            }
-            validations.set(\.giftWrap) { giftWrap in
-                guard let giftWrap = giftWrap else { return }
-                guard giftWrap.range(of: self.regex, options: .regularExpression) != nil else {
-                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`giftWrap` value must match RegEx pattern '\(self.regex)`")
-                }
-            }
-            
-            return validations
+        /// See [`Encodable.encode(to:)`](https://developer.apple.com/documentation/swift/encodable/2893603-encode).
+        public func encode(to encoder: Encoder)throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+
+            if let value = try Detail.string(from: self.subtotal)         { try container.encode(value, forKey: .subtotal) }
+            if let value = try Detail.string(from: self.shipping)         { try container.encode(value, forKey: .shipping) }
+            if let value = try Detail.string(from: self.tax)              { try container.encode(value, forKey: .tax) }
+            if let value = try Detail.string(from: self.handlingFee)      { try container.encode(value, forKey: .handlingFee) }
+            if let value = try Detail.string(from: self.shippingDiscount) { try container.encode(value, forKey: .shippingDiscount) }
+            if let value = try Detail.string(from: self.insurance)        { try container.encode(value, forKey: .insurance) }
+            if let value = try Detail.string(from: self.giftWrap)         { try container.encode(value, forKey: .giftWrap) }
         }
         
         enum CodingKeys: String, CodingKey {
