@@ -32,7 +32,7 @@ public struct Address: Content, ValidationSetable, Equatable {
     /// [Thailand](https://developer.paypal.com/docs/integration/direct/rest/state-codes/#thailand),
     /// or [United States](https://developer.paypal.com/docs/integration/direct/rest/state-codes/#usa).
     /// Maximum length is 40 single-byte characters.
-    public private(set) var state: String?
+    public var state: Province?
     
     /// The [two-character ISO 3166-1 code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/)
     /// that identifies the country or region.
@@ -75,7 +75,7 @@ public struct Address: Content, ValidationSetable, Equatable {
         line1: String,
         line2: String?,
         city: String,
-        state: String?,
+        state: Province?,
         country: Country,
         postalCode: String,
         phone: String?,
@@ -93,7 +93,6 @@ public struct Address: Content, ValidationSetable, Equatable {
         self.phone = phone
         self.type = type
         
-        try self.set(\.state <~ state)
         try self.set(\.phone <~ phone)
     }
     
@@ -108,7 +107,7 @@ public struct Address: Content, ValidationSetable, Equatable {
         self.line1 = try container.decode(String.self, forKey: .line1)
         self.line2 = try container.decodeIfPresent(String.self, forKey: .line2)
         self.city = try container.decode(String.self, forKey: .city)
-        self.state = try container.decodeIfPresent(String.self, forKey: .state)
+        self.state = try container.decodeIfPresent(Province.self, forKey: .state)
         self.country = try container.decode(Country.self, forKey: .country)
         self.postalCode = try container.decode(String.self, forKey: .postalCode)
         self.phone = try container.decodeIfPresent(String.self, forKey: .phone)
@@ -121,15 +120,6 @@ public struct Address: Content, ValidationSetable, Equatable {
     public func setterValidations() -> SetterValidations<Address> {
         var validations = SetterValidations(Address.self)
         
-        validations.set(\.state) { state in
-            guard state?.count ?? 0 <= 40 else {
-                throw PayPalError(
-                    status: .badRequest,
-                    identifier: "malformedString",
-                    reason: "`ShippingAddress.state` property length can be no longer than 40 1-byte characters"
-                )
-            }
-        }
         validations.set(\.phone) { phone in
             
         }

@@ -61,7 +61,7 @@ extension BusinessOwner {
         /// [Thailand](https://developer.paypal.com/docs/integration/direct/rest/state-codes/#thailand),
         /// or [United States](https://developer.paypal.com/docs/integration/direct/rest/state-codes/#usa).
         /// Maximum length is 40 single-byte characters.
-        public var state: String?
+        public var state: Province?
         
         /// The [two-character ISO 3166-1 code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/)
         /// that identifies the country or region.
@@ -99,7 +99,7 @@ extension BusinessOwner {
             line3: String?,
             suburb: String?,
             city: String,
-            state: String?,
+            state: Province?,
             country: Country,
             postalCode: String?
         )throws {
@@ -118,36 +118,23 @@ extension BusinessOwner {
             try self.set(\.line3 <~ line3)
             try self.set(\.suburb <~ suburb)
             try self.set(\.city <~ city)
-            try self.set(\.state <~ state)
             try self.set(\.country <~ country)
         }
         
         /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
         public init(from decoder: Decoder)throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            let line1 = try container.decode(String.self, forKey: .line1)
-            let line2 = try container.decodeIfPresent(String.self, forKey: .line2)
-            let line3 = try container.decodeIfPresent(String.self, forKey: .line3)
-            let suburb = try container.decodeIfPresent(String.self, forKey: .suburb)
-            let city = try container.decode(String.self, forKey: .city)
-            let state = try container.decodeIfPresent(String.self, forKey: .state)
-            
-            self.line1 = line1
-            self.line2 = line2
-            self.line3 = line3
-            self.suburb = suburb
-            self.city = city
-            self.state = state
-            self.country = try container.decode(Country.self, forKey: .country)
-            self.type = try container.decode(AddressType.self, forKey: .type)
-            self.postalCode = try container.decodeIfPresent(String.self, forKey: .postalCode)
-            
-            try self.set(\.line1 <~ line1)
-            try self.set(\.line2 <~ line2)
-            try self.set(\.line3 <~ line3)
-            try self.set(\.suburb <~ suburb)
-            try self.set(\.city <~ city)
-            try self.set(\.state <~ state)
+            try self.init(
+                type: container.decode(AddressType.self, forKey: .type),
+                line1: container.decode(String.self, forKey: .line1),
+                line2: container.decodeIfPresent(String.self, forKey: .line2),
+                line3: container.decodeIfPresent(String.self, forKey: .line3),
+                suburb: container.decodeIfPresent(String.self, forKey: .suburb),
+                city: container.decode(String.self, forKey: .city),
+                state: container.decodeIfPresent(Province.self, forKey: .state),
+                country: container.decode(Country.self, forKey: .country),
+                postalCode: container.decodeIfPresent(String.self, forKey: .postalCode)
+            )
         }
         
         /// See `ValidationSetable.setterValidations()`
@@ -177,14 +164,6 @@ extension BusinessOwner {
             validations.set(\.city) { city in
                 guard city.count <= 120 else {
                     throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`city` property length can be no longer 120")
-                }
-            }
-            validations.set(\.state) { state in
-                guard state?.count ?? 0 <= 40 else {
-                    throw PayPalError(
-                        status: .badRequest,
-                        identifier: "invalidLength", reason: "`state` property length can be no longer than 40 1-byte characters"
-                    )
                 }
             }
             

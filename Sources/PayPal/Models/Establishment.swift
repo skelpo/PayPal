@@ -5,7 +5,7 @@ public struct Establishment: Content, Equatable {
     
     /// The [state or territory](https://developer.paypal.com/docs/integration/direct/rest/state-codes/)
     /// of the government body with which the business was established.
-    public var state: String?
+    public var state: Province?
     
     /// The [two-character IS0-3166-1 country code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/)
     /// of the country where the business was established.
@@ -20,7 +20,7 @@ public struct Establishment: Content, Equatable {
     /// Creates a new `Establishment` instance.
     ///
     ///     Establishment(state: "KS", country: "US")
-    public init(state: String?, country: Country?) {
+    public init(state: Province?, country: Country?) {
         self.state = state
         self.country = country
     }
