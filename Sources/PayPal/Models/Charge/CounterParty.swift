@@ -21,11 +21,6 @@ public struct CounterParty: Content, Equatable {
         self.name = name
     }
     
-    /// Compares two `CounterParty` objects, checking that the `email`, `phoneNumber`, and `name` properties are equal.
-    public static func == (lhs: CounterParty, rhs: CounterParty) -> Bool {
-        return (lhs.email == rhs.email) && (lhs.phoneNumber == rhs.phoneNumber) && (lhs.name == rhs.name)
-    }
-    
     enum CodingKeys: String, CodingKey {
         case email, name
         case phoneNumber = "phone_number"

@@ -16,10 +16,4 @@ public struct OverrideCharge: Content, Equatable {
         self.id = id
         self.amount = amount
     }
-    
-    
-    /// Compares two `OverrideCharge` objects, checking the equality of the `id` and `amount` properties.
-    public static func == (lhs: OverrideCharge, rhs: OverrideCharge) -> Bool {
-        return (lhs.id == rhs.id) && (lhs.amount == rhs.amount)
-    }
 }

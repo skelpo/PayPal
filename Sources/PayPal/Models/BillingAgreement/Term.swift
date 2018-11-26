@@ -25,13 +25,12 @@ public final class Term: Content, Equatable {
     
     /// Creates a new `Term` instance.
     ///
-    ///     Term(
-    ///         type: .monthly,
-    ///         maxAmount: Money(currency: .usd, value: "14.99"),
-    ///         occurrences: "1",
-    ///         amountRange: Money(currency: .usd, value: "9.99"),
-    ///         editable: "FALSE"
-    ///     )
+    /// - Parameters:
+    ///   - type: The term type.
+    ///   - maxAmount: The currency and amount of the maximum billing amount associated with this term.
+    ///   - occurrences: The number of times that money can be pulled during this term.
+    ///   - amountRange: The amount range for this term.
+    ///   - editable: Indicates whether the customer can edit the amount in this term.
     public init(
         id: String? = nil,
         type: TermType,

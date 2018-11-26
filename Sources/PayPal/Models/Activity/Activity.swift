@@ -66,22 +66,6 @@ public struct Activity: Content, Equatable {
         self.extensions = extensions
     }
     
-    /// Compares two `Activity` objects, checking all the stored properties for equality.
-    public static func == (lhs: Activity, rhs: Activity) -> Bool {
-        return
-            (lhs.id == rhs.id) &&
-            (lhs.timeCreated == rhs.timeCreated) &&
-            (lhs.type == rhs.type) &&
-            (lhs.subtype == rhs.subtype) &&
-            (lhs.status == rhs.status) &&
-            (lhs.counterparty == rhs.counterparty) &&
-            (lhs.fee == rhs.fee) &&
-            (lhs.gross == rhs.gross) &&
-            (lhs.net == rhs.net) &&
-            (lhs.partnerFee == rhs.partnerFee) &&
-            (lhs.extensions == rhs.extensions)
-    }
-    
     enum CodingKeys: String, CodingKey {
         case id, subtype, status, counterparty, fee, gross, net, extensions
         case timeCreated = "time_created"

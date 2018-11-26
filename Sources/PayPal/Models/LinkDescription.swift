@@ -26,10 +26,4 @@ public struct LinkDescription: Content, Equatable {
         self.rel = rel
         self.method = method
     }
-    
-    /// Compares two `LinkDescription` objects, checking that the `href`,
-    /// `rel`, and `method` properties are equal.
-    public static func == (lhs: LinkDescription, rhs: LinkDescription) -> Bool {
-        return (lhs.rel == rhs.rel) && (lhs.href == rhs.href) && (lhs.method == rhs.method)
-    }
 }

@@ -16,9 +16,4 @@ public struct RoleObjectProperties: Content, Equatable {
     public init(role: Role?) {
         self.role = role
     }
-    
-    /// Compares two `RoleObjectProperties` objects, checking that the `role` properties are the same
-    public static func == (lhs: RoleObjectProperties, rhs: RoleObjectProperties) -> Bool {
-        return lhs.role == rhs.role
-    }
 }
