@@ -23,16 +23,13 @@ extension Date {
     }
     
     public init?(iso8601: String) {
+        let converter: ((String) -> Date?)?
         if #available(OSX 10.12, *) {
-            if let formatter = DateFormatter.iso8601 as? ISO8601DateFormatter, let date = formatter.date(from: iso8601) {
-                self = date
-                return
-            }
-        }
-        if let formatter = DateFormatter.iso8601 as? DateFormatter, let date = formatter.date(from: iso8601) {
-            self = date
+            converter = (DateFormatter.iso8601 as? ISO8601DateFormatter)?.date
         } else {
-            return nil
+            converter = (DateFormatter.iso8601 as? DateFormatter)?.date
         }
+        guard let date = converter?(iso8601) else { return nil }
+        self = date
     }
 }
