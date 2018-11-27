@@ -7,7 +7,7 @@ final class BusinessTests: XCTestCase {
             type: .individual,
             subType: .unselected,
             government: GovernmentBody(name: ""),
-            establishment: Establishment(state: "KS", country: .unitedStates),
+            establishment: Establishment(state: .ks, country: .unitedStates),
             names: [],
             ids: [],
             phones: [],
@@ -49,7 +49,7 @@ final class BusinessTests: XCTestCase {
         XCTAssertEqual(business.stakeholders, [])
         XCTAssertEqual(business.designation, Business.Designation(title: "CTO", area: "Software Engineering"))
         
-        XCTAssertEqual(business.establishment, Establishment(state: "KS", country: .unitedStates))
+        XCTAssertEqual(business.establishment, Establishment(state: .ks, country: .unitedStates))
         XCTAssertEqual(business.establishedDate, TimelessDate(date: "1882-05-13"))
         XCTAssertEqual(business.registrationDate, TimelessDate(date: "1975-04-22"))
         try XCTAssertEqual(business.disputeEmail, EmailAddress(email: "disputable@exmaple.com"))

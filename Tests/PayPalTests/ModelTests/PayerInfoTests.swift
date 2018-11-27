@@ -3,7 +3,7 @@ import XCTest
 
 final class PayerInfoTests: XCTestCase {
     func testInit()throws {
-        let info = try PayerInfo(
+        let info = PayerInfo(
             email: "payer@exmaple.com",
             shippingAddress: nil,
             billingAddress: Address(
@@ -12,7 +12,7 @@ final class PayerInfoTests: XCTestCase {
                 line1: "89 Furnace Dr.",
                 line2: nil,
                 city: "Nowhere",
-                state: "KS",
+                state: .ks,
                 country: .unitedStates,
                 postalCode: "66167",
                 phone: nil,
@@ -26,7 +26,7 @@ final class PayerInfoTests: XCTestCase {
         
         XCTAssertEqual(info.email, "payer@exmaple.com")
         XCTAssertEqual(info.shippingAddress, nil)
-        try XCTAssertEqual(
+        XCTAssertEqual(
             info.billingAddress,
             Address(
                 recipientName: "Puffin Billy",
@@ -34,7 +34,7 @@ final class PayerInfoTests: XCTestCase {
                 line1: "89 Furnace Dr.",
                 line2: nil,
                 city: "Nowhere",
-                state: "KS",
+                state: .ks,
                 country: .unitedStates,
                 postalCode: "66167",
                 phone: nil,
@@ -45,7 +45,7 @@ final class PayerInfoTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let info = try PayerInfo(
+        let info = PayerInfo(
             email: "payer@exmaple.com",
             shippingAddress: nil,
             billingAddress: Address(
@@ -54,7 +54,7 @@ final class PayerInfoTests: XCTestCase {
                 line1: "89 Furnace Dr.",
                 line2: nil,
                 city: "Nowhere",
-                state: "KS",
+                state: .ks,
                 country: .unitedStates,
                 postalCode: "66167",
                 phone: nil,
@@ -78,7 +78,7 @@ final class PayerInfoTests: XCTestCase {
     
     func testDecoding()throws {
         let decoder = JSONDecoder()
-        let info = try PayerInfo(
+        let info = PayerInfo(
             email: "payer@exmaple.com",
             shippingAddress: nil,
             billingAddress: Address(
@@ -87,7 +87,7 @@ final class PayerInfoTests: XCTestCase {
                 line1: "89 Furnace Dr.",
                 line2: nil,
                 city: "Nowhere",
-                state: "KS",
+                state: .ks,
                 country: .unitedStates,
                 postalCode: "66167",
                 phone: nil,

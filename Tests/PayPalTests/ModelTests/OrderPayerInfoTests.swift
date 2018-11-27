@@ -10,7 +10,7 @@ final class OrderPayerInfoTests: XCTestCase {
             taxType: .cpf,
             country: .unitedStates,
             billing: Address(
-                recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
+                recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: .le,
                 country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
             )
         )
@@ -27,8 +27,8 @@ final class OrderPayerInfoTests: XCTestCase {
         XCTAssertEqual(info.tax, "85323EC0-A9114")
         XCTAssertEqual(info.taxType, .cpf)
         XCTAssertEqual(info.country, .unitedStates)
-        try XCTAssertEqual(info.billing, Address(
-            recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
+        XCTAssertEqual(info.billing, Address(
+            recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: .le,
             country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
         ))
     }
@@ -47,7 +47,7 @@ final class OrderPayerInfoTests: XCTestCase {
             taxType: .cpf,
             country: .unitedStates,
             billing: Address(
-                recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
+                recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: .le,
                 country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
             )
         )
@@ -71,13 +71,13 @@ final class OrderPayerInfoTests: XCTestCase {
             taxType: .cpf,
             country: .unitedStates,
             billing: Address(
-                recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
+                recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: .le,
                 country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
             )
         )
         let generated = try String(data: encoder.encode(info), encoding: .utf8)!
         let json =
-        "{\"email\":\"email@example.com\",\"tax_id\":\"85323EC0-A9114\",\"country_code\":\"US\",\"birth_date\":\"2018-09-20\",\"billing_address\":{\"country_code\":\"WF\",\"state\":\"CC\",\"line1\":\"Plum Fairy Ln.\",\"city\":\"Ginger Planes\",\"postal_code\":\"3552\"},\"tax_id_type\":\"BR_CPF\"}"
+        "{\"email\":\"email@example.com\",\"tax_id\":\"85323EC0-A9114\",\"country_code\":\"US\",\"birth_date\":\"2018-09-20\",\"billing_address\":{\"country_code\":\"WF\",\"state\":\"LE\",\"line1\":\"Plum Fairy Ln.\",\"city\":\"Ginger Planes\",\"postal_code\":\"3552\"},\"tax_id_type\":\"BR_CPF\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -104,7 +104,7 @@ final class OrderPayerInfoTests: XCTestCase {
                 "city": "Ginger Planes",
                 "country_code": "WF",
                 "line1": "Plum Fairy Ln.",
-                "state": "CC"
+                "state": "LE"
             },
             "country_code": "US",
             "tax_id_type": "BR_CPF",
@@ -126,8 +126,8 @@ final class OrderPayerInfoTests: XCTestCase {
         XCTAssertEqual(info.tax, "85323EC0-A9114")
         XCTAssertEqual(info.birthdate, "2018-09-20")
         XCTAssertEqual(info.email, "email@example.com")
-        try XCTAssertEqual(info.billing, Address(
-            recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
+        XCTAssertEqual(info.billing, Address(
+            recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: .le,
             country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
         ))
     }

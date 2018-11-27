@@ -3,15 +3,15 @@ import XCTest
 
 final class EstablishmentTests: XCTestCase {
     func testInit()throws {
-        let bank = Establishment(state: "OR", country: .unitedStates)
+        let bank = Establishment(state: .or, country: .unitedStates)
         
-        XCTAssertEqual(bank.state, "OR")
+        XCTAssertEqual(bank.state, .or)
         XCTAssertEqual(bank.country, .unitedStates)
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let bank = Establishment(state: "OR", country: .unitedStates)
+        let bank = Establishment(state: .or, country: .unitedStates)
         let generated = try String(data: encoder.encode(bank), encoding: .utf8)!
         
         XCTAssertEqual(generated, "{\"state\":\"OR\",\"country_code\":\"US\"}")
@@ -33,7 +33,7 @@ final class EstablishmentTests: XCTestCase {
         """
         
         try XCTAssertThrowsError(decoder.decode(Establishment.self, from: country))
-        try XCTAssertEqual(decoder.decode(Establishment.self, from: json), Establishment(state: "OR", country: .unitedStates))
+        try XCTAssertEqual(decoder.decode(Establishment.self, from: json), Establishment(state: .or, country: .unitedStates))
     }
     
     static var allTests: [(String, (EstablishmentTests) -> ()throws -> ())] = [

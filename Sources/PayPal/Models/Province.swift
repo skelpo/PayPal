@@ -4,2012 +4,1361 @@ import Vapor
 public enum Province: String, Hashable, CaseIterable, Content {
 
     /// `CIUDAD AUTÓNOMA DE BUENOS AIRES`
-    case buenosAiresCiudad
+    case ciudadAutónomaDeBuenosAires = "CIUDAD AUTÓNOMA DE BUENOS AIRES"
     
     /// `BUENOS AIRES`
-    case buenosAiresProvincia
+    case buenosAires = "BUENOS AIRES"
     
     /// `CATAMARCA`
-    case catamarca
+    case catamarca = "CATAMARCA"
     
     /// `CHACO`
-    case chaco
+    case chaco = "CHACO"
     
     /// `CHUBUT`
-    case chubut
+    case chubut = "CHUBUT"
     
     /// `CORRIENTES`
-    case corrientes
+    case corrientes = "CORRIENTES"
     
     /// `CÓRDOBA`
-    case córdoba
+    case córdoba = "CÓRDOBA"
     
     /// `ENTRE RÍOS`
-    case entreRíos
+    case entreRíos = "ENTRE RÍOS"
     
     /// `FORMOSA`
-    case formosa
+    case formosa = "FORMOSA"
     
     /// `JUJUY`
-    case jujuy
+    case jujuy = "JUJUY"
     
     /// `LA PAMPA`
-    case laPampa
+    case laPampa = "LA PAMPA"
     
     /// `LA RIOJA`
-    case laRioja
+    case laRioja = "LA RIOJA"
     
     /// `MENDOZA`
-    case mendoza
+    case mendoza = "MENDOZA"
     
     /// `MISIONES`
-    case misiones
+    case misiones = "MISIONES"
     
     /// `NEUQUÉN`
-    case neuquén
+    case neuquén = "NEUQUÉN"
     
     /// `RÍO NEGRO`
-    case ríoNegro
+    case ríoNegro = "RÍO NEGRO"
     
     /// `SALTA`
-    case salta
+    case salta = "SALTA"
     
     /// `SAN JUAN`
-    case sanJuan
+    case sanJuan = "SAN JUAN"
     
     /// `SAN LUIS`
-    case sanLuis
+    case sanLuis = "SAN LUIS"
     
     /// `SANTA CRUZ`
-    case santaCruz
+    case santaCruz = "SANTA CRUZ"
     
     /// `SANTA FE`
-    case santaFe
+    case santaFe = "SANTA FE"
     
     /// `SANTIAGO DEL ESTERO`
-    case santiagoDelEstero
+    case santiagoDelEstero = "SANTIAGO DEL ESTERO"
     
     /// `TIERRA DEL FUEGO`
-    case tierraDelFuego
+    case tierraDelFuego = "TIERRA DEL FUEGO"
     
     /// `TUCUMÁN`
-    case tucumán
+    case tucumán = "TUCUMÁN"
     
     /// `AC`
-    case acre
+    case ac = "AC"
     
     /// `AL`
-    case alagoas
+    case al = "AL"
     
     /// `AP`
-    case amapá
+    case ap = "AP"
     
     /// `AM`
-    case amazonas
+    case am = "AM"
     
     /// `BA`
-    case bahia
+    case ba = "BA"
     
     /// `CE`
-    case ceará
+    case ce = "CE"
     
     /// `DF`
-    case distritoFederal
+    case df = "DF"
     
     /// `ES`
-    case espíritoSanto
+    case es = "ES"
     
     /// `GO`
-    case goiás
+    case go = "GO"
     
     /// `MA`
-    case maranhão
+    case ma = "MA"
     
     /// `MT`
-    case matoGrosso
+    case mt = "MT"
     
     /// `MS`
-    case matoGrossoDoSul
+    case ms = "MS"
     
     /// `MG`
-    case minasGerais
+    case mg = "MG"
     
     /// `PR`
-    case paraná
+    case pr = "PR"
     
     /// `PB`
-    case paraíba
+    case pb = "PB"
     
     /// `PA`
-    case pará
+    case pa = "PA"
     
     /// `PE`
-    case pernambuco
+    case pe = "PE"
     
     /// `PI`
-    case piauí
+    case pi = "PI"
     
     /// `RN`
-    case rioGrandeDoNorte
+    case rn = "RN"
     
     /// `RS`
-    case rioGrandeDoSul
+    case rs = "RS"
     
     /// `RJ`
-    case rioDeJaneiro
+    case rj = "RJ"
     
     /// `RO`
-    case rondônia
+    case ro = "RO"
     
     /// `RR`
-    case roraima
+    case rr = "RR"
     
     /// `SC`
-    case santaCatarina
+    case sc = "SC"
     
     /// `SE`
-    case sergipe
+    case se = "SE"
     
     /// `SP`
-    case sãoPaulo
+    case sp = "SP"
     
     /// `TO`
-    case tocantins
+    case to = "TO"
     
     /// `AB`
-    case alberta
+    case ab = "AB"
     
     /// `BC`
-    case britishColumbia
+    case bc = "BC"
     
     /// `MB`
-    case manitoba
+    case mb = "MB"
     
     /// `NB`
-    case newBrunswick
+    case nb = "NB"
     
     /// `NL`
-    case newfoundlandAndLabrador
+    case nl = "NL"
     
     /// `NT`
-    case northwestTerritories
+    case nt = "NT"
     
     /// `NS`
-    case novaScotia
+    case ns = "NS"
     
     /// `NU`
-    case nunavut
+    case nu = "NU"
     
     /// `ON`
-    case ontario
-    
-    /// `PE`
-    case princeEdwardIsland
+    case on = "ON"
     
     /// `QC`
-    case quebec
+    case qc = "QC"
     
     /// `SK`
-    case saskatchewan
+    case sk = "SK"
     
     /// `YT`
-    case yukon
+    case yt = "YT"
     
     /// `CN-AH`
-    case anhuiSheng
+    case cnAh = "CN-AH"
     
     /// `CN-BJ`
-    case beijingShi
+    case cnBj = "CN-BJ"
     
     /// `CN-CQ`
-    case chongqingShi
+    case cnCq = "CN-CQ"
     
     /// `CN-FJ`
-    case fujianSheng
+    case cnFj = "CN-FJ"
     
     /// `CN-GD`
-    case guangdongSheng
+    case cnGd = "CN-GD"
     
     /// `CN-GS`
-    case gansuSheng
+    case cnGs = "CN-GS"
     
     /// `CN-GX`
-    case guangxiZhuangzuZizhiqu
+    case cnGx = "CN-GX"
     
     /// `CN-GZ`
-    case guizhouSheng
+    case cnGz = "CN-GZ"
     
     /// `CN-HA`
-    case henanSheng
+    case cnHa = "CN-HA"
     
     /// `CN-HB`
-    case hubeiSheng
+    case cnHb = "CN-HB"
     
     /// `CN-HE`
-    case hebeiSheng
+    case cnHe = "CN-HE"
     
     /// `CN-HI`
-    case hainanSheng
+    case cnHi = "CN-HI"
     
     /// `CN-HK`
-    case hongKongSAR
-    
-    /// `CN-HK`
-    case xianggangTebiexingzhengqu
+    case cnHk = "CN-HK"
     
     /// `CN-HL`
-    case heilongjiangSheng
+    case cnHl = "CN-HL"
     
     /// `CN-HN`
-    case hunanSheng
+    case cnHn = "CN-HN"
     
     /// `CN-JL`
-    case jilinSheng
+    case cnJl = "CN-JL"
     
     /// `CN-JS`
-    case jiangsuSheng
+    case cnJs = "CN-JS"
     
     /// `CN-JX`
-    case jiangxiSheng
+    case cnJx = "CN-JX"
     
     /// `CN-LN`
-    case liaoningSheng
+    case cnLn = "CN-LN"
     
     /// `CN-MO`
-    case macaoSAR
-    
-    /// `CN-MO`
-    case macauSAR
-    
-    /// `CN-MO`
-    case aomenTebiexingzhengqu
+    case cnMo = "CN-MO"
     
     /// `CN-NM`
-    case neiMongolZizhiqu
+    case cnNm = "CN-NM"
     
     /// `CN-NX`
-    case ningxiaHuizuZizhiqu
+    case cnNx = "CN-NX"
     
     /// `CN-QH`
-    case qinghaiSheng
+    case cnQh = "CN-QH"
     
     /// `CN-SC`
-    case sichuanSheng
+    case cnSc = "CN-SC"
     
     /// `CN-SD`
-    case shandongSheng
+    case cnSd = "CN-SD"
     
     /// `CN-SH`
-    case shanghaiShi
+    case cnSh = "CN-SH"
     
     /// `CN-SN`
-    case shaanxiSheng
+    case cnSn = "CN-SN"
     
     /// `CN-SX`
-    case shanxiSheng
+    case cnSx = "CN-SX"
     
     /// `CN-TJ`
-    case tianjinShi
+    case cnTj = "CN-TJ"
     
     /// `CN-TW`
-    case taiwanSheng
+    case cnTw = "CN-TW"
     
     /// `CN-XJ`
-    case xinjiangUygurZizhiqu
+    case cnXj = "CN-XJ"
     
     /// `CN-XZ`
-    case xizangZizhiqu
+    case cnXz = "CN-XZ"
     
     /// `CN-YN`
-    case yunnanSheng
+    case cnYn = "CN-YN"
     
     /// `CN-ZJ`
-    case zhejiangSheng
+    case cnZj = "CN-ZJ"
     
     /// `Andaman and Nicobar Islands`
-    case andamanAndNicobarIslands
+    case andamanAndNicobarIslands = "Andaman and Nicobar Islands"
     
     /// `Andhra Pradesh`
-    case andhraPradesh
+    case andhraPradesh = "Andhra Pradesh"
     
     /// `APO`
-    case armyPostOffice
+    case apo = "APO"
     
     /// `Arunachal Pradesh`
-    case arunachalPradesh
+    case arunachalPradesh = "Arunachal Pradesh"
     
     /// `Assam`
-    case assam
+    case assam = "Assam"
     
     /// `Bihar`
-    case bihar
+    case bihar = "Bihar"
     
     /// `Chandigarh`
-    case chandigarh
+    case chandigarh = "Chandigarh"
     
     /// `Chhattisgarh`
-    case chhattisgarh
+    case chhattisgarh = "Chhattisgarh"
     
     /// `Dadra and Nagar Haveli`
-    case dadraAndNagarHaveli
+    case dadraAndNagarHaveli = "Dadra and Nagar Haveli"
     
     /// `Daman and Diu`
-    case damanAndDiu
+    case damanAndDiu = "Daman and Diu"
     
     /// `Delhi (NCT)`
-    case delhi
+    case delhiNCT = "Delhi (NCT)"
     
     /// `Goa`
-    case goa
+    case goa = "Goa"
     
     /// `Gujarat`
-    case gujarat
+    case gujarat = "Gujarat"
     
     /// `Haryana`
-    case haryana
+    case haryana = "Haryana"
     
     /// `Himachal Pradesh`
-    case himachalPradesh
+    case himachalPradesh = "Himachal Pradesh"
     
     /// `Jammu and Kashmir`
-    case jammuAndKashmir
+    case jammuAndKashmir = "Jammu and Kashmir"
     
     /// `Jharkhand`
-    case jharkhand
+    case jharkhand = "Jharkhand"
     
     /// `Karnataka`
-    case karnataka
+    case karnataka = "Karnataka"
     
     /// `Kerala`
-    case kerala
+    case kerala = "Kerala"
     
     /// `Lakshadweep`
-    case lakshadweep
+    case lakshadweep = "Lakshadweep"
     
     /// `Madhya Pradesh`
-    case madhyaPradesh
+    case madhyaPradesh = "Madhya Pradesh"
     
     /// `Maharashtra`
-    case maharashtra
+    case maharashtra = "Maharashtra"
     
     /// `Manipur`
-    case manipur
+    case manipur = "Manipur"
     
     /// `Meghalaya`
-    case meghalaya
+    case meghalaya = "Meghalaya"
     
     /// `Mizoram`
-    case mizoram
+    case mizoram = "Mizoram"
     
     /// `Nagaland`
-    case nagaland
+    case nagaland = "Nagaland"
     
     /// `Odisha`
-    case odisha
+    case odisha = "Odisha"
     
     /// `Puducherry`
-    case puducherry
+    case puducherry = "Puducherry"
     
     /// `Punjab`
-    case punjab
+    case punjab = "Punjab"
     
     /// `Rajasthan`
-    case rajasthan
+    case rajasthan = "Rajasthan"
     
     /// `Sikkim`
-    case sikkim
+    case sikkim = "Sikkim"
     
     /// `Tamil Nadu`
-    case tamilNadu
+    case tamilNadu = "Tamil Nadu"
     
     /// `Telangana`
-    case telangana
+    case telangana = "Telangana"
     
     /// `Tripura`
-    case tripura
+    case tripura = "Tripura"
     
     /// `Uttar Pradesh`
-    case uttarPradesh
+    case uttarPradesh = "Uttar Pradesh"
     
     /// `Uttarakhand`
-    case uttarakhand
+    case uttarakhand = "Uttarakhand"
     
     /// `West Bengal`
-    case westBengal
+    case westBengal = "West Bengal"
     
     /// `ID-BA`
-    case bali
+    case idBa = "ID-BA"
     
     /// `ID-BB`
-    case bangkaBelitung
+    case idBb = "ID-BB"
     
     /// `ID-BT`
-    case banten
+    case idBt = "ID-BT"
     
     /// `ID-BE`
-    case bengkulu
+    case idBe = "ID-BE"
     
     /// `ID-YO`
-    case diYogyakarta
+    case idYo = "ID-YO"
     
     /// `ID-JK`
-    case dkiJakarta
+    case idJk = "ID-JK"
     
     /// `ID-GO`
-    case gorontalo
+    case idGo = "ID-GO"
     
     /// `ID-JA`
-    case jambi
+    case idJa = "ID-JA"
     
     /// `ID-JB`
-    case jawaBarat
+    case idJb = "ID-JB"
     
     /// `ID-JT`
-    case jawaTengah
+    case idJt = "ID-JT"
     
     /// `ID-JI`
-    case jawaTimur
+    case idJi = "ID-JI"
     
     /// `ID-KB`
-    case kalimantanBarat
+    case idKb = "ID-KB"
     
     /// `ID-KS`
-    case kalimantanSelatan
+    case idKs = "ID-KS"
     
     /// `ID-KT`
-    case kalimantanTengah
+    case idKt = "ID-KT"
     
     /// `ID-KI`
-    case kalimantanTimur
+    case idKi = "ID-KI"
     
     /// `ID-KU`
-    case kalimantanUtara
+    case idKu = "ID-KU"
     
     /// `ID-KR`
-    case kepulauanRiau
+    case idKr = "ID-KR"
     
     /// `ID-LA`
-    case lampung
+    case idLa = "ID-LA"
     
     /// `ID-MA`
-    case maluku
+    case idMa = "ID-MA"
     
     /// `ID-MU`
-    case malukuUtara
+    case idMu = "ID-MU"
     
     /// `ID-AC`
-    case nanggroeAcehDarussalam
+    case idAc = "ID-AC"
     
     /// `ID-NB`
-    case nusaTenggaraBarat
+    case idNb = "ID-NB"
     
     /// `ID-NT`
-    case nusaTenggaraTimur
+    case idNt = "ID-NT"
     
     /// `ID-PA`
-    case papua
+    case idPa = "ID-PA"
     
     /// `ID-PB`
-    case papuaBarat
+    case idPb = "ID-PB"
     
     /// `ID-RI`
-    case riau
+    case idRi = "ID-RI"
     
     /// `ID-SR`
-    case sulawesiBarat
+    case idSr = "ID-SR"
     
     /// `ID-SN`
-    case sulawesiSelatan
+    case idSn = "ID-SN"
     
     /// `ID-ST`
-    case sulawesiTengah
+    case idSt = "ID-ST"
     
     /// `ID-SG`
-    case sulawesiTenggara
+    case idSg = "ID-SG"
     
     /// `ID-SA`
-    case sulawesiUtara
+    case idSa = "ID-SA"
     
     /// `ID-SB`
-    case sumateraBarat
+    case idSb = "ID-SB"
     
     /// `ID-SS`
-    case sumateraSelatan
+    case idSs = "ID-SS"
     
     /// `ID-SU`
-    case sumateraUtara
+    case idSu = "ID-SU"
     
     /// `AG`
-    case agrigento
-    
-    /// `AL`
-    case alessandria
+    case ag = "AG"
     
     /// `AN`
-    case ancona
+    case an = "AN"
     
     /// `AO`
-    case aosta
+    case ao = "AO"
     
     /// `AR`
-    case arezzo
-    
-    /// `AP`
-    case ascoliPiceno
+    case ar = "AR"
     
     /// `AT`
-    case asti
+    case at = "AT"
     
     /// `AV`
-    case avellino
-    
-    /// `BA`
-    case bari
+    case av = "AV"
     
     /// `BT`
-    case barlettaAndriaTrani
+    case bt = "BT"
     
     /// `BL`
-    case belluno
+    case bl = "BL"
     
     /// `BN`
-    case benevento
+    case bn = "BN"
     
     /// `BG`
-    case bergamo
+    case bg = "BG"
     
     /// `BI`
-    case biella
+    case bi = "BI"
     
     /// `BO`
-    case bologna
+    case bo = "BO"
     
     /// `BZ`
-    case bolzano
+    case bz = "BZ"
     
     /// `BS`
-    case brescia
+    case bs = "BS"
     
     /// `BR`
-    case brindisi
+    case br = "BR"
     
     /// `CA`
-    case cagliari
+    case ca = "CA"
     
     /// `CL`
-    case caltanissetta
+    case cl = "CL"
     
     /// `CB`
-    case campobasso
+    case cb = "CB"
     
     /// `CI`
-    case carboniaIglesias
-    
-    /// `CE`
-    case caserta
+    case ci = "CI"
     
     /// `CT`
-    case catania
+    case ct = "CT"
     
     /// `CZ`
-    case catanzaro
+    case cz = "CZ"
     
     /// `CH`
-    case chieti
+    case ch = "CH"
     
     /// `CO`
-    case como
+    case co = "CO"
     
     /// `CS`
-    case cosenza
+    case cs = "CS"
     
     /// `CR`
-    case cremona
+    case cr = "CR"
     
     /// `KR`
-    case crotone
-    
-    /// `CN`
-    case cuneo
+    case kr = "KR"
     
     /// `EN`
-    case enna
+    case en = "EN"
     
     /// `FM`
-    case fermo
+    case fm = "FM"
     
     /// `FE`
-    case ferrara
+    case fe = "FE"
     
     /// `FI`
-    case firenze
+    case fi = "FI"
     
     /// `FG`
-    case foggia
+    case fg = "FG"
     
     /// `FC`
-    case forlìCesena
+    case fc = "FC"
     
     /// `FR`
-    case frosinone
+    case fr = "FR"
     
     /// `GE`
-    case genova
-    
-    /// `GO`
-    case gorizia
+    case ge = "GE"
     
     /// `GR`
-    case grosseto
+    case gr = "GR"
     
     /// `IM`
-    case imperia
+    case im = "IM"
     
     /// `IS`
-    case isernia
+    case `is` = "IS"
     
     /// `AQ`
-    case laquila
-    
-    /// `SP`
-    case laSpezia
+    case aq = "AQ"
     
     /// `LT`
-    case latina
+    case lt = "LT"
     
     /// `LE`
-    case lecce
+    case le = "LE"
     
     /// `LC`
-    case lecco
+    case lc = "LC"
     
     /// `LI`
-    case livorno
+    case li = "LI"
     
     /// `LO`
-    case lodi
+    case lo = "LO"
     
     /// `LU`
-    case lucca
+    case lu = "LU"
     
     /// `MC`
-    case macerata
+    case mc = "MC"
     
     /// `MN`
-    case mantova
-    
-    /// `MS`
-    case massaCarrara
-    
-    /// `MT`
-    case matera
+    case mn = "MN"
     
     /// `VS`
-    case medioCampidano
+    case vs = "VS"
     
     /// `ME`
-    case messina
+    case me = "ME"
     
     /// `MI`
-    case milano
+    case mi = "MI"
     
     /// `MO`
-    case modena
-    
-    /// `MB`
-    case monzaEDellaBrianza
+    case mo = "MO"
     
     /// `NA`
-    case napoli
+    case na = "NA"
     
     /// `NO`
-    case novara
-    
-    /// `NU`
-    case nuoro
+    case no = "NO"
     
     /// `OG`
-    case ogliastra
+    case og = "OG"
     
     /// `OT`
-    case olbiaTempio
+    case ot = "OT"
     
     /// `OR`
-    case oristano
+    case or = "OR"
     
     /// `PD`
-    case padova
-    
-    /// `PA`
-    case palermo
-    
-    /// `PR`
-    case parma
+    case pd = "PD"
     
     /// `PV`
-    case pavia
+    case pv = "PV"
     
     /// `PG`
-    case perugia
+    case pg = "PG"
     
     /// `PU`
-    case pesaroEUrbino
-    
-    /// `PE`
-    case pescara
+    case pu = "PU"
     
     /// `PC`
-    case piacenza
-    
-    /// `PI`
-    case pisa
+    case pc = "PC"
     
     /// `PT`
-    case pistoia
+    case pt = "PT"
     
     /// `PN`
-    case pordenone
+    case pn = "PN"
     
     /// `PZ`
-    case potenza
+    case pz = "PZ"
     
     /// `PO`
-    case prato
+    case po = "PO"
     
     /// `RG`
-    case ragusa
+    case rg = "RG"
     
     /// `RA`
-    case ravenna
+    case ra = "RA"
     
     /// `RC`
-    case reggioCalabria
+    case rc = "RC"
     
     /// `RE`
-    case reggioEmilia
+    case re = "RE"
     
     /// `RI`
-    case rieti
-    
-    /// `RN`
-    case rimini
+    case ri = "RI"
     
     /// `RM`
-    case roma
-    
-    /// `RO`
-    case rovigo
+    case rm = "RM"
     
     /// `SA`
-    case salerno
+    case sa = "SA"
     
     /// `SS`
-    case sassari
+    case ss = "SS"
     
     /// `SV`
-    case savona
+    case sv = "SV"
     
     /// `SI`
-    case siena
+    case si = "SI"
     
     /// `SR`
-    case siracusa
+    case sr = "SR"
     
     /// `SO`
-    case sondrio
+    case so = "SO"
     
     /// `TA`
-    case taranto
+    case ta = "TA"
     
     /// `TE`
-    case teramo
+    case te = "TE"
     
     /// `TR`
-    case terni
-    
-    /// `TO`
-    case torino
+    case tr = "TR"
     
     /// `TP`
-    case trapani
+    case tp = "TP"
     
     /// `TN`
-    case trento
+    case tn = "TN"
     
     /// `TV`
-    case treviso
+    case tv = "TV"
     
     /// `TS`
-    case trieste
+    case ts = "TS"
     
     /// `UD`
-    case udine
+    case ud = "UD"
     
     /// `VA`
-    case varese
+    case va = "VA"
     
     /// `VE`
-    case venezia
+    case ve = "VE"
     
     /// `VB`
-    case verbanoCusioOssola
+    case vb = "VB"
     
     /// `VC`
-    case vercelli
+    case vc = "VC"
     
     /// `VR`
-    case verona
+    case vr = "VR"
     
     /// `VV`
-    case viboValentia
+    case vv = "VV"
     
     /// `VI`
-    case vicenza
+    case vi = "VI"
     
     /// `VT`
-    case viterbo
+    case vt = "VT"
     
     /// `AICHI-KEN`
-    case aichi
+    case aichiKen = "AICHI-KEN"
     
     /// `AKITA-KEN`
-    case akita
+    case akitaKen = "AKITA-KEN"
     
     /// `AOMORI-KEN`
-    case aomori
+    case aomoriKen = "AOMORI-KEN"
     
     /// `CHIBA-KEN`
-    case chiba
+    case chibaKen = "CHIBA-KEN"
     
     /// `EHIME-KEN`
-    case ehime
+    case ehimeKen = "EHIME-KEN"
     
     /// `FUKUI-KEN`
-    case fukui
+    case fukuiKen = "FUKUI-KEN"
     
     /// `FUKUOKA-KEN`
-    case fukuoka
+    case fukuokaKen = "FUKUOKA-KEN"
     
     /// `FUKUSHIMA-KEN`
-    case fukushima
+    case fukushimaKen = "FUKUSHIMA-KEN"
     
     /// `GIFU-KEN`
-    case gifu
+    case gifuKen = "GIFU-KEN"
     
     /// `GUNMA-KEN`
-    case gunma
+    case gunmaKen = "GUNMA-KEN"
     
     /// `HIROSHIMA-KEN`
-    case hiroshima
+    case hiroshimaKen = "HIROSHIMA-KEN"
     
     /// `HOKKAIDO`
-    case hokkaido
+    case hokkaido = "HOKKAIDO"
     
     /// `HYOGO-KEN`
-    case hyogo
+    case hyogoKen = "HYOGO-KEN"
     
     /// `IBARAKI-KEN`
-    case ibaraki
+    case ibarakiKen = "IBARAKI-KEN"
     
     /// `ISHIKAWA-KEN`
-    case ishikawa
+    case ishikawaKen = "ISHIKAWA-KEN"
     
     /// `IWATE-KEN`
-    case iwate
+    case iwateKen = "IWATE-KEN"
     
     /// `KAGAWA-KEN`
-    case kagawa
+    case kagawaKen = "KAGAWA-KEN"
     
     /// `KAGOSHIMA-KEN`
-    case kagoshima
+    case kagoshimaKen = "KAGOSHIMA-KEN"
     
     /// `KANAGAWA-KEN`
-    case kanagawa
+    case kanagawaKen = "KANAGAWA-KEN"
     
     /// `KOCHI-KEN`
-    case kochi
+    case kochiKen = "KOCHI-KEN"
     
     /// `KUMAMOTO-KEN`
-    case kumamoto
+    case kumamotoKen = "KUMAMOTO-KEN"
     
     /// `KYOTO-FU`
-    case kyoto
+    case kyotoFu = "KYOTO-FU"
     
     /// `MIE-KEN`
-    case mie
+    case mieKen = "MIE-KEN"
     
     /// `MIYAGI-KEN`
-    case miyagi
+    case miyagiKen = "MIYAGI-KEN"
     
     /// `MIYAZAKI-KEN`
-    case miyazaki
+    case miyazakiKen = "MIYAZAKI-KEN"
     
     /// `NAGANO-KEN`
-    case nagano
+    case naganoKen = "NAGANO-KEN"
     
     /// `NAGASAKI-KEN`
-    case nagasaki
+    case nagasakiKen = "NAGASAKI-KEN"
     
     /// `NARA-KEN`
-    case nara
+    case naraKen = "NARA-KEN"
     
     /// `NIIGATA-KEN`
-    case niigata
+    case niigataKen = "NIIGATA-KEN"
     
     /// `OITA-KEN`
-    case oita
+    case oitaKen = "OITA-KEN"
     
     /// `OKAYAMA-KEN`
-    case okayama
+    case okayamaKen = "OKAYAMA-KEN"
     
     /// `OKINAWA-KEN`
-    case okinawa
+    case okinawaKen = "OKINAWA-KEN"
     
     /// `OSAKA-FU`
-    case osaka
+    case osakaFu = "OSAKA-FU"
     
     /// `SAGA-KEN`
-    case saga
+    case sagaKen = "SAGA-KEN"
     
     /// `SAITAMA-KEN`
-    case saitama
+    case saitamaKen = "SAITAMA-KEN"
     
     /// `SHIGA-KEN`
-    case shiga
+    case shigaKen = "SHIGA-KEN"
     
     /// `SHIMANE-KEN`
-    case shimane
+    case shimaneKen = "SHIMANE-KEN"
     
     /// `SHIZUOKA-KEN`
-    case shizuoka
+    case shizuokaKen = "SHIZUOKA-KEN"
     
     /// `TOCHIGI-KEN`
-    case tochigi
+    case tochigiKen = "TOCHIGI-KEN"
     
     /// `TOKUSHIMA-KEN`
-    case tokushima
+    case tokushimaKen = "TOKUSHIMA-KEN"
     
     /// `TOKYO-TO`
-    case tokyo
+    case tokyoTo = "TOKYO-TO"
     
     /// `TOTTORI-KEN`
-    case tottori
+    case tottoriKen = "TOTTORI-KEN"
     
     /// `TOYAMA-KEN`
-    case toyama
+    case toyamaKen = "TOYAMA-KEN"
     
     /// `WAKAYAMA-KEN`
-    case wakayama
+    case wakayamaKen = "WAKAYAMA-KEN"
     
     /// `YAMAGATA-KEN`
-    case yamagata
+    case yamagataKen = "YAMAGATA-KEN"
     
     /// `YAMAGUCHI-KEN`
-    case yamaguchi
+    case yamaguchiKen = "YAMAGUCHI-KEN"
     
     /// `YAMANASHI-KEN`
-    case yamanashi
+    case yamanashiKen = "YAMANASHI-KEN"
     
     /// `AGS`
-    case aguascalientes
-    
-    /// `BC`
-    case bajaCalifornia
+    case ags = "AGS"
     
     /// `BCS`
-    case bajaCaliforniaSur
+    case bcs = "BCS"
     
     /// `CAMP`
-    case campeche
+    case camp = "CAMP"
     
     /// `CHIS`
-    case chiapas
+    case chis = "CHIS"
     
     /// `CHIH`
-    case chihuahua
+    case chih = "CHIH"
     
     /// `CDMX`
-    case ciudadDeMéxico
+    case cdmx = "CDMX"
     
     /// `COAH`
-    case coahuila
+    case coah = "COAH"
     
     /// `COL`
-    case colima
+    case col = "COL"
     
     /// `DGO`
-    case durango
+    case dgo = "DGO"
     
     /// `MEX`
-    case estadoDeMéxico
+    case mex = "MEX"
     
     /// `GTO`
-    case guanajuato
+    case gto = "GTO"
     
     /// `GRO`
-    case guerrero
+    case gro = "GRO"
     
     /// `HGO`
-    case hidalgo
+    case hgo = "HGO"
     
     /// `JAL`
-    case jalisco
+    case jal = "JAL"
     
     /// `MICH`
-    case michoacán
+    case mich = "MICH"
     
     /// `MOR`
-    case morelos
+    case mor = "MOR"
     
     /// `NAY`
-    case nayarit
-    
-    /// `NL`
-    case nuevoLeón
+    case nay = "NAY"
     
     /// `OAX`
-    case oaxaca
+    case oax = "OAX"
     
     /// `PUE`
-    case puebla
+    case pue = "PUE"
     
     /// `QRO`
-    case querétaro
+    case qro = "QRO"
     
     /// `Q ROO`
-    case quintanaRoo
+    case qROO = "Q ROO"
     
     /// `SLP`
-    case sanLuisPotosí
+    case slp = "SLP"
     
     /// `SIN`
-    case sinaloa
+    case sin = "SIN"
     
     /// `SON`
-    case sonora
+    case son = "SON"
     
     /// `TAB`
-    case tabasco
+    case tab = "TAB"
     
     /// `TAMPS`
-    case tamaulipas
+    case tamps = "TAMPS"
     
     /// `TLAX`
-    case tlaxcala
+    case tlax = "TLAX"
     
     /// `VER`
-    case veracruz
+    case ver = "VER"
     
     /// `YUC`
-    case yucatán
+    case yuc = "YUC"
     
     /// `ZAC`
-    case zacatecas
+    case zac = "ZAC"
     
     /// `Amnat Charoen`
-    case amnatCharoen
+    case amnatCharoen = "Amnat Charoen"
     
     /// `Ang Thong`
-    case angThong
+    case angThong = "Ang Thong"
     
     /// `Bangkok`
-    case bangkok
+    case bangkok = "Bangkok"
     
     /// `Bueng Kan`
-    case buengKan
+    case buengKan = "Bueng Kan"
     
     /// `Buri Ram`
-    case buriRam
+    case buriRam = "Buri Ram"
     
     /// `Chachoengsao`
-    case chachoengsao
+    case chachoengsao = "Chachoengsao"
     
     /// `Chai Nat`
-    case chaiNat
+    case chaiNat = "Chai Nat"
     
     /// `Chaiyaphum`
-    case chaiyaphum
+    case chaiyaphum = "Chaiyaphum"
     
     /// `Chanthaburi`
-    case chanthaburi
+    case chanthaburi = "Chanthaburi"
     
     /// `Chiang Mai`
-    case chiangMai
+    case chiangMai = "Chiang Mai"
     
     /// `Chiang Rai`
-    case chiangRai
+    case chiangRai = "Chiang Rai"
     
     /// `Chon Buri`
-    case chonBuri
+    case chonBuri = "Chon Buri"
     
     /// `Chumphon`
-    case chumphon
+    case chumphon = "Chumphon"
     
     /// `Kalasin`
-    case kalasin
+    case kalasin = "Kalasin"
     
     /// `Kamphaeng Phet`
-    case kamphaengPhet
+    case kamphaengPhet = "Kamphaeng Phet"
     
     /// `Kanchanaburi`
-    case kanchanaburi
+    case kanchanaburi = "Kanchanaburi"
     
     /// `Khon Kaen`
-    case khonKaen
+    case khonKaen = "Khon Kaen"
     
     /// `Krabi`
-    case krabi
+    case krabi = "Krabi"
     
     /// `Lampang`
-    case lampang
+    case lampang = "Lampang"
     
     /// `Lamphun`
-    case lamphun
+    case lamphun = "Lamphun"
     
     /// `Loei`
-    case loei
+    case loei = "Loei"
     
     /// `Lop Buri`
-    case lopBuri
+    case lopBuri = "Lop Buri"
     
     /// `Mae Hong Son`
-    case maeHongSon
+    case maeHongSon = "Mae Hong Son"
     
     /// `Maha Sarakham`
-    case mahaSarakham
+    case mahaSarakham = "Maha Sarakham"
     
     /// `Mukdahan`
-    case mukdahan
+    case mukdahan = "Mukdahan"
     
     /// `Nakhon Nayok`
-    case nakhonNayok
+    case nakhonNayok = "Nakhon Nayok"
     
     /// `Nakhon Pathom`
-    case nakhonPathom
+    case nakhonPathom = "Nakhon Pathom"
     
     /// `Nakhon Phanom`
-    case nakhonPhanom
+    case nakhonPhanom = "Nakhon Phanom"
     
     /// `Nakhon Ratchasima`
-    case nakhonRatchasima
+    case nakhonRatchasima = "Nakhon Ratchasima"
     
     /// `Nakhon Sawan`
-    case nakhonSawan
+    case nakhonSawan = "Nakhon Sawan"
     
     /// `Nakhon Si Thammarat`
-    case nakhonSiThammarat
+    case nakhonSiThammarat = "Nakhon Si Thammarat"
     
     /// `Nan`
-    case nan
+    case nan = "Nan"
     
     /// `Narathiwat`
-    case narathiwat
+    case narathiwat = "Narathiwat"
     
     /// `Nong Bua Lamphu`
-    case nongBuaLamphu
+    case nongBuaLamphu = "Nong Bua Lamphu"
     
     /// `Nong Khai`
-    case nongKhai
+    case nongKhai = "Nong Khai"
     
     /// `Nonthaburi`
-    case nonthaburi
+    case nonthaburi = "Nonthaburi"
     
     /// `Pathum Thani`
-    case pathumThani
+    case pathumThani = "Pathum Thani"
     
     /// `Pattani`
-    case pattani
+    case pattani = "Pattani"
     
     /// `Phang Nga`
-    case phangNga
+    case phangNga = "Phang Nga"
     
     /// `Phatthalung`
-    case phatthalung
+    case phatthalung = "Phatthalung"
     
     /// `Phatthaya`
-    case phatthaya
+    case phatthaya = "Phatthaya"
     
     /// `Phayao`
-    case phayao
+    case phayao = "Phayao"
     
     /// `Phetchabun`
-    case phetchabun
+    case phetchabun = "Phetchabun"
     
     /// `Phetchaburi`
-    case phetchaburi
+    case phetchaburi = "Phetchaburi"
     
     /// `Phichit`
-    case phichit
+    case phichit = "Phichit"
     
     /// `Phitsanulok`
-    case phitsanulok
+    case phitsanulok = "Phitsanulok"
     
     /// `Phra Nakhon Si Ayutthaya`
-    case phraNakhonSiAyutthaya
+    case phraNakhonSiAyutthaya = "Phra Nakhon Si Ayutthaya"
     
     /// `Phrae`
-    case phrae
+    case phrae = "Phrae"
     
     /// `Phuket`
-    case phuket
+    case phuket = "Phuket"
     
     /// `Prachin Buri`
-    case prachinBuri
+    case prachinBuri = "Prachin Buri"
     
     /// `Prachuap Khiri Khan`
-    case prachuapKhiriKhan
+    case prachuapKhiriKhan = "Prachuap Khiri Khan"
     
     /// `Ranong`
-    case ranong
+    case ranong = "Ranong"
     
     /// `Ratchaburi`
-    case ratchaburi
+    case ratchaburi = "Ratchaburi"
     
     /// `Rayong`
-    case rayong
+    case rayong = "Rayong"
     
     /// `Roi Et`
-    case roiEt
+    case roiEt = "Roi Et"
     
     /// `Sa Kaeo`
-    case saKaeo
+    case saKaeo = "Sa Kaeo"
     
     /// `Sakon Nakhon`
-    case sakonNakhon
+    case sakonNakhon = "Sakon Nakhon"
     
     /// `Samut Prakan`
-    case samutPrakan
+    case samutPrakan = "Samut Prakan"
     
     /// `Samut Sakhon`
-    case samutSakhon
+    case samutSakhon = "Samut Sakhon"
     
     /// `Samut Songkhram`
-    case samutSongkhram
+    case samutSongkhram = "Samut Songkhram"
     
     /// `Saraburi`
-    case saraburi
+    case saraburi = "Saraburi"
     
     /// `Satun`
-    case satun
+    case satun = "Satun"
     
     /// `Si Sa Ket`
-    case siSaKet
+    case siSaKet = "Si Sa Ket"
     
     /// `Sing Buri`
-    case singBuri
+    case singBuri = "Sing Buri"
     
     /// `Songkhla`
-    case songkhla
+    case songkhla = "Songkhla"
     
     /// `Sukhothai`
-    case sukhothai
+    case sukhothai = "Sukhothai"
     
     /// `Suphan Buri`
-    case suphanBuri
+    case suphanBuri = "Suphan Buri"
     
     /// `Surat Thani`
-    case suratThani
+    case suratThani = "Surat Thani"
     
     /// `Surin`
-    case surin
+    case surin = "Surin"
     
     /// `Tak`
-    case tak
+    case tak = "Tak"
     
     /// `Trang`
-    case trang
+    case trang = "Trang"
     
     /// `Trat`
-    case trat
+    case trat = "Trat"
     
     /// `Ubon Ratchathani`
-    case ubonRatchathani
+    case ubonRatchathani = "Ubon Ratchathani"
     
     /// `Udon Thani`
-    case udonThani
+    case udonThani = "Udon Thani"
     
     /// `Uthai Thani`
-    case uthaiThani
+    case uthaiThani = "Uthai Thani"
     
     /// `Uttaradit`
-    case uttaradit
+    case uttaradit = "Uttaradit"
     
     /// `Yala`
-    case yala
+    case yala = "Yala"
     
     /// `Yasothon`
-    case yasothon
-    
-    /// `AL`
-    case alabama
+    case yasothon = "Yasothon"
     
     /// `AK`
-    case alaska
+    case ak = "AK"
     
     /// `AZ`
-    case arizona
-    
-    /// `AR`
-    case arkansas
-    
-    /// `CA`
-    case california
-    
-    /// `CO`
-    case colorado
-    
-    /// `CT`
-    case connecticut
+    case az = "AZ"
     
     /// `DE`
-    case delaware
+    case de = "DE"
     
     /// `DC`
-    case districtOfColumbia
+    case dc = "DC"
     
     /// `FL`
-    case florida
+    case fl = "FL"
     
     /// `GA`
-    case georgia
+    case ga = "GA"
     
     /// `HI`
-    case hawaii
-    
-    /// `ID`
-    case idaho
+    case hi = "HI"
     
     /// `IL`
-    case illinois
+    case il = "IL"
     
     /// `IN`
-    case indiana
+    case `in` = "IN"
     
     /// `IA`
-    case iowa
+    case ia = "IA"
     
     /// `KS`
-    case kansas
+    case ks = "KS"
     
     /// `KY`
-    case kentucky
+    case ky = "KY"
     
     /// `LA`
-    case louisiana
-    
-    /// `ME`
-    case maine
+    case la = "LA"
     
     /// `MD`
-    case maryland
-    
-    /// `MA`
-    case massachusetts
-    
-    /// `MI`
-    case michigan
-    
-    /// `MN`
-    case minnesota
-    
-    /// `MS`
-    case mississippi
-    
-    /// `MO`
-    case missouri
-    
-    /// `MT`
-    case montana
+    case md = "MD"
     
     /// `NE`
-    case nebraska
+    case ne = "NE"
     
     /// `NV`
-    case nevada
+    case nv = "NV"
     
     /// `NH`
-    case newHampshire
+    case nh = "NH"
     
     /// `NJ`
-    case newJersey
+    case nj = "NJ"
     
     /// `NM`
-    case newMexico
+    case nm = "NM"
     
     /// `NY`
-    case newYork
+    case ny = "NY"
     
     /// `NC`
-    case northCarolina
+    case nc = "NC"
     
     /// `ND`
-    case northDakota
+    case nd = "ND"
     
     /// `OH`
-    case ohio
+    case oh = "OH"
     
     /// `OK`
-    case oklahoma
-    
-    /// `OR`
-    case oregon
-    
-    /// `PA`
-    case pennsylvania
-    
-    /// `PR`
-    case puertoRico
-    
-    /// `RI`
-    case rhodeIsland
-    
-    /// `SC`
-    case southCarolina
+    case ok = "OK"
     
     /// `SD`
-    case southDakota
-    
-    /// `TN`
-    case tennessee
+    case sd = "SD"
     
     /// `TX`
-    case texas
+    case tx = "TX"
     
     /// `UT`
-    case utah
-    
-    /// `VT`
-    case vermont
-    
-    /// `VA`
-    case virginia
+    case ut = "UT"
     
     /// `WA`
-    case washington
+    case wa = "WA"
     
     /// `WV`
-    case westVirginia
+    case wv = "WV"
     
     /// `WI`
-    case wisconsin
+    case wi = "WI"
     
     /// `WY`
-    case wyoming
+    case wy = "WY"
     
     /// `AA`
-    case armedForcesAmericas
+    case aa = "AA"
     
     /// `AE`
-    case armedForcesEurope
-    
-    /// `AP`
-    case armedForcesPacific
+    case ae = "AE"
     
     /// `AS`
-    case americanSamoa
-    
-    /// `FM`
-    case federatedStatesOfMicronesia
+    case `as` = "AS"
     
     /// `GU`
-    case guam
+    case gu = "GU"
     
     /// `MH`
-    case marshallIslands
+    case mh = "MH"
     
     /// `MP`
-    case northernMarianaIslands
+    case mp = "MP"
     
     /// `PW`
-    case palau
-    
-    /// `VI`
-    case virginIslands
-    
-    /// See [`RawRepresentable.rawValue`](https://developer.apple.com/documentation/swift/rawrepresentable/1540698-rawvalue).
-    public var rawValue: String {
-        switch self {
-        case .buenosAiresCiudad: return "CIUDAD AUTÓNOMA DE BUENOS AIRES"
-        case .buenosAiresProvincia: return "BUENOS AIRES"
-        case .catamarca: return "CATAMARCA"
-        case .chaco: return "CHACO"
-        case .chubut: return "CHUBUT"
-        case .corrientes: return "CORRIENTES"
-        case .córdoba: return "CÓRDOBA"
-        case .entreRíos: return "ENTRE RÍOS"
-        case .formosa: return "FORMOSA"
-        case .jujuy: return "JUJUY"
-        case .laPampa: return "LA PAMPA"
-        case .laRioja: return "LA RIOJA"
-        case .mendoza: return "MENDOZA"
-        case .misiones: return "MISIONES"
-        case .neuquén: return "NEUQUÉN"
-        case .ríoNegro: return "RÍO NEGRO"
-        case .salta: return "SALTA"
-        case .sanJuan: return "SAN JUAN"
-        case .sanLuis: return "SAN LUIS"
-        case .santaCruz: return "SANTA CRUZ"
-        case .santaFe: return "SANTA FE"
-        case .santiagoDelEstero: return "SANTIAGO DEL ESTERO"
-        case .tierraDelFuego: return "TIERRA DEL FUEGO"
-        case .tucumán: return "TUCUMÁN"
-        case .acre: return "AC"
-        case .alagoas: return "AL"
-        case .amapá: return "AP"
-        case .amazonas: return "AM"
-        case .bahia: return "BA"
-        case .ceará: return "CE"
-        case .distritoFederal: return "DF"
-        case .espíritoSanto: return "ES"
-        case .goiás: return "GO"
-        case .maranhão: return "MA"
-        case .matoGrosso: return "MT"
-        case .matoGrossoDoSul: return "MS"
-        case .minasGerais: return "MG"
-        case .paraná: return "PR"
-        case .paraíba: return "PB"
-        case .pará: return "PA"
-        case .pernambuco: return "PE"
-        case .piauí: return "PI"
-        case .rioGrandeDoNorte: return "RN"
-        case .rioGrandeDoSul: return "RS"
-        case .rioDeJaneiro: return "RJ"
-        case .rondônia: return "RO"
-        case .roraima: return "RR"
-        case .santaCatarina: return "SC"
-        case .sergipe: return "SE"
-        case .sãoPaulo: return "SP"
-        case .tocantins: return "TO"
-        case .alberta: return "AB"
-        case .britishColumbia: return "BC"
-        case .manitoba: return "MB"
-        case .newBrunswick: return "NB"
-        case .newfoundlandAndLabrador: return "NL"
-        case .northwestTerritories: return "NT"
-        case .novaScotia: return "NS"
-        case .nunavut: return "NU"
-        case .ontario: return "ON"
-        case .princeEdwardIsland: return "PE"
-        case .quebec: return "QC"
-        case .saskatchewan: return "SK"
-        case .yukon: return "YT"
-        case .anhuiSheng: return "CN-AH"
-        case .beijingShi: return "CN-BJ"
-        case .chongqingShi: return "CN-CQ"
-        case .fujianSheng: return "CN-FJ"
-        case .guangdongSheng: return "CN-GD"
-        case .gansuSheng: return "CN-GS"
-        case .guangxiZhuangzuZizhiqu: return "CN-GX"
-        case .guizhouSheng: return "CN-GZ"
-        case .henanSheng: return "CN-HA"
-        case .hubeiSheng: return "CN-HB"
-        case .hebeiSheng: return "CN-HE"
-        case .hainanSheng: return "CN-HI"
-        case .hongKongSAR: return "CN-HK"
-        case .xianggangTebiexingzhengqu: return "CN-HK"
-        case .heilongjiangSheng: return "CN-HL"
-        case .hunanSheng: return "CN-HN"
-        case .jilinSheng: return "CN-JL"
-        case .jiangsuSheng: return "CN-JS"
-        case .jiangxiSheng: return "CN-JX"
-        case .liaoningSheng: return "CN-LN"
-        case .macaoSAR: return "CN-MO"
-        case .macauSAR: return "CN-MO"
-        case .aomenTebiexingzhengqu: return "CN-MO"
-        case .neiMongolZizhiqu: return "CN-NM"
-        case .ningxiaHuizuZizhiqu: return "CN-NX"
-        case .qinghaiSheng: return "CN-QH"
-        case .sichuanSheng: return "CN-SC"
-        case .shandongSheng: return "CN-SD"
-        case .shanghaiShi: return "CN-SH"
-        case .shaanxiSheng: return "CN-SN"
-        case .shanxiSheng: return "CN-SX"
-        case .tianjinShi: return "CN-TJ"
-        case .taiwanSheng: return "CN-TW"
-        case .xinjiangUygurZizhiqu: return "CN-XJ"
-        case .xizangZizhiqu: return "CN-XZ"
-        case .yunnanSheng: return "CN-YN"
-        case .zhejiangSheng: return "CN-ZJ"
-        case .andamanAndNicobarIslands: return "Andaman and Nicobar Islands"
-        case .andhraPradesh: return "Andhra Pradesh"
-        case .armyPostOffice: return "APO"
-        case .arunachalPradesh: return "Arunachal Pradesh"
-        case .assam: return "Assam"
-        case .bihar: return "Bihar"
-        case .chandigarh: return "Chandigarh"
-        case .chhattisgarh: return "Chhattisgarh"
-        case .dadraAndNagarHaveli: return "Dadra and Nagar Haveli"
-        case .damanAndDiu: return "Daman and Diu"
-        case .delhi: return "Delhi (NCT)"
-        case .goa: return "Goa"
-        case .gujarat: return "Gujarat"
-        case .haryana: return "Haryana"
-        case .himachalPradesh: return "Himachal Pradesh"
-        case .jammuAndKashmir: return "Jammu and Kashmir"
-        case .jharkhand: return "Jharkhand"
-        case .karnataka: return "Karnataka"
-        case .kerala: return "Kerala"
-        case .lakshadweep: return "Lakshadweep"
-        case .madhyaPradesh: return "Madhya Pradesh"
-        case .maharashtra: return "Maharashtra"
-        case .manipur: return "Manipur"
-        case .meghalaya: return "Meghalaya"
-        case .mizoram: return "Mizoram"
-        case .nagaland: return "Nagaland"
-        case .odisha: return "Odisha"
-        case .puducherry: return "Puducherry"
-        case .punjab: return "Punjab"
-        case .rajasthan: return "Rajasthan"
-        case .sikkim: return "Sikkim"
-        case .tamilNadu: return "Tamil Nadu"
-        case .telangana: return "Telangana"
-        case .tripura: return "Tripura"
-        case .uttarPradesh: return "Uttar Pradesh"
-        case .uttarakhand: return "Uttarakhand"
-        case .westBengal: return "West Bengal"
-        case .bali: return "ID-BA"
-        case .bangkaBelitung: return "ID-BB"
-        case .banten: return "ID-BT"
-        case .bengkulu: return "ID-BE"
-        case .diYogyakarta: return "ID-YO"
-        case .dkiJakarta: return "ID-JK"
-        case .gorontalo: return "ID-GO"
-        case .jambi: return "ID-JA"
-        case .jawaBarat: return "ID-JB"
-        case .jawaTengah: return "ID-JT"
-        case .jawaTimur: return "ID-JI"
-        case .kalimantanBarat: return "ID-KB"
-        case .kalimantanSelatan: return "ID-KS"
-        case .kalimantanTengah: return "ID-KT"
-        case .kalimantanTimur: return "ID-KI"
-        case .kalimantanUtara: return "ID-KU"
-        case .kepulauanRiau: return "ID-KR"
-        case .lampung: return "ID-LA"
-        case .maluku: return "ID-MA"
-        case .malukuUtara: return "ID-MU"
-        case .nanggroeAcehDarussalam: return "ID-AC"
-        case .nusaTenggaraBarat: return "ID-NB"
-        case .nusaTenggaraTimur: return "ID-NT"
-        case .papua: return "ID-PA"
-        case .papuaBarat: return "ID-PB"
-        case .riau: return "ID-RI"
-        case .sulawesiBarat: return "ID-SR"
-        case .sulawesiSelatan: return "ID-SN"
-        case .sulawesiTengah: return "ID-ST"
-        case .sulawesiTenggara: return "ID-SG"
-        case .sulawesiUtara: return "ID-SA"
-        case .sumateraBarat: return "ID-SB"
-        case .sumateraSelatan: return "ID-SS"
-        case .sumateraUtara: return "ID-SU"
-        case .agrigento: return "AG"
-        case .alessandria: return "AL"
-        case .ancona: return "AN"
-        case .aosta: return "AO"
-        case .arezzo: return "AR"
-        case .ascoliPiceno: return "AP"
-        case .asti: return "AT"
-        case .avellino: return "AV"
-        case .bari: return "BA"
-        case .barlettaAndriaTrani: return "BT"
-        case .belluno: return "BL"
-        case .benevento: return "BN"
-        case .bergamo: return "BG"
-        case .biella: return "BI"
-        case .bologna: return "BO"
-        case .bolzano: return "BZ"
-        case .brescia: return "BS"
-        case .brindisi: return "BR"
-        case .cagliari: return "CA"
-        case .caltanissetta: return "CL"
-        case .campobasso: return "CB"
-        case .carboniaIglesias: return "CI"
-        case .caserta: return "CE"
-        case .catania: return "CT"
-        case .catanzaro: return "CZ"
-        case .chieti: return "CH"
-        case .como: return "CO"
-        case .cosenza: return "CS"
-        case .cremona: return "CR"
-        case .crotone: return "KR"
-        case .cuneo: return "CN"
-        case .enna: return "EN"
-        case .fermo: return "FM"
-        case .ferrara: return "FE"
-        case .firenze: return "FI"
-        case .foggia: return "FG"
-        case .forlìCesena: return "FC"
-        case .frosinone: return "FR"
-        case .genova: return "GE"
-        case .gorizia: return "GO"
-        case .grosseto: return "GR"
-        case .imperia: return "IM"
-        case .isernia: return "IS"
-        case .laquila: return "AQ"
-        case .laSpezia: return "SP"
-        case .latina: return "LT"
-        case .lecce: return "LE"
-        case .lecco: return "LC"
-        case .livorno: return "LI"
-        case .lodi: return "LO"
-        case .lucca: return "LU"
-        case .macerata: return "MC"
-        case .mantova: return "MN"
-        case .massaCarrara: return "MS"
-        case .matera: return "MT"
-        case .medioCampidano: return "VS"
-        case .messina: return "ME"
-        case .milano: return "MI"
-        case .modena: return "MO"
-        case .monzaEDellaBrianza: return "MB"
-        case .napoli: return "NA"
-        case .novara: return "NO"
-        case .nuoro: return "NU"
-        case .ogliastra: return "OG"
-        case .olbiaTempio: return "OT"
-        case .oristano: return "OR"
-        case .padova: return "PD"
-        case .palermo: return "PA"
-        case .parma: return "PR"
-        case .pavia: return "PV"
-        case .perugia: return "PG"
-        case .pesaroEUrbino: return "PU"
-        case .pescara: return "PE"
-        case .piacenza: return "PC"
-        case .pisa: return "PI"
-        case .pistoia: return "PT"
-        case .pordenone: return "PN"
-        case .potenza: return "PZ"
-        case .prato: return "PO"
-        case .ragusa: return "RG"
-        case .ravenna: return "RA"
-        case .reggioCalabria: return "RC"
-        case .reggioEmilia: return "RE"
-        case .rieti: return "RI"
-        case .rimini: return "RN"
-        case .roma: return "RM"
-        case .rovigo: return "RO"
-        case .salerno: return "SA"
-        case .sassari: return "SS"
-        case .savona: return "SV"
-        case .siena: return "SI"
-        case .siracusa: return "SR"
-        case .sondrio: return "SO"
-        case .taranto: return "TA"
-        case .teramo: return "TE"
-        case .terni: return "TR"
-        case .torino: return "TO"
-        case .trapani: return "TP"
-        case .trento: return "TN"
-        case .treviso: return "TV"
-        case .trieste: return "TS"
-        case .udine: return "UD"
-        case .varese: return "VA"
-        case .venezia: return "VE"
-        case .verbanoCusioOssola: return "VB"
-        case .vercelli: return "VC"
-        case .verona: return "VR"
-        case .viboValentia: return "VV"
-        case .vicenza: return "VI"
-        case .viterbo: return "VT"
-        case .aichi: return "AICHI-KEN"
-        case .akita: return "AKITA-KEN"
-        case .aomori: return "AOMORI-KEN"
-        case .chiba: return "CHIBA-KEN"
-        case .ehime: return "EHIME-KEN"
-        case .fukui: return "FUKUI-KEN"
-        case .fukuoka: return "FUKUOKA-KEN"
-        case .fukushima: return "FUKUSHIMA-KEN"
-        case .gifu: return "GIFU-KEN"
-        case .gunma: return "GUNMA-KEN"
-        case .hiroshima: return "HIROSHIMA-KEN"
-        case .hokkaido: return "HOKKAIDO"
-        case .hyogo: return "HYOGO-KEN"
-        case .ibaraki: return "IBARAKI-KEN"
-        case .ishikawa: return "ISHIKAWA-KEN"
-        case .iwate: return "IWATE-KEN"
-        case .kagawa: return "KAGAWA-KEN"
-        case .kagoshima: return "KAGOSHIMA-KEN"
-        case .kanagawa: return "KANAGAWA-KEN"
-        case .kochi: return "KOCHI-KEN"
-        case .kumamoto: return "KUMAMOTO-KEN"
-        case .kyoto: return "KYOTO-FU"
-        case .mie: return "MIE-KEN"
-        case .miyagi: return "MIYAGI-KEN"
-        case .miyazaki: return "MIYAZAKI-KEN"
-        case .nagano: return "NAGANO-KEN"
-        case .nagasaki: return "NAGASAKI-KEN"
-        case .nara: return "NARA-KEN"
-        case .niigata: return "NIIGATA-KEN"
-        case .oita: return "OITA-KEN"
-        case .okayama: return "OKAYAMA-KEN"
-        case .okinawa: return "OKINAWA-KEN"
-        case .osaka: return "OSAKA-FU"
-        case .saga: return "SAGA-KEN"
-        case .saitama: return "SAITAMA-KEN"
-        case .shiga: return "SHIGA-KEN"
-        case .shimane: return "SHIMANE-KEN"
-        case .shizuoka: return "SHIZUOKA-KEN"
-        case .tochigi: return "TOCHIGI-KEN"
-        case .tokushima: return "TOKUSHIMA-KEN"
-        case .tokyo: return "TOKYO-TO"
-        case .tottori: return "TOTTORI-KEN"
-        case .toyama: return "TOYAMA-KEN"
-        case .wakayama: return "WAKAYAMA-KEN"
-        case .yamagata: return "YAMAGATA-KEN"
-        case .yamaguchi: return "YAMAGUCHI-KEN"
-        case .yamanashi: return "YAMANASHI-KEN"
-        case .aguascalientes: return "AGS"
-        case .bajaCalifornia: return "BC"
-        case .bajaCaliforniaSur: return "BCS"
-        case .campeche: return "CAMP"
-        case .chiapas: return "CHIS"
-        case .chihuahua: return "CHIH"
-        case .ciudadDeMéxico: return "CDMX"
-        case .coahuila: return "COAH"
-        case .colima: return "COL"
-        case .durango: return "DGO"
-        case .estadoDeMéxico: return "MEX"
-        case .guanajuato: return "GTO"
-        case .guerrero: return "GRO"
-        case .hidalgo: return "HGO"
-        case .jalisco: return "JAL"
-        case .michoacán: return "MICH"
-        case .morelos: return "MOR"
-        case .nayarit: return "NAY"
-        case .nuevoLeón: return "NL"
-        case .oaxaca: return "OAX"
-        case .puebla: return "PUE"
-        case .querétaro: return "QRO"
-        case .quintanaRoo: return "Q ROO"
-        case .sanLuisPotosí: return "SLP"
-        case .sinaloa: return "SIN"
-        case .sonora: return "SON"
-        case .tabasco: return "TAB"
-        case .tamaulipas: return "TAMPS"
-        case .tlaxcala: return "TLAX"
-        case .veracruz: return "VER"
-        case .yucatán: return "YUC"
-        case .zacatecas: return "ZAC"
-        case .amnatCharoen: return "Amnat Charoen"
-        case .angThong: return "Ang Thong"
-        case .bangkok: return "Bangkok"
-        case .buengKan: return "Bueng Kan"
-        case .buriRam: return "Buri Ram"
-        case .chachoengsao: return "Chachoengsao"
-        case .chaiNat: return "Chai Nat"
-        case .chaiyaphum: return "Chaiyaphum"
-        case .chanthaburi: return "Chanthaburi"
-        case .chiangMai: return "Chiang Mai"
-        case .chiangRai: return "Chiang Rai"
-        case .chonBuri: return "Chon Buri"
-        case .chumphon: return "Chumphon"
-        case .kalasin: return "Kalasin"
-        case .kamphaengPhet: return "Kamphaeng Phet"
-        case .kanchanaburi: return "Kanchanaburi"
-        case .khonKaen: return "Khon Kaen"
-        case .krabi: return "Krabi"
-        case .lampang: return "Lampang"
-        case .lamphun: return "Lamphun"
-        case .loei: return "Loei"
-        case .lopBuri: return "Lop Buri"
-        case .maeHongSon: return "Mae Hong Son"
-        case .mahaSarakham: return "Maha Sarakham"
-        case .mukdahan: return "Mukdahan"
-        case .nakhonNayok: return "Nakhon Nayok"
-        case .nakhonPathom: return "Nakhon Pathom"
-        case .nakhonPhanom: return "Nakhon Phanom"
-        case .nakhonRatchasima: return "Nakhon Ratchasima"
-        case .nakhonSawan: return "Nakhon Sawan"
-        case .nakhonSiThammarat: return "Nakhon Si Thammarat"
-        case .nan: return "Nan"
-        case .narathiwat: return "Narathiwat"
-        case .nongBuaLamphu: return "Nong Bua Lamphu"
-        case .nongKhai: return "Nong Khai"
-        case .nonthaburi: return "Nonthaburi"
-        case .pathumThani: return "Pathum Thani"
-        case .pattani: return "Pattani"
-        case .phangNga: return "Phang Nga"
-        case .phatthalung: return "Phatthalung"
-        case .phatthaya: return "Phatthaya"
-        case .phayao: return "Phayao"
-        case .phetchabun: return "Phetchabun"
-        case .phetchaburi: return "Phetchaburi"
-        case .phichit: return "Phichit"
-        case .phitsanulok: return "Phitsanulok"
-        case .phraNakhonSiAyutthaya: return "Phra Nakhon Si Ayutthaya"
-        case .phrae: return "Phrae"
-        case .phuket: return "Phuket"
-        case .prachinBuri: return "Prachin Buri"
-        case .prachuapKhiriKhan: return "Prachuap Khiri Khan"
-        case .ranong: return "Ranong"
-        case .ratchaburi: return "Ratchaburi"
-        case .rayong: return "Rayong"
-        case .roiEt: return "Roi Et"
-        case .saKaeo: return "Sa Kaeo"
-        case .sakonNakhon: return "Sakon Nakhon"
-        case .samutPrakan: return "Samut Prakan"
-        case .samutSakhon: return "Samut Sakhon"
-        case .samutSongkhram: return "Samut Songkhram"
-        case .saraburi: return "Saraburi"
-        case .satun: return "Satun"
-        case .siSaKet: return "Si Sa Ket"
-        case .singBuri: return "Sing Buri"
-        case .songkhla: return "Songkhla"
-        case .sukhothai: return "Sukhothai"
-        case .suphanBuri: return "Suphan Buri"
-        case .suratThani: return "Surat Thani"
-        case .surin: return "Surin"
-        case .tak: return "Tak"
-        case .trang: return "Trang"
-        case .trat: return "Trat"
-        case .ubonRatchathani: return "Ubon Ratchathani"
-        case .udonThani: return "Udon Thani"
-        case .uthaiThani: return "Uthai Thani"
-        case .uttaradit: return "Uttaradit"
-        case .yala: return "Yala"
-        case .yasothon: return "Yasothon"
-        case .alabama: return "AL"
-        case .alaska: return "AK"
-        case .arizona: return "AZ"
-        case .arkansas: return "AR"
-        case .california: return "CA"
-        case .colorado: return "CO"
-        case .connecticut: return "CT"
-        case .delaware: return "DE"
-        case .districtOfColumbia: return "DC"
-        case .florida: return "FL"
-        case .georgia: return "GA"
-        case .hawaii: return "HI"
-        case .idaho: return "ID"
-        case .illinois: return "IL"
-        case .indiana: return "IN"
-        case .iowa: return "IA"
-        case .kansas: return "KS"
-        case .kentucky: return "KY"
-        case .louisiana: return "LA"
-        case .maine: return "ME"
-        case .maryland: return "MD"
-        case .massachusetts: return "MA"
-        case .michigan: return "MI"
-        case .minnesota: return "MN"
-        case .mississippi: return "MS"
-        case .missouri: return "MO"
-        case .montana: return "MT"
-        case .nebraska: return "NE"
-        case .nevada: return "NV"
-        case .newHampshire: return "NH"
-        case .newJersey: return "NJ"
-        case .newMexico: return "NM"
-        case .newYork: return "NY"
-        case .northCarolina: return "NC"
-        case .northDakota: return "ND"
-        case .ohio: return "OH"
-        case .oklahoma: return "OK"
-        case .oregon: return "OR"
-        case .pennsylvania: return "PA"
-        case .puertoRico: return "PR"
-        case .rhodeIsland: return "RI"
-        case .southCarolina: return "SC"
-        case .southDakota: return "SD"
-        case .tennessee: return "TN"
-        case .texas: return "TX"
-        case .utah: return "UT"
-        case .vermont: return "VT"
-        case .virginia: return "VA"
-        case .washington: return "WA"
-        case .westVirginia: return "WV"
-        case .wisconsin: return "WI"
-        case .wyoming: return "WY"
-        case .armedForcesAmericas: return "AA"
-        case .armedForcesEurope: return "AE"
-        case .armedForcesPacific: return "AP"
-        case .americanSamoa: return "AS"
-        case .federatedStatesOfMicronesia: return "FM"
-        case .guam: return "GU"
-        case .marshallIslands: return "MH"
-        case .northernMarianaIslands: return "MP"
-        case .palau: return "PW"
-        case .virginIslands: return "VI"
-        }
-    }
+    case pw = "PW"
 }

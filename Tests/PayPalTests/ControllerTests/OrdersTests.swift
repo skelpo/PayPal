@@ -70,7 +70,7 @@ final class OrdersTests: XCTestCase {
                         line1: "648 New Borne St.",
                         line2: nil,
                         city: "Armagedon",
-                        state: "IL",
+                        state: .il,
                         country: .unitedStates,
                         postalCode: "456813",
                         phone: nil,

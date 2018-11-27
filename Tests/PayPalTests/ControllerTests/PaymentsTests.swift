@@ -298,13 +298,13 @@ internal struct PaymentTestsContext {
     private(set) var payment: String?
     
     init()throws {
-        self.address = try Address(
+        self.address = Address(
             recipientName: "Ira Harding",
             defaultAddress: true,
             line1: "578 Wild Wood",
             line2: nil,
             city: "New Haven",
-            state: "CN",
+            state: .co,
             country: .unitedStates,
             postalCode: "79812",
             phone: nil,

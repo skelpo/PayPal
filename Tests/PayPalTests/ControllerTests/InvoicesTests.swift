@@ -57,7 +57,7 @@ final class InvoicesTests: XCTestCase {
                         line1: "314 New Berry ln.",
                         line2: nil,
                         city: "Chancer",
-                        state: "KY",
+                        state: .ky,
                         country: .unitedStates,
                         postalCode: "489156",
                         phone: nil,

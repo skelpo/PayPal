@@ -4,13 +4,13 @@ import XCTest
 final class OrderUnitTests: XCTestCase {
     func testInit()throws {
         let payee = Payee(email: "payee@example.com", merchant: "AEDCA9E0-5442-41EF-978A-DEE6DF7DFDA8", metadata: nil)
-        let address = try Address(
+        let address = Address(
             recipientName: nil,
             defaultAddress: nil,
             line1: "1 Infinate Loop",
             line2: nil,
             city: "Cupertino",
-            state: "CA",
+            state: .ca,
             country: .unitedStates,
             postalCode: "94024",
             phone: nil,
@@ -132,7 +132,7 @@ final class OrderUnitTests: XCTestCase {
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let payee = Payee(email: nil, merchant: nil, metadata: nil)
-        let address = try Address(
+        let address = Address(
             recipientName: nil,
             defaultAddress: nil,
             line1: "1 Infinate Loop",
@@ -184,7 +184,7 @@ final class OrderUnitTests: XCTestCase {
     func testDecoding()throws {
         let decoder = JSONDecoder()
         let payee = Payee(email: nil, merchant: nil, metadata: nil)
-        let address = try Address(
+        let address = Address(
             recipientName: nil,
             defaultAddress: nil,
             line1: "1 Infinate Loop",

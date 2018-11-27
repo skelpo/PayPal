@@ -10,7 +10,7 @@ final class BusinessOwnerAddressTests: XCTestCase {
             line3: nil,
             suburb: "Invisible Winds",
             city: "Nowhere",
-            state: "KS",
+            state: .ks,
             country: .unitedStates,
             postalCode: "66167"
         )
@@ -21,7 +21,7 @@ final class BusinessOwnerAddressTests: XCTestCase {
         XCTAssertEqual(address.line1, "89 Furnace Dr.")
         XCTAssertEqual(address.suburb, "Invisible Winds")
         XCTAssertEqual(address.city, "Nowhere")
-        XCTAssertEqual(address.state, "KS")
+        XCTAssertEqual(address.state, .ks)
         XCTAssertEqual(address.country, .unitedStates)
         XCTAssertEqual(address.postalCode, "66167")
     }
@@ -34,7 +34,7 @@ final class BusinessOwnerAddressTests: XCTestCase {
             line3: nil,
             suburb: "Invisible Winds",
             city: "Nowhere",
-            state: "KS",
+            state: .ks,
             country: .unitedStates,
             postalCode: "66167"
         ))
@@ -45,7 +45,7 @@ final class BusinessOwnerAddressTests: XCTestCase {
             line3: nil,
             suburb: "Invisible Winds",
             city: "Nowhere",
-            state: "KS",
+            state: .ks,
             country: .unitedStates,
             postalCode: "66167"
         ))
@@ -56,7 +56,7 @@ final class BusinessOwnerAddressTests: XCTestCase {
             line3: String(repeating: "l", count: 301),
             suburb: "Invisible Winds",
             city: "Nowhere",
-            state: "KS",
+            state: .ks,
             country: .unitedStates,
             postalCode: "66167"
         ))
@@ -67,7 +67,7 @@ final class BusinessOwnerAddressTests: XCTestCase {
             line3: nil,
             suburb: String(repeating: "l", count: 301),
             city: "Nowhere",
-            state: "KS",
+            state: .ks,
             country: .unitedStates,
             postalCode: "66167"
         ))
@@ -78,18 +78,7 @@ final class BusinessOwnerAddressTests: XCTestCase {
             line3: nil,
             suburb: "Invisible Winds",
             city: String(repeating: "l", count: 121),
-            state: "KS",
-            country: .unitedStates,
-            postalCode: "66167"
-        ))
-        try XCTAssertThrowsError(BusinessOwner.Address(
-            type: .home,
-            line1: "89 Furnace Dr.",
-            line2: nil,
-            line3: nil,
-            suburb: "Invisible Winds",
-            city: "Nowhere",
-            state: String(repeating: "l", count: 41),
+            state: .ks,
             country: .unitedStates,
             postalCode: "66167"
         ))
@@ -104,7 +93,7 @@ final class BusinessOwnerAddressTests: XCTestCase {
             line3: nil,
             suburb: "Invisible Winds",
             city: "Nowhere",
-            state: "KS",
+            state: .ks,
             country: .unitedStates,
             postalCode: "66167"
         )
@@ -133,7 +122,7 @@ final class BusinessOwnerAddressTests: XCTestCase {
             line3: nil,
             suburb: "Invisible Winds",
             city: "Nowhere",
-            state: "KS",
+            state: .ks,
             country: .unitedStates,
             postalCode: "66167"
         )

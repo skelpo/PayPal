@@ -1,6 +1,6 @@
 import Vapor
 
-public struct Address: Content, ValidationSetable, Equatable {
+public struct Address: Content, Equatable {
     
     /// The address normalization status. Returned only for payers from Brazil.
     public let normalization: Normalization?
@@ -80,7 +80,7 @@ public struct Address: Content, ValidationSetable, Equatable {
         postalCode: String,
         phone: String?,
         type: String?
-    )throws {
+    ) {
         self.normalization = nil
         self.recipientName = recipientName
         self.defaultAddress = defaultAddress
@@ -92,39 +92,6 @@ public struct Address: Content, ValidationSetable, Equatable {
         self.postalCode = postalCode
         self.phone = phone
         self.type = type
-        
-        try self.set(\.phone <~ phone)
-    }
-    
-    /// Creates a new instance of `Address` from that data coontained
-    /// in a decoder. Validates the `state` and `countryCode` values passed in.
-    public init(from decoder: Decoder)throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.normalization = try container.decodeIfPresent(Normalization.self, forKey: .normalization)
-        self.recipientName = try container.decodeIfPresent(String.self, forKey: .recipientName)
-        self.defaultAddress = try container.decodeIfPresent(Bool.self, forKey: .defaultAddress)
-        self.line1 = try container.decode(String.self, forKey: .line1)
-        self.line2 = try container.decodeIfPresent(String.self, forKey: .line2)
-        self.city = try container.decode(String.self, forKey: .city)
-        self.state = try container.decodeIfPresent(Province.self, forKey: .state)
-        self.country = try container.decode(Country.self, forKey: .country)
-        self.postalCode = try container.decode(String.self, forKey: .postalCode)
-        self.phone = try container.decodeIfPresent(String.self, forKey: .phone)
-        self.type = try container.decodeIfPresent(String.self, forKey: .type)
-        
-        try self.set(\.state <~ state)
-        try self.set(\.phone <~ phone)
-    }
-    
-    public func setterValidations() -> SetterValidations<Address> {
-        var validations = SetterValidations(Address.self)
-        
-        validations.set(\.phone) { phone in
-            
-        }
-        
-        return validations
     }
     
     enum CodingKeys: String, CodingKey {
