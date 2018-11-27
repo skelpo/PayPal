@@ -123,8 +123,6 @@ public final class BillingPlans: PayPalController {
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func setState(of planID: String, to state: BillingPlan.State) -> Future<HTTPStatus> {
         let newValue = JSON.object(["state": .string(state.rawValue)])
-        return self.update(plan: planID, patches: [
-            Patch(operation: .replace, path: "/", value: newValue)
-        ])
+        return self.update(plan: planID, patches: [ Patch(operation: .replace, path: "/", value: newValue) ])
     }
 }
