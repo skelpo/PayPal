@@ -23,8 +23,8 @@ final class BalanceResponseTests: XCTestCase {
         
         let response = try JSONDecoder().decode(BalanceResponse.self, from: json)
         XCTAssertEqual(response.payer, "12D54EFB-D12F-4AF8-B5BF-AC62FFE253CC")
-        try XCTAssertEqual(response.available, [Money(currency: .usd, value: "1000000.00")])
-        try XCTAssertEqual(response.pending, [Money(currency: .usd, value: "5000.00")])
+        XCTAssertEqual(response.available, [CurrencyCodeAmount(currency: .usd, value: 1000000.00)])
+        XCTAssertEqual(response.pending, [CurrencyCodeAmount(currency: .usd, value: 5000.00)])
     }
     
     static var allTests: [(String, (BalanceResponseTests) -> ()throws -> ())] = [

@@ -5,35 +5,19 @@ final class AccountOwnerRelationshipTests: XCTestCase {
     func testInit()throws {
         let relationship = try AccountOwnerRelationship(
             name: Name(prefix: nil, given: "Abe", surname: "Lincon", middle: nil, suffix: nil, full: "Abe Lincon"),
-            country: "US"
+            country: .unitedStates
         )
         
         XCTAssertEqual(relationship.relation, "MOTHER")
-        XCTAssertEqual(relationship.country, "US")
+        XCTAssertEqual(relationship.country, .unitedStates)
         try XCTAssertEqual(relationship.name, Name(prefix: nil, given: "Abe", surname: "Lincon", middle: nil, suffix: nil, full: "Abe Lincon"))
-    }
-    
-    func testValidations()throws {
-        try XCTAssertThrowsError(AccountOwnerRelationship(
-            name: Name(prefix: nil, given: "Abe", surname: "Lincon", middle: nil, suffix: nil, full: "Abe Lincon"),
-            country: "usa"
-        ))
-        var relationship = try AccountOwnerRelationship(
-            name: Name(prefix: nil, given: "Abe", surname: "Lincon", middle: nil, suffix: nil, full: "Abe Lincon"),
-            country: "US"
-        )
-        
-        try XCTAssertThrowsError(relationship.set(\.country <~ "usa"))
-        try relationship.set(\.country <~ "UK")
-        
-        XCTAssertEqual(relationship.country, "UK")
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let relationship = try AccountOwnerRelationship(
             name: Name(prefix: nil, given: "Abe", surname: "Lincon", middle: nil, suffix: nil, full: "Abe Lincon"),
-            country: "US"
+            country: .unitedStates
         )
         let generated = try String(data: encoder.encode(relationship), encoding: .utf8)!
         let json =
@@ -53,7 +37,7 @@ final class AccountOwnerRelationshipTests: XCTestCase {
         let decoder = JSONDecoder()
         let relationship = try AccountOwnerRelationship(
             name: Name(prefix: nil, given: "Abe", surname: "Lincon", middle: nil, suffix: nil, full: "Abe Lincon"),
-            country: "US"
+            country: .unitedStates
         )
         let json = """
         {
@@ -84,7 +68,6 @@ final class AccountOwnerRelationshipTests: XCTestCase {
     
     static var allTests: [(String, (AccountOwnerRelationshipTests) -> ()throws -> ())] = [
         ("testInit", testInit),
-        ("testValidations", testValidations),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)
     ]

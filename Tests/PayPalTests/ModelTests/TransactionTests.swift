@@ -3,10 +3,10 @@ import XCTest
 
 final class TransactionTests: XCTestCase {
     func testInit()throws {
-        let transaction = try Transaction(
-            amount: Money(currency: .usd, value: "79.25"),
-            fee: Money(currency: .usd, value: "7.25"),
-            net: Money(currency: .usd, value: "72.00")
+        let transaction = Transaction(
+            amount: CurrencyCodeAmount(currency: .usd, value: 79.25),
+            fee: CurrencyCodeAmount(currency: .usd, value: 7.25),
+            net: CurrencyCodeAmount(currency: .usd, value: 72.00)
         )
         
         XCTAssertEqual(transaction.id, nil)
@@ -17,17 +17,17 @@ final class TransactionTests: XCTestCase {
         XCTAssertEqual(transaction.timestamp, nil)
         XCTAssertEqual(transaction.timezone, nil)
         
-        try XCTAssertEqual(transaction.amount, Money(currency: .usd, value: "79.25"))
-        try XCTAssertEqual(transaction.fee, Money(currency: .usd, value: "7.25"))
-        try XCTAssertEqual(transaction.net, Money(currency: .usd, value: "72.00"))
+        XCTAssertEqual(transaction.amount, CurrencyCodeAmount(currency: .usd, value: 79.25))
+        XCTAssertEqual(transaction.fee, CurrencyCodeAmount(currency: .usd, value: 7.25))
+        XCTAssertEqual(transaction.net, CurrencyCodeAmount(currency: .usd, value: 72.00))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let transaction = try Transaction(
-            amount: Money(currency: .usd, value: "79.25"),
-            fee: Money(currency: .usd, value: "7.25"),
-            net: Money(currency: .usd, value: "72.00")
+        let transaction = Transaction(
+            amount: CurrencyCodeAmount(currency: .usd, value: 79.25),
+            fee: CurrencyCodeAmount(currency: .usd, value: 7.25),
+            net: CurrencyCodeAmount(currency: .usd, value: 72.00)
         )
         let generated = try String(data: encoder.encode(transaction), encoding: .utf8)
         let json =
@@ -81,9 +81,9 @@ final class TransactionTests: XCTestCase {
         let transaction = try decoder.decode(Transaction.self, from: full)
         
         try XCTAssertEqual(Transaction(
-            amount: Money(currency: .usd, value: "79.25"),
-            fee: Money(currency: .usd, value: "7.25"),
-            net: Money(currency: .usd, value: "72.00")
+            amount: CurrencyCodeAmount(currency: .usd, value: 79.25),
+            fee: CurrencyCodeAmount(currency: .usd, value: 7.25),
+            net: CurrencyCodeAmount(currency: .usd, value: 72.00)
         ), decoder.decode(Transaction.self, from: minimum))
         
         XCTAssertEqual(transaction.id, "3C3A7405-132B-4516-97AA-51ADE9DC77C6")
@@ -93,9 +93,9 @@ final class TransactionTests: XCTestCase {
         XCTAssertEqual(transaction.name, "Skelpo Inc.")
         XCTAssertEqual(transaction.timestamp, "2018-07-23T17:24:48Z")
         XCTAssertEqual(transaction.timezone, "CDT")
-        try XCTAssertEqual(transaction.amount, Money(currency: .usd, value: "79.25"))
-        try XCTAssertEqual(transaction.fee, Money(currency: .usd, value: "7.25"))
-        try XCTAssertEqual(transaction.net, Money(currency: .usd, value: "72.00"))
+        XCTAssertEqual(transaction.amount, CurrencyCodeAmount(currency: .usd, value: 79.25))
+        XCTAssertEqual(transaction.fee, CurrencyCodeAmount(currency: .usd, value: 7.25))
+        XCTAssertEqual(transaction.net, CurrencyCodeAmount(currency: .usd, value: 72.00))
     }
     
     static var allTests: [(String, (TransactionTests) -> ()throws -> ())] = [

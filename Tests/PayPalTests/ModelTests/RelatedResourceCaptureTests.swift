@@ -4,10 +4,10 @@ import XCTest
 final class RelatedResourceCaptureTests: XCTestCase {
     func testInit()throws {
         let capture = try RelatedResource.Capture(
-            amount: DetailedAmount(currency: .usd, total: "67.23", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
             isFinal: false,
             invoice: "242841E3-7ADE-4C5C-AC88-78103E2132F2",
-            transaction: Amount(currency: .usd, value: "2.71"),
+            transaction: CurrencyAmount(currency: .usd, value: 2.71),
             payerNote: "Notable text"
         )
         
@@ -22,8 +22,8 @@ final class RelatedResourceCaptureTests: XCTestCase {
         XCTAssertEqual(capture.isFinal, false)
         XCTAssertEqual(capture.invoice, "242841E3-7ADE-4C5C-AC88-78103E2132F2")
         XCTAssertEqual(capture.payerNote, "Notable text")
-        try XCTAssertEqual(capture.amount, DetailedAmount(currency: .usd, total: "67.23", details: nil))
-        try XCTAssertEqual(capture.transaction, Amount(currency: .usd, value: "2.71"))
+        XCTAssertEqual(capture.transaction, CurrencyAmount(currency: .usd, value: 2.71))
+        XCTAssertEqual(capture.amount, DetailedAmount(currency: .usd, total: 67.23, details: nil))
     }
     
     func testValidations()throws {
@@ -42,10 +42,10 @@ final class RelatedResourceCaptureTests: XCTestCase {
             payerNote: String(repeating: "p", count: 256)
         ))
         var capture = try RelatedResource.Capture(
-            amount: DetailedAmount(currency: .usd, total: "67.23", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
             isFinal: false,
             invoice: "242841E3-7ADE-4C5C-AC88-78103E2132F2",
-            transaction: Amount(currency: .usd, value: "2.71"),
+            transaction: CurrencyAmount(currency: .usd, value: 2.71),
             payerNote: "Notable text"
         )
         
@@ -61,10 +61,10 @@ final class RelatedResourceCaptureTests: XCTestCase {
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let capture = try RelatedResource.Capture(
-            amount: DetailedAmount(currency: .usd, total: "67.23", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
             isFinal: false,
             invoice: "242841E3-7ADE-4C5C-AC88-78103E2132F2",
-            transaction: Amount(currency: .usd, value: "2.71"),
+            transaction: CurrencyAmount(currency: .usd, value: 2.71),
             payerNote: "Notable text"
         )
         let generated = try String(data: encoder.encode(capture), encoding: .utf8)!
@@ -133,8 +133,8 @@ final class RelatedResourceCaptureTests: XCTestCase {
         XCTAssertEqual(capture.isFinal, false)
         XCTAssertEqual(capture.invoice, "242841E3-7ADE-4C5C-AC88-78103E2132F2")
         XCTAssertEqual(capture.payerNote, "Notable text")
-        try XCTAssertEqual(capture.transaction, Amount(currency: .usd, value: "2.71"))
-        try XCTAssertEqual(capture.amount, DetailedAmount(currency: .usd, total: "67.23", details: nil))
+        XCTAssertEqual(capture.transaction, CurrencyAmount(currency: .usd, value: 2.71))
+        XCTAssertEqual(capture.amount, DetailedAmount(currency: .usd, total: 67.23, details: nil))
         
     }
     

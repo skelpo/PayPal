@@ -16,10 +16,14 @@ public final class Templates: PayPalController {
     /// See `PayPalController.resource` for more information.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "invoicing/templates"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     
@@ -35,9 +39,8 @@ public final class Templates: PayPalController {
     /// - Returns: The saved template object wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func create(template: Template) -> Future<Template> {
-        return Future.flatMap(on: self.container) { () -> Future<Template> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path(), body: template, as: Template.self)
+        return self.client { client in
+            return client.post(self.path, body: template, as: Template.self)
         }
     }
     
@@ -53,12 +56,11 @@ public final class Templates: PayPalController {
     ///
     /// - Returns: The merchant's template details, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
-    public func list(fields: Template.ListFields = .all) -> Future<TemplateList> {
-        return Future.flatMap(on: self.container) { () -> Future<TemplateList> in
-            let client = try self.container.make(PayPalClient.self)
+    public func list(fields: Template.ListFields = .all) -> Future<Template.List> {
+        return self.client { client in
             let parameters = QueryParamaters(custom: ["fields": fields.rawValue])
             
-            return try client.get(self.path(), parameters: parameters, as: TemplateList.self)
+            return client.get(self.path, parameters: parameters, as: Template.List.self)
         }
     }
     
@@ -73,9 +75,8 @@ public final class Templates: PayPalController {
     /// - Returns: The updated `Template` object, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func update(template id: String, with data: Template) -> Future<Template> {
-        return Future.flatMap(on: self.container) { () -> Future<Template> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.put(self.path() + id, body: data, as: Template.self)
+        return self.client { client in
+            return client.put(self.path + id, body: data, as: Template.self)
         }
     }
     
@@ -88,9 +89,8 @@ public final class Templates: PayPalController {
     /// - Returns: The HTTP status of the response, which will be 204 (No Content), wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func delete(template id: String) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.delete(self.path() + id, as: HTTPStatus.self)
+        return self.client { client in
+            return client.delete(self.path + id, as: HTTPStatus.self)
         }
     }
     
@@ -103,9 +103,8 @@ public final class Templates: PayPalController {
     /// - Returns: The `Template` object for the ID passed in, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func details(for templateID: String) -> Future<Template> {
-        return Future.flatMap(on: self.container) { () -> Future<Template> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + templateID, as: Template.self)
+        return self.client { client in
+            return client.get(self.path + templateID, as: Template.self)
         }
     }
 }

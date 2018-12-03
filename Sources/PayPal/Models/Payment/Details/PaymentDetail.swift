@@ -25,13 +25,13 @@ public struct PaymentDetail: Content, Equatable {
     
     /// The payment amount to record against the invoice. If you omit this parameter,
     /// the total invoice amount is marked as paid. This amount cannot exceed the amount due.
-    public var amount: Amount?
+    public var amount: CurrencyAmount?
     
     
     /// Creates a new `PaymentDetail` instance.
     ///
     ///     PaymentDetail(date: Date().iso8601, method: .cash, note: "Hello World", amount: Amount(currency: .usd, value: "4.50"))
-    public init(date: String?, method: Method, note: String?, amount: Amount?) {
+    public init(date: String?, method: Method, note: String?, amount: CurrencyAmount?) {
         self.type = nil
         self.transaction = nil
         self.transactionType = nil

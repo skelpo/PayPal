@@ -2,14 +2,14 @@ import XCTest
 @testable import PayPal
 
 final class PaymentItemListTests: XCTestCase {
-    let address = try! Address(
+    let address = Address(
         recipientName: nil,
         defaultAddress: nil,
         line1: "line",
         line2: nil,
         city: "city",
         state: nil,
-        countryCode: "US",
+        country: .unitedStates,
         postalCode: "1",
         phone: nil,
         type: nil
@@ -20,14 +20,14 @@ final class PaymentItemListTests: XCTestCase {
         
         XCTAssertEqual(list.items, [])
         XCTAssertEqual(list.phoneNumber, "555-555-5555")
-        try XCTAssertEqual(list.address, Address(
+        XCTAssertEqual(list.address, Address(
             recipientName: nil,
             defaultAddress: nil,
             line1: "line",
             line2: nil,
             city: "city",
             state: nil,
-            countryCode: "US",
+            country: .unitedStates,
             postalCode: "1",
             phone: nil,
             type: nil

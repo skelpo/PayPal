@@ -8,14 +8,14 @@ final class AcceptDisputeTests: XCTestCase {
             reason: .policy,
             invoiceID: "3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5",
             returnAddress: nil,
-            refund: Money(currency: .usd, value: "55.50")
+            refund: CurrencyCodeAmount(currency: .usd, value: 55.50)
         )
         
         XCTAssertNil(body.returnAddress)
         XCTAssertEqual(body.note, "Refund to customer")
         XCTAssertEqual(body.reason, .policy)
         XCTAssertEqual(body.invoiceID, "3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5")
-        try XCTAssertEqual(body.refund, Money(currency: .usd, value: "55.50"))
+        XCTAssertEqual(body.refund, CurrencyCodeAmount(currency: .usd, value: 55.50))
     }
     
     func testValidations()throws {
@@ -24,14 +24,14 @@ final class AcceptDisputeTests: XCTestCase {
             reason: .policy,
             invoiceID: "3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5",
             returnAddress: nil,
-            refund: Money(currency: .usd, value: "55.50")
+            refund: CurrencyCodeAmount(currency: .usd, value: 55.50)
         ))
         var body = try AcceptDisputeBody(
             note: "Refund to customer",
             reason: .policy,
             invoiceID: "3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5",
             returnAddress: nil,
-            refund: Money(currency: .usd, value: "55.50")
+            refund: CurrencyCodeAmount(currency: .usd, value: 55.50)
         )
         
         try XCTAssertThrowsError(body.set(\AcceptDisputeBody.note <~ String(repeating: "n", count: 2001)))
@@ -47,7 +47,7 @@ final class AcceptDisputeTests: XCTestCase {
             reason: .policy,
             invoiceID: "3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5",
             returnAddress: nil,
-            refund: Money(currency: .usd, value: "55.50")
+            refund: CurrencyCodeAmount(currency: .usd, value: 55.50)
         )
         let generated = try String(data: encoder.encode(body), encoding: .utf8)!
         let json =
@@ -71,7 +71,7 @@ final class AcceptDisputeTests: XCTestCase {
             reason: .policy,
             invoiceID: "3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5",
             returnAddress: nil,
-            refund: Money(currency: .usd, value: "55.50")
+            refund: CurrencyCodeAmount(currency: .usd, value: 55.50)
         )
         let valid = """
         {

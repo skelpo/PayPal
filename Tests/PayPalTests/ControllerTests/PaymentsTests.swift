@@ -80,8 +80,8 @@ final class PaymentsTests: XCTestCase {
     
     func testExecuteEndpoint()throws {
         let payments = try self.app.make(Payments.self)
-        let amounts = try [
-            DetailedAmount(currency: .usd, total: "150.00", details: nil)
+        let amounts = [
+            DetailedAmount(currency: .usd, total: 150.00, details: nil)
         ]
         
         let details = try payments.execute(payment: self.id, with: Payment.Executor(payer: nil, amounts: amounts)).wait()
@@ -128,7 +128,7 @@ final class PaymentsTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Cannot get authorization ID")
         }
         let capture = try RelatedResource.Capture(
-            amount: DetailedAmount(currency: .usd, total: "5.60", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 5.60, details: nil),
             isFinal: true,
             invoice: nil,
             transaction: nil,
@@ -145,8 +145,8 @@ final class PaymentsTests: XCTestCase {
         guard let id = self.context.authorization else {
             throw Abort(.internalServerError, reason: "Cannot get authorization ID")
         }
-        let auth = try RelatedResource.Authorization(
-            amount: DetailedAmount(currency: .usd, total: "5.60", details: nil),
+        let auth = RelatedResource.Authorization(
+            amount: DetailedAmount(currency: .usd, total: 5.60, details: nil),
             fmf: FraudManagementFilter(type: .pending, id: .unconfirmedAddress, name: "Unconfirmed Shipping Address", description: nil),
             processor: nil
         )
@@ -183,8 +183,8 @@ final class PaymentsTests: XCTestCase {
         guard let id = self.context.order else {
             throw Abort(.internalServerError, reason: "Cannot get order ID")
         }
-        let auth = try RelatedResource.Authorization(
-            amount: DetailedAmount(currency: .usd, total: "5.60", details: nil),
+        let auth = RelatedResource.Authorization(
+            amount: DetailedAmount(currency: .usd, total: 5.60, details: nil),
             fmf: FraudManagementFilter(type: .pending, id: .unconfirmedAddress, name: "Unconfirmed Shipping Address", description: nil),
             processor: nil
         )
@@ -201,7 +201,7 @@ final class PaymentsTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Cannot get order ID")
         }
         let capture = try RelatedResource.Capture(
-            amount: DetailedAmount(currency: .usd, total: "5.60", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 5.60, details: nil),
             isFinal: true,
             invoice: nil,
             transaction: nil,
@@ -298,14 +298,14 @@ internal struct PaymentTestsContext {
     private(set) var payment: String?
     
     init()throws {
-        self.address = try Address(
+        self.address = Address(
             recipientName: "Ira Harding",
             defaultAddress: true,
             line1: "578 Wild Wood",
             line2: nil,
             city: "New Haven",
-            state: "CN",
-            countryCode: "US",
+            state: .co,
+            country: .unitedStates,
             postalCode: "79812",
             phone: nil,
             type: nil
@@ -319,16 +319,16 @@ internal struct PaymentTestsContext {
             description: "With sugar an inch thick",
             tax: "8.00"
         )
-        self.details = try DetailedAmount.Detail(
-            subtotal: "117.00",
-            shipping: "15.00",
-            tax: "8.00",
-            handlingFee: "10.00",
+        self.details = DetailedAmount.Detail(
+            subtotal: 117.00,
+            shipping: 15.00,
+            tax: 8.00,
+            handlingFee: 10.00,
             shippingDiscount: nil,
             insurance: nil,
             giftWrap: nil
         )
-        self.amount = try DetailedAmount(currency: .usd, total: "150.00", details: details)
+        self.amount = DetailedAmount(currency: .usd, total: 150.00, details: details)
         self.items = try Payment.ItemList(
             items: [item],
             address: nil,

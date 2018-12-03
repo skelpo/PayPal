@@ -48,7 +48,7 @@ final class ManagedAccountsTests: XCTestCase {
             type: .individual,
             subType: .unselected,
             government: GovernmentBody(name: ""),
-            establishment: Establishment(state: "KS", country: "US"),
+            establishment: Establishment(state: .ks, country: .unitedStates),
             names: [],
             ids: [],
             phones: [],
@@ -59,8 +59,8 @@ final class ManagedAccountsTests: XCTestCase {
             registrationDate: TimelessDate(date: "1975-04-22"),
             disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
             sales: .init(
-                price: MoneyRange("50"..."60", currency: .usd),
-                volume: MoneyRange("50"..."60", currency: .usd),
+                price: MoneyRange(50...60, currency: .usd),
+                volume: MoneyRange(50...60, currency: .usd),
                 venues: [],
                 website: "https://example.com",
                 online: PercentRange(0...1)
@@ -71,7 +71,7 @@ final class ManagedAccountsTests: XCTestCase {
                 message: []
             ),
             addresses: [],
-            country: "US",
+            country: .unitedStates,
             stakeholders: [],
             designation: .init(title: "CTO", area: "Software Engineering")
         )
@@ -79,7 +79,7 @@ final class ManagedAccountsTests: XCTestCase {
             email: "business@example.com",
             name: Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "Bart.", full: "Sir Walter Scott"),
             relationships: [],
-            country: "UK",
+            country: .unitedKingdom,
             addresses: [],
             birthdate: "1771-08-15",
             language: .en_GB,
@@ -145,7 +145,7 @@ final class ManagedAccountsTests: XCTestCase {
             type: .individual,
             subType: .unselected,
             government: GovernmentBody(name: ""),
-            establishment: Establishment(state: "KS", country: "US"),
+            establishment: Establishment(state: .ks, country: .unitedStates),
             names: [],
             ids: [],
             phones: [],
@@ -156,8 +156,8 @@ final class ManagedAccountsTests: XCTestCase {
             registrationDate: TimelessDate(date: "1975-04-22"),
             disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
             sales: .init(
-                price: MoneyRange("50"..."60", currency: .usd),
-                volume: MoneyRange("50"..."60", currency: .usd),
+                price: MoneyRange(50...60, currency: .usd),
+                volume: MoneyRange(50...60, currency: .usd),
                 venues: [],
                 website: "https://example.com",
                 online: PercentRange(0...1)
@@ -168,7 +168,7 @@ final class ManagedAccountsTests: XCTestCase {
                 message: []
             ),
             addresses: [],
-            country: "US",
+            country: .unitedStates,
             stakeholders: [],
             designation: .init(title: "CTO", area: "Software Engineering")
         )
@@ -176,7 +176,7 @@ final class ManagedAccountsTests: XCTestCase {
             email: "business@example.com",
             name: Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "Bart.", full: "Sir Walter Scott"),
             relationships: [],
-            country: "UK",
+            country: .unitedKingdom,
             addresses: [],
             birthdate: "1771-08-15",
             language: .en_GB,

@@ -7,7 +7,7 @@ final class BusinessTests: XCTestCase {
             type: .individual,
             subType: .unselected,
             government: GovernmentBody(name: ""),
-            establishment: Establishment(state: "KS", country: "US"),
+            establishment: Establishment(state: .ks, country: .unitedStates),
             names: [],
             ids: [],
             phones: [],
@@ -18,8 +18,8 @@ final class BusinessTests: XCTestCase {
             registrationDate: TimelessDate(date: "1975-04-22"),
             disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
             sales: .init(
-                price: MoneyRange("50"..."60", currency: .usd),
-                volume: MoneyRange("50"..."60", currency: .usd),
+                price: MoneyRange(50...60, currency: .usd),
+                volume: MoneyRange(50...60, currency: .usd),
                 venues: [],
                 website: "https://nameless.io",
                 online: PercentRange(0...1)
@@ -30,7 +30,7 @@ final class BusinessTests: XCTestCase {
                 message: []
             ),
             addresses: [],
-            country: "US",
+            country: .unitedStates,
             stakeholders: [],
             designation: .init(title: "CTO", area: "Software Engineering")
         )
@@ -45,17 +45,17 @@ final class BusinessTests: XCTestCase {
         XCTAssertEqual(business.subCategory, "5972")
         XCTAssertEqual(business.merchantCategory, "4653")
         XCTAssertEqual(business.addresses, [])
-        XCTAssertEqual(business.country, "US")
+        XCTAssertEqual(business.country, .unitedStates)
         XCTAssertEqual(business.stakeholders, [])
         XCTAssertEqual(business.designation, Business.Designation(title: "CTO", area: "Software Engineering"))
         
-        try XCTAssertEqual(business.establishment, Establishment(state: "KS", country: "US"))
-        try XCTAssertEqual(business.establishedDate, TimelessDate(date: "1882-05-13"))
-        try XCTAssertEqual(business.registrationDate, TimelessDate(date: "1975-04-22"))
+        XCTAssertEqual(business.establishment, Establishment(state: .ks, country: .unitedStates))
+        XCTAssertEqual(business.establishedDate, TimelessDate(date: "1882-05-13"))
+        XCTAssertEqual(business.registrationDate, TimelessDate(date: "1975-04-22"))
         try XCTAssertEqual(business.disputeEmail, EmailAddress(email: "disputable@exmaple.com"))
         try XCTAssertEqual(business.sales, Business.Sales.init(
-            price: MoneyRange("50"..."60", currency: .usd),
-            volume: MoneyRange("50"..."60", currency: .usd),
+            price: MoneyRange(50...60, currency: .usd),
+            volume: MoneyRange(50...60, currency: .usd),
             venues: [],
             website: "https://nameless.io",
             online: PercentRange(0...1)
@@ -176,7 +176,7 @@ final class BusinessTests: XCTestCase {
             merchantCategory: "4653",
             establishedDate: TimelessDate(date: nil),
             registrationDate: TimelessDate(date: nil),
-            disputeEmail: EmailAddress(email: nil),
+            disputeEmail: nil,
             sales: .init(
                 price: nil,
                 volume: nil,
@@ -185,12 +185,12 @@ final class BusinessTests: XCTestCase {
                 online: nil
             ),
             customerService: CustomerService(
-                email: EmailAddress(email: nil),
+                email: EmailAddress(email: "help@nameless.com"),
                 phone: nil,
                 message: nil
             ),
             addresses: [],
-            country: "US",
+            country: .unitedStates,
             stakeholders: [],
             designation: .init(title: nil, area: nil)
         )
@@ -199,8 +199,9 @@ final class BusinessTests: XCTestCase {
         let json =
             "{\"date_of_registration\":{},\"category\":\"3145\",\"sub_type\":\"UNSELECTED\",\"addresses\":[],\"sub_category\":\"5972\",\"names\":[]," +
             "\"business_sales_details\":{},\"phones\":[],\"government_body\":{},\"type\":\"INDIVIDUAL\",\"identifications\":[]," +
-            "\"date_business_established\":{},\"country_code_of_incorporation\":\"US\",\"stakeholders\":[],\"dispute_email\":{}," +
-            "\"customer_service\":{\"email\":{}},\"designation\":{},\"merchant_category_code\":\"4653\",\"place_of_establishment\":{}}"
+            "\"date_business_established\":{},\"country_code_of_incorporation\":\"US\",\"stakeholders\":[]," +
+            "\"customer_service\":{\"email\":\"help@nameless.com\"},\"designation\":{},\"merchant_category_code\":\"4653\"," +
+            "\"place_of_establishment\":{}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -228,10 +229,10 @@ final class BusinessTests: XCTestCase {
             "merchant_category_code": "4653",
             "date_business_established": {},
             "date_of_registration": {},
-            "dispute_email": {},
+            "dispute_email": null,
             "business_sales_details": {},
             "customer_service": {
-                "email": {}
+                "email": "help@nameless.com"
             },
             "addresses": [],
             "country_code_of_incorporation": "US",
@@ -254,7 +255,7 @@ final class BusinessTests: XCTestCase {
                 merchantCategory: "4653",
                 establishedDate: TimelessDate(date: nil),
                 registrationDate: TimelessDate(date: nil),
-                disputeEmail: EmailAddress(email: nil),
+                disputeEmail: nil,
                 sales: .init(
                     price: nil,
                     volume: nil,
@@ -263,12 +264,12 @@ final class BusinessTests: XCTestCase {
                     online: nil
                 ),
                 customerService: CustomerService(
-                    email: EmailAddress(email: nil),
+                    email: EmailAddress(email: "help@nameless.com"),
                     phone: nil,
                     message: nil
                 ),
                 addresses: [],
-                country: "US",
+                country: .unitedStates,
                 stakeholders: [],
                 designation: .init(title: nil, area: nil)
             ),

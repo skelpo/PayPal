@@ -1,6 +1,6 @@
 import Vapor
 
-public struct Address: Content, ValidationSetable, Equatable {
+public struct Address: Content, Equatable {
     
     /// The address normalization status. Returned only for payers from Brazil.
     public let normalization: Normalization?
@@ -32,16 +32,17 @@ public struct Address: Content, ValidationSetable, Equatable {
     /// [Thailand](https://developer.paypal.com/docs/integration/direct/rest/state-codes/#thailand),
     /// or [United States](https://developer.paypal.com/docs/integration/direct/rest/state-codes/#usa).
     /// Maximum length is 40 single-byte characters.
-    public private(set) var state: String?
+    public var state: Province?
     
-    /// The [two-character ISO 3166-1 code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/) that identifies the country or region.
+    /// The [two-character ISO 3166-1 code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/)
+    /// that identifies the country or region.
     ///
     /// The value must match the RegEx pattern `^([A-Z]{2}|C2)$`.
     ///
     /// - Note: The country code for Great Britain is `GB` and not `UK` as used in the top-level
     ///   domain names for that country. Use the `C2` country code for China worldwide for comparable
     ///   uncontrolled price (CUP) method, bank card, and cross-border transactions.
-    public private(set) var countryCode: String
+    public var country: Country
     
     /// The postal code, which is the zip code or equivalent.
     /// Typically required for countries with a postal code or an equivalent.
@@ -74,12 +75,12 @@ public struct Address: Content, ValidationSetable, Equatable {
         line1: String,
         line2: String?,
         city: String,
-        state: String?,
-        countryCode: String,
+        state: Province?,
+        country: Country,
         postalCode: String,
         phone: String?,
         type: String?
-    )throws {
+    ) {
         self.normalization = nil
         self.recipientName = recipientName
         self.defaultAddress = defaultAddress
@@ -87,84 +88,17 @@ public struct Address: Content, ValidationSetable, Equatable {
         self.line2 = line2
         self.city = city
         self.state = state
-        self.countryCode = countryCode
+        self.country = country
         self.postalCode = postalCode
         self.phone = phone
         self.type = type
-        
-        try self.set(\.state <~ state)
-        try self.set(\.countryCode <~ countryCode)
-        try self.set(\.phone <~ phone)
-    }
-    
-    /// Creates a new instance of `Address` from that data coontained
-    /// in a decoder. Validates the `state` and `countryCode` values passed in.
-    public init(from decoder: Decoder)throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.normalization = try container.decodeIfPresent(Normalization.self, forKey: .normalization)
-        self.recipientName = try container.decodeIfPresent(String.self, forKey: .recipientName)
-        self.defaultAddress = try container.decodeIfPresent(Bool.self, forKey: .defaultAddress)
-        self.line1 = try container.decode(String.self, forKey: .line1)
-        self.line2 = try container.decodeIfPresent(String.self, forKey: .line2)
-        self.city = try container.decode(String.self, forKey: .city)
-        self.state = try container.decodeIfPresent(String.self, forKey: .state)
-        self.countryCode = try container.decode(String.self, forKey: .countryCode)
-        self.postalCode = try container.decode(String.self, forKey: .postalCode)
-        self.phone = try container.decodeIfPresent(String.self, forKey: .phone)
-        self.type = try container.decodeIfPresent(String.self, forKey: .type)
-        
-        try self.set(\.state <~ state)
-        try self.set(\.countryCode <~ countryCode)
-        try self.set(\.phone <~ phone)
-    }
-    
-    /// Compares two `Address` objects, checking properties for equality.
-    public static func == (lhs: Address, rhs: Address) -> Bool {
-        return
-            (lhs.recipientName == rhs.recipientName) &&
-            (lhs.defaultAddress == rhs.defaultAddress) &&
-            (lhs.line1 == rhs.line1) &&
-            (lhs.line2 == rhs.line2) &&
-            (lhs.city == rhs.city) &&
-            (lhs.state == rhs.state) &&
-            (lhs.countryCode == rhs.countryCode) &&
-            (lhs.postalCode == rhs.postalCode)
-    }
-    
-    public func setterValidations() -> SetterValidations<Address> {
-        var validations = SetterValidations(Address.self)
-        
-        validations.set(\.state) { state in
-            guard state?.count ?? 0 <= 40 else {
-                throw PayPalError(
-                    status: .badRequest,
-                    identifier: "malformedString",
-                    reason: "`ShippingAddress.state` property length can be no longer than 40 1-byte characters"
-                )
-            }
-        }
-        validations.set(\.countryCode) { code in
-            guard code.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
-                throw PayPalError(
-                    status: .badRequest,
-                    identifier: "malformedString",
-                    reason: "`ShippingAddress.countryCode` property must match `([A-Z]{2}|C2)$` RegEx pattern"
-                )
-            }
-        }
-        validations.set(\.phone) { phone in
-            
-        }
-        
-        return validations
     }
     
     enum CodingKeys: String, CodingKey {
         case line1, line2, city, state, phone, type
         case recipientName = "recipient_name"
         case defaultAddress = "default_address"
-        case countryCode = "country_code"
+        case country = "country_code"
         case postalCode = "postal_code"
         case normalization = "normalization_status"
     }

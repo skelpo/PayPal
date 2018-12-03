@@ -14,7 +14,7 @@ final class ShippingInfoTests: XCTestCase {
                 line2: nil,
                 city: "Glipwood",
                 state: nil,
-                countryCode: "SK",
+                country: .switzerland,
                 postalCode: "562",
                 phone: nil,
                 type: nil
@@ -24,14 +24,14 @@ final class ShippingInfoTests: XCTestCase {
         XCTAssertEqual(info.firstName, "Oskar")
         XCTAssertEqual(info.lastName, "Reteep")
         XCTAssertEqual(info.businessName, "Books and Crannies")
-        try XCTAssertEqual(info.address, Address(
+        XCTAssertEqual(info.address, Address(
             recipientName: "Oskar Reteep",
             defaultAddress: true,
             line1: "1 Main Street",
             line2: nil,
             city: "Glipwood",
             state: nil,
-            countryCode: "SK",
+            country: .switzerland,
             postalCode: "562",
             phone: nil,
             type: nil

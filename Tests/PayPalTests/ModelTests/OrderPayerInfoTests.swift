@@ -8,10 +8,10 @@ final class OrderPayerInfoTests: XCTestCase {
             birthdate: "2018-09-20T17:49:17+0000",
             tax: "85323EC0-A9114",
             taxType: .cpf,
-            country: "US",
+            country: .unitedStates,
             billing: Address(
-                recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
-                countryCode: "PU", postalCode: "3552", phone: nil, type: nil
+                recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: .le,
+                country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
             )
         )
         
@@ -26,40 +26,40 @@ final class OrderPayerInfoTests: XCTestCase {
         XCTAssertEqual(info.birthdate, "2018-09-20T17:49:17+0000")
         XCTAssertEqual(info.tax, "85323EC0-A9114")
         XCTAssertEqual(info.taxType, .cpf)
-        XCTAssertEqual(info.country, "US")
-        try XCTAssertEqual(info.billing, Address(
-            recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
-            countryCode: "PU", postalCode: "3552", phone: nil, type: nil
+        XCTAssertEqual(info.country, .unitedStates)
+        XCTAssertEqual(info.billing, Address(
+            recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: .le,
+            country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
         ))
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(Order.Payer.Info(email: String(repeating: "e", count: 128), birthdate: nil, tax: nil, taxType: nil, country: nil, billing: nil))
-        try XCTAssertThrowsError(Order.Payer.Info(email: nil, birthdate: nil, tax: String(repeating: "t", count: 15), taxType: nil, country: nil, billing: nil))
-        try XCTAssertThrowsError(Order.Payer.Info(email: nil, birthdate: nil, tax: nil, taxType: nil, country: "usa", billing: nil))
+        try XCTAssertThrowsError(
+            Order.Payer.Info(email: String(repeating: "e", count: 128), birthdate: nil, tax: nil, taxType: nil, country: nil, billing: nil)
+        )
+        try XCTAssertThrowsError(
+            Order.Payer.Info(email: nil, birthdate: nil, tax: String(repeating: "t", count: 15), taxType: nil, country: nil, billing: nil)
+        )
         var info = try Order.Payer.Info(
             email: "email@example.com",
             birthdate: "2018-09-20T17:49:17+0000",
             tax: "85323EC0-A9114",
             taxType: .cpf,
-            country: "US",
+            country: .unitedStates,
             billing: Address(
-                recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
-                countryCode: "PU", postalCode: "3552", phone: nil, type: nil
+                recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: .le,
+                country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
             )
         )
         
         try XCTAssertThrowsError(info.set(\Order.Payer.Info.email <~ String(repeating: "e", count: 128)))
         try XCTAssertThrowsError(info.set(\Order.Payer.Info.tax <~ String(repeating: "t", count: 15)))
-        try XCTAssertThrowsError(info.set(\Order.Payer.Info.country <~ "usa"))
         try info.set(\Order.Payer.Info.email <~ String(repeating: "e", count: 127))
         try info.set(\Order.Payer.Info.tax <~ String(repeating: "t", count: 14))
-        try info.set(\Order.Payer.Info.country <~ "AU")
         
         
         XCTAssertEqual(info.email, String(repeating: "e", count: 127))
         XCTAssertEqual(info.tax, String(repeating: "t", count: 14))
-        XCTAssertEqual(info.country, "AU")
     }
     
     func testEncoding()throws {
@@ -69,15 +69,15 @@ final class OrderPayerInfoTests: XCTestCase {
             birthdate: "2018-09-20",
             tax: "85323EC0-A9114",
             taxType: .cpf,
-            country: "US",
+            country: .unitedStates,
             billing: Address(
-                recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
-                countryCode: "PU", postalCode: "3552", phone: nil, type: nil
+                recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: .le,
+                country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
             )
         )
         let generated = try String(data: encoder.encode(info), encoding: .utf8)!
         let json =
-        "{\"email\":\"email@example.com\",\"tax_id\":\"85323EC0-A9114\",\"country_code\":\"US\",\"birth_date\":\"2018-09-20\",\"billing_address\":{\"country_code\":\"PU\",\"state\":\"CC\",\"line1\":\"Plum Fairy Ln.\",\"city\":\"Ginger Planes\",\"postal_code\":\"3552\"},\"tax_id_type\":\"BR_CPF\"}"
+        "{\"email\":\"email@example.com\",\"tax_id\":\"85323EC0-A9114\",\"country_code\":\"US\",\"birth_date\":\"2018-09-20\",\"billing_address\":{\"country_code\":\"WF\",\"state\":\"LE\",\"line1\":\"Plum Fairy Ln.\",\"city\":\"Ginger Planes\",\"postal_code\":\"3552\"},\"tax_id_type\":\"BR_CPF\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -102,9 +102,9 @@ final class OrderPayerInfoTests: XCTestCase {
             "billing_address": {
                 "postal_code": "3552",
                 "city": "Ginger Planes",
-                "country_code": "PU",
+                "country_code": "WF",
                 "line1": "Plum Fairy Ln.",
-                "state": "CC"
+                "state": "LE"
             },
             "country_code": "US",
             "tax_id_type": "BR_CPF",
@@ -121,14 +121,14 @@ final class OrderPayerInfoTests: XCTestCase {
         XCTAssertEqual(info.lastname, "White")
         XCTAssertEqual(info.suffix, "H.M.")
         XCTAssertEqual(info.payer, "A8B9EE88-D7AF-4F8C-B6BC-70809F2DE8C1")
-        XCTAssertEqual(info.country, "US")
+        XCTAssertEqual(info.country, .unitedStates)
         XCTAssertEqual(info.taxType, .cpf)
         XCTAssertEqual(info.tax, "85323EC0-A9114")
         XCTAssertEqual(info.birthdate, "2018-09-20")
         XCTAssertEqual(info.email, "email@example.com")
-        try XCTAssertEqual(info.billing, Address(
-            recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: "CC",
-            countryCode: "PU", postalCode: "3552", phone: nil, type: nil
+        XCTAssertEqual(info.billing, Address(
+            recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: .le,
+            country: .wallisFutuna, postalCode: "3552", phone: nil, type: nil
         ))
     }
     

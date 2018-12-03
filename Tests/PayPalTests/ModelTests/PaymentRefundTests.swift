@@ -4,7 +4,7 @@ import XCTest
 final class PaymentRefundTests: XCTestCase {
     func testInit()throws {
         let refund = try Payment.Refund(
-            amount: DetailedAmount(currency: .usd, total: "10.00", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 10.00, details: nil),
             description: "description",
             reason: "reason",
             invoice: "invoice"
@@ -13,7 +13,7 @@ final class PaymentRefundTests: XCTestCase {
         XCTAssertEqual(refund.description, "description")
         XCTAssertEqual(refund.reason, "reason")
         XCTAssertEqual(refund.invoice, "invoice")
-        try XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: "10.00", details: nil))
+        XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: 10.00, details: nil))
     }
     
     func testValidations()throws {
@@ -21,7 +21,7 @@ final class PaymentRefundTests: XCTestCase {
         try XCTAssertThrowsError(Payment.Refund(amount: nil, description: nil, reason: String(repeating: "r", count: 31), invoice: nil))
         try XCTAssertThrowsError(Payment.Refund(amount: nil, description: nil, reason: nil, invoice: String(repeating: "i", count: 128)))
         var refund = try Payment.Refund(
-            amount: DetailedAmount(currency: .usd, total: "10.00", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 10.00, details: nil),
             description: "description",
             reason: "reason",
             invoice: "invoice"
@@ -43,7 +43,7 @@ final class PaymentRefundTests: XCTestCase {
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let refund = try Payment.Refund(
-            amount: DetailedAmount(currency: .usd, total: "10.00", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 10.00, details: nil),
             description: "desc",
             reason: "reas",
             invoice: "inv"
@@ -76,7 +76,7 @@ final class PaymentRefundTests: XCTestCase {
         """.data(using: .utf8)!
        
         let refund = try Payment.Refund(
-            amount: DetailedAmount(currency: .usd, total: "10.00", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 10.00, details: nil),
             description: "desc",
             reason: "reas",
             invoice: "inv"

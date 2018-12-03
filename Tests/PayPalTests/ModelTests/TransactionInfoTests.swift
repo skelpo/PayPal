@@ -10,7 +10,7 @@ final class TransactionInfoTests: XCTestCase {
             sellerID: "3DE7148F-360E-4F22-9DE2-8507E24DB60B",
             created: self.now,
             status: .pending,
-            gross: Money(currency: .usd, value: "89.45"),
+            gross: CurrencyCodeAmount(currency: .usd, value: 89.45),
             invoice: "C80ED435-DBB2-456B-A1EF-2750A32AAF1A",
             custom: nil,
             buyer: Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather"),
@@ -28,7 +28,7 @@ final class TransactionInfoTests: XCTestCase {
         
         try XCTAssertEqual(transaction.buyer, Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather"))
         try XCTAssertEqual(transaction.seller, Seller(email: "throg@exmaple.com", name: "Nag the Nameless", merchantID: nil))
-        try XCTAssertEqual(transaction.gross, Money(currency: .usd, value: "89.45"))
+        XCTAssertEqual(transaction.gross, CurrencyCodeAmount(currency: .usd, value: 89.45))
     }
     
     func testEncoding()throws {
@@ -38,7 +38,7 @@ final class TransactionInfoTests: XCTestCase {
             sellerID: "3DE7148F-360E-4F22-9DE2-8507E24DB60B",
             created: self.now,
             status: .pending,
-            gross: Money(currency: .usd, value: "89.45"),
+            gross: CurrencyCodeAmount(currency: .usd, value: 89.45),
             invoice: "C80ED435-DBB2-456B-A1EF-2750A32AAF1A",
             custom: nil,
             buyer: Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather"),
@@ -89,7 +89,7 @@ final class TransactionInfoTests: XCTestCase {
             sellerID: "3DE7148F-360E-4F22-9DE2-8507E24DB60B",
             created: self.now,
             status: .pending,
-            gross: Money(currency: .usd, value: "89.45"),
+            gross: CurrencyCodeAmount(currency: .usd, value: 89.45),
             invoice: "C80ED435-DBB2-456B-A1EF-2750A32AAF1A",
             custom: nil,
             buyer: Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather"),

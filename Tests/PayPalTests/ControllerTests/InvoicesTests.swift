@@ -57,8 +57,8 @@ final class InvoicesTests: XCTestCase {
                         line1: "314 New Berry ln.",
                         line2: nil,
                         city: "Chancer",
-                        state: "KY",
-                        countryCode: "US",
+                        state: .ky,
+                        country: .unitedStates,
                         postalCode: "489156",
                         phone: nil,
                         type: nil
@@ -75,9 +75,9 @@ final class InvoicesTests: XCTestCase {
             reference: "PO number",
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: "Dough", amount: Amount(currency: .usd, value: "10.00")),
+            custom: CustomAmount(label: "Dough", amount: CurrencyAmount(currency: .usd, value: 10.00)),
             allowPartialPayment: false,
-            minimumDue: Amount(currency: .usd, value: "1.00"),
+            minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,
@@ -129,9 +129,9 @@ final class InvoicesTests: XCTestCase {
             reference: "PO number",
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")),
+            custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
             allowPartialPayment: false,
-            minimumDue: Amount(currency: .usd, value: "1.00"),
+            minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,
@@ -218,7 +218,7 @@ final class InvoicesTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
         }
         
-        let payment = try Invoice.Payment(method: .cash, amount: Amount(currency: .usd, value: "10.00"), date: now, note: "I got the payment by cash!")
+        let payment = Invoice.Payment(method: .cash, amount: CurrencyAmount(currency: .usd, value: 10.00), date: now, note: "I got the payment by cash!")
         let status = try invoices.pay(invoice: id, payment: payment).wait()
         
         XCTAssertEqual(status, .ok)
@@ -231,7 +231,7 @@ final class InvoicesTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
         }
         
-        let payment = try Invoice.Payment(amount: Amount(currency: .usd, value: "10.00"), date: now, note: "I refunded the payment of cash")
+        let payment = Invoice.Payment(amount: CurrencyAmount(currency: .usd, value: 10.00), date: now, note: "I refunded the payment of cash")
         let status = try invoices.refund(invoice: id, payment: payment).wait()
         
         XCTAssertEqual(status, .ok)
@@ -291,7 +291,7 @@ final class InvoicesTests: XCTestCase {
         let empty = try invoices.search(with: emptyCriteria).wait()
         
         XCTAssertEqual(list.invoices?.count, 1)
-        XCTAssertGreaterThanOrEqual(list.invoices?.first?.total?.value ?? "0.00", "9.00")
+        XCTAssertGreaterThanOrEqual(list.invoices?.first?.total?.value ?? 0.00, 9.00)
         
         XCTAssertEqual(empty.invoices?.count, 0)
     }

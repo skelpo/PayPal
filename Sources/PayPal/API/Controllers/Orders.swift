@@ -15,10 +15,14 @@ public final class Orders: PayPalController {
     /// See `PayPalController.resource` for more information.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "checkout/orders"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     /// Creates an order.
@@ -33,18 +37,17 @@ public final class Orders: PayPalController {
     /// - Returns: The new order created by PayPal, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func create(order: Order, partnerID id: String?) -> Future<Order> {
-        return Future.flatMap(on: self.container) { () -> Future<Order> in
-            let client = try self.container.make(PayPalClient.self)
-            let headers: HTTPHeaders = id == nil ? [:] : ["PayPal-Partner-Attribution-Id": id!]
+        return self.client { client in
+            let headers: HTTPHeaders = id == nil ? [:] : [HTTPHeaderName.paypalAttribution.description: id!]
             
             if order.units == nil || order.redirects == nil {
                 var order = order
                 if order.units == nil { order.units = [] }
                 if order.redirects == nil { order.redirects = Redirects(return: nil, cancel: nil) }
                 
-                return try client.post(self.path(), headers: headers, body: order, as: Order.self)
+                return client.post(self.path, headers: headers, body: order, as: Order.self)
             } else {
-                return try client.post(self.path(), headers: headers, body: order, as: Order.self)
+                return client.post(self.path, headers: headers, body: order, as: Order.self)
             }
         }
     }
@@ -60,9 +63,8 @@ public final class Orders: PayPalController {
     /// - Returns: An HTTP status, which will be `204 No Content`, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func cancel(order id: String) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.delete(self.path() + id, as: HTTPStatus.self)
+        return self.client { client in
+            return client.delete(self.path + id, as: HTTPStatus.self)
         }
     }
     
@@ -76,9 +78,8 @@ public final class Orders: PayPalController {
     /// - Returns: The order for the ID passed in, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func details(for orderID: String) -> Future<Order> {
-        return Future.flatMap(on: self.container) { () -> Future<Order> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + orderID, as: Order.self)
+        return self.client { client in
+            return client.get(self.path + orderID, as: Order.self)
         }
     }
     
@@ -101,18 +102,17 @@ public final class Orders: PayPalController {
     /// - Returns: The order the payment is made for, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func pay(order id: String, with body: Order.PaymentRequest, partner partnerID: String? = nil, request requestID: String? = nil) -> Future<Order> {
-        return Future.flatMap(on: self.container) { () -> Future<Order> in
-            let client = try self.container.make(PayPalClient.self)
+        return self.client { client in
             var headers: HTTPHeaders = [:]
             
             if let partner = partnerID {
-                headers.add(name: "PayPal-Partner-Attribution-Id", value: partner)
+                headers.add(name: .paypalAttribution, value: partner)
             }
             if let request = requestID {
-                headers.add(name: "PayPal-Request-Id", value: request)
+                headers.add(name: .paypalRequest, value: request)
             }
             
-            return try client.post(self.path() + id + "/pay", headers: headers, body: body, as: Order.self)
+            return client.post(self.path + id + "/pay", headers: headers, body: body, as: Order.self)
         }
     }
 }

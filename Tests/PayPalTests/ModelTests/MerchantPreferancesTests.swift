@@ -4,7 +4,7 @@ import XCTest
 final class MerchantPreferancesTests: XCTestCase {
     func testInit()throws {
         let preferances = try MerchantPreferances(
-            setupFee: Money(currency: .usd, value: "0"),
+            setupFee: CurrencyCodeAmount(currency: .usd, value: 0),
             cancelURL: "https://example.com/agreements",
             returnURL: "https://example.com/agreements/latest",
             autoBill: .yes,
@@ -13,7 +13,7 @@ final class MerchantPreferancesTests: XCTestCase {
             charSet: "UTF-8"
         )
         
-        try XCTAssertEqual(preferances.setupFee, Money(currency: .usd, value: "0"))
+        XCTAssertEqual(preferances.setupFee, CurrencyCodeAmount(currency: .usd, value: 0))
         XCTAssertEqual(preferances.id, nil)
         XCTAssertEqual(preferances.cancelURL, "https://example.com/agreements")
         XCTAssertEqual(preferances.returnURL, "https://example.com/agreements/latest")
@@ -27,7 +27,7 @@ final class MerchantPreferancesTests: XCTestCase {
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let preferances = try MerchantPreferances(
-            setupFee: Money(currency: .usd, value: "0"),
+            setupFee: CurrencyCodeAmount(currency: .usd, value: 0),
             cancelURL: "https://example.com/agreements",
             returnURL: "https://example.com/agreements/latest",
             autoBill: .yes,
@@ -70,7 +70,7 @@ final class MerchantPreferancesTests: XCTestCase {
         }
         """.data(using: .utf8)!
         let preferances = try MerchantPreferances(
-            setupFee: Money(currency: .usd, value: "0"),
+            setupFee: CurrencyCodeAmount(currency: .usd, value: 0),
             cancelURL: "https://example.com/agreements",
             returnURL: "https://example.com/agreements/latest",
             autoBill: .yes,

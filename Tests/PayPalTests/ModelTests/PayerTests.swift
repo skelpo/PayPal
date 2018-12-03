@@ -27,8 +27,8 @@ final class PayerTests: XCTestCase {
                     line1: "89 Furnace Dr.",
                     line2: nil,
                     city: "Nowhere",
-                    state: "KS",
-                    countryCode: "US",
+                    state: .ks,
+                    country: .unitedStates,
                     postalCode: "66167",
                     phone: nil,
                     type: nil
@@ -53,7 +53,7 @@ final class PayerTests: XCTestCase {
                 customerID: "5FC894A2-FDA7-416D-818F-C0678C57371F"
             )
         )
-        try XCTAssertEqual(
+        XCTAssertEqual(
             payer.info,
             PayerInfo(
                 email: "payer@exmaple.com",
@@ -64,8 +64,8 @@ final class PayerTests: XCTestCase {
                     line1: "89 Furnace Dr.",
                     line2: nil,
                     city: "Nowhere",
-                    state: "KS",
-                    countryCode: "US",
+                    state: .ks,
+                    country: .unitedStates,
                     postalCode: "66167",
                     phone: nil,
                     type: nil
@@ -100,8 +100,8 @@ final class PayerTests: XCTestCase {
                     line1: "89 Furnace Dr.",
                     line2: nil,
                     city: "Nowhere",
-                    state: "KS",
-                    countryCode: "US",
+                    state: .ks,
+                    country: .unitedStates,
                     postalCode: "66167",
                     phone: nil,
                     type: nil
@@ -152,8 +152,8 @@ final class PayerTests: XCTestCase {
                     line1: "89 Furnace Dr.",
                     line2: nil,
                     city: "Nowhere",
-                    state: "KS",
-                    countryCode: "US",
+                    state: .ks,
+                    country: .unitedStates,
                     postalCode: "66167",
                     phone: nil,
                     type: nil

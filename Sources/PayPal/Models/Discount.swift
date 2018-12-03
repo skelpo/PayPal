@@ -1,7 +1,7 @@
 import Vapor
 
 /// A discount on an item in a transaction.
-public struct Discount<M>: Content, Equatable where M: Monitary {
+public struct Discount<M>: Content, Equatable where M: Amount {
     
     /// The discount as a percentage value. Value is from `0` to `100`. Supports up to five decimal places.
     public var percent: Decimal?

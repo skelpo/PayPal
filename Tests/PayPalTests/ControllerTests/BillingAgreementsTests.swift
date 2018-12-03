@@ -115,7 +115,7 @@ final class BillingAgreementsTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Cannot get agreement ID to get")
         }
         
-        let status = try agreements.setBalance(for: id, amount: .init(currency: .usd, value: "1000")).wait()
+        let status = try agreements.setBalance(for: id, amount: .init(currency: .usd, value: 1000)).wait()
         
         XCTAssertEqual(status, .noContent)
     }

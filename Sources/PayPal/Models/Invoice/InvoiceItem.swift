@@ -31,7 +31,7 @@ extension Invoice {
         ///
         /// This property can be set using the `Item.set(_:)` method. This
         /// method will validate the new value before assigning it to the property.
-        public private(set) var unitPrice: Amount
+        public private(set) var unitPrice: CurrencyAmount
         
         /// The tax information.
         public var tax: Tax?
@@ -41,7 +41,7 @@ extension Invoice {
         public var date: String?
         
         /// The item discount, as a percent or an amount value.
-        public var discount: Discount<Amount>?
+        public var discount: Discount<CurrencyAmount>?
         
         /// The unit of measure for the invoiced item. For `AMOUNT` the `unit_price` and `quantity` are not shown on the invoice.
         ///
@@ -65,10 +65,10 @@ extension Invoice {
             name: String,
             description: String?,
             quantity: Decimal,
-            unitPrice: Amount,
+            unitPrice: CurrencyAmount,
             tax: Tax?,
             date: String?,
-            discount: Discount<Amount>?,
+            discount: Discount<CurrencyAmount>?,
             unitMeasure: Measure?
         )throws {
             self.name = name
@@ -92,7 +92,7 @@ extension Invoice {
             let name = try container.decode(String.self, forKey: .name)
             let description = try container.decodeIfPresent(String.self, forKey: .description)
             let quantity = try container.decode(Decimal.self, forKey: .quantity)
-            let unitPrice = try container.decode(Amount.self, forKey: .unitPrice)
+            let unitPrice = try container.decode(CurrencyAmount.self, forKey: .unitPrice)
             
             self.name = name
             self.description = description
@@ -100,7 +100,7 @@ extension Invoice {
             self.unitPrice = unitPrice
             self.tax = try container.decodeIfPresent(Tax.self, forKey: .tax)
             self.date = try container.decodeIfPresent(String.self, forKey: .date)
-            self.discount = try container.decodeIfPresent(Discount<Amount>.self, forKey: .discount)
+            self.discount = try container.decodeIfPresent(Discount<CurrencyAmount>.self, forKey: .discount)
             self.unitMeasure = try container.decodeIfPresent(Measure.self, forKey: .unitPrice)
             
             try self.set(\.name <~ name)
@@ -130,8 +130,7 @@ extension Invoice {
                 }
             }
             validations.set(\.unitPrice) { unitPrice in
-                guard let price = Int(unitPrice.value) else { return }
-                guard price >= -1_000_000 && price <= 1_000_000 else {
+                guard unitPrice.value >= -1_000_000 && unitPrice.value <= 1_000_000 else {
                     throw PayPalError(
                         status: .badRequest,
                         identifier: "invalidLength",

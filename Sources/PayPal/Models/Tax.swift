@@ -20,13 +20,13 @@ public struct Tax: Content, ValidationSetable, Equatable {
     public private(set) var percent: Decimal
     
     /// The currency and amount of the calculated tax.
-    public let amount: Amount?
+    public let amount: CurrencyAmount?
     
     
     /// Creates a new `Tax` instance.
     ///
     ///     Tax(name: "Sales", percent: 10, amount: Amount(currency: .usd, value: "0.59"))
-    public init(name: String, percent: Decimal, amount: Amount?)throws {
+    public init(name: String, percent: Decimal, amount: CurrencyAmount?)throws {
         self.name = name
         self.percent = percent
         self.amount = amount
@@ -43,7 +43,7 @@ public struct Tax: Content, ValidationSetable, Equatable {
         
         self.name = name
         self.percent = percent
-        self.amount = try container.decodeIfPresent(Amount.self, forKey: .amount)
+        self.amount = try container.decodeIfPresent(CurrencyAmount.self, forKey: .amount)
         
         try self.set(\.name <~ name)
         try self.set(\.percent <~ percent)

@@ -51,7 +51,7 @@ public struct CustomerDispute: Content, ValidationSetable, Equatable {
     
     /// The amount in the transaction that the customer originally disputed. Because customers can sometimes dispute
     /// only part of the payment, the disputed amount might be different from the total gross or net amount of the original transaction.
-    public var amount: Money?
+    public var amount: CurrencyCodeAmount?
     
     /// An array of messages that the customer or merchant posted.
     public var messages: [Message]?
@@ -86,7 +86,7 @@ public struct CustomerDispute: Content, ValidationSetable, Equatable {
     ///         messages: nil,
     ///         responseDue: Date(timeIntervalSinceNow: 60 * 60 * 24).iso8601
     ///     )
-    public init(transactions: [TransactionInfo]?, reason: Item.Reason?, amount: Money?, messages: [Message]?, responseDue: String?)throws {
+    public init(transactions: [TransactionInfo]?, reason: Item.Reason?, amount: CurrencyCodeAmount?, messages: [Message]?, responseDue: String?)throws {
         self.id = nil
         self.created = nil
         self.updated = nil
@@ -123,7 +123,7 @@ public struct CustomerDispute: Content, ValidationSetable, Equatable {
         
         self.transactions = try container.decodeIfPresent([TransactionInfo].self, forKey: .transactions)
         self.reason = try container.decodeIfPresent(Item.Reason.self, forKey: .reason)
-        self.amount = try container.decodeIfPresent(Money.self, forKey: .amount)
+        self.amount = try container.decodeIfPresent(CurrencyCodeAmount.self, forKey: .amount)
         self.messages = try container.decodeIfPresent([Message].self, forKey: .messages)
         self.responseDue = try container.decodeIfPresent(String.self, forKey: .responseDue)
         

@@ -39,7 +39,7 @@ public struct BillingPlan: Content, ValidationSetable, Equatable {
     public let updated: Date?
     
     /// An array of payment definitions for this plan.
-    public var paymentDefinitions: [BillingPayment<Amount>]?
+    public var paymentDefinitions: [BillingPayment<CurrencyAmount>]?
     
     /// An array of terms for this plan.
     public let terms: [Term]?
@@ -50,7 +50,7 @@ public struct BillingPlan: Content, ValidationSetable, Equatable {
     /// customer can approve or cancel the agreement, the maximum number of allowed failed payment attempts,
     /// whether PayPal automatically bills the outstanding balance in the next billing cycle,
     /// and the action if the customer's initial payment fails.
-    public var preferances: MerchantPreferances<Amount>?
+    public var preferances: MerchantPreferances<CurrencyAmount>?
     
     /// The currency code for the plan.
     public let currency: Currency?
@@ -79,7 +79,7 @@ public struct BillingPlan: Content, ValidationSetable, Equatable {
     ///         preferances: nil
     ///     )
     public init(
-        name: String, description: String, type: BillingPlan.PlanType, payments: [BillingPayment<Amount>]?, preferances: MerchantPreferances<Amount>?
+        name: String, description: String, type: BillingPlan.PlanType, payments: [BillingPayment<CurrencyAmount>]?, preferances: MerchantPreferances<CurrencyAmount>?
     )throws {
         self.id = nil
         self.state = nil
@@ -119,7 +119,7 @@ public struct BillingPlan: Content, ValidationSetable, Equatable {
         self.updated = try container.decodeIfPresent(Date.self, forKey: .updated)
         self.paymentDefinitions = try container.decodeIfPresent([BillingPayment].self, forKey: .paymentDefinitions)
         self.terms = try container.decodeIfPresent([Term].self, forKey: .terms)
-        self.preferances = try container.decodeIfPresent(MerchantPreferances<Amount>.self, forKey: .preferances)
+        self.preferances = try container.decodeIfPresent(MerchantPreferances<CurrencyAmount>.self, forKey: .preferances)
         self.currency = try container.decodeIfPresent(Currency.self, forKey: .currency)
         self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
         

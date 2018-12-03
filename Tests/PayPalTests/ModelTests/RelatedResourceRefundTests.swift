@@ -4,7 +4,7 @@ import XCTest
 final class RelatedResourceRefundTests: XCTestCase {
     func testInit()throws {
         let refund = try RelatedResource.Refund(
-            amount: DetailedAmount(currency: .usd, total: "67.23", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
             reason: "Reasonable",
             invoice: "3086FF5B-13F2-4B6A-AB02-AD1C347B163C",
             description: "Descript"
@@ -22,7 +22,7 @@ final class RelatedResourceRefundTests: XCTestCase {
         XCTAssertEqual(refund.reason, "Reasonable")
         XCTAssertEqual(refund.invoice, "3086FF5B-13F2-4B6A-AB02-AD1C347B163C")
         XCTAssertEqual(refund.description, "Descript")
-        try XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: "67.23", details: nil))
+        XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: 67.23, details: nil))
     }
     
     func testValidations()throws {
@@ -33,7 +33,7 @@ final class RelatedResourceRefundTests: XCTestCase {
             description: nil
         ))
         var refund = try RelatedResource.Refund(
-            amount: DetailedAmount(currency: .usd, total: "67.23", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
             reason: "Reasonable",
             invoice: "3086FF5B-13F2-4B6A-AB02-AD1C347B163C",
             description: "Descript"
@@ -48,7 +48,7 @@ final class RelatedResourceRefundTests: XCTestCase {
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let refund = try RelatedResource.Refund(
-            amount: DetailedAmount(currency: .usd, total: "67.23", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
             reason: "Reasonable",
             invoice: "3086FF5B-13F2-4B6A-AB02-AD1C347B163C",
             description: "Descript"
@@ -111,7 +111,7 @@ final class RelatedResourceRefundTests: XCTestCase {
         XCTAssertEqual(refund.created, created.iso8601)
         XCTAssertEqual(refund.updated, updated.iso8601)
         XCTAssertEqual(refund.links, [])
-        try XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: "67.23", details: nil))
+        XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: 67.23, details: nil))
         
     }
     

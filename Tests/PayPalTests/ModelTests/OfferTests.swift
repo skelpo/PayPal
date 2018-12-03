@@ -3,16 +3,16 @@ import XCTest
 
 final class OfferTests: XCTestCase {
     func testInit()throws {
-        let offer = try Offer(buyerAmount: Money(currency: .usd, value: "10.99"), sellerAmount: Money(currency: .usd, value: "10.99"), type: .refund)
+        let offer = Offer(buyerAmount: CurrencyCodeAmount(currency: .usd, value: 10.99), sellerAmount: CurrencyCodeAmount(currency: .usd, value: 10.99), type: .refund)
         
         XCTAssertEqual(offer.type, .refund)
-        try XCTAssertEqual(offer.sellerAmount, Money(currency: .usd, value: "10.99"))
-        try XCTAssertEqual(offer.buyerAmount, Money(currency: .usd, value: "10.99"))
+        XCTAssertEqual(offer.sellerAmount, CurrencyCodeAmount(currency: .usd, value: 10.99))
+        XCTAssertEqual(offer.buyerAmount, CurrencyCodeAmount(currency: .usd, value: 10.99))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let offer = try Offer(buyerAmount: Money(currency: .usd, value: "10.99"), sellerAmount: Money(currency: .usd, value: "10.99"), type: .refund)
+        let offer = Offer(buyerAmount: CurrencyCodeAmount(currency: .usd, value: 10.99), sellerAmount: CurrencyCodeAmount(currency: .usd, value: 10.99), type: .refund)
         let generated = try String(data: encoder.encode(offer), encoding: .utf8)
         let json =
             "{\"offer_type\":\"REFUND\",\"buyer_requested_amount\":{\"value\":\"10.99\",\"currency_code\":\"USD\"}," +
@@ -36,7 +36,7 @@ final class OfferTests: XCTestCase {
             }
         }
         """.data(using: .utf8)!
-        let offer = try Offer(buyerAmount: Money(currency: .usd, value: "10.99"), sellerAmount: Money(currency: .usd, value: "10.99"), type: .refund)
+        let offer = Offer(buyerAmount: CurrencyCodeAmount(currency: .usd, value: 10.99), sellerAmount: CurrencyCodeAmount(currency: .usd, value: 10.99), type: .refund)
         
         try XCTAssertEqual(decoder.decode(Offer.self, from: json), offer)
     }

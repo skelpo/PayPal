@@ -21,10 +21,14 @@ public final class BillingAgreements: PayPalController {
     /// See `PayPalController.resource` for more information.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "payments//billing-agreements"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     /// Creates a billing agreement.
@@ -39,9 +43,8 @@ public final class BillingAgreements: PayPalController {
     /// - Returns: The billing agreement that was created, wrapped in a future. If an error occured
     ///   while creating the agreement, that is wrapped in the future instead.
     public func create(with agreement: NewAgreement) -> Future<BillingAgreement> {
-        return Future.flatMap(on: container) { () -> Future<BillingAgreement> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path(), body: agreement, as: BillingAgreement.self)
+        return self.client { client in
+            return client.post(self.path, body: agreement, as: BillingAgreement.self)
         }
     }
     
@@ -56,9 +59,8 @@ public final class BillingAgreements: PayPalController {
     /// - Returns: The HTTP status code of the response, which will be 200. If an error was returned in the
     ///   response, it will get conveted to a Swift error and be returned in the future instead.
     public func update(agreement id: String, with patches: [Patch]) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.patch(self.path() + id, body: ["patch_request": patches], as: HTTPStatus.self)
+        return self.client { client in
+            return client.patch(self.path + id, body: ["patch_request": patches], as: HTTPStatus.self)
         }
     }
     
@@ -73,9 +75,8 @@ public final class BillingAgreements: PayPalController {
     ///   If an error is returned in the response, it is converted to a Swift error
     ///   and is tha value that the future wraps instead.
     public func get(agreement id: String) -> Future<BillingAgreement> {
-        return Future.flatMap(on: self.container) { () -> Future<BillingAgreement> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + id, as: BillingAgreement.self)
+        return self.client { client in
+            return client.get(self.path + id, as: BillingAgreement.self)
         }
     }
     
@@ -91,13 +92,11 @@ public final class BillingAgreements: PayPalController {
     /// - Returns: The HTTP status code of the response, which will be 204. If an error was returned in the
     ///   response, it will get conveted to a Swift error and be returned in the future instead.
     public func billBalance(for agreementID: String, reason: String?) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+        return self.client { client in
             guard reason?.count ?? 0 <= 128 else {
                 throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note` property must have a length of 128 or less")
             }
-            
-            let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + agreementID + "/bill-balance", body: ["note": reason], as: HTTPStatus.self)
+            return client.post(self.path + agreementID + "/bill-balance", body: ["note": reason], as: HTTPStatus.self)
         }
     }
     
@@ -113,13 +112,11 @@ public final class BillingAgreements: PayPalController {
     /// - Returns: The HTTP status code of the response, which will be 204. If an error was returned in the
     ///   response, it will get conveted to a Swift error and be returned in the future instead.
     public func cancel(agreement id: String, reason: String?) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+        return self.client { client in
             guard reason?.count ?? 0 <= 128 else {
                 throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note` property must have a length of 128 or less")
             }
-            
-            let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/cancel", body: ["note": reason], as: HTTPStatus.self)
+            return client.post(self.path + id + "/cancel", body: ["note": reason], as: HTTPStatus.self)
         }
     }
     
@@ -135,13 +132,12 @@ public final class BillingAgreements: PayPalController {
     /// - Returns: The HTTP status code of the API response, which will be `204`. If an error was returned in the
     ///   response, it will get conveted to a Swift error and be returned in the future instead.
     public func reactivate(agreement id: String, reason: String?) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+        return self.client { client in
             guard reason?.count ?? 0 <= 128 else {
                 throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note` property must have a length of 128 or less")
             }
             
-            let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/re-activate", body: ["note": reason], as: HTTPStatus.self)
+            return client.post(self.path + id + "/re-activate", body: ["note": reason], as: HTTPStatus.self)
         }
     }
     
@@ -155,10 +151,9 @@ public final class BillingAgreements: PayPalController {
     ///
     /// - Returns: The HTTP status code of the API response, which will be `204`. If an error was returned in the
     ///   response, it will get conveted to a Swift error and be returned in the future instead.
-    public func setBalance(for agreementID: String, amount: Money) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + agreementID + "/set-balance", body: amount, as: HTTPStatus.self)
+    public func setBalance(for agreementID: String, amount: CurrencyCodeAmount) -> Future<HTTPStatus> {
+        return self.client { client in
+            return client.post(self.path + agreementID + "/set-balance", body: amount, as: HTTPStatus.self)
         }
     }
     
@@ -173,13 +168,11 @@ public final class BillingAgreements: PayPalController {
     /// - Returns: The HTTP status code of the API response, which will be `204`. If an error was returned in the
     ///   response, it will get conveted to a Swift error and be returned in the future instead.
     public func suspend(agreement id: String, reason: String?) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
+        return self.client { client in
             guard reason?.count ?? 0 <= 128 else {
                 throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note` property must have a length of 128 or less")
             }
-            
-            let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/suspend", body: ["note": reason], as: HTTPStatus.self)
+            return client.post(self.path + id + "/suspend", body: ["note": reason], as: HTTPStatus.self)
         }
     }
     
@@ -196,9 +189,8 @@ public final class BillingAgreements: PayPalController {
     /// - Returns: An array of transactions for the billing agreement within the time periods set in the query paramaters.
     ///   If an error was found in the response, it is converted to a Swift error and that is what the future wraps instead.
     public func transactions(for agreementID: String, parameters: QueryParamaters = QueryParamaters()) -> Future<[Transaction]> {
-        return Future.flatMap(on: self.container) { () -> Future<[Transaction]> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + agreementID + "/transactions", parameters: parameters, as: [Transaction].self)
+        return self.client { client in
+            return client.get(self.path + agreementID + "/transactions", parameters: parameters, as: [Transaction].self)
         }
     }
     
@@ -211,9 +203,8 @@ public final class BillingAgreements: PayPalController {
     /// - Returns: The billing agreement object that was executed wrapped in a future.
     ///   If an error was found in the response, it is converted to a Swift error and that is what the future wraps instead.
     public func execute(agreement id: String) -> Future<BillingAgreement> {
-        return Future.flatMap(on: self.container) { () -> Future<BillingAgreement> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path() + id + "/agreement-execute", as: BillingAgreement.self)
+        return self.client { client in
+            return client.post(self.path + id + "/agreement-execute", as: BillingAgreement.self)
         }
     }
 }

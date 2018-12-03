@@ -2,10 +2,6 @@ import XCTest
 @testable import PayPal
 
 final class VenueTests: XCTestCase {
-    struct User: Codable {
-        let role: Role
-    }
-    
     struct Prod: Codable {
         let venue: Venue
     }

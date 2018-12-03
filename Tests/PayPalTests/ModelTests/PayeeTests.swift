@@ -3,7 +3,11 @@ import XCTest
 
 final class PayeeTests: XCTestCase {
     func testInit()throws {
-        let metadata = try Payee.Metadata(email: "payee@example.com", phone: DisplayPhone(country: "US", number: "423981155636432"), brand: "Example Inc.")
+        let metadata = try Payee.Metadata(
+            email: "payee@example.com",
+            phone: DisplayPhone(country: .unitedStates, number: "423981155636432"),
+            brand: "Example Inc."
+        )
         let payee = Payee(email: "payee@example.com", merchant: "4B4E8CB5-A0A3-47C0-B53E-6CF99BAA59EE", metadata: metadata)
         
         XCTAssertEqual(payee.email, "payee@example.com")
@@ -13,7 +17,11 @@ final class PayeeTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let metadata = try Payee.Metadata(email: "payee@example.com", phone: DisplayPhone(country: "US", number: "423981155636432"), brand: "Example Inc.")
+        let metadata = try Payee.Metadata(
+            email: "payee@example.com",
+            phone: DisplayPhone(country: .unitedStates, number: "423981155636432"),
+            brand: "Example Inc."
+        )
         let generated = try String(data: encoder.encode(metadata), encoding: .utf8)!
         let json = "{\"email\":\"payee@example.com\",\"brand_name\":\"Example Inc.\",\"display_phone\":{\"country_code\":\"US\",\"number\":\"423981155636432\"}}"
         
@@ -39,7 +47,11 @@ final class PayeeTests: XCTestCase {
             "email": "payee@example.com"
         }
         """.data(using: .utf8)!
-        let metadata = try Payee.Metadata(email: "payee@example.com", phone: DisplayPhone(country: "US", number: "423981155636432"), brand: "Example Inc.")
+        let metadata = try Payee.Metadata(
+            email: "payee@example.com",
+            phone: DisplayPhone(country: .unitedStates, number: "423981155636432"),
+            brand: "Example Inc."
+        )
         
         try XCTAssertEqual(metadata, decoder.decode(Payee.Metadata.self, from: json))
     }

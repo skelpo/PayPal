@@ -28,7 +28,7 @@ public struct AcceptDisputeBody: Content, ValidationSetable, Equatable {
     /// The subsequent action depends on the amount:
     /// - If this amount is less than the customer-requested amount, the dispute updates to require customer acceptance.
     /// - If this amount is equal to or greater than the customer-requested amount, this amount is automatically refunded to the customer and the dispute closes.
-    public var refund: Money?
+    public var refund: CurrencyCodeAmount?
     
     
     /// Creates a new `AcceptDisputeBody` instance.
@@ -40,7 +40,7 @@ public struct AcceptDisputeBody: Content, ValidationSetable, Equatable {
     ///         returnAddress: nil,
     ///         refund: Money(currency: .usd, value: "55.50")
     ///     )
-    public init(note: String?, reason: Reason?, invoiceID: String?, returnAddress: Address?, refund: Money?)throws {
+    public init(note: String?, reason: Reason?, invoiceID: String?, returnAddress: Address?, refund: CurrencyCodeAmount?)throws {
         self.note = note
         self.reason = reason
         self.invoiceID = invoiceID
@@ -59,7 +59,7 @@ public struct AcceptDisputeBody: Content, ValidationSetable, Equatable {
         self.reason = try container.decodeIfPresent(Reason.self, forKey: .reason)
         self.invoiceID = try container.decodeIfPresent(String.self, forKey: .invoiceID)
         self.returnAddress = try container.decodeIfPresent(Address.self, forKey: .returnAddress)
-        self.refund = try container.decodeIfPresent(Money.self, forKey: .refund)
+        self.refund = try container.decodeIfPresent(CurrencyCodeAmount.self, forKey: .refund)
         
         try self.set(\.note <~ note)
     }

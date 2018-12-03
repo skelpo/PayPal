@@ -26,9 +26,9 @@ final class TemplateDataTests: XCTestCase {
             reference: "PO number",
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")),
+            custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
             allowPartialPayment: false,
-            minimumDue: Amount(currency: .usd, value: "1.00"),
+            minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,
@@ -56,7 +56,7 @@ final class TemplateDataTests: XCTestCase {
         XCTAssertEqual(data.logo, "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png")
         XCTAssertEqual(data.attachments, [FileAttachment(name: "photo.jpg", url: "https://avatars3.githubusercontent.com/u/2872298?s=200&v=4")])
         
-        try XCTAssertEqual(data.custom, CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")))
+        XCTAssertEqual(data.custom, CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)))
         try XCTAssertEqual(data.cc, [.init(email: "collective@vapor.codes"), .init(email: "donator@example.com")])
         try XCTAssertEqual(data.merchant, MerchantInfo(
             email: "hello@vapor.codes",
@@ -148,9 +148,9 @@ final class TemplateDataTests: XCTestCase {
             reference: "PO number",
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")),
+            custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
             allowPartialPayment: false,
-            minimumDue: Amount(currency: .usd, value: "1.00"),
+            minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,
@@ -306,9 +306,9 @@ final class TemplateDataTests: XCTestCase {
             reference: "PO number",
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")),
+            custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
             allowPartialPayment: false,
-            minimumDue: Amount(currency: .usd, value: "1.00"),
+            minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,

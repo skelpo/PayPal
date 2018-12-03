@@ -3,7 +3,7 @@ import XCTest
 
 final class TemplateListTests: XCTestCase {
     func testInit()throws {
-        let list = TemplateList(addresses: [], emails: [], phones: [], templates: [])
+        let list = Template.List(addresses: [], emails: [], phones: [], templates: [])
         
         XCTAssertNil(list.links)
         XCTAssertEqual(list.addresses, [])
@@ -14,9 +14,9 @@ final class TemplateListTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let list = TemplateList(addresses: [], emails: [], phones: [], templates: [])
+        let list = Template.List(addresses: [], emails: [], phones: [], templates: [])
         let generated = try String(data: encoder.encode(list), encoding: .utf8)!
-        let json = "{\"templates\":[],\"phones\":[],\"emails\":[],\"addresses\":[]}"
+        let json = "{\"templates\":[],\"addresses\":[],\"emails\":[],\"phones\":[]}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -38,9 +38,9 @@ final class TemplateListTests: XCTestCase {
             "templates": []
         }
         """.data(using: .utf8)!
-        let list = TemplateList(addresses: [], emails: [], phones: [], templates: [])
+        let list = Template.List(addresses: [], emails: [], phones: [], templates: [])
         
-        try XCTAssertEqual(list, decoder.decode(TemplateList.self, from: json))
+        try XCTAssertEqual(list, decoder.decode(Template.List.self, from: json))
     }
     
     static var allTests: [(String, (TemplateListTests) -> ()throws -> ())] = [

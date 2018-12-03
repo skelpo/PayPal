@@ -45,10 +45,7 @@ extension Order.Payer {
         public var taxType: TaxType?
         
         /// The payer's [two-character IS0-3166-1 country code](https://developer.paypal.com/docs/integration/direct/rest/country-codes/).
-        ///
-        /// This property can be set using the `Inof.set(_:)` method.
-        /// This method validates the new value before assigning it to the property.
-        public private(set) var country: String?
+        public var country: Country?
         
         /// The payer's billing address.
         public var billing: Address?
@@ -68,7 +65,7 @@ extension Order.Payer {
             birthdate: String?,
             tax: String?,
             taxType: TaxType?,
-            country: String?,
+            country: Country?,
             billing: Address?
         )throws {
             self.salutation = nil
@@ -87,7 +84,6 @@ extension Order.Payer {
             
             try self.set(\.email <~ email)
             try self.set(\.tax <~ tax)
-            try self.set(\.country <~ country)
         }
         
         /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
@@ -104,12 +100,11 @@ extension Order.Payer {
             self.birthdate = try container.decodeIfPresent(String.self, forKey: .birthdate)
             self.tax = try container.decodeIfPresent(String.self, forKey: .tax)
             self.taxType = try container.decodeIfPresent(TaxType.self, forKey: .taxType)
-            self.country = try container.decodeIfPresent(String.self, forKey: .country)
+            self.country = try container.decodeIfPresent(Country.self, forKey: .country)
             self.billing = try container.decodeIfPresent(Address.self, forKey: .billing)
             
             try self.set(\.email <~ email)
             try self.set(\.tax <~ tax)
-            try self.set(\.country <~ country)
         }
         
         /// See `ValidationSetable.setterValidations()`.
@@ -124,12 +119,6 @@ extension Order.Payer {
             validations.set(\.tax) { tax in
                 guard tax?.count ?? 0 <= 14 else {
                     throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`tax_id` value must have a length of 14 or less")
-                }
-            }
-            validations.set(\.country) { country in
-                guard let country = country else { return }
-                guard country.range(of: "^([A-Z]{2}|C2)$", options: .regularExpression) != nil else {
-                    throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`country` value must match RegEx pattern `^([A-Z]{2}|C2)$`")
                 }
             }
             

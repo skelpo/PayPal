@@ -4,10 +4,10 @@ import Vapor
 public struct Offer: Content, Equatable {
     
     /// The customer-requested refund for this dispute.
-    public var buyerAmount: Money?
+    public var buyerAmount: CurrencyCodeAmount?
     
     /// The merchant-offered refund for this dispute.
-    public var sellerAmount: Money?
+    public var sellerAmount: CurrencyCodeAmount?
     
     /// The merchant-proposed offer type for the dispute.
     public var type: OfferType?
@@ -15,7 +15,7 @@ public struct Offer: Content, Equatable {
     /// Creates a new `Offer` instance,
     ///
     ///     Offer(buyerAmount: Money(currency: .usd, value: "10.99"), sellerAmount: Money(currency: .usd, value: "10.99"), type: .refund)
-    public init(buyerAmount: Money?, sellerAmount: Money?, type: OfferType?) {
+    public init(buyerAmount: CurrencyCodeAmount?, sellerAmount: CurrencyCodeAmount?, type: OfferType?) {
         self.buyerAmount = buyerAmount
         self.sellerAmount = sellerAmount
         self.type = type

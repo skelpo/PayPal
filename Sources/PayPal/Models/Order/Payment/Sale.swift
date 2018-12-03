@@ -29,7 +29,7 @@ public struct Sale: Content, Equatable {
     /// - Seven digits before the decimal point.
     /// - The decimal point.
     /// - Two digits after the decimal point.
-    public var transaction: Amount?
+    public var transaction: CurrencyAmount?
     
     
     /// Creates a new `Sale` instance.
@@ -37,7 +37,7 @@ public struct Sale: Content, Equatable {
     /// - Parameters:
     ///   - amount: The amount to collect.
     ///   - transaction: The currency and amount of the transaction fee.
-    public init(amount: DetailedAmount?, transaction: Amount?) {
+    public init(amount: DetailedAmount?, transaction: CurrencyAmount?) {
         self.id = nil
         self.status = nil
         self.created = nil

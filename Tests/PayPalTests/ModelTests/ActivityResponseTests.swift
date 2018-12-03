@@ -2,8 +2,8 @@ import XCTest
 @testable import PayPal
 
 @available(OSX 10.12, *)
-final class ActivitiesResponseTests: XCTestCase {
-    let response = ActivitiesResponse(items: [
+final class ActivityResponseTests: XCTestCase {
+    let response = Activity.Response(items: [
             Activity(
                 id: "94C67654-A41B-4421-B0D0-81E6CD587CDB",
                 timeCreated: "2018-07-12T14:14:56Z",
@@ -16,14 +16,8 @@ final class ActivitiesResponseTests: XCTestCase {
                     name: "Jonathan Futher"
                 ),
                 fee: nil,
-                gross: try! Money(
-                    currency: .usd,
-                    value: "19.45"
-                ),
-                net: try! Money(
-                    currency: .usd,
-                    value: "19.45"
-                ),
+                gross: CurrencyCodeAmount(currency: .usd, value: 19.45),
+                net: CurrencyCodeAmount(currency: .usd, value: 19.45),
                 partnerFee: nil,
                 extensions: nil
             )
@@ -47,14 +41,8 @@ final class ActivitiesResponseTests: XCTestCase {
                     name: "Jonathan Futher"
                 ),
                 fee: nil,
-                gross: try! Money(
-                    currency: .usd,
-                    value: "19.45"
-                ),
-                net: try! Money(
-                    currency: .usd,
-                    value: "19.45"
-                ),
+                gross: CurrencyCodeAmount(currency: .usd, value: 19.45),
+                net: CurrencyCodeAmount(currency: .usd, value: 19.45),
                 partnerFee: nil,
                 extensions: nil
             )
@@ -124,12 +112,12 @@ final class ActivitiesResponseTests: XCTestCase {
         }
         """.data(using: .utf8)!
 
-        let decoded = try decoder.decode(ActivitiesResponse.self, from: ext)
+        let decoded = try decoder.decode(Activity.Response.self, from: ext)
 
         XCTAssertEqual(self.response, decoded)
     }
     
-    static var allTests: [(String, (ActivitiesResponseTests) -> ()throws -> ())] = [
+    static var allTests: [(String, (ActivityResponseTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

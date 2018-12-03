@@ -6,7 +6,7 @@ extension Template {
     public struct Data: Content, ValidationSetable, Equatable {
         
         /// The currency and amount of the invoice total.
-        public let total: Amount?
+        public let total: CurrencyAmount?
         
         
         /// The merchant business information that appears on the invoice.
@@ -38,13 +38,13 @@ extension Template {
         public private(set) var reference: String?
         
         /// The invoice level discount, as a percent or an amount value.
-        public var discount: Discount<Amount>?
+        public var discount: Discount<CurrencyAmount>?
         
         /// The shipping cost, as a percent or an amount value.
         public var shippingCost: ShippingCosts?
         
         /// The custom amount to apply to an invoice. If you include a label, you must include a custom amount.
-        public var custom: CustomAmount<Amount>?
+        public var custom: CustomAmount<CurrencyAmount>?
         
         /// Indicates whether the invoice allows a partial payment. If `false`, the invoice must be paid in full. If `true`, the invoice allows partial payments.
         ///
@@ -52,7 +52,7 @@ extension Template {
         public var allowPartialPayment: Bool?
         
         /// The currency and amount of the minimum allowed for a partial payment. Valid only when `allow_partial_payment` is `true`.
-        public var minimumDue: Amount?
+        public var minimumDue: CurrencyAmount?
         
         /// Indicates whether the tax is calculated before or after a discount. If `false`, the tax is calculated before a discount.
         /// If `true`, the tax is calculated after a discount.
@@ -139,11 +139,11 @@ extension Template {
             items: [Invoice.Item]? = nil,
             payment: PaymentTerm? = nil,
             reference: String? = nil,
-            discount: Discount<Amount>? = nil,
+            discount: Discount<CurrencyAmount>? = nil,
             shippingCost: ShippingCosts? = nil,
-            custom: CustomAmount<Amount>? = nil,
+            custom: CustomAmount<CurrencyAmount>? = nil,
             allowPartialPayment: Bool? = nil,
-            minimumDue: Amount? = nil,
+            minimumDue: CurrencyAmount? = nil,
             taxCalculatedAfterDiscount: Bool? = nil,
             taxInclusive: Bool? = nil,
             terms: String? = nil,
@@ -196,7 +196,7 @@ extension Template {
             self.memo = memo
             self.logo = logo
             
-            self.total = try container.decodeIfPresent(Amount.self, forKey: .total)
+            self.total = try container.decodeIfPresent(CurrencyAmount.self, forKey: .total)
             self.attachments = try container.decodeIfPresent([FileAttachment].self, forKey: .attachments)
             
             self.merchant = try container.decode(MerchantInfo.self, forKey: .merchant)
@@ -205,11 +205,11 @@ extension Template {
             self.cc = try container.decodeIfPresent([Email].self, forKey: .cc)
             self.items = try container.decodeIfPresent([Invoice.Item].self, forKey: .items)
             self.payment = try container.decodeIfPresent(PaymentTerm.self, forKey: .payment)
-            self.discount = try container.decodeIfPresent(Discount<Amount>.self, forKey: .discount)
+            self.discount = try container.decodeIfPresent(Discount<CurrencyAmount>.self, forKey: .discount)
             self.shippingCost = try container.decodeIfPresent(ShippingCosts.self, forKey: .shippingCost)
-            self.custom = try container.decodeIfPresent(CustomAmount<Amount>.self, forKey: .custom)
+            self.custom = try container.decodeIfPresent(CustomAmount<CurrencyAmount>.self, forKey: .custom)
             self.allowPartialPayment = try container.decodeIfPresent(Bool.self, forKey: .allowPartialPayment)
-            self.minimumDue = try container.decodeIfPresent(Amount.self, forKey: .minimumDue)
+            self.minimumDue = try container.decodeIfPresent(CurrencyAmount.self, forKey: .minimumDue)
             self.taxCalculatedAfterDiscount = try container.decodeIfPresent(Bool.self, forKey: .taxCalculatedAfterDiscount)
             self.taxInclusive = try container.decodeIfPresent(Bool.self, forKey: .taxInclusive)
             

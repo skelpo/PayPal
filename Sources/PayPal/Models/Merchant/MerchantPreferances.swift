@@ -1,7 +1,7 @@
 import Vapor
 
 /// Merchant preferances that override the default information for a billing agreement.
-public struct MerchantPreferances<M>: Content, ValidationSetable, Equatable where M: Monitary {
+public struct MerchantPreferances<M>: Content, ValidationSetable, Equatable where M: Amount {
     
     /// The PayPal-generated ID for the resource.
     ///
@@ -98,20 +98,6 @@ public struct MerchantPreferances<M>: Content, ValidationSetable, Equatable wher
             acceptedPaymentType: container.decodeIfPresent(String.self, forKey: .acceptedPaymentType),
             charSet: container.decodeIfPresent(String.self, forKey: .charSet)
         )
-    }
-    
-    /// Compares two `MerchantPreferances` object, checking each property for equality.
-    public static func == (lhs: MerchantPreferances, rhs: MerchantPreferances) -> Bool {
-        return
-            (lhs.id == rhs.id) &&
-            (lhs.setupFee == rhs.setupFee) &&
-            (lhs.cancelURL == rhs.cancelURL) &&
-            (lhs.returnURL == rhs.returnURL) &&
-            (lhs.maxFails == rhs.maxFails) &&
-            (lhs.autoBill == rhs.autoBill) &&
-            (lhs.initialFailAction == rhs.initialFailAction) &&
-            (lhs.acceptedPaymentType == rhs.acceptedPaymentType) &&
-            (lhs.charSet == rhs.charSet)
     }
     
     public func setterValidations() -> SetterValidations<MerchantPreferances> {

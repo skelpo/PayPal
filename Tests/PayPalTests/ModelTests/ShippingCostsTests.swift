@@ -4,19 +4,19 @@ import XCTest
 final class ShippingCostsTests: XCTestCase {
     func testInit()throws {
         let shipping = try ShippingCosts(
-            amount: Amount(currency: .usd, value: "2.50"),
-            tax: Tax(name: "Shipping", percent: 7.5, amount: Amount(currency: .usd, value: "0.18"))
+            amount: CurrencyAmount(currency: .usd, value: 2.50),
+            tax: Tax(name: "Shipping", percent: 7.5, amount: CurrencyAmount(currency: .usd, value: 0.18))
         )
         
-        try XCTAssertEqual(shipping.amount,  Amount(currency: .usd, value: "2.50"))
-        try XCTAssertEqual(shipping.tax, Tax(name: "Shipping", percent: 7.5, amount: Amount(currency: .usd, value: "0.18")))
+        XCTAssertEqual(shipping.amount,  CurrencyAmount(currency: .usd, value: 2.50))
+        try XCTAssertEqual(shipping.tax, Tax(name: "Shipping", percent: 7.5, amount: CurrencyAmount(currency: .usd, value: 0.18)))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let shipping = try ShippingCosts(
-            amount: Amount(currency: .usd, value: "2.50"),
-            tax: Tax(name: "Shipping", percent: 7.5, amount: Amount(currency: .usd, value: "0.18"))
+            amount: CurrencyAmount(currency: .usd, value: 2.50),
+            tax: Tax(name: "Shipping", percent: 7.5, amount: CurrencyAmount(currency: .usd, value: 0.18))
         )
         let generated = try String(data: encoder.encode(shipping), encoding: .utf8)!
         let json =
@@ -36,8 +36,8 @@ final class ShippingCostsTests: XCTestCase {
     func testDecoding()throws {
         let decoder = JSONDecoder()
         let shipping = try ShippingCosts(
-            amount: Amount(currency: .usd, value: "2.50"),
-            tax: Tax(name: "Shipping", percent: 7.5, amount: Amount(currency: .usd, value: "0.18"))
+            amount: CurrencyAmount(currency: .usd, value: 2.50),
+            tax: Tax(name: "Shipping", percent: 7.5, amount: CurrencyAmount(currency: .usd, value: 0.18))
         )
         
         let json = """

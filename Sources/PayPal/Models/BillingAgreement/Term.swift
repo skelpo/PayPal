@@ -12,32 +12,31 @@ public final class Term: Content, Equatable {
     public var type: TermType
     
     /// The currency and amount of the maximum billing amount associated with this term.
-    public var maxAmount: Money
+    public var maxAmount: CurrencyCodeAmount
     
     /// The number of times that money can be pulled during this term.
     public var occurrences: String
     
     /// The amount range for this term.
-    public var amountRange: Money
+    public var amountRange: CurrencyCodeAmount
     
     /// Indicates whether the customer can edit the amount in this term.
     public var editable: String
     
     /// Creates a new `Term` instance.
     ///
-    ///     Term(
-    ///         type: .monthly,
-    ///         maxAmount: Money(currency: .usd, value: "14.99"),
-    ///         occurrences: "1",
-    ///         amountRange: Money(currency: .usd, value: "9.99"),
-    ///         editable: "FALSE"
-    ///     )
+    /// - Parameters:
+    ///   - type: The term type.
+    ///   - maxAmount: The currency and amount of the maximum billing amount associated with this term.
+    ///   - occurrences: The number of times that money can be pulled during this term.
+    ///   - amountRange: The amount range for this term.
+    ///   - editable: Indicates whether the customer can edit the amount in this term.
     public init(
         id: String? = nil,
         type: TermType,
-        maxAmount: Money,
+        maxAmount: CurrencyCodeAmount,
         occurrences: String,
-        amountRange: Money,
+        amountRange: CurrencyCodeAmount,
         editable: String
     )throws {
         guard id?.count ?? 0 < 128 else {

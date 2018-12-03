@@ -20,7 +20,7 @@ public struct TransactionInfo: Content, Equatable {
     public var status: Status?
     
     /// The gross amount of the transaction.
-    public var gross: Money?
+    public var gross: CurrencyCodeAmount?
     
     /// The ID of the invoice for the payment.
     public var invoice: String?
@@ -53,7 +53,7 @@ public struct TransactionInfo: Content, Equatable {
         sellerID: String?,
         created: String?,
         status: Status?,
-        gross: Money?,
+        gross: CurrencyCodeAmount?,
         invoice: String?,
         custom: String?,
         buyer: Buyer?,

@@ -4,7 +4,7 @@ import XCTest
 final class PaymentTransactionTests: XCTestCase {
     func testInit()throws {
         let transaction = try Payment.Transaction(
-            amount: DetailedAmount(currency: .usd, total: "54.56", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 54.56, details: nil),
             payee: .init(email: nil, merchant: nil, metadata: nil),
             description: "Description",
             payeeNote: "noted",
@@ -54,7 +54,7 @@ final class PaymentTransactionTests: XCTestCase {
             softDescriptor: nil, payment: nil, itemList: nil, notify: String(repeating: "n", count: 2049)
         ))
         var transaction = try Payment.Transaction(
-            amount: DetailedAmount(currency: .usd, total: "54.56", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 54.56, details: nil),
             payee: .init(email: nil, merchant: nil, metadata: nil),
             description: "Description",
             payeeNote: "noted",
@@ -92,7 +92,7 @@ final class PaymentTransactionTests: XCTestCase {
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let transaction = try Payment.Transaction(
-            amount: DetailedAmount(currency: .usd, total: "54.56", details: nil),
+            amount: DetailedAmount(currency: .usd, total: 54.56, details: nil),
             payee: .init(email: nil, merchant: nil, metadata: nil),
             description: "Description",
             payeeNote: "noted",

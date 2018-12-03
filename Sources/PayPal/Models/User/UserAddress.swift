@@ -17,8 +17,8 @@ extension UserInfo {
         /// The zip code or postal code.
         public let zip: String?
         
-        /// The country.s
-        public let country: String?
+        /// The country.
+        public let country: Country?
         
         enum CodingKeys: String, CodingKey {
             case locality, region, country

@@ -3,14 +3,14 @@ import XCTest
 
 final class AddressTests: XCTestCase {
     func testInit()throws {
-        let address = try Address(
+        let address = Address(
             recipientName: "Puffin Billy",
             defaultAddress: true,
             line1: "89 Furnace Dr.",
             line2: nil,
             city: "Nowhere",
-            state: "KS",
-            countryCode: "US",
+            state: .ks,
+            country: .unitedStates,
             postalCode: "66167",
             phone: nil,
             type: nil
@@ -21,86 +21,23 @@ final class AddressTests: XCTestCase {
         XCTAssertEqual(address.line1, "89 Furnace Dr.")
         XCTAssertEqual(address.line2, nil)
         XCTAssertEqual(address.city, "Nowhere")
-        XCTAssertEqual(address.state, "KS")
-        XCTAssertEqual(address.countryCode, "US")
+        XCTAssertEqual(address.state, .ks)
+        XCTAssertEqual(address.country, .unitedStates)
         XCTAssertEqual(address.postalCode, "66167")
         XCTAssertEqual(address.phone, nil)
         XCTAssertEqual(address.type, nil)
     }
     
-    func testValueValidation()throws {
-        try XCTAssertThrowsError(Address(
-            recipientName: "Puffin Billy",
-            defaultAddress: true,
-            line1: "89 Furnace Dr.",
-            line2: nil,
-            city: "Nowhere",
-            state: "KS",
-            countryCode: "22",
-            postalCode: "66167",
-            phone: nil,
-            type: nil
-        ))
-        try XCTAssertThrowsError(Address(
-            recipientName: "Puffin Billy",
-            defaultAddress: true,
-            line1: "89 Furnace Dr.",
-            line2: nil,
-            city: "Nowhere",
-            state: "KS",
-            countryCode: "USA",
-            postalCode: "66167",
-            phone: nil,
-            type: nil
-        ))
-        try XCTAssertThrowsError(Address(
-            recipientName: "Puffin Billy",
-            defaultAddress: true,
-            line1: "89 Furnace Dr.",
-            line2: nil,
-            city: "Nowhere",
-            state: String(repeating: "j", count: 41),
-            countryCode: "US",
-            postalCode: "66167",
-            phone: nil,
-            type: nil
-        ))
-        
-        var test = try Address(
-            recipientName: "Puffin Billy",
-            defaultAddress: true,
-            line1: "89 Furnace Dr.",
-            line2: nil,
-            city: "Nowhere",
-            state: "KS",
-            countryCode: "US",
-            postalCode: "66167",
-            phone: nil,
-            type: nil
-        )
-        
-        try XCTAssertThrowsError(test.set(\Address.state <~ String(repeating: "KS", count: 22)))
-        try XCTAssertThrowsError(test.set(\.countryCode <~ "US@"))
-        
-        try test.set(\.state <~ "ON")
-        try test.set(\.countryCode <~ "CA")
-        test.city = "Somewhere"
-        
-        XCTAssertEqual(test.state, "ON")
-        XCTAssertEqual(test.countryCode, "CA")
-        XCTAssertEqual(test.city, "Somewhere")
-    }
-    
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let address = try Address(
+        let address = Address(
             recipientName: "Puffin Billy",
             defaultAddress: true,
             line1: "89 Furnace Dr.",
             line2: nil,
             city: "Nowhere",
-            state: "KS",
-            countryCode: "US",
+            state: .ks,
+            country: .unitedStates,
             postalCode: "66167",
             phone: nil,
             type: nil
@@ -166,8 +103,8 @@ final class AddressTests: XCTestCase {
                 line1: "89 Furnace Dr.",
                 line2: nil,
                 city: "Nowhere",
-                state: "KS",
-                countryCode: "US",
+                state: .ks,
+                country: .unitedStates,
                 postalCode: "66167",
                 phone: nil,
                 type: nil
@@ -178,7 +115,6 @@ final class AddressTests: XCTestCase {
     
     static var allTests: [(String, (AddressTests) -> ()throws -> ())] = [
         ("testInit", testInit),
-        ("testValueValidation", testValueValidation),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)
     ]

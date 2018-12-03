@@ -17,11 +17,6 @@ public struct InvoiceProperties: Content, Equatable {
         self.invoiceNumber = invoiceNumber
     }
     
-    /// Compares two `InvoiceProperties` objects, checking that the `role` and `invoiceNumber` properties are the same
-    public static func == (lhs: InvoiceProperties, rhs: InvoiceProperties) -> Bool {
-        return (lhs.role == rhs.role) && (lhs.invoiceNumber == rhs.invoiceNumber)
-    }
-    
     enum CodingKeys: String, CodingKey {
         case role
         case invoiceNumber = "invoice_number"

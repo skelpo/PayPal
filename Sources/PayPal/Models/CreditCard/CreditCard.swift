@@ -46,7 +46,7 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
     public private(set) var customerID: String?
     
     /// The state of the funding instrument.
-    public let state: CreditCardState?
+    public let state: CreditCard.State?
     
     /// The date and time when the credit card becomes unusable from the vault.
     /// The `valid_until` parameter is not the same as the expiration month and year.
@@ -105,7 +105,7 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         self.id = try container.decodeIfPresent(String.self, forKey: .id)
-        self.state = try container.decodeIfPresent(CreditCardState.self, forKey: .state)
+        self.state = try container.decodeIfPresent(CreditCard.State.self, forKey: .state)
         self.validUntil = try container.decodeIfPresent(Date.self, forKey: .validUntil)
         self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
         

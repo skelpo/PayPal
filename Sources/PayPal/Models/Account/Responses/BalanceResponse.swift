@@ -9,10 +9,10 @@ public struct BalanceResponse: Content, Equatable {
     public let payer: String?
     
     /// This field contains the total available balances based on currency.
-    public var available: [Money]?
+    public var available: [CurrencyCodeAmount]?
     
     /// This field contains the total pending reversal balances based on currency.
-    public var pending: [Money]?
+    public var pending: [CurrencyCodeAmount]?
     
     enum CodingKeys: String, CodingKey {
         case payer = "payer_id"

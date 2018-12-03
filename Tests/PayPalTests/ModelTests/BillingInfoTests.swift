@@ -16,7 +16,7 @@ final class BillingInfoTests: XCTestCase {
                 line2: nil,
                 city: "London",
                 state: nil,
-                countryCode: "UK",
+                country: .unitedKingdom,
                 postalCode: "42",
                 phone: nil,
                 type: nil
@@ -33,14 +33,14 @@ final class BillingInfoTests: XCTestCase {
         XCTAssertEqual(info.info, "For the captain.")
         
         try XCTAssertEqual(info.phone, PhoneNumber(country: "1", number: "4586901518"))
-        try XCTAssertEqual(info.address, Address(
+        XCTAssertEqual(info.address, Address(
             recipientName: nil,
             defaultAddress: true,
             line1: "3rd Celler, Baker Street",
             line2: nil,
             city: "London",
             state: nil,
-            countryCode: "UK",
+            country: .unitedKingdom,
             postalCode: "42",
             phone: nil,
             type: nil

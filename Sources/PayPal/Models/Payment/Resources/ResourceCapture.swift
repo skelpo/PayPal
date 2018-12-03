@@ -43,7 +43,7 @@ extension RelatedResource {
         public private(set) var invoice: String?
         
         /// The currency and amount of the transaction fee for this payment.
-        public var transaction: Amount?
+        public var transaction: CurrencyAmount?
         
         /// A free-form field that clients can use to send a note to the payer.
         ///
@@ -62,7 +62,7 @@ extension RelatedResource {
         ///   - invoice: The invoice number to track this payment.
         ///   - transaction: The currency and amount of the transaction fee for this payment.
         ///   - payerNote: A free-form field that clients can use to send a note to the payer.
-        public init(amount: DetailedAmount?, isFinal: Bool?, invoice: String?, transaction: Amount?, payerNote: String?)throws {
+        public init(amount: DetailedAmount?, isFinal: Bool?, invoice: String?, transaction: CurrencyAmount?, payerNote: String?)throws {
             self.id = nil
             self.state = nil
             self.reason = nil
@@ -94,7 +94,7 @@ extension RelatedResource {
             self.amount = try container.decodeIfPresent(DetailedAmount.self, forKey: .amount)
             self.isFinal = try container.decodeIfPresent(Bool.self, forKey: .isFinal)
             self.invoice = try container.decodeIfPresent(String.self, forKey: .invoice)
-            self.transaction = try container.decodeIfPresent(Amount.self, forKey: .transaction)
+            self.transaction = try container.decodeIfPresent(CurrencyAmount.self, forKey: .transaction)
             self.payerNote = try container.decodeIfPresent(String.self, forKey: .payerNote)
             
             try self.set(\.invoice <~ invoice)

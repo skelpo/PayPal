@@ -28,9 +28,9 @@ final class InvoiceTests: XCTestCase {
             reference: "PO number",
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")),
+            custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
             allowPartialPayment: false,
-            minimumDue: Amount(currency: .usd, value: "1.00"),
+            minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,
@@ -69,7 +69,7 @@ final class InvoiceTests: XCTestCase {
         XCTAssertEqual(invoice.allowTip, true)
         XCTAssertEqual(invoice.template, "PayPal system template")
         
-        try XCTAssertEqual(invoice.custom, CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")))
+        XCTAssertEqual(invoice.custom, CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)))
         try XCTAssertEqual(invoice.cc, [Invoice.Participant(email: "collective@vapor.codes"), Invoice.Participant(email: "donator@example.com")])
         try XCTAssertEqual(invoice.merchant, MerchantInfo(
             email: "hello@vapor.codes",
@@ -190,9 +190,9 @@ final class InvoiceTests: XCTestCase {
             reference: "PO number",
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")),
+            custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
             allowPartialPayment: false,
-            minimumDue: Amount(currency: .usd, value: "1.00"),
+            minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,
@@ -364,9 +364,9 @@ final class InvoiceTests: XCTestCase {
             reference: "PO number",
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: Amount(currency: .usd, value: "10.00")),
+            custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
             allowPartialPayment: false,
-            minimumDue: Amount(currency: .usd, value: "1.00"),
+            minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,

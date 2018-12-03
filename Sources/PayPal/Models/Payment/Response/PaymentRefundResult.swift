@@ -53,16 +53,16 @@ extension Payment {
         public var custom: String?
         
         /// The currency and amount of the transaction fee that is refunded to original the recipient of payment.
-        public var transactionFee: Amount?
+        public var transactionFee: CurrencyAmount?
         
         /// The currency and amount of the refund that is subtracted from the original payment recipient's PayPal balance.
-        public var received: Amount?
+        public var received: CurrencyAmount?
         
         /// The currency and amount of the total refund from the original purchase.
         ///
         /// As an example, if a payer makes $100 purchase and the payer was refunded $20 a week ago and $30 in this transaction,
         /// the gross refund amount is $30 for this transaction and the total refunded amount is $50.
-        public var total: Amount?
+        public var total: CurrencyAmount?
         
         
         /// See `ValidationSetable.setterValidations()`.

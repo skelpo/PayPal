@@ -1,7 +1,7 @@
 import Vapor
 
 /// The payment made during each cycle of a billing agreement.
-public struct BillingPayment<M>: Content, ValidationSetable, Equatable where M: Monitary {
+public struct BillingPayment<M>: Content, ValidationSetable, Equatable where M: Amount {
     
     /// The PayPal-generated ID for the resource.
     ///

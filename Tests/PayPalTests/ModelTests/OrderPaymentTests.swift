@@ -3,17 +3,17 @@ import XCTest
 
 final class OrderPaymentTests: XCTestCase {
     func testInit()throws {
-        let payment = try Order.Payment(
+        let payment = Order.Payment(
             captures: [Capture(amount: nil, transaction: nil)],
             refunds: [Refund(amount: nil)],
-            sales: [Sale(amount: nil, transaction: Amount(currency: .usd, value: "1.00"))],
-            authorizations: [Sale(amount: nil, transaction: Amount(currency: .usd, value: "2.00"))]
+            sales: [Sale(amount: nil, transaction: CurrencyAmount(currency: .usd, value: 1.00))],
+            authorizations: [Sale(amount: nil, transaction: CurrencyAmount(currency: .usd, value: 2.00))]
         )
         
         XCTAssertEqual(payment.captures, [Capture(amount: nil, transaction: nil)])
         XCTAssertEqual(payment.refunds, [Refund(amount: nil)])
-        try XCTAssertEqual(payment.sales, [Sale(amount: nil, transaction: Amount(currency: .usd, value: "1.00"))])
-        try XCTAssertEqual(payment.authorizations, [Sale(amount: nil, transaction: Amount(currency: .usd, value: "2.00"))])
+        XCTAssertEqual(payment.sales, [Sale(amount: nil, transaction: CurrencyAmount(currency: .usd, value: 1.00))])
+        XCTAssertEqual(payment.authorizations, [Sale(amount: nil, transaction: CurrencyAmount(currency: .usd, value: 2.00))])
     }
     
     func testEncoding()throws {

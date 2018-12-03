@@ -7,45 +7,30 @@ typealias Env = Vapor.Environment
 /// - `Configuration`
 /// - `AuthInfo`
 /// - `PayPalClient`
-///
-/// This provider needs 2 environment variables:
-///
-/// - `PAYPAL_CLIENT_ID`: Your PayPal dev client ID.
-/// - `PAYPAL_CLIENT_SECRET`: Your PayPal client secret.
 public final class PayPalProvider: Vapor.Provider {
     
-    let version: Float
+    let version: Version
+    let clientID: String
+    let clientSecret: String
     
     /// Creates a new `PayPal.Provider` instance to register with an
     /// application's `Services`.
     ///
     ///      try services.register(PayPal.Provider())
     ///
-    /// - Parameter version: The version of the PayPal API to use when making requests.
-    public init(version: Float = 1)throws {
-        let validVersions: [Float] = [1]
-        
-        guard validVersions.contains(version) else {
-            throw Abort(.internalServerError, reason: "API version \(version) is not supported.")
-        }
-        
+    /// - Parameters:
+    ///   - version: The version of the PayPal API to use when making requests.
+    ///   - id: The client ID for the PayPal app the connect to.
+    ///   - secret: The client secret for the PayPal app to connect to.
+    public init(version: Version = .v1, id: String, secret: String) {
         self.version = version
+        self.clientID = id
+        self.clientSecret = secret
     }
     
     /// Registers all services to the app's services.
     public func register(_ services: inout Services) throws {
-        guard let id = Env.get("PAYPAL_CLIENT_ID") else {
-            throw PayPalError(identifier: "envVarNotFound", reason: "Environment variable 'PAYPAL_CLIENT_ID' was not found")
-        }
-        guard let secret = Env.get("PAYPAL_CLIENT_SECRET") else {
-            throw PayPalError(identifier: "envVarNotFound", reason: "Environment variable 'PAYPAL_SECRET_ID' was not found")
-        }
-        
-        if Float(Int(self.version)) == self.version {
-            services.register(Configuration(id: id, secret: secret, version: String(describing: Int(self.version))))
-        } else {
-            services.register(Configuration(id: id, secret: secret, version: String(describing: self.version)))
-        }
+        services.register(Configuration(id: self.clientID, secret: self.clientSecret, version: self.version))
         
         services.register(AuthInfo())
         services.register(PayPalClient.self)
@@ -87,7 +72,7 @@ public final class Configuration: Service {
     public let secret: String
     
     /// The version of the PayPal API being used.
-    public let version: String
+    public let version: Version
     
     /// The PayPal environment to send requests to.
     /// This value is based on the app's current environment.
@@ -96,7 +81,7 @@ public final class Configuration: Service {
     /// be `.production`, otherwise it will be `.sandbox`.
     public internal(set) var environment: PayPal.Environment!
     
-    init(id: String, secret: String, version: String) {
+    init(id: String, secret: String, version: Version) {
         self.id = id
         self.secret = secret
         self.environment = nil

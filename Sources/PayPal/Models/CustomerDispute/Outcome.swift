@@ -9,12 +9,12 @@ extension CustomerDispute {
         public var code: Code?
         
         /// The amount that either the merchant or PayPal refunds the customer.
-        public var refunded: Money?
+        public var refunded: CurrencyCodeAmount?
         
         /// Creates a new `CustomerDispute.Outcome` instance.
         ///
         ///     CustomerDispute.Outcome(code: .buyer, refunded: Money(currency: .usd, value: "56.72"))
-        public init(code: Code?, refunded: Money?) {
+        public init(code: Code?, refunded: CurrencyCodeAmount?) {
             self.code = code
             self.refunded = refunded
         }

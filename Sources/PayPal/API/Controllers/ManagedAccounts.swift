@@ -27,10 +27,14 @@ public final class ManagedAccounts: PayPalController {
     /// See `PayPalController.resource` for more information.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "partners/merchant-accounts"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     /// Creates a merchant account. Submit the merchant account information in the JSON request body.
@@ -42,9 +46,8 @@ public final class ManagedAccounts: PayPalController {
     /// - Returns: Creation success information, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func create(account: MerchantAccount) -> Future<CreatedMerchantResponse> {
-        return Future.flatMap(on: self.container) { () -> Future<CreatedMerchantResponse> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.post(self.path(), body: account, as: CreatedMerchantResponse.self)
+        return self.client { client in
+            return client.post(self.path, body: account, as: CreatedMerchantResponse.self)
         }
     }
     
@@ -61,9 +64,8 @@ public final class ManagedAccounts: PayPalController {
     /// - Returns: The HTTP status code of the response, which will be `204 No Content`. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func patch(account id: String, with patchs: [Patch]) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.patch(self.path() + id, body: ["patch_request": patchs], as: HTTPStatus.self)
+        return self.client { client in
+            return client.patch(self.path + id, body: ["patch_request": patchs], as: HTTPStatus.self)
         }
     }
     
@@ -78,9 +80,8 @@ public final class ManagedAccounts: PayPalController {
     /// - Returns: The HTTP status code of the response, which will be `204 No Content`. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func update(account id: String, with data: MerchantAccount) -> Future<HTTPStatus> {
-        return Future.flatMap(on: self.container) { () -> Future<HTTPStatus> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.put(self.path() + id, body: data, as: HTTPStatus.self)
+        return self.client { client in
+            return client.put(self.path + id, body: data, as: HTTPStatus.self)
         }
     }
     
@@ -93,9 +94,8 @@ public final class ManagedAccounts: PayPalController {
     /// - Returns: The data for the merchant account, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func details(for accountID: String) -> Future<MerchantAccount> {
-        return Future.flatMap(on: self.container) { () -> Future<MerchantAccount> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + accountID, as: MerchantAccount.self)
+        return self.client { client in
+            return client.get(self.path + accountID, as: MerchantAccount.self)
         }
     }
     
@@ -108,9 +108,8 @@ public final class ManagedAccounts: PayPalController {
     /// - Returns: The balance of the account of the ID passed in, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func balance(for accountID: String) -> Future<BalanceResponse> {
-        return Future.flatMap(on: self.container) { () -> Future<BalanceResponse> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + accountID + "/balances", as: BalanceResponse.self)
+        return self.client { client in
+            return client.get(self.path + accountID + "/balances", as: BalanceResponse.self)
         }
     }
     
@@ -123,9 +122,8 @@ public final class ManagedAccounts: PayPalController {
     /// - Returns: The details of the account's financial instruments, wrapped in a future. If an error response was sent back instead,
     ///   it gets converted to a Swift error and the future wraps that instead.
     public func financialInstruments(for accountID: String) -> Future<FinancialInstruments> {
-        return Future.flatMap(on: self.container) { () -> Future<FinancialInstruments> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + accountID + "/financial-instruments", as: FinancialInstruments.self)
+        return self.client { client in
+            return client.get(self.path + accountID + "/financial-instruments", as: FinancialInstruments.self)
         }
     }
 }

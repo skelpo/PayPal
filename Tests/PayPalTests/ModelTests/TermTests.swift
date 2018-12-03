@@ -5,9 +5,9 @@ final class TermTests: XCTestCase {
     func testInit()throws {
         let term = try Term(
             type: .monthly,
-            maxAmount: Money(currency: .usd, value: "14.99"),
+            maxAmount: CurrencyCodeAmount(currency: .usd, value: 14.99),
             occurrences: "1",
-            amountRange: Money(currency: .usd, value: "9.99"),
+            amountRange: CurrencyCodeAmount(currency: .usd, value: 9.99),
             editable: "FALSE"
         )
         
@@ -15,17 +15,17 @@ final class TermTests: XCTestCase {
         XCTAssertEqual(term.type, .monthly)
         XCTAssertEqual(term.occurrences, "1")
         XCTAssertEqual(term.editable, "FALSE")
-        try XCTAssertEqual(term.amountRange, Money(currency: .usd, value: "9.99"))
-        try XCTAssertEqual(term.maxAmount, Money(currency: .usd, value: "14.99"))
+        XCTAssertEqual(term.amountRange, CurrencyCodeAmount(currency: .usd, value: 9.99))
+        XCTAssertEqual(term.maxAmount, CurrencyCodeAmount(currency: .usd, value: 14.99))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let term = try Term(
             type: .monthly,
-            maxAmount: Money(currency: .usd, value: "14.99"),
+            maxAmount: CurrencyCodeAmount(currency: .usd, value: 14.99),
             occurrences: "1",
-            amountRange: Money(currency: .usd, value: "9.99"),
+            amountRange: CurrencyCodeAmount(currency: .usd, value: 9.99),
             editable: "FALSE"
         )
         let generated = try String(data: encoder.encode(term), encoding: .utf8)!
@@ -62,9 +62,9 @@ final class TermTests: XCTestCase {
         """.data(using: .utf8)!
         let term = try Term(
             type: .monthly,
-            maxAmount: Money(currency: .usd, value: "14.99"),
+            maxAmount: CurrencyCodeAmount(currency: .usd, value: 14.99),
             occurrences: "1",
-            amountRange: Money(currency: .usd, value: "9.99"),
+            amountRange: CurrencyCodeAmount(currency: .usd, value: 9.99),
             editable: "FALSE"
         )
         

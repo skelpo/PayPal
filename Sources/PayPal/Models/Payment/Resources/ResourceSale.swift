@@ -62,11 +62,11 @@ extension RelatedResource {
         public var amount: DetailedAmount
         
         /// The currency and amount of the transaction fee.
-        public var transaction: Amount?
+        public var transaction: CurrencyAmount?
         
         /// The currency and amount of the net that the merchant receives for this transaction in their receivable currency.
         /// Returned only in cross-currency use cases where a merchant bills a buyer in a non-primary currency for that buyer.
-        public var receivable: Amount?
+        public var receivable: CurrencyAmount?
         
         /// The exchange rate for this transaction. Returned only in cross-currency use cases where a merchant bills
         /// a buyer in a non-primary currency for that buyer.
@@ -98,8 +98,8 @@ extension RelatedResource {
             id: String,
             amount: DetailedAmount,
             state: State,
-            transaction: Amount? = nil,
-            receivable: Amount? = nil,
+            transaction: CurrencyAmount? = nil,
+            receivable: CurrencyAmount? = nil,
             exchangeRate: String? = nil,
             fmf: FraudManagementFilter? = nil,
             processor: ProcessorResponse? = nil,

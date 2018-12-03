@@ -15,10 +15,14 @@ public final class Identity: PayPalController {
     /// See `PayPalController.resource` for more information.
     public let resource: String
     
+    /// See `PayPalController.version`.
+    public let version: Version
+    
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
         self.resource = "identity"
+        self.version = try container.make(Configuration.self).version || .v1
     }
     
     /// Retrieves the authenticated user's profile attributes.
@@ -26,9 +30,8 @@ public final class Identity: PayPalController {
     /// - Returns: A `UserInfo` object, containing user profile attributes. The attributes returned depend on the scopes configured for the REST app.
     ///   For example, if the `address` scope is not configured for the app, the response does not include the `address` attribute.
     public func info() -> Future<UserInfo> {
-        return Future.flatMap(on: self.container) { () -> Future<UserInfo> in
-            let client = try self.container.make(PayPalClient.self)
-            return try client.get(self.path() + "openidconnect/userinfo", parameters: QueryParamaters(custom: ["schema": "openid"]), as: UserInfo.self)
+        return self.client { client in
+            return client.get(self.path + "openidconnect/userinfo", parameters: QueryParamaters(custom: ["schema": "openid"]), as: UserInfo.self)
         }
     }
 }

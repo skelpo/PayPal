@@ -3,26 +3,21 @@ import XCTest
 
 final class TimelessDateTests: XCTestCase {
     func testInit()throws {
-        let date = try TimelessDate(date: "1517-10-31")
+        let epoch = TimelessDate(date: "1970-01-01")
+        let date: TimelessDate = 981_244_800.0
         
-        XCTAssertEqual(date.date, "1517-10-31")
-    }
-    
-    func testValidations()throws {
-        try XCTAssertThrowsError(TimelessDate(date: "10/31/1517"))
-        var date = try TimelessDate(date: "1517-10-31")
-        
-        try XCTAssertThrowsError(date.set(\.date <~ "11/20/2020"))
-        try date.set(\.date <~ "2020-11-20")
-        
-        XCTAssertEqual(date.date, "2020-11-20")
+        XCTAssertNotNil(epoch)
+        XCTAssertEqual(epoch?.timestamp, 0)
+        XCTAssertEqual(date.timestamp, 981_244_800)
+        XCTAssertEqual(TimelessDate.formatter.string(from: Date(timeIntervalSince1970: date.timestamp ?? 0)), "2001-02-04")
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let date = try TimelessDate(date: "1517-10-31")
+        let date = TimelessDate(date: "2001-02-04")!
+        
         let generated = try String(data: encoder.encode(date), encoding: .utf8)
-        let json = "{\"date_no_time\":\"1517-10-31\"}"
+        let json = "{\"date_no_time\":\"2001-02-04\"}"
         
         XCTAssertEqual(generated, json)
     }
@@ -32,17 +27,16 @@ final class TimelessDateTests: XCTestCase {
         
         let json = """
         {
-            "date_no_time": "1517-10-31"
+            "date_no_time": "2001-02-04"
         }
         """
         
-        let date = try TimelessDate(date: "1517-10-31")
+        let date = TimelessDate(date: "2001-02-04")!
         try XCTAssertEqual(date, decoder.decode(TimelessDate.self, from: json))
     }
     
     static var allTests: [(String, (TimelessDateTests) -> ()throws -> ())] = [
         ("testInit", testInit),
-        ("testValidations", testValidations),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)
     ]

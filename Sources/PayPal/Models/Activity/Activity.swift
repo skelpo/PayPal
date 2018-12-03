@@ -25,16 +25,16 @@ public struct Activity: Content, Equatable {
     public var counterparty: CounterParty?
     
     /// The PayPal fees that are associated with this activity, in money format.
-    public var fee: Money?
+    public var fee: CurrencyCodeAmount?
     
     /// The amount for this activity before fees are applied.
-    public var gross: Money?
+    public var gross: CurrencyCodeAmount?
     
     /// The amount for this activity after fees are applied.
-    public var net: Money?
+    public var net: CurrencyCodeAmount?
     
     /// The partner fees, in money format.
-    public var partnerFee: Money?
+    public var partnerFee: CurrencyCodeAmount?
     
     /// The extension properties.
     public var extensions: Extensions?
@@ -47,10 +47,10 @@ public struct Activity: Content, Equatable {
         subtype: SubType?,
         status: Status?,
         counterparty: CounterParty?,
-        fee: Money?,
-        gross: Money?,
-        net: Money?,
-        partnerFee: Money?,
+        fee: CurrencyCodeAmount?,
+        gross: CurrencyCodeAmount?,
+        net: CurrencyCodeAmount?,
+        partnerFee: CurrencyCodeAmount?,
         extensions: Extensions?
     ) {
         self.id = id
@@ -64,22 +64,6 @@ public struct Activity: Content, Equatable {
         self.net = net
         self.partnerFee = partnerFee
         self.extensions = extensions
-    }
-    
-    /// Compares two `Activity` objects, checking all the stored properties for equality.
-    public static func == (lhs: Activity, rhs: Activity) -> Bool {
-        return
-            (lhs.id == rhs.id) &&
-            (lhs.timeCreated == rhs.timeCreated) &&
-            (lhs.type == rhs.type) &&
-            (lhs.subtype == rhs.subtype) &&
-            (lhs.status == rhs.status) &&
-            (lhs.counterparty == rhs.counterparty) &&
-            (lhs.fee == rhs.fee) &&
-            (lhs.gross == rhs.gross) &&
-            (lhs.net == rhs.net) &&
-            (lhs.partnerFee == rhs.partnerFee) &&
-            (lhs.extensions == rhs.extensions)
     }
     
     enum CodingKeys: String, CodingKey {

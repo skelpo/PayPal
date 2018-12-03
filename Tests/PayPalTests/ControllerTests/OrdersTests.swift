@@ -26,18 +26,18 @@ final class OrdersTests: XCTestCase {
     }
     
     func testCreateEndpoints()throws {
-        let sales = try [
-            Sale(amount: DetailedAmount(currency: .usd, total: "150.78", details:
+        let sales = [
+            Sale(amount: DetailedAmount(currency: .usd, total: 150.78, details:
                 DetailedAmount.Detail(
-                    subtotal: "140.00",
-                    shipping: "9.00",
-                    tax: "1.78",
+                    subtotal: 140.00,
+                    shipping: 9.00,
+                    tax: 1.78,
                     handlingFee: nil,
                     shippingDiscount: nil,
                     insurance: nil,
                     giftWrap: nil)
                 ),
-                transaction: Amount(currency: .usd, value: "1.50")
+                transaction: CurrencyAmount(currency: .usd, value: 1.50)
             )
         ]
         
@@ -46,7 +46,7 @@ final class OrdersTests: XCTestCase {
             units: [
                 Order.Unit(
                     reference: "FB68DC33-FA23-44D4-B197-C9251D76286E",
-                    amount: DetailedAmount(currency: .usd, total: "140.00", details: nil),
+                    amount: DetailedAmount(currency: .usd, total: 140.00, details: nil),
                     payee: Payee(email: "payee@example.com", merchant: nil, metadata: nil),
                     description: "Unit",
                     invoice: "FB68DC33-FA23-44D4-B197-C9251D76286E",
@@ -70,8 +70,8 @@ final class OrdersTests: XCTestCase {
                         line1: "648 New Borne St.",
                         line2: nil,
                         city: "Armagedon",
-                        state: "IL",
-                        countryCode: "US",
+                        state: .il,
+                        country: .unitedStates,
                         postalCode: "456813",
                         phone: nil,
                         type: nil
@@ -130,7 +130,7 @@ final class OrdersTests: XCTestCase {
                 funding: [
                     FundingInstrument(token: CreditCard.Token(creditCard: "C324C867-B0D8-4522-881E-6D788A159DB4", payer: "C324C867-B0D8-4522-881E-6D788A159DB4"))
                 ],
-                info: Order.Payer.Info(email: "email@example.com", birthdate: nil, tax: nil, taxType: nil, country: "US", billing: nil)
+                info: Order.Payer.Info(email: "email@example.com", birthdate: nil, tax: nil, taxType: nil, country: .unitedStates, billing: nil)
             )
         )
         

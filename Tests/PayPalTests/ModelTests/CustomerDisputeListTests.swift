@@ -11,7 +11,7 @@ final class CustomerDisputeListTests: XCTestCase {
                         sellerID: "3DE7148F-360E-4F22-9DE2-8507E24DB60B",
                         created: Date().iso8601,
                         status: .pending,
-                        gross: Money(currency: .usd, value: "89.45"),
+                        gross: CurrencyCodeAmount(currency: .usd, value: 89.45),
                         invoice: "C80ED435-DBB2-456B-A1EF-2750A32AAF1A",
                         custom: nil,
                         buyer: Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather"),
@@ -19,7 +19,7 @@ final class CustomerDisputeListTests: XCTestCase {
                     )
                 ],
                 reason: .unauthorized,
-                amount: Money(currency: .usd, value: "89.45"),
+                amount: CurrencyCodeAmount(currency: .usd, value: 89.45),
                 messages: nil,
                 responseDue: Date(timeIntervalSinceNow: 60 * 60 * 24).iso8601
             )
@@ -34,7 +34,7 @@ final class CustomerDisputeListTests: XCTestCase {
                     sellerID: "3DE7148F-360E-4F22-9DE2-8507E24DB60B",
                     created: Date().iso8601,
                     status: .pending,
-                    gross: Money(currency: .usd, value: "89.45"),
+                    gross: CurrencyCodeAmount(currency: .usd, value: 89.45),
                     invoice: "C80ED435-DBB2-456B-A1EF-2750A32AAF1A",
                     custom: nil,
                     buyer: Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather"),
@@ -42,7 +42,7 @@ final class CustomerDisputeListTests: XCTestCase {
                 )
             ],
             reason: .unauthorized,
-            amount: Money(currency: .usd, value: "89.45"),
+            amount: CurrencyCodeAmount(currency: .usd, value: 89.45),
             messages: nil,
             responseDue: Date(timeIntervalSinceNow: 60 * 60 * 24).iso8601
         ))
@@ -55,7 +55,7 @@ final class CustomerDisputeListTests: XCTestCase {
             CustomerDispute(
                 transactions: [],
                 reason: .unauthorized,
-                amount: Money(currency: .usd, value: "89.45"),
+                amount: CurrencyCodeAmount(currency: .usd, value: 89.45),
                 messages: nil,
                 responseDue: due
             )
@@ -93,7 +93,7 @@ final class CustomerDisputeListTests: XCTestCase {
                 CustomerDispute(
                     transactions: [],
                     reason: .unauthorized,
-                    amount: Money(currency: .usd, value: "89.45"),
+                    amount: CurrencyCodeAmount(currency: .usd, value: 89.45),
                     messages: nil,
                     responseDue: Date(timeIntervalSinceNow: 60 * 60 * 24).iso8601
                 )
