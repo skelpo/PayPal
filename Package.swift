@@ -14,7 +14,7 @@ let package = Package(
         .package(url: "https://github.com/twostraws/SwiftGD.git", from: "2.2.0")
     ],
     targets: [
-        .target(name: "PayPal", dependencies: ["Vapor", "JSON", "Validation"]),
+        .target(name: "PayPal", dependencies: ["Vapor", "JSON", "Failable"]),
         .testTarget(name: "PayPalTests", dependencies: ["PayPal", "Vapor", "JSON", "SwiftGD"]),
     ]
 )
