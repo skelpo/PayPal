@@ -11,6 +11,13 @@ public struct Length127<C>: LengthValidation where C: Collection {
     public static var minLength: Int { return 0 }
 }
 
+public struct Length128<C>: LengthValidation where C: Collection {
+    public typealias Supported = C
+    
+    public static var maxLength: Int { return 128 }
+    public static var minLength: Int { return 0 }
+}
+
 
 // MARK: - String Regex
 
