@@ -3,6 +3,7 @@
 // MARK: - Collection Length
 
 public typealias Optional127String = Failable<String?, NotNilValidate<Length127<String>>>
+public typealias Optional128String = Failable<String?, NotNilValidate<Length128<String>>>
 
 public struct Length127<C>: LengthValidation where C: Collection {
     public typealias Supported = C

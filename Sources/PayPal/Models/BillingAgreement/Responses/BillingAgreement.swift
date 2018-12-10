@@ -1,7 +1,7 @@
 import Vapor
 
 /// An agreement for a recurring PayPal or debit card payment for goods or services.
-public struct BillingAgreement: Content, ValidationSetable, Equatable {
+public struct BillingAgreement: Content, Equatable {
     
     /// The PayPal-generated ID for the resource.
     ///
@@ -17,12 +17,12 @@ public struct BillingAgreement: Content, ValidationSetable, Equatable {
     /// The agreement name.
     ///
     /// Maximum length: 128.
-    public var name: String?
+    public var name: Optional128String
     
     /// The agreement description.
     ///
     /// Maximum length: 128.
-    public var description: String?
+    public var description: Optional128String
     
     /// The date and time when this agreement begins, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
     /// The start date must be no less than 24 hours after the current date as the agreement can take up to 24 hours to activate.
@@ -59,30 +59,19 @@ public struct BillingAgreement: Content, ValidationSetable, Equatable {
     
     /// Creates a new `BillingAgreement` instance.
     ///
-    ///     BillingAgreement(
-    ///         name: "Nia's Maggot Loaf",
-    ///         description: "Weekly maggot loaf subscription",
-    ///         start: Date().iso8601,
-    ///         details: nil,
-    ///         payer: Payer(
-    ///             method: .paypal,
-    ///             fundingInstruments: nil,
-    ///             info: nil
-    ///         ),
-    ///         shippingAddress: nil,
-    ///         overrideMerchantPreferances: nil,
-    ///         overrideChargeModels: nil,
-    ///         plan: BillingPlan(
-    ///             name: "Nia's Maggot Loaf",
-    ///             description: "Weekly maggot loaf subscription",
-    ///             type: .infinate,
-    ///             payments: nil,
-    ///             preferances: nil
-    ///         )
-    ///     )
+    /// - Parameters:
+    ///   - name: The agreement name.
+    ///   - description: The agreement description.
+    ///   - start: The date and time when this agreement begins, in Internet date and time format.
+    ///   - details: The agreement details.
+    ///   - payer: The details for the customer who funds the payment.
+    ///   - shippingAddress: The shipping address of the agreement, which must be provided if it differs from the default address.
+    ///   - overrideMerchantPreferances: The merchant preferences that override the default information in the plan.
+    ///   - overrideChargeModels: An array of charge models to override the charge models in the plan.
+    ///   - plan: The plan that can be used to create an agreement.
     public init(
-        name: String?,
-        description: String?,
+        name: Optional128String,
+        description: Optional128String,
         start: String?,
         details: Details?,
         payer: Payer?,
@@ -90,7 +79,7 @@ public struct BillingAgreement: Content, ValidationSetable, Equatable {
         overrideMerchantPreferances: MerchantPreferances<CurrencyCodeAmount>?,
         overrideChargeModels: [OverrideCharge]?,
         plan: BillingPlan?
-    )throws {
+    ) {
         self.id = nil
         self.state = nil
         self.links = nil
@@ -104,53 +93,6 @@ public struct BillingAgreement: Content, ValidationSetable, Equatable {
         self.overrideMerchantPreferances = overrideMerchantPreferances
         self.overrideChargeModels = overrideChargeModels
         self.plan = plan
-        
-        try self.set(\.name <~ name)
-        try self.set(\.description <~ description)
-    }
-    
-    public init(from decoder: Decoder)throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let id = try container.decodeIfPresent(String.self, forKey: .id)
-        let name = try container.decodeIfPresent(String.self, forKey: .name)
-        let description = try container.decodeIfPresent(String.self, forKey: .description)
-        
-        guard id?.count ?? 0 <= 128 else {
-            throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`id` property must have a length of 128 or less")
-        }
-        
-        self.id = id
-        self.name = name
-        self.description = description
-        self.state = try container.decodeIfPresent(AgreementState.self, forKey: .state)
-        self.start = try container.decodeIfPresent(String.self, forKey: .start)
-        self.details = try container.decodeIfPresent(Details.self, forKey: .details)
-        self.payer = try container.decodeIfPresent(Payer.self, forKey: .payer)
-        self.shippingAddress = try container.decodeIfPresent(Address.self, forKey: .shippingAddress)
-        self.overrideMerchantPreferances = try container.decodeIfPresent(MerchantPreferances<CurrencyCodeAmount>.self, forKey: .overrideMerchantPreferances)
-        self.overrideChargeModels = try container.decodeIfPresent([OverrideCharge].self, forKey: .overrideChargeModels)
-        self.plan = try container.decodeIfPresent(BillingPlan.self, forKey: .plan)
-        self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
-        
-        try self.set(\.name <~ name)
-        try self.set(\.description <~ description)
-    }
-    
-    public func setterValidations() -> SetterValidations<BillingAgreement> {
-        var validations = SetterValidations(BillingAgreement.self)
-        
-        validations.set(\.name) { name in
-            guard name?.count ?? 0 <= 128 else {
-                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`name` property must have a length of 128 or less")
-            }
-        }
-        validations.set(\.description) { description in
-            guard description?.count ?? 0 <= 128 else {
-                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`description` property must have a length of 128 or less")
-            }
-        }
-        
-        return validations
     }
     
     enum CodingKeys: String, CodingKey {
