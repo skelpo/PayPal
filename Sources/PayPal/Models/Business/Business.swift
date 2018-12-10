@@ -1,7 +1,7 @@
 import Vapor
 
 /// Business information, primerily used for a merchant account.
-public struct Business: Content, ValidationSetable, Equatable {
+public struct Business: Content, Equatable {
     
     /// The type of business, such as corporation or sole proprietorship.
     public var type: BusinessType
@@ -30,27 +30,18 @@ public struct Business: Content, ValidationSetable, Equatable {
     
     /// The category of the business. Either `merchant_category_code` or both `category` and `sub_category` are required.
     ///
-    /// This property can be set using the `Business.set(_:)` method.
-    /// This method validates the new value before assigning it to the property.
-    ///
     /// Length: 4.
-    public private(set) var category: String?
+    public var category: Failable<String?, NotNilValidate<Count4<String>>>
     
     /// The sub-category of the business. Either `merchant_category_code` or both `category` and `sub_category` are required.
     ///
-    /// This property can be set using the `Business.set(_:)` method.
-    /// This method validates the new value before assigning it to the property.
-    ///
     /// Length: 4.
-    public private(set) var subCategory: String?
+    public var subCategory: Failable<String?, NotNilValidate<Count4<String>>>
     
     /// A merchant category code. Either `merchant_category_code` or both `category` and `sub_category` are required.
     ///
-    /// This property can be set using the `Business.set(_:)` method.
-    /// This method validates the new value before assigning it to the property.
-    ///
     /// Length: 4.
-    public private(set) var merchantCategory: String?
+    public var merchantCategory: Failable<String?, NotNilValidate<Count4<String>>>
     
     /// The date when the merchant's business was established, in [Internet date and time `full-date` format](https://tools.ietf.org/html/rfc3339#section-5.6).
     public var establishedDate: TimelessDate?
@@ -87,37 +78,26 @@ public struct Business: Content, ValidationSetable, Equatable {
     
     /// Creates a new `Business` instance.
     ///
-    ///     Business(
-    ///         type: .individual,
-    ///         subType: .unselected,
-    ///         government: GovernmentBody(name: ""),
-    ///         establishment: Establishment(state: "KS", country: "US"),
-    ///         names: [],
-    ///         ids: [],
-    ///         phones: [],
-    ///         category: "3145",
-    ///         subCategory: "5972",
-    ///         merchantCategory: "4653",
-    ///         establishedDate: TimelessDate(date: "1882-05-13"),
-    ///         registrationDate: TimelessDate(date: "1975-04-22"),
-    ///         disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
-    ///         sales: .init(
-    ///             price: MoneyRange("50"..."60", currency: .usd),
-    ///             volume: MoneyRange("50"..."60", currency: .usd),
-    ///             venues: [],
-    ///             website: "https://nameless.io",
-    ///             online: PercentRange(0...1)
-    ///         ),
-    ///         customerService: CustomerService(
-    ///             email: EmailAddress(email: "help@nameless.com"),
-    ///             phone: PhoneNumber(country: "1", number: "9963191901"),
-    ///             message: []
-    ///         ),
-    ///         addresses: [],
-    ///         country: .unitedStates,
-    ///         stakeholders: [],
-    ///         designation: .init(title: "CTO", area: "Software Engineering")
-    ///     )
+    /// - Parameters:
+    ///   - type: The type of business, such as corporation or sole proprietorship.
+    ///   - subType: The business sub-type.
+    ///   - government: The government body.
+    ///   - establishment: The place of establishment.
+    ///   - names: An array of different names for the business.
+    ///   - ids: An array of identification documents for the business.
+    ///   - phones: An array of phones for the business.
+    ///   - category: The category of the business.
+    ///   - subCategory: The sub-category of the business.
+    ///   - merchantCategory: A merchant category code.
+    ///   - establishedDate: The date when the merchant's business was established, in Internet date and time `full-date` format.
+    ///   - registrationDate: The date when the business was registered, in Internet date and time `full-date` format.
+    ///   - disputeEmail: The email address to which to send disputes.
+    ///   - sales: The details of business sales.
+    ///   - customerService: The customer service information.
+    ///   - addresses: An array of merchant addresses.
+    ///   - country: The two-character ISO 3166-1 code that identifies the country or region
+    ///   - stakeholders:  An array of business stakeholder information.
+    ///   - designation: The business owner title and area.
     public init(
         type: BusinessType,
         subType: SubType?,
@@ -126,9 +106,9 @@ public struct Business: Content, ValidationSetable, Equatable {
         names: [Name]?,
         ids: [Identification]?,
         phones: [TypedPhoneNumber],
-        category: String?,
-        subCategory: String?,
-        merchantCategory: String?,
+        category: Failable<String?, NotNilValidate<Count4<String>>>,
+        subCategory: Failable<String?, NotNilValidate<Count4<String>>>,
+        merchantCategory: Failable<String?, NotNilValidate<Count4<String>>>,
         establishedDate: TimelessDate?,
         registrationDate: TimelessDate?,
         disputeEmail: EmailAddress?,
@@ -138,7 +118,7 @@ public struct Business: Content, ValidationSetable, Equatable {
         country: Country?,
         stakeholders: [Stakeholder]?,
         designation: Designation?
-    )throws {
+    ) {
         self.type = type
         self.subType = subType
         self.government = government
@@ -158,64 +138,6 @@ public struct Business: Content, ValidationSetable, Equatable {
         self.country = country
         self.stakeholders = stakeholders
         self.designation = designation
-        
-        try self.set(\.category <~ category)
-        try self.set(\.subCategory <~ subCategory)
-        try self.set(\.merchantCategory <~ merchantCategory)
-        try self.set(\.country <~ country)
-    }
-    
-    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
-    public init(from decoder: Decoder)throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        try self.init(
-            type: container.decode(BusinessType.self, forKey: .type),
-            subType: container.decodeIfPresent(SubType.self, forKey: .subType),
-            government: container.decodeIfPresent(GovernmentBody.self, forKey: .government),
-            establishment: container.decodeIfPresent(Establishment.self, forKey: .establishment),
-            names: container.decodeIfPresent([Name].self, forKey: .names),
-            ids: container.decodeIfPresent([Identification].self, forKey: .ids),
-            phones: container.decode([TypedPhoneNumber].self, forKey: .phones),
-            category: container.decodeIfPresent(String.self, forKey: .category),
-            subCategory: container.decodeIfPresent(String.self, forKey: .subCategory),
-            merchantCategory: container.decodeIfPresent(String.self, forKey: .merchantCategory),
-            establishedDate: container.decodeIfPresent(TimelessDate.self, forKey: .establishedDate),
-            registrationDate: container.decodeIfPresent(TimelessDate.self, forKey: .registrationDate),
-            disputeEmail: container.decodeIfPresent(EmailAddress.self, forKey: .disputeEmail),
-            sales: container.decodeIfPresent(Sales.self, forKey: .sales),
-            customerService: container.decodeIfPresent(CustomerService.self, forKey: .customerService),
-            addresses: container.decode([Address].self, forKey: .addresses),
-            country: container.decodeIfPresent(Country.self, forKey: .country),
-            stakeholders: container.decodeIfPresent([Stakeholder].self, forKey: .stakeholders),
-            designation: container.decodeIfPresent(Designation.self, forKey: .designation)
-        )
-    }
-    
-    /// See `ValidationSetable.setterValidations()`.
-    public func setterValidations() -> SetterValidations<Business> {
-        var validations = SetterValidations(Business.self)
-        
-        validations.set(\.category) { category in
-            guard let category = category else { return }
-            guard category.count == 4 else {
-                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`category` value must have a length of 4")
-            }
-        }
-        validations.set(\.subCategory) { category in
-            guard let category = category else { return }
-            guard category.count == 4 else {
-                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`sub_category` value must have a length of 4")
-            }
-        }
-        validations.set(\.merchantCategory) { category in
-            guard let category = category else { return }
-            guard category.count == 4 else {
-                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`merchant_category` value must have a length of 4")
-            }
-        }
-        
-        return validations
     }
     
     enum CodingKeys: String, CodingKey {
