@@ -23,7 +23,7 @@ extension Optional: Content where Wrapped: Content {
     }
     
     public func encode(for req: Request) throws -> EventLoopFuture<Response> {
-        let res = req.makeResponse()
+        let res = req.response()
         try res.content.encode(self)
         return req.future(res)
     }

@@ -22,7 +22,7 @@ extension HTTPStatus: Content {
     
     /// See [`ResponseEncodable.encode(for:)`](https://api.vapor.codes/vapor/latest/Vapor/Protocols/ResponseEncodable.html#/s:5Vapor17ResponseEncodableP6encodeXeXeF).
     public func encode(for req: Request) throws -> Future<Response> {
-        let response = req.makeResponse()
+        let response = req.response()
         response.http.status = self
         return req.future(response)
     }
