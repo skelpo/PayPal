@@ -8,12 +8,12 @@ public struct NewAgreement: Content, Equatable {
     /// The agreement name.
     ///
     /// Maximum length: 128.
-    public private(set) var name: Failable<String, Length128<String>>
+    public var name: Failable<String, Length128<String>>
     
     /// The agreement description.
     ///
     /// Maximum length: 128.
-    public private(set) var description: Failable<String, Length128<String>>
+    public var description: Failable<String, Length128<String>>
     
     /// The date and time when this agreement begins, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
     /// The start date must be no less than 24 hours after the current date as the agreement can take up to 24 hours to activate.
@@ -71,7 +71,7 @@ public struct NewAgreement: Content, Equatable {
         shippingAddress: Address? = nil,
         overrideMerchantPreferances: MerchantPreferances<CurrencyCodeAmount>? = nil,
         overrideChargeModels: [OverrideCharge]? = nil
-    )throws {
+    ) {
         self.name = name
         self.description = description
         self.start = start
