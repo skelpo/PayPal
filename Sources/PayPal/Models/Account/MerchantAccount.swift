@@ -37,7 +37,7 @@ public struct MerchantAccount: Content, Equatable {
     /// An ID that the partner creates for the merchant account. Note: This information is not available for retrieval.
     ///
     /// Maximum length: 127.
-    public var partnerExternalID: Failable<String?, NotNilValidate<Length127<String>>>
+    public var partnerExternalID: Optional127String
     
     /// Whether the account allows the merchant to log in. Accounts managed by their parent only are not loginable.
     public var loginable: Bool?
@@ -83,7 +83,7 @@ public struct MerchantAccount: Content, Equatable {
         relations: [AccountRelation]?,
         permissions: [AccountPermission]?,
         timezone: Timezone?,
-        partnerExternalID: Failable<String?, NotNilValidate<Length127<String>>>,
+        partnerExternalID: Optional127String,
         loginable: Bool?,
         partnerTaxReporting: Bool?,
         signupOptions: SignupOptions?,

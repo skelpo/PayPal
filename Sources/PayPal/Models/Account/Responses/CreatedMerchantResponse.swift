@@ -14,10 +14,10 @@ public struct CreatedMerchantResponse: Content, Equatable {
     /// The partner-specified ID for the account, which was passed in the `partner_merchant_external_id` request parameter.
     ///
     /// Maximum length: 127.
-    public var partnerExternalID: Failable<String?, NotNilValidate<Length127<String>>>
+    public var partnerExternalID: Optional127String
     
     /// The merchant authorization code.
-    public var authCode: Failable<String?, NotNilValidate<Length127<String>>>
+    public var authCode: Optional127String
     
     /// An array of key-and-value pairs that contain custom data. For example, `aa_token`.
     public var custom: [KeyValue]?
