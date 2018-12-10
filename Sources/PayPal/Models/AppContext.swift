@@ -60,7 +60,7 @@ public struct AppContext: Content, Equatable {
        shipping: Shipping? = nil,
        userAction: String? = nil,
        data: [NameValue]? = nil
-    )throws {
+    ) {
         self.brand = brand
         self.locale = locale
         self.landingPage = landingPage
