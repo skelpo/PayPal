@@ -92,6 +92,13 @@ public struct TenThousand<C>: InRangeValidation where C: Comparable & Expressibl
     public static var min: C? { return -10_000.00 }
 }
 
+public struct TenDigits<C>: InRangeValidation where C: Comparable & ExpressibleByIntegerLiteral {
+    public typealias Supported = C
+    
+    public static var max: C? { return 1_000_000_000 }
+    public static var min: C? { return 0 }
+}
+
 // MARK: Currency
 
 public struct CurrencyMillion<Key>: Validation where Key: AmountCodingKey {
