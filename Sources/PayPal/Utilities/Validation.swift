@@ -25,6 +25,7 @@ public struct Length128: StringLengthValidation { public static var maxLength: I
 public struct Length255: StringLengthValidation { public static var maxLength: Int { return 255 } }
 public struct Length256: StringLengthValidation { public static var maxLength: Int { return 256 } }
 public struct Length300: StringLengthValidation { public static var maxLength: Int { return 300 } }
+public struct Length2000: StringLengthValidation { public static var maxLength: Int { return 2_000 } }
 
 public struct Count4<C>: LengthValidation where C: Collection {
     public typealias Supported = C
