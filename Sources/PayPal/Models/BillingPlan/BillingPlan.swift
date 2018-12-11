@@ -11,12 +11,12 @@ public struct BillingPlan: Content, Equatable {
     /// The plan name.
     ///
     /// Maximum length: 128.
-    public var name: Failable<String, Length128<String>>
+    public var name: Failable<String, Length128>
     
     /// The plan description.
     ///
     /// Maximum length: 128.
-    public var description: Failable<String, Length128<String>>
+    public var description: Failable<String, Length128>
     
     /// The plan type.
     ///
@@ -62,8 +62,8 @@ public struct BillingPlan: Content, Equatable {
     ///   - payments: An array of payment definitions for this plan.
     ///   - preferances: The merchant preferences that override the default information in the plan.
     public init(
-        name: Failable<String, Length128<String>>,
-        description: Failable<String, Length128<String>>,
+        name: Failable<String, Length128>,
+        description: Failable<String, Length128>,
         type: BillingPlan.PlanType,
         payments: [BillingPayment<CurrencyAmount>]?,
         preferances: MerchantPreferances<CurrencyAmount>?

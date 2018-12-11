@@ -8,12 +8,12 @@ public struct NewAgreement: Content, Equatable {
     /// The agreement name.
     ///
     /// Maximum length: 128.
-    public var name: Failable<String, Length128<String>>
+    public var name: Failable<String, Length128>
     
     /// The agreement description.
     ///
     /// Maximum length: 128.
-    public var description: Failable<String, Length128<String>>
+    public var description: Failable<String, Length128>
     
     /// The date and time when this agreement begins, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
     /// The start date must be no less than 24 hours after the current date as the agreement can take up to 24 hours to activate.
@@ -24,7 +24,7 @@ public struct NewAgreement: Content, Equatable {
     /// for an account in the Berlin time zone (UTC + 1) to `2017-01-02T00:00:00`. When the API returns this date and time in the execute
     /// agreement response, it shows the converted date and time in the UTC time zone. So, the internal `2017-01-02T00:00:00` start date
     /// and time becomes `2017-01-01T23:00:00` externally.
-    public var start: String
+    public var start: Date
     
     /// The agreement details.
     public var details: Details?
@@ -50,21 +50,20 @@ public struct NewAgreement: Content, Equatable {
     
     /// Creatse a new `NewAgreement` instance.
     ///
-    ///     NewAgreement(
-    ///         name: "Nia's Maggot Loaf",
-    ///         description: "Weekly maggot loaf subscription",
-    ///         start: Date().iso8601,
-    ///         payer: Payer(
-    ///             method: .paypal,
-    ///             fundingInstruments: nil,
-    ///             info: nil
-    ///         ),
-    ///         plan: "P-15B72BF371C34D24"
-    ///     )
+    /// - Parameters:
+    ///   - name: The agreement name.
+    ///   - description: The agreement description.
+    ///   - start: The date and time when this agreement begins, in Internet date and time format.
+    ///   - payer: The details for the customer who funds the payment.
+    ///   - plan: The ID of the plan on which this agreement is based.
+    ///   - details: The agreement details.
+    ///   - shippingAddress: The shipping address for a payment.
+    ///   - overrideMerchantPreferances: The merchant preferences that override the default information in the plan.
+    ///   - overrideChargeModels: An array of charge models to override the charge models in the plan.
     public init(
-        name: Failable<String, Length128<String>>,
-        description: Failable<String, Length128<String>>,
-        start: String,
+        name: Failable<String, Length128>,
+        description: Failable<String, Length128>,
+        start: Date,
         payer: Payer,
         plan: ID,
         details: Details? = nil,
