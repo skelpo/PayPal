@@ -52,18 +52,17 @@ public struct BusinessOwner: Content, Equatable {
     
     /// Creates a new `BusinessOwner` instance.
     ///
-    ///     BusinessOwner(
-    ///         email: "business@example.com",
-    ///         name: Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "Bart.", full: "Sir Walter Scott"),
-    ///         relationships: [],
-    ///         country: "UK",
-    ///         addresses: [],
-    ///         birthdate: "1771-08-15",
-    ///         language: .en_GB,
-    ///         phones: [],
-    ///         ids: [],
-    ///         occupation: "Author"
-    ///     )
+    /// - Parameters:
+    ///   - email: The account holder's email address.
+    ///   - name: The account holder's name.
+    ///   - relationships: An array of relationships for the account holder.
+    ///   - country: The two-character IS0-3166-1 country code of the account holder's country of residence.
+    ///   - addresses: An array of addresses for the account holder.
+    ///   - birthdate: The account holder's date of birth, in Internet date and time `full-date` format.
+    ///   - language: The language code for the account holder's preferred language.
+    ///   - phones: An array of phone numbers for the account holder.
+    ///   - ids: An array of identification documents for the account holder.
+    ///   - occupation: The account holder's occupation.
     public init(
         email: Failable<String, EmailString>,
         name: Name,
