@@ -3,7 +3,7 @@ import Vapor
 extension Business {
     
     /// The name of a business, such as legal name or stock trading name.
-    public struct Name: Content, ValidationSetable, Equatable {
+    public struct Name: Content, Equatable {
         
         /// The legal category of the business.
         public var type: NameType
@@ -11,39 +11,17 @@ extension Business {
         /// The name of the business.
         ///
         /// Maximum length: 300.
-        public private(set) var name: String
+        public var name: Failable<String, Length300>
         
         
         /// Creates a new `Business.Name` instance.
         ///
-        ///     Business.Name(type: .legal, name: "Stuff and Nonesense Inc.")
-        public init(type: NameType, name: String)throws {
+        /// - Parameters:
+        ///   - type: The legal category of the business.
+        ///   - name: The name of the business.
+        public init(type: NameType, name: Failable<String, Length300>) {
             self.type = type
             self.name = name
-            
-            try self.set(\.name <~ name)
-        }
-        
-        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
-        public init(from decoder: Decoder)throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            let name = try container.decode(String.self, forKey: .name)
-            
-            self.name = name
-            self.type = try container.decode(NameType.self, forKey: .type)
-            
-            try self.set(\.name <~ name)
-        }
-        
-        /// See `ValidationSetable.setterValidations()`.
-        public func setterValidations() -> SetterValidations<Business.Name> {
-            var validations = SetterValidations(Name.self)
-            
-            validations.set(\.name) { name in
-                guard name.count <= 300 else { throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`name` length must be 300 or less") }
-            }
-            
-            return validations
         }
     }
 }
