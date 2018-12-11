@@ -29,6 +29,7 @@ public struct Length100: StringLengthValidation { public static var maxLength: I
 public struct Length120: StringLengthValidation { public static var maxLength: Int { return 120 } }
 public struct Length127: StringLengthValidation { public static var maxLength: Int { return 127 } }
 public struct Length128: StringLengthValidation { public static var maxLength: Int { return 128 } }
+public struct Length140: StringLengthValidation { public static var maxLength: Int { return 140 } }
 
 public struct Length200: StringLengthValidation { public static var maxLength: Int { return 200 } }
 public struct Length255: StringLengthValidation { public static var maxLength: Int { return 255 } }
