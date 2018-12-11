@@ -5,6 +5,7 @@
 public typealias Optional127String = Failable<String?, NotNilValidate<Length127>>
 public typealias Optional128String = Failable<String?, NotNilValidate<Length128>>
 public typealias Optional300String = Failable<String?, NotNilValidate<Length300>>
+public typealias Optional2000String = Failable<String?, NotNilValidate<Length1To2000>>
 
 public protocol StringLengthValidation: Validation where Supported == String {
     static var maxLength: Int { get }
@@ -29,6 +30,13 @@ public struct Count4<C>: LengthValidation where C: Collection {
     public typealias Supported = C
     public static var maxLength: Int { return 4 }
     public static var minLength: Int { return 4 }
+}
+
+public struct Length1To2000: LengthValidation {
+    public typealias Supported = String
+    
+    public static var maxLength: Int = 2_000
+    public static var minLength: Int = 1
 }
 
 // MARK: - String Regex
