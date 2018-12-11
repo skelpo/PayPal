@@ -20,36 +20,10 @@ public struct Payer: Content, Equatable {
     
     /// Creates a new `Payer` instance.
     ///
-    ///     Payer(
-    ///         method: .paypal,
-    ///         fundingInstruments: [
-    ///             CreditCard(
-    ///                 number: "4953912847443848",
-    ///                 type: "Visa",
-    ///                 expireMonth: 09,
-    ///                 expireYear: 2028,
-    ///                 ccv2: 633,
-    ///                 firstName: "Jonnas",
-    ///                 lastName: "Futher",
-    ///                 billingAddress: nil,
-    ///                 customerID: "5FC894A2-FDA7-416D-818F-C0678C57371F"
-    ///             )
-    ///         ],
-    ///         info: PayerInfo(
-    ///             email: "payer@exmaple.com",
-    ///             shippingAddress: nil,
-    ///             billingAddress: Address(
-    ///                 recipientName: "Puffin Billy",
-    ///                 defaultAddress: true,
-    ///                 line1: "89 Furnace Dr.",
-    ///                 line2: nil,
-    ///                 city: "Nowhere",
-    ///                 state: "KS",
-    ///                 countryCode: "US",
-    ///                 postalCode: "66167"
-    ///             )
-    ///         )
-    ///     )
+    /// - Parameters:
+    ///   - method: The payment method.
+    ///   - fundingInstruments: An array of funding instruments.
+    ///   - info: The payer information.
     public init(method: PaymentMethod, fundingInstruments: [CreditCard]?, info: PayerInfo?) {
         self.fundingOption = nil
         self.method = method
