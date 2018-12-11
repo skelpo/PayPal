@@ -25,10 +25,12 @@ public struct Length60: StringLengthValidation { public static var maxLength: In
 public struct Length120: StringLengthValidation { public static var maxLength: Int { return 120 } }
 public struct Length127: StringLengthValidation { public static var maxLength: Int { return 127 } }
 public struct Length128: StringLengthValidation { public static var maxLength: Int { return 128 } }
+public struct Length200: StringLengthValidation { public static var maxLength: Int { return 200 } }
 public struct Length255: StringLengthValidation { public static var maxLength: Int { return 255 } }
 public struct Length256: StringLengthValidation { public static var maxLength: Int { return 256 } }
 public struct Length300: StringLengthValidation { public static var maxLength: Int { return 300 } }
 public struct Length500: StringLengthValidation { public static var maxLength: Int { return 500 } }
+public struct Length1000: StringLengthValidation { public static var maxLength: Int { return 1_000 } }
 public struct Length2000: StringLengthValidation { public static var maxLength: Int { return 2_000 } }
 public struct Length4000: StringLengthValidation { public static var maxLength: Int { return 4_000 } }
 
@@ -70,4 +72,26 @@ public struct YearRange: InRangeValidation {
     
     public static var max: Int? = 9_999
     public static var min: Int? = 1_000
+}
+
+// MARK: - Numerics
+
+public struct TenThousand<C>: InRangeValidation where C: Comparable & ExpressibleByFloatLiteral {
+    public typealias Supported = C
+    
+    public static var max: C? { return 10_000.00 }
+    public static var min: C? { return -10_000.00 }
+}
+
+// MARK: Currency
+
+public struct CurrencyMillion<Key>: Validation where Key: AmountCodingKey {
+    public static func validate(_ value: AmountType<Key>)throws {
+        guard value.value <= 1_000_000 else {
+            throw ValidationError(identifier: "valueTooGreat", reason: "Value passed in is greater than 1,000,000")
+        }
+        guard value.value >= -1_000_000 else {
+            throw ValidationError(identifier: "valueTooSmall", reason: "Value passed in is less than -1,000,000")
+        }
+    }
 }
