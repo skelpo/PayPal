@@ -19,6 +19,7 @@ extension StringLengthValidation {
     }
 }
 
+public struct Length22: StringLengthValidation { public static var maxLength: Int { return 22 } }
 public struct Length25: StringLengthValidation { public static var maxLength: Int { return 25 } }
 public struct Length30: StringLengthValidation { public static var maxLength: Int { return 30 } }
 public struct Length40: StringLengthValidation { public static var maxLength: Int { return 40 } }
@@ -41,6 +42,7 @@ public struct Length500: StringLengthValidation { public static var maxLength: I
 
 public struct Length1000: StringLengthValidation { public static var maxLength: Int { return 1_000 } }
 public struct Length2000: StringLengthValidation { public static var maxLength: Int { return 2_000 } }
+public struct Length2048: StringLengthValidation { public static var maxLength: Int { return 2_048 } }
 public struct Length4000: StringLengthValidation { public static var maxLength: Int { return 4_000 } }
 
 public struct Count4<C>: LengthValidation where C: Collection {
