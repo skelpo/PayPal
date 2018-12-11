@@ -1,7 +1,7 @@
 import Vapor
 
 /// The payment made during each cycle of a billing agreement.
-public struct BillingPayment<M>: Content, ValidationSetable, Equatable where M: Amount {
+public struct BillingPayment<M>: Content, Equatable where M: Amount {
     
     /// The PayPal-generated ID for the resource.
     ///
@@ -11,7 +11,7 @@ public struct BillingPayment<M>: Content, ValidationSetable, Equatable where M: 
     /// The payment definition name.
     ///
     /// Maximum length: 128.
-    public var name: String
+    public var name: Failable<String, Length128>
     
     /// The payment definition type.
     public var type: PaymentType
@@ -20,14 +20,14 @@ public struct BillingPayment<M>: Content, ValidationSetable, Equatable where M: 
     /// Value cannot be greater than 12 months.
     ///
     /// The coding key string value for this property is `frequency_interval`.
-    public var interval: String
+    public var interval: Int
     
     /// The frequency of the payment in this definition.
     public var frequency: Frequency
     
     /// The number of payment cycles in this definition.
     /// For infinite plans with a regular payment definition, set `cycles` to `0`.
-    public var cycles: String
+    public var cycles: Int
     
     /// The currency and amount to charge at the end of each payment cycle for this definition.
     public var amount: M
@@ -37,16 +37,23 @@ public struct BillingPayment<M>: Content, ValidationSetable, Equatable where M: 
     
     /// Creatse a new `BillingPayment` instance.
     ///
-    ///     BillingPayment(
-    ///         name: "Service Membership",
-    ///         type: .regular,
-    ///         interval: "2",
-    ///         frequency: .month,
-    ///         cycles: "0",
-    ///         amount: Money(currency: .usd, value: "24.99"),
-    ///         charges: nil
-    ///     )
-    public init(name: String, type: PaymentType, interval: String, frequency: Frequency, cycles: String, amount: M, charges: [Charge]?)throws {
+    /// - Parameters:
+    ///   - name:
+    ///   - type"
+    ///   - interval:
+    ///   - frequency:
+    ///   - cycles:
+    ///   - amount:
+    ///   - charges:
+    public init(
+        name: Failable<String, Length128>,
+        type: PaymentType,
+        interval: Int,
+        frequency: Frequency,
+        cycles: Int,
+        amount: M,
+        charges: [Charge]?
+    ) {
         self.id = nil
         self.name = name
         self.type = type
@@ -55,59 +62,45 @@ public struct BillingPayment<M>: Content, ValidationSetable, Equatable where M: 
         self.cycles = cycles
         self.amount = amount
         self.charges = charges
-        
-        try self.set(\.name <~ name)
-        try self.set(\.cycles <~ cycles)
-        try self.set(\.interval <~ interval)
     }
     
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        let interStr = try container.decode(String.self, forKey: .interval)
+        let cycStr = try container.decode(String.self, forKey: .cycles)
+        
+        guard let interval = Int(interStr) else {
+            throw DecodingError.dataCorruptedError(forKey: .interval, in: container, debugDescription: "Value must be convertible to int")
+        }
+        guard let cycles = Int(cycStr) else {
+            throw DecodingError.dataCorruptedError(forKey: .cycles, in: container, debugDescription: "Value must be convertible to int")
+        }
+        
+        self.interval = interval
+        self.cycles = cycles
         self.id = try container.decodeIfPresent(String.self, forKey: .id)
-        self.name = try container.decode(String.self, forKey: .name)
+        self.name = try container.decode(Failable<String, Length128>.self, forKey: .name)
         self.type = try container.decode(PaymentType.self, forKey: .type)
-        self.interval = try container.decode(String.self, forKey: .interval)
         self.frequency = try container.decode(Frequency.self, forKey: .frequency)
-        self.cycles = try container.decode(String.self, forKey: .cycles)
         self.amount = try container.decode(M.self, forKey: .amount)
         self.charges = try container.decodeIfPresent([Charge].self, forKey: .charges)
-        
-        try self.set(\.name <~ name)
-        try self.set(\.cycles <~ cycles)
-        try self.set(\.interval <~ interval)
     }
     
-    public func setterValidations() -> SetterValidations<BillingPayment> {
-        var validations = SetterValidations(BillingPayment.self)
+    /// See [`Encodable.encode(to:)`](https://developer.apple.com/documentation/swift/encodable/2893603-encode).
+    public func encode(to enccoder: Encoder)throws {
+        var container = enccoder.container(keyedBy: CodingKeys.self)
         
-        validations.set(\.name) { name in
-            guard name.count <= 128 else {
-                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "The `name` property must have a length of 128 or less.")
-            }
-        }
-        validations.set(\.cycles) { number in
-            guard Int(number) != nil else { throw PayPalError(status: .badRequest, identifier: "badType", reason: "`cycles` must be convertible to a integer") }
-        }
-        validations.set(\.interval) { interval in
-            guard let int = Int(interval) else {
-                throw PayPalError(status: .badRequest, identifier: "badType", reason: "`frequency_interval` must be convertible to a integer")
-            }
-            
-            var error = false
-            switch self.frequency {
-            
-            // Sure, this case doesn't handle leap years, but how would you do that anyway?
-            // PRs are welcome if you happen to figure it out!
-            case .day: guard int <= 365 else { error = true; break }
-            case .week: guard int <= 52 else { error = true; break }
-            case .month: guard int <= 12 else { error = true; break }
-            case .year: guard int <= 1 else { error = true; break }
-            }
-            
-            if error { throw PayPalError(status: .badRequest, identifier: "invalidFrequency", reason: "`frequency_interval` cannot be more the 12 monthes") }
-        }
+        try container.encodeIfPresent(self.id, forKey: .id)
+        try container.encodeIfPresent(self.charges, forKey: .charges)
+        try container.encode(String(self.interval), forKey: .interval)
+        try container.encode(String(self.cycles), forKey: .cycles)
+        try container.encode(self.name, forKey: .name)
+        try container.encode(self.type, forKey: .type)
+        try container.encode(self.frequency, forKey: .frequency)
+        try container.encode(self.amount, forKey: .amount)
         
-        return validations
     }
     
     enum CodingKeys: String, CodingKey {
