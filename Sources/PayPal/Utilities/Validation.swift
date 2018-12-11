@@ -19,6 +19,7 @@ extension StringLengthValidation {
     }
 }
 
+public struct Length14: StringLengthValidation { public static var maxLength: Int { return 14 } }
 public struct Length22: StringLengthValidation { public static var maxLength: Int { return 22 } }
 public struct Length25: StringLengthValidation { public static var maxLength: Int { return 25 } }
 public struct Length30: StringLengthValidation { public static var maxLength: Int { return 30 } }
