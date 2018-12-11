@@ -22,14 +22,19 @@ extension StringLengthValidation {
 public struct Length25: StringLengthValidation { public static var maxLength: Int { return 25 } }
 public struct Length50: StringLengthValidation { public static var maxLength: Int { return 50 } }
 public struct Length60: StringLengthValidation { public static var maxLength: Int { return 60 } }
+
 public struct Length120: StringLengthValidation { public static var maxLength: Int { return 120 } }
 public struct Length127: StringLengthValidation { public static var maxLength: Int { return 127 } }
 public struct Length128: StringLengthValidation { public static var maxLength: Int { return 128 } }
+
 public struct Length200: StringLengthValidation { public static var maxLength: Int { return 200 } }
 public struct Length255: StringLengthValidation { public static var maxLength: Int { return 255 } }
 public struct Length256: StringLengthValidation { public static var maxLength: Int { return 256 } }
+public struct Length260: StringLengthValidation { public static var maxLength: Int { return 260 } }
+
 public struct Length300: StringLengthValidation { public static var maxLength: Int { return 300 } }
 public struct Length500: StringLengthValidation { public static var maxLength: Int { return 500 } }
+
 public struct Length1000: StringLengthValidation { public static var maxLength: Int { return 1_000 } }
 public struct Length2000: StringLengthValidation { public static var maxLength: Int { return 2_000 } }
 public struct Length4000: StringLengthValidation { public static var maxLength: Int { return 4_000 } }
