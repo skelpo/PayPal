@@ -22,6 +22,7 @@ public struct Length120: StringLengthValidation { public static var maxLength: I
 public struct Length127: StringLengthValidation { public static var maxLength: Int { return 127 } }
 public struct Length128: StringLengthValidation { public static var maxLength: Int { return 128 } }
 public struct Length255: StringLengthValidation { public static var maxLength: Int { return 255 } }
+public struct Length256: StringLengthValidation { public static var maxLength: Int { return 256 } }
 public struct Length300: StringLengthValidation { public static var maxLength: Int { return 300 } }
 
 public struct Count4<C>: LengthValidation where C: Collection {
@@ -41,3 +42,18 @@ public struct EmailString: RegexValidation {
 }
 
 
+// MARK: - Dates
+
+public struct MonthRange: InRangeValidation {
+    public typealias Supported = Int
+    
+    public static var max: Int? = 12
+    public static var min: Int? = 0
+}
+
+public struct YearRange: InRangeValidation {
+    public typealias Supported = Int
+    
+    public static var max: Int? = 9_999
+    public static var min: Int? = 1_000
+}
