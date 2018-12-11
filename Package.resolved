@@ -29,6 +29,15 @@
         }
       },
       {
+        "package": "Countries",
+        "repositoryURL": "https://github.com/skelpo/Countries.git",
+        "state": {
+          "branch": null,
+          "revision": "95962a77438b5c949f9d812a700cbabbefcf15da",
+          "version": "0.9.1"
+        }
+      },
+      {
         "package": "Crypto",
         "repositoryURL": "https://github.com/vapor/crypto.git",
         "state": {
