@@ -32,3 +32,9 @@ public struct Count4<C>: LengthValidation where C: Collection {
 public struct LocaleString: RegexValidation {
     public static var pattern: String = "^[a-z]{2}(?:-[A-Z][a-z]{3})?(?:-(?:[A-Z]{2}))?$"
 }
+
+public struct EmailString: RegexValidation {
+    public static var pattern: String = "^(?=.{3,254}$).+@[^\"\\-].+$"
+}
+
+

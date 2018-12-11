@@ -1,16 +1,21 @@
 import Vapor
 
 /// Information on a business owner, which owns an account.
-public struct BusinessOwner: Content, ValidationSetable, Equatable {
+public struct BusinessOwner: Content, Equatable {
+    internal static let birthdateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
     
     /// The account holder's email address, in [Simple Mail Transfer Protocol](https://www.ietf.org/rfc/rfc5321.txt) as defined in RFC 5321 or
     /// in [Internet Message Format](https://www.ietf.org/rfc/rfc5322.txt) as defined in RFC 5322. Does not support Unicode email addresses.
     ///
-    /// This property can be set using the `BusinessOwner.set(_:)` method.
-    /// This method validates the new value before assigning it to the property.
-    ///
     /// Minimum length: 3. Maximum length: 254. Pattern: `^.+@[^"\-].+$`.
-    public private(set) var email: String
+    public var email: Failable<String, EmailString>
     
     /// The account holder's name.
     public var name: Name
@@ -28,13 +33,8 @@ public struct BusinessOwner: Content, ValidationSetable, Equatable {
     public var addresses: [Address]
     
     /// The account holder's date of birth, in [Internet date and time `full-date` format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    /// Supports `YYYY-MM-DD`. Not required for all countries.
-    ///
-    /// This property can be set using the `BusinessOwner.set(_:)` method.
-    /// This method validates the new value before assigning it to the property.
-    ///
-    /// Length: 10. Pattern: `^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$`.
-    public private(set) var birthdate: String?
+    /// Supports `YYYY-MM-dd`. Not required for all countries.
+    public var birthdate: Date?
     
     /// The [language code](https://developer.paypal.com/docs/integration/direct/rest/locale-codes/) for the account holder's preferred language.
     public var language: Language?
@@ -65,17 +65,17 @@ public struct BusinessOwner: Content, ValidationSetable, Equatable {
     ///         occupation: "Author"
     ///     )
     public init(
-        email: String,
+        email: Failable<String, EmailString>,
         name: Name,
         relationships: [AccountOwnerRelationship]?,
         country: Country,
         addresses: [Address],
-        birthdate: String?,
+        birthdate: Date?,
         language: Language?,
         phones: [TypedPhoneNumber]?,
         ids: [Identification]?,
         occupation: String?
-    )throws {
+    ) {
         self.email = email
         self.name = name
         self.relationships = relationships
@@ -86,20 +86,20 @@ public struct BusinessOwner: Content, ValidationSetable, Equatable {
         self.phones = phones
         self.ids = ids
         self.occupation = occupation
-        
-        try self.set(\.email <~ email)
-        try self.set(\.country <~ country)
-        try self.set(\.birthdate <~ birthdate)
     }
     
     /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let email = try container.decode(String.self, forKey: .email)
-        let birthdate = try container.decodeIfPresent(String.self, forKey: .birthdate)
         
-        self.email = email
-        self.birthdate = birthdate
+        if
+            let birthdate = try container.decodeIfPresent(String.self, forKey: .birthdate),
+            let date = BusinessOwner.birthdateFormatter.date(from: birthdate)
+        {
+            self.birthdate = date
+        }
+        
+        self.email = try container.decode(Failable<String, EmailString>.self, forKey: .email)
         self.country = try container.decode(Country.self, forKey: .country)
         self.name = try container.decode(Name.self, forKey: .name)
         self.relationships = try container.decodeIfPresent([AccountOwnerRelationship].self, forKey: .relationships)
@@ -108,28 +108,25 @@ public struct BusinessOwner: Content, ValidationSetable, Equatable {
         self.phones = try container.decodeIfPresent([TypedPhoneNumber].self, forKey: .phones)
         self.ids = try container.decodeIfPresent([Identification].self, forKey: .ids)
         self.occupation = try container.decodeIfPresent(String.self, forKey: .occupation)
-        
-        try self.set(\.email <~ email)
-        try self.set(\.birthdate <~ birthdate)
     }
     
-    /// See `ValidationSetable.setterValidations()`.
-    public func setterValidations() -> SetterValidations<BusinessOwner> {
-        var validations = SetterValidations(BusinessOwner.self)
+    /// See [`Encodable.encode(to:)`](https://developer.apple.com/documentation/swift/encodable/2893603-encode).
+    public func encode(to encoder: Encoder)throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
         
-        validations.set(\.email) { email in
-            guard email.range(of: "^.+@[^\"\\-].+$", options: .regularExpression) != nil else {
-                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`email` value must match the RegEx pattern `^.+@[^\"\\-].+$`")
-            }
-        }
-        validations.set(\.birthdate) { birthdate in
-            let pattern = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
-            guard birthdate?.range(of: pattern, options: .regularExpression) != nil else {
-                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`birthdate` value must match the RegEx pattern `\(pattern)`")
-            }
+        if let date = self.birthdate {
+            try container.encode(BusinessOwner.birthdateFormatter.string(from: date), forKey: .birthdate)
         }
         
-        return validations
+        try container.encode(self.email, forKey: .email)
+        try container.encode(self.country, forKey: .country)
+        try container.encode(self.name, forKey: .name)
+        try container.encode(self.addresses, forKey: .addresses)
+        try container.encodeIfPresent(self.relationships, forKey: .relationships)
+        try container.encodeIfPresent(self.language, forKey: .language)
+        try container.encodeIfPresent(self.phones, forKey: .phones)
+        try container.encodeIfPresent(self.ids, forKey: .ids)
+        try container.encodeIfPresent(self.occupation, forKey: .occupation)
     }
     
     enum CodingKeys: String, CodingKey {
