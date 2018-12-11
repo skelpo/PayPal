@@ -1,3 +1,4 @@
+import Countries
 import Vapor
 
 /// Business information, primerily used for a merchant account.
