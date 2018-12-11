@@ -41,6 +41,7 @@ public struct Length256: StringLengthValidation { public static var maxLength: I
 public struct Length260: StringLengthValidation { public static var maxLength: Int { return 260 } }
 
 public struct Length300: StringLengthValidation { public static var maxLength: Int { return 300 } }
+public struct Length480: StringLengthValidation { public static var maxLength: Int { return 480 } }
 public struct Length500: StringLengthValidation { public static var maxLength: Int { return 500 } }
 
 public struct Length1000: StringLengthValidation { public static var maxLength: Int { return 1_000 } }
