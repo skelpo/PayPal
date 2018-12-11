@@ -4,6 +4,7 @@
 
 public typealias Optional127String = Failable<String?, NotNilValidate<Length127>>
 public typealias Optional128String = Failable<String?, NotNilValidate<Length128>>
+public typealias Optional300String = Failable<String?, NotNilValidate<Length300>>
 
 public protocol StringLengthValidation: Validation where Supported == String {
     static var maxLength: Int { get }
@@ -17,6 +18,7 @@ extension StringLengthValidation {
     }
 }
 
+public struct Length120: StringLengthValidation { public static var maxLength: Int { return 120 } }
 public struct Length127: StringLengthValidation { public static var maxLength: Int { return 127 } }
 public struct Length128: StringLengthValidation { public static var maxLength: Int { return 128 } }
 public struct Length300: StringLengthValidation { public static var maxLength: Int { return 300 } }
