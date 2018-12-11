@@ -81,7 +81,7 @@ public struct Invoice: Content, Equatable {
     public var shippingCost: ShippingCosts?
     
     /// The custom amount to apply to an invoice. If you include a label, you must include a custom amount.
-    public var custom: CustomAmount<CurrencyAmount>?
+    public var custom: CustomAmount<CurrencyKeys>?
     
     /// Indicates whether the invoice allows a partial payment. If `false`, the invoice must be paid in full.
     /// If `true`, the invoice allows partial payments.
@@ -172,7 +172,7 @@ public struct Invoice: Content, Equatable {
         reference: Failable<String?, NotNilValidate<Length60>> = nil,
         discount: Discount<CurrencyAmount>? = nil,
         shippingCost: ShippingCosts? = nil,
-        custom: CustomAmount<CurrencyAmount>? = nil,
+        custom: CustomAmount<CurrencyKeys>? = nil,
         allowPartialPayment: Bool? = nil,
         minimumDue: CurrencyAmount? = nil,
         taxCalculatedAfterDiscount: Bool? = nil,
