@@ -8,14 +8,40 @@ public struct PaymentTerm: Content, Equatable {
     
     /// The date when the invoice payment is due, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
     /// For example, _yyyy-MM-dd z_.
-    public var due: String?
+    public var due: Date?
     
     /// Creates a new `PaymentType` instance.
     ///
-    ///     PaymentTerm(type: .dueOnReceipt, due: Date().iso8601)
-    public init(type: TermType?, due: String?) {
+    /// - Parameters:
+    ///   - type: The term when the invoice payment is due.
+    ///   - due: The date when the invoice payment is due, in Internet date and time format.
+    public init(type: TermType?, due: Date?) {
         self.type = type
         self.due = due
+    }
+    
+    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
+    public init(from decoder: Decoder)throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        let dueStr = try container.decode(String.self, forKey: .due)
+        guard let due = BusinessOwner.birthdateFormatter.date(from: dueStr) else {
+            throw DecodingError.dataCorruptedError(forKey: .due, in: container, debugDescription: "Date format must be `yyyy-MM-dd`")
+        }
+        
+        self.due = due
+        self.type = try container.decode(TermType.self, forKey: .type)
+    }
+    
+    /// See [`Encodable.encode(to:)`](https://developer.apple.com/documentation/swift/encodable/2893603-encode).
+    public func encode(to encoder: Encoder)throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(self.type, forKey: .type)
+        
+        if let due = self.due {
+            try container.encode(BusinessOwner.birthdateFormatter.string(from: due), forKey: .due)
+        }
     }
     
     enum CodingKeys: String, CodingKey {
