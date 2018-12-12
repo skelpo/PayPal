@@ -11,11 +11,8 @@ public struct Message: Content, Equatable {
     
     /// The message text.
     ///
-    /// To set this property, use the `Message.set(_:)` method. This will
-    /// validate the new value before assigning it to the property.
-    ///
     /// Minimum length: 0. Maximum length: 2000.
-    public private(set) var content: Failable<String, Length2000>
+    public var content: Failable<String, Length2000>
     
     /// Creates a new `Message` instance.
     ///
