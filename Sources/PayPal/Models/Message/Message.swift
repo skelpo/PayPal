@@ -7,7 +7,7 @@ public struct Message: Content, Equatable {
     public let poster: Poster?
     
     /// The date and time when the message was posted, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public let posted: String?
+    public let posted: Date?
     
     /// The message text.
     ///
