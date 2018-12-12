@@ -7,7 +7,7 @@ public struct Buyer: Content, Equatable {
     ///
     /// Minimum length: 3. Maximum length: 254.
     /// The values for this property must match the following RegEx pattern: `^.+@[^"\-].+$`.
-    public private(set) var email: Failable<String?, NotNilValidate<EmailString>>
+    public var email: Failable<String?, NotNilValidate<EmailString>>
     
     /// The customer's name.
     public var name: String?
