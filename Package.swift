@@ -16,6 +16,10 @@ let package = Package(
     ],
     targets: [
         .target(name: "PayPal", dependencies: ["Vapor", "JSON", "Failable", "Countries"]),
+        
+        .testTarget(name: "ConfigTests", dependencies: []),
+        .testTarget(name: "ControllerTests", dependencies: []),
+        .testTarget(name: "ModelTests", dependencies: []),
         .testTarget(name: "PayPalTests", dependencies: ["PayPal", "Vapor", "JSON", "SwiftGD"]),
     ]
 )
