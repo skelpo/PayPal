@@ -27,12 +27,8 @@ extension Payment {
         /// The shipping phone number, in its canonical international format as defined by the
         /// [E.164](https://en.wikipedia.org/wiki/E.164) numbering plan.
         ///
-        /// Enables merchants to share payer’s contact number with PayPal for the current payment.
-        /// The final contact number for the payer who is associated with the transaction might be
-        /// the same as or different from the shipping_phone_number based on the payer’s action on PayPal.
-        ///
         /// Minimum length: 1. Maximum length: 50.
-        public private(set) var phoneNumber: Failable<String?, NotNilValidate<PhoneNumberLength>>
+        public var phoneNumber: Failable<String?, NotNilValidate<PhoneNumberLength>>
         
         /// Creates a new `Payment.ItemList` instance.
         ///
