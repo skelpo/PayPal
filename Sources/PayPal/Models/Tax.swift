@@ -10,11 +10,8 @@ public struct Tax: Content, Equatable {
     
     /// The tax rate. Value is from `0` to `100`. Supports up to five decimal places.
     ///
-    /// This property can be set using the `Tax.set(_:)` method. This
-    /// method will validate the new value before assigning it to the property.
-    ///
     /// Minimum value: 0.
-    public private(set) var percent: Failable<Decimal, RateValidation>
+    public var percent: Failable<Decimal, RateValidation>
     
     /// The currency and amount of the calculated tax.
     public let amount: CurrencyAmount?
