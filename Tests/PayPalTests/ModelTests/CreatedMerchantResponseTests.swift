@@ -16,11 +16,11 @@ final class CreatedMerchantResponseTests: XCTestCase {
         
         let response = try JSONDecoder().decode(CreatedMerchantResponse.self, from: json)
         XCTAssertEqual(response.links, [])
-        XCTAssertEqual(response.payer, "12D54EFB-D12F-4AF8-B5BF-AC62FFE253CC")
-        XCTAssertEqual(response.partnerExternalID, "DA1F6BA7-9D8B-4D78-BFB4-A74F9AF83674")
-        XCTAssertEqual(response.authCode, "6C0AB2D4-5668-42E6-B943-9FF9956D860B")
         XCTAssertEqual(response.custom, [:])
         XCTAssertEqual(response.errors, [])
+        XCTAssertEqual(response.payer, .init("12D54EFB-D12F-4AF8-B5BF-AC62FFE253CC"))
+        try XCTAssertEqual(response.partnerExternalID, .init("DA1F6BA7-9D8B-4D78-BFB4-A74F9AF83674"))
+        try XCTAssertEqual(response.authCode, .init("6C0AB2D4-5668-42E6-B943-9FF9956D860B"))
     }
     
     static var allTests: [(String, (CreatedMerchantResponseTests) -> ()throws -> ())] = [

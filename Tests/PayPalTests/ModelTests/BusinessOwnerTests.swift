@@ -1,89 +1,68 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class BusinessOwnerTests: XCTestCase {
+    let (date, dateStr): (Date, String) = {
+        let date = Date()
+        return (date, TimelessDate.formatter.string(from: date))
+    }()
+    
     func testInit()throws {
         let owner = try BusinessOwner(
-            email: "business@example.com",
-            name: Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "Bart.", full: "Sir Walter Scott"),
+            email: .init("business@example.com"),
+            name: Name(prefix: nil, given: nil, surname: nil, middle: nil, suffix: nil, full: nil),
             relationships: [],
             country: .unitedKingdom,
             addresses: [],
-            birthdate: "1771-08-15",
+            birthdate: self.date,
             language: .en_GB,
             phones: [],
             ids: [],
             occupation: "Author"
         )
         
-        XCTAssertEqual(owner.email, "business@example.com")
+        XCTAssertEqual(owner.email.value, "business@example.com")
         XCTAssertEqual(owner.relationships, [])
         XCTAssertEqual(owner.country, .unitedKingdom)
         XCTAssertEqual(owner.addresses, [])
-        XCTAssertEqual(owner.birthdate, "1771-08-15")
+        XCTAssertEqual(owner.birthdate, self.date)
         XCTAssertEqual(owner.language, .en_GB)
         XCTAssertEqual(owner.phones, [])
         XCTAssertEqual(owner.ids, [])
         XCTAssertEqual(owner.occupation, "Author")
-        try XCTAssertEqual(owner.name, Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "Bart.", full: "Sir Walter Scott"))
+        XCTAssertEqual(owner.name, Name(prefix: nil, given: nil, surname: nil, middle: nil, suffix: nil, full: nil))
     }
     
     func testValueValidation()throws {
-        try XCTAssertThrowsError(BusinessOwner(
-            email: "business@",
-            name: Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "Bart.", full: "Sir Walter Scott"),
-            relationships: [],
-            country: .unitedKingdom,
-            addresses: [],
-            birthdate: "1771-08-15",
-            language: .en_GB,
-            phones: [],
-            ids: [],
-            occupation: "Author"
-        ))
-        try XCTAssertThrowsError(BusinessOwner(
-            email: "business@example.com",
-            name: Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "Bart.", full: "Sir Walter Scott"),
-            relationships: [],
-            country: .unitedKingdom,
-            addresses: [],
-            birthdate: "08/15/1771",
-            language: .en_GB,
-            phones: [],
-            ids: [],
-            occupation: "Author"
-        ))
         var owner = try BusinessOwner(
-            email: "business@example.com",
-            name: Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "Bart.", full: "Sir Walter Scott"),
+            email: .init("business@example.com"),
+            name: Name(prefix: nil, given: nil, surname: nil, middle: nil, suffix: nil, full: nil),
             relationships: [],
             country: .unitedKingdom,
             addresses: [],
-            birthdate: "1771-08-15",
+            birthdate: self.date,
             language: .en_GB,
             phones: [],
             ids: [],
             occupation: "Author"
         )
         
-        try XCTAssertThrowsError(owner.set(\.email <~ "scottinklings.swift"))
-        try XCTAssertThrowsError(owner.set(\.birthdate <~ "05/06/1969"))
-        try owner.set(\.email <~ "scott@inklings.swift")
-        try owner.set(\.birthdate <~ "1969-06-05")
+        try XCTAssertThrowsError(owner.email <~ "scottinklings.swift")
+        try owner.email <~ "scott@inklings.swift"
         
-        XCTAssertEqual(owner.email, "scott@inklings.swift")
-        XCTAssertEqual(owner.birthdate, "1969-06-05")
+        XCTAssertEqual(owner.email.value, "scott@inklings.swift")
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let owner = try BusinessOwner(
-            email: "business@example.com",
-            name: Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "Bart.", full: "Sir Walter Scott"),
+            email: .init("business@example.com"),
+            name: Name(prefix: nil, given: nil, surname: nil, middle: nil, suffix: nil, full: nil),
             relationships: [],
             country: .unitedKingdom,
             addresses: [],
-            birthdate: "1771-08-15",
+            birthdate: self.date,
             language: .en_GB,
             phones: [],
             ids: [],
@@ -91,7 +70,7 @@ final class BusinessOwnerTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(owner), encoding: .utf8)!
         let json =
-            "{\"phones\":[],\"account_owner_relationships\":[],\"country_code_of_nationality\":\"GB\",\"date_of_birth\":\"1771-08-15\"," +
+            "{\"phones\":[],\"account_owner_relationships\":[],\"country_code_of_nationality\":\"GB\",\"date_of_birth\":\"\(dateStr)\"," +
             "\"addresses\":[],\"email\":\"business@example.com\",\"occupation\":\"Author\",\"identifications\":[]," +
             "\"name\":{\"given_name\":\"Walter\",\"full_name\":\"Sir Walter Scott\",\"prefix\":\"Sir\",\"surname\":\"Scott\"," +
             "\"suffix\":\"Bart.\"},\"language_code\":\"en_GB\"}"
@@ -110,12 +89,12 @@ final class BusinessOwnerTests: XCTestCase {
         let decoder = JSONDecoder()
         
         let owner = try BusinessOwner(
-            email: "business@example.com",
-            name: Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "Bart.", full: "Sir Walter Scott"),
+            email: .init("business@example.com"),
+            name: Name(prefix: nil, given: nil, surname: nil, middle: nil, suffix: nil, full: nil),
             relationships: [],
             country: .unitedKingdom,
             addresses: [],
-            birthdate: "1771-08-15",
+            birthdate: self.date,
             language: .en_GB,
             phones: [],
             ids: [],
@@ -127,17 +106,11 @@ final class BusinessOwnerTests: XCTestCase {
             "identifications": [],
             "phones": [],
             "language_code": "en_GB",
-            "date_of_birth": "1771-08-15",
+            "date_of_birth": "\(self.dateStr)",
             "addresses": [],
             "country_code_of_nationality": "GB",
             "account_owner_relationships": [],
-            "name": {
-                "full_name": "Sir Walter Scott",
-                "suffix": "Bart.",
-                "surname": "Scott",
-                "given_name": "Walter",
-                "prefix": "Sir"
-            },
+            "name": {},
             "email": "business@example.com"
         }
         """.data(using: .utf8)!
@@ -147,17 +120,11 @@ final class BusinessOwnerTests: XCTestCase {
             "identifications": [],
             "phones": [],
             "language_code": "en_GB",
-            "date_of_birth": "1771-08-15",
+            "date_of_birth": "\(self.dateStr)",
             "addresses": [],
             "country_code_of_nationality": "UK",
             "account_owner_relationships": [],
-            "name": {
-                "full_name": "Sir Walter Scott",
-                "suffix": "Bart.",
-                "surname": "Scott",
-                "given_name": "Walter",
-                "prefix": "Sir"
-            },
+            "name": {},
             "email": "business@"
         }
         """.data(using: .utf8)!
@@ -167,17 +134,11 @@ final class BusinessOwnerTests: XCTestCase {
             "identifications": [],
             "phones": [],
             "language_code": "en_GB",
-            "date_of_birth": "1771-08-15",
+            "date_of_birth": "\(self.dateStr)",
             "addresses": [],
             "country_code_of_nationality": "usa",
             "account_owner_relationships": [],
-            "name": {
-                "full_name": "Sir Walter Scott",
-                "suffix": "Bart.",
-                "surname": "Scott",
-                "given_name": "Walter",
-                "prefix": "Sir"
-            },
+            "name": {},
             "email": "business@example.com"
         }
         """.data(using: .utf8)!
@@ -191,13 +152,7 @@ final class BusinessOwnerTests: XCTestCase {
             "addresses": [],
             "country_code_of_nationality": "usa",
             "account_owner_relationships": [],
-            "name": {
-                "full_name": "Sir Walter Scott",
-                "suffix": "Bart.",
-                "surname": "Scott",
-                "given_name": "Walter",
-                "prefix": "Sir"
-            },
+            "name": {},
             "email": "business@example.com"
         }
         """.data(using: .utf8)!

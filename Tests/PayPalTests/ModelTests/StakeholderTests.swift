@@ -3,11 +3,11 @@ import XCTest
 
 final class StakeholderTests: XCTestCase {
     func testInit()throws {
-        let holder = try Business.Stakeholder(
+        let holder = Business.Stakeholder(
             type: .partner,
             country: .unitedStates,
             birth: TimelessDate(date: "2000-06-18"),
-            name: Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "auth.", full: "Sir Walter Scott"),
+            name: Name(prefix: nil, given: nil, surname: nil, middle: nil, suffix: nil, full: nil),
             addresses: [],
             phones: [],
             ids: [],
@@ -22,12 +22,12 @@ final class StakeholderTests: XCTestCase {
         XCTAssertEqual(holder.ids, [])
         XCTAssertEqual(holder.birth, TimelessDate(date: "2000-06-18"))
         XCTAssertEqual(holder.birthplace, BirthPlace(country: .unitedStates, city: "Boston"))
-        try XCTAssertEqual(holder.name, Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "auth.", full: "Sir Walter Scott"))
+        XCTAssertEqual(holder.name, Name(prefix: nil, given: nil, surname: nil, middle: nil, suffix: nil, full: nil))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let holder = try Business.Stakeholder(
+        let holder = Business.Stakeholder(
             type: .partner,
             country: .unitedStates,
             birth: TimelessDate(date: "2000-06-18"),
@@ -71,7 +71,7 @@ final class StakeholderTests: XCTestCase {
             "type": "PARTNER"
         }
         """.data(using: .utf8)!
-        let holder = try Business.Stakeholder(
+        let holder = Business.Stakeholder(
             type: .partner,
             country: .unitedStates,
             birth: TimelessDate(date: "2000-06-18"),

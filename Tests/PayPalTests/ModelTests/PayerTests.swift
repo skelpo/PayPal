@@ -15,7 +15,7 @@ final class PayerTests: XCTestCase {
                     firstName: "Jonnas",
                     lastName: "Futher",
                     billingAddress: nil,
-                    customerID: "5FC894A2-FDA7-416D-818F-C0678C57371F"
+                    customerID: .init("5FC894A2-FDA7-416D-818F-C0678C57371F")
                 )
             ],
             info: PayerInfo(
@@ -50,7 +50,7 @@ final class PayerTests: XCTestCase {
                 firstName: "Jonnas",
                 lastName: "Futher",
                 billingAddress: nil,
-                customerID: "5FC894A2-FDA7-416D-818F-C0678C57371F"
+                customerID: .init("5FC894A2-FDA7-416D-818F-C0678C57371F")
             )
         )
         XCTAssertEqual(
@@ -88,7 +88,7 @@ final class PayerTests: XCTestCase {
                     firstName: "Jonnas",
                     lastName: "Further",
                     billingAddress: nil,
-                    customerID: "5FC894A2-FDA7-416D-818F-C0678C57371F"
+                    customerID: .init("5FC894A2-FDA7-416D-818F-C0678C57371F")
                 )
             ],
             info: PayerInfo(
@@ -140,7 +140,7 @@ final class PayerTests: XCTestCase {
                     firstName: "Jonnas",
                     lastName: "Futher",
                     billingAddress: nil,
-                    customerID: "5FC894A2-FDA7-416D-818F-C0678C57371F"
+                    customerID: .init("5FC894A2-FDA7-416D-818F-C0678C57371F")
                 )
             ],
             info: PayerInfo(

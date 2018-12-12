@@ -1,4 +1,5 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class EvidenceTests: XCTestCase {
@@ -14,12 +15,12 @@ final class EvidenceTests: XCTestCase {
                 ]
             ),
             documents: [Document(name: "README.md", size: "65kb")],
-            notes: "I win. Ha!",
+            notes: .init("I win. Ha!"),
             itemID: "4FB4018C-F925-4FC6-B44B-0174C1B59F17"
         )
         
         XCTAssertEqual(evidence.type, .proofOfFulfillment)
-        XCTAssertEqual(evidence.notes, "I win. Ha!")
+        XCTAssertEqual(evidence.notes.value, "I win. Ha!")
         XCTAssertEqual(evidence.itemID, "4FB4018C-F925-4FC6-B44B-0174C1B59F17")
         XCTAssertEqual(evidence.documents, [Document(name: "README.md", size: "65kb")])
         XCTAssertEqual(evidence.info, Evidence.Info(
@@ -33,13 +34,13 @@ final class EvidenceTests: XCTestCase {
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(Evidence(type: nil, info: nil, documents: nil, notes: String(repeating: "n", count: 2001), itemID: nil))
-        var evidence = try Evidence(type: nil, info: nil, documents: nil, notes: String(repeating: "n", count: 2000), itemID: nil)
+        try XCTAssertThrowsError(Evidence(type: nil, info: nil, documents: nil, notes: .init(String(repeating: "n", count: 2001)), itemID: nil))
+        var evidence = try Evidence(type: nil, info: nil, documents: nil, notes: .init(String(repeating: "n", count: 2000)), itemID: nil)
         
-        try XCTAssertThrowsError(evidence.set(\Evidence.notes <~ String(repeating: "n", count: 2001)))
-        try evidence.set(\.notes <~ "You lose")
+        try XCTAssertThrowsError(evidence.notes <~ String(repeating: "n", count: 2001))
+        try evidence.notes <~ "You lose"
         
-        XCTAssertEqual(evidence.notes, "You lose")
+        XCTAssertEqual(evidence.notes.value, "You lose")
     }
     
     func testEncoding()throws {
@@ -55,7 +56,7 @@ final class EvidenceTests: XCTestCase {
                 ]
             ),
             documents: [Document(name: "README.md", size: "65kb")],
-            notes: "I win. Ha!",
+            notes: .init("I win. Ha!"),
             itemID: "4FB4018C-F925-4FC6-B44B-0174C1B59F17"
         )
         let generated = try String(data: encoder.encode(evidence), encoding: .utf8)!
@@ -113,7 +114,7 @@ final class EvidenceTests: XCTestCase {
                 ]
             ),
             documents: [Document(name: "README.md", size: "65kb")],
-            notes: "I win. Ha!",
+            notes: .init("I win. Ha!"),
             itemID: "4FB4018C-F925-4FC6-B44B-0174C1B59F17"
         )
         

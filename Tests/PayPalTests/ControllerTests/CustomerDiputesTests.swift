@@ -51,7 +51,7 @@ final class CustomerDisputesTests: XCTestCase {
         }
         
         let body = try AcceptDisputeBody(
-            note: "Refund to customer",
+            note: .init("Refund to customer"),
             reason: .policy,
             invoiceID: "3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5",
             returnAddress: nil,
@@ -92,7 +92,7 @@ final class CustomerDisputesTests: XCTestCase {
                 ]
             ),
             documents: [Document(name: "README.md", size: "65kb")],
-            notes: "I win. Ha!",
+            notes: .init("I win. Ha!"),
             itemID: "4FB4018C-F925-4FC6-B44B-0174C1B59F17"
         )
         let links = try disputes.appeal(dispute: id, evidence: [evidence]).wait()
@@ -119,7 +119,7 @@ final class CustomerDisputesTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Cannot get dispute ID")
         }
         
-        let offer = try CustomerDispute.ResolutionOffer(
+        let offer = CustomerDispute.ResolutionOffer(
             note: "Offer refund with replacement item.",
             amount: CurrencyCodeAmount(currency: .usd, value: 23),
             type: .replacement,
@@ -148,7 +148,7 @@ final class CustomerDisputesTests: XCTestCase {
                 refunds: nil
             ),
             documents: nil,
-            notes: "I win. Ha!",
+            notes: .init("I win. Ha!"),
             itemID: nil
         )
         let links = try disputes.evidence(for: id, file: pdf, evidences: [evidence]).wait()

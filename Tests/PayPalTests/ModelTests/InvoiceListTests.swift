@@ -2,7 +2,7 @@ import XCTest
 @testable import PayPal
 
 final class InvoiceListTests: XCTestCase {
-    let now = Date().iso8601
+    let now = Date()
     
     func testInit()throws {
         let invoice = try Invoice(
@@ -25,18 +25,18 @@ final class InvoiceListTests: XCTestCase {
             items: nil,
             date: now,
             payment: PaymentTerm(type: .dueOnReceipt, due: now),
-            reference: "PO number",
+            reference: .init("PO number"),
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
+            custom: CustomAmount(label: nil, amount: .init(CurrencyAmount(currency: .usd, value: 10.00))),
             allowPartialPayment: false,
             minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,
-            note: "Thanks for your donation!",
-            memo: "Open Collective donation",
-            logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
+            note: .init("Thanks for your donation!"),
+            memo: .init("Open Collective donation"),
+            logo: .init("https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"),
             allowTip: true,
             template: "PayPal system template"
         )
@@ -65,20 +65,20 @@ final class InvoiceListTests: XCTestCase {
             items: nil,
             date: now,
             payment: PaymentTerm(type: .dueOnReceipt, due: now),
-            reference: "PO number",
+            reference: .init("PO number"),
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
+            custom: CustomAmount(label: nil, amount: .init(CurrencyAmount(currency: .usd, value: 10.00))),
             allowPartialPayment: false,
             minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,
-            note: "Thanks for your donation!",
-            memo: "Open Collective donation",
-            logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
+            note: .init("Thanks for your donation!"),
+            memo: .init("Open Collective donation"),
+            logo: .init("https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"),
             allowTip: true,
-            template: "PayPal system template"
+            template: .init("PayPal system template")
         ))
     }
     

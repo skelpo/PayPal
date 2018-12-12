@@ -45,25 +45,25 @@ final class OrdersTests: XCTestCase {
             intent: .sale,
             units: [
                 Order.Unit(
-                    reference: "FB68DC33-FA23-44D4-B197-C9251D76286E",
+                    reference: .init("FB68DC33-FA23-44D4-B197-C9251D76286E"),
                     amount: DetailedAmount(currency: .usd, total: 140.00, details: nil),
                     payee: Payee(email: "payee@example.com", merchant: nil, metadata: nil),
-                    description: "Unit",
-                    invoice: "FB68DC33-FA23-44D4-B197-C9251D76286E",
+                    description: .init("Unit"),
+                    invoice: .init("FB68DC33-FA23-44D4-B197-C9251D76286E"),
                     custom: nil,
                     paymentDescriptor: nil,
                     items: [
                         Order.Item(
-                            sku: "6CC0A22C-3260-48B7-B7A0-CCF372841391",
-                            name: "Widget",
-                            description: "It's blue",
-                            quantity: "4",
-                            price: "35.00",
+                            sku: .init("6CC0A22C-3260-48B7-B7A0-CCF372841391"),
+                            name: .init("Widget"),
+                            description: .init("It's blue"),
+                            quantity: .init(4),
+                            price: .init(35.00),
                             currency: .usd,
                             tax: nil
                         )
                     ],
-                    notify: "https://example.com/success",
+                    notify: .init("https://example.com/success"),
                     shippingAddress: Address(
                         recipientName: "Felix Minstral",
                         defaultAddress: true,
@@ -85,7 +85,7 @@ final class OrdersTests: XCTestCase {
             ],
             payment: .init(captures: nil, refunds: nil, sales: sales, authorizations: nil),
             total: nil,
-            context: AppContext(brand: "Example Inc.", locale: "us-AZ", landingPage: nil, shipping: .buyer, userAction: nil, data: nil),
+            context: AppContext(brand: .init("Example Inc."), locale: .init("us-AZ"), landingPage: nil, shipping: .buyer, userAction: nil, data: nil),
             metadata: nil,
             redirects: .init(return: "https://example.com/approved", cancel: "https://example.com/cancel")
         )
@@ -94,7 +94,7 @@ final class OrdersTests: XCTestCase {
         let created = try orders.create(order: order, partnerID: nil).wait()
         
         XCTAssertNotNil(created.id)
-        XCTAssertEqual(created.context?.brand, "Example Inc.")
+        XCTAssertEqual(created.context?.brand.value, "Example Inc.")
         
         self.id = created.id
     }
@@ -130,7 +130,7 @@ final class OrdersTests: XCTestCase {
                 funding: [
                     FundingInstrument(token: CreditCard.Token(creditCard: "C324C867-B0D8-4522-881E-6D788A159DB4", payer: "C324C867-B0D8-4522-881E-6D788A159DB4"))
                 ],
-                info: Order.Payer.Info(email: "email@example.com", birthdate: nil, tax: nil, taxType: nil, country: .unitedStates, billing: nil)
+                info: Order.Payer.Info(email: .init("email@example.com"), birthdate: nil, tax: nil, taxType: nil, country: .unitedStates, billing: nil)
             )
         )
         

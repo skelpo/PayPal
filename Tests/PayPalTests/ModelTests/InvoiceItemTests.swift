@@ -1,4 +1,5 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class InvoiceItemTests: XCTestCase {
@@ -7,9 +8,9 @@ final class InvoiceItemTests: XCTestCase {
     func testInit()throws {
         let item = try Invoice.Item(
             name: "Widget",
-            description: "Round and white, like a ping-pong ball",
+            description: .init("Round and white, like a ping-pong ball"),
             quantity: 3,
-            unitPrice: CurrencyAmount(currency: .usd, value: 50),
+            unitPrice: .init(CurrencyAmount(currency: .usd, value: 50)),
             tax: Tax(name: "Sales", percent: 10, amount: CurrencyAmount(currency: .usd, value: 5.00)),
             date: self.now,
             discount: nil,
@@ -18,20 +19,20 @@ final class InvoiceItemTests: XCTestCase {
         
         XCTAssertNil(item.discount)
         XCTAssertEqual(item.name, "Widget")
-        XCTAssertEqual(item.description, "Round and white, like a ping-pong ball")
+        XCTAssertEqual(item.description.value, "Round and white, like a ping-pong ball")
         XCTAssertEqual(item.quantity, 3)
         XCTAssertEqual(item.date, self.now)
         XCTAssertEqual(item.unitMeasure, .quantity)
-        XCTAssertEqual(item.unitPrice, CurrencyAmount(currency: .usd, value: 50))
-        try XCTAssertEqual(item.tax, Tax(name: "Sales", percent: 10, amount: CurrencyAmount(currency: .usd, value: 5.00)))
+        XCTAssertEqual(item.unitPrice.value, CurrencyAmount(currency: .usd, value: 50))
+        XCTAssertEqual(item.tax, Tax(name: "Sales", percent: 10, amount: CurrencyAmount(currency: .usd, value: 5.00)))
     }
     
     func testValidations()throws {
         try XCTAssertThrowsError(Invoice.Item(
-            name: String(repeating: "n", count: 201),
-            description: "Round and white, like a ping-pong ball",
+            name: .init(String(repeating: "n", count: 201)),
+            description: .init("Round and white, like a ping-pong ball"),
             quantity: 3,
-            unitPrice: CurrencyAmount(currency: .usd, value: 50),
+            unitPrice: .init(CurrencyAmount(currency: .usd, value: 50)),
             tax: nil,
             date: nil,
             discount: nil,
@@ -39,9 +40,9 @@ final class InvoiceItemTests: XCTestCase {
         ))
         try XCTAssertThrowsError(Invoice.Item(
             name: "Widget",
-            description: String(repeating: "d", count: 1001),
+            description: .init(String(repeating: "d", count: 1001)),
             quantity: 3,
-            unitPrice: CurrencyAmount(currency: .usd, value: 50),
+            unitPrice: .init(CurrencyAmount(currency: .usd, value: 50)),
             tax: nil,
             date: nil,
             discount: nil,
@@ -49,9 +50,9 @@ final class InvoiceItemTests: XCTestCase {
         ))
         try XCTAssertThrowsError(Invoice.Item(
             name: "Widget",
-            description: "Round and white, like a ping-pong ball",
+            description: .init("Round and white, like a ping-pong ball"),
             quantity: -10_001,
-            unitPrice: CurrencyAmount(currency: .usd, value: 50),
+            unitPrice: .init(CurrencyAmount(currency: .usd, value: 50)),
             tax: nil,
             date: nil,
             discount: nil,
@@ -59,9 +60,9 @@ final class InvoiceItemTests: XCTestCase {
         ))
         try XCTAssertThrowsError(Invoice.Item(
             name: "Widget",
-            description: "Round and white, like a ping-pong ball",
+            description: .init("Round and white, like a ping-pong ball"),
             quantity: 3,
-            unitPrice: CurrencyAmount(currency: .usd, value: 1000001),
+            unitPrice: .init(CurrencyAmount(currency: .usd, value: 1000001)),
             tax: nil,
             date: nil,
             discount: nil,
@@ -70,39 +71,37 @@ final class InvoiceItemTests: XCTestCase {
         
         var item = try Invoice.Item(
             name: "Widget",
-            description: "Round and white, like a ping-pong ball",
+            description: .init("Round and white, like a ping-pong ball"),
             quantity: 3,
-            unitPrice: CurrencyAmount(currency: .usd, value: 50),
+            unitPrice: .init(CurrencyAmount(currency: .usd, value: 50)),
             tax: Tax(name: "Sales", percent: 10, amount: CurrencyAmount(currency: .usd, value: 5.00)),
             date: self.now,
             discount: nil,
             unitMeasure: .quantity
         )
         
-        try XCTAssertThrowsError(item.set(\.name <~ String(repeating: "n", count: 201)))
-        try XCTAssertThrowsError(item.set(\Invoice.Item.description <~ String(repeating: "d", count: 1001)))
-        try XCTAssertThrowsError(item.set(\.quantity <~ -10_001))
-        try XCTAssertThrowsError(
-            item.set(\.unitPrice <~ CurrencyAmount(currency: .usd, value: 1000001))
-        )
-        try item.set(\.name <~ String(repeating: "n", count: 200))
-        try item.set(\Invoice.Item.description <~ String(repeating: "d", count: 1000))
-        try item.set(\.quantity <~ -10_000)
-        try item.set(\.unitPrice <~ CurrencyAmount(currency: .usd, value: 50))
+        try XCTAssertThrowsError(item.name <~ String(repeating: "n", count: 201))
+        try XCTAssertThrowsError(item.description <~ String(repeating: "d", count: 1001))
+        try XCTAssertThrowsError(item.quantity <~ -10_001)
+        try XCTAssertThrowsError(item.unitPrice <~ CurrencyAmount(currency: .usd, value: 1000001))
+        try item.name <~ String(repeating: "n", count: 200)
+        try item.description <~ String(repeating: "d", count: 1000)
+        try item.quantity <~ -10_000
+        try item.unitPrice <~ CurrencyAmount(currency: .usd, value: 50)
         
-        XCTAssertEqual(item.name, String(repeating: "n", count: 200))
-        XCTAssertEqual(item.description, String(repeating: "d", count: 1000))
-        XCTAssertEqual(item.quantity, -10_000)
-        XCTAssertEqual(item.unitPrice, CurrencyAmount(currency: .usd, value: 50))
+        XCTAssertEqual(item.name.value, String(repeating: "n", count: 200))
+        XCTAssertEqual(item.description.value, String(repeating: "d", count: 1000))
+        XCTAssertEqual(item.quantity.value, -10_000)
+        XCTAssertEqual(item.unitPrice.value, CurrencyAmount(currency: .usd, value: 50))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let item = try Invoice.Item(
             name: "Widget",
-            description: "Round and white, like a ping-pong ball",
+            description: .init("Round and white, like a ping-pong ball"),
             quantity: 3,
-            unitPrice: CurrencyAmount(currency: .usd, value: 50),
+            unitPrice: .init(CurrencyAmount(currency: .usd, value: 50)),
             tax: nil,
             date: self.now,
             discount: nil,
@@ -125,9 +124,9 @@ final class InvoiceItemTests: XCTestCase {
         let decoder = JSONDecoder()
         let item = try Invoice.Item(
             name: "Widget",
-            description: "Round and white, like a ping-pong ball",
+            description: .init("Round and white, like a ping-pong ball"),
             quantity: 3,
-            unitPrice: CurrencyAmount(currency: .usd, value: 50),
+            unitPrice: .init(CurrencyAmount(currency: .usd, value: 50)),
             tax: nil,
             date: self.now,
             discount: nil,

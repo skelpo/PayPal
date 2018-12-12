@@ -2,6 +2,9 @@ import XCTest
 @testable import PayPal
 
 final class CustomerDisputeListTests: XCTestCase {
+    let date = Date()
+    let due = Date(timeIntervalSinceNow: 60 * 60 * 24)
+    
     func testInit()throws {
         let list = try CustomerDisputeList(items: [
             CustomerDispute(
@@ -9,19 +12,19 @@ final class CustomerDisputeListTests: XCTestCase {
                     TransactionInfo(
                         buyerID: "DECDF8E7-59EE-4D3A-9347-5FC39B6CA75A",
                         sellerID: "3DE7148F-360E-4F22-9DE2-8507E24DB60B",
-                        created: Date().iso8601,
+                        created: self.date,
                         status: .pending,
                         gross: CurrencyCodeAmount(currency: .usd, value: 89.45),
                         invoice: "C80ED435-DBB2-456B-A1EF-2750A32AAF1A",
                         custom: nil,
-                        buyer: Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather"),
-                        seller: Seller(email: "throg@exmaple.com", name: "Nag the Nameless", merchantID: nil)
+                        buyer: Buyer(email: .init("witheringheights@exmaple.com"), name: "Leeli Wingfeather"),
+                        seller: Seller(email: .init("throg@exmaple.com"), name: "Nag the Nameless", merchantID: nil)
                     )
                 ],
                 reason: .unauthorized,
                 amount: CurrencyCodeAmount(currency: .usd, value: 89.45),
                 messages: nil,
-                responseDue: Date(timeIntervalSinceNow: 60 * 60 * 24).iso8601
+                responseDue: self.due
             )
         ])
         
@@ -32,32 +35,32 @@ final class CustomerDisputeListTests: XCTestCase {
                 TransactionInfo(
                     buyerID: "DECDF8E7-59EE-4D3A-9347-5FC39B6CA75A",
                     sellerID: "3DE7148F-360E-4F22-9DE2-8507E24DB60B",
-                    created: Date().iso8601,
+                    created: self.date,
                     status: .pending,
                     gross: CurrencyCodeAmount(currency: .usd, value: 89.45),
                     invoice: "C80ED435-DBB2-456B-A1EF-2750A32AAF1A",
                     custom: nil,
-                    buyer: Buyer(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather"),
-                    seller: Seller(email: "throg@exmaple.com", name: "Nag the Nameless", merchantID: nil)
+                    buyer: Buyer(email: .init("witheringheights@exmaple.com"), name: "Leeli Wingfeather"),
+                    seller: Seller(email: .init("throg@exmaple.com"), name: "Nag the Nameless", merchantID: nil)
                 )
             ],
             reason: .unauthorized,
             amount: CurrencyCodeAmount(currency: .usd, value: 89.45),
             messages: nil,
-            responseDue: Date(timeIntervalSinceNow: 60 * 60 * 24).iso8601
+            responseDue: self.due
         ))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let due = Date(timeIntervalSinceNow: 60 * 60 * 24).iso8601
-        let list = try CustomerDisputeList(items: [
+        let list = CustomerDisputeList(items: [
             CustomerDispute(
                 transactions: [],
                 reason: .unauthorized,
                 amount: CurrencyCodeAmount(currency: .usd, value: 89.45),
                 messages: nil,
-                responseDue: due
+                responseDue: self.due
             )
         ])
         let generated = try String(data: encoder.encode(list), encoding: .utf8)
@@ -95,7 +98,7 @@ final class CustomerDisputeListTests: XCTestCase {
                     reason: .unauthorized,
                     amount: CurrencyCodeAmount(currency: .usd, value: 89.45),
                     messages: nil,
-                    responseDue: Date(timeIntervalSinceNow: 60 * 60 * 24).iso8601
+                    responseDue: self.due
                 )
             ])
         )

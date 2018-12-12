@@ -1,50 +1,69 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class CustomerServiceMessageTests: XCTestCase {
     func testInit()throws {
-        let message = try CustomerService.Message(type: .online, headline: "Extra!", logo: "url-placeholder", serviceImage: "url", sellerMessage: "Titanic sunk...")
+        let message = try CustomerService.Message(
+            type: .online,
+            headline: .init("Extra!"),
+            logo: .init("url-placeholder"),
+            serviceImage: .init("url"),
+            sellerMessage: .init("Titanic sunk...")
+        )
         
         XCTAssertEqual(message.type, .online)
-        XCTAssertEqual(message.headline, "Extra!")
-        XCTAssertEqual(message.logo, "url-placeholder")
-        XCTAssertEqual(message.serviceImage, "url")
-        XCTAssertEqual(message.sellerMessage, "Titanic sunk...")
+        XCTAssertEqual(message.headline.value, "Extra!")
+        XCTAssertEqual(message.logo.value, "url-placeholder")
+        XCTAssertEqual(message.serviceImage.value, "url")
+        XCTAssertEqual(message.sellerMessage.value, "Titanic sunk...")
     }
     
     func testValidations()throws {
         try XCTAssertThrowsError(CustomerService.Message(
-            type: .online, headline: String(repeating: "h", count: 51), logo: nil, serviceImage: nil, sellerMessage: ""
+            type: .online, headline: .init(String(repeating: "h", count: 51)), logo: nil, serviceImage: nil, sellerMessage: ""
         ))
         try XCTAssertThrowsError(CustomerService.Message(
-            type: .online, headline: nil, logo: String(repeating: "l", count: 256), serviceImage: nil, sellerMessage: ""
+            type: .online, headline: nil, logo: .init(String(repeating: "l", count: 256)), serviceImage: nil, sellerMessage: ""
         ))
         try XCTAssertThrowsError(CustomerService.Message(
-            type: .online, headline: nil, logo: nil, serviceImage: String(repeating: "s", count: 256), sellerMessage: ""
+            type: .online, headline: nil, logo: nil, serviceImage: .init(String(repeating: "s", count: 256)), sellerMessage: ""
         ))
         try XCTAssertThrowsError(CustomerService.Message(
-            type: .online, headline: nil, logo: nil, serviceImage: nil, sellerMessage: String(repeating: "s", count: 2_001)
+            type: .online, headline: nil, logo: nil, serviceImage: nil, sellerMessage: .init(String(repeating: "s", count: 2_001))
         ))
-        var message = try CustomerService.Message(type: .online, headline: "Extra!", logo: "url", serviceImage: "url", sellerMessage: "Titanic sunk...")
+        var message = try CustomerService.Message(
+            type: .online,
+            headline: .init("Extra!"),
+            logo: .init("url-placeholder"),
+            serviceImage: .init("url"),
+            sellerMessage: .init("Titanic sunk...")
+        )
         
-        try XCTAssertThrowsError(message.set(\CustomerService.Message.headline <~ String(repeating: "h", count: 51)))
-        try XCTAssertThrowsError(message.set(\CustomerService.Message.logo <~ String(repeating: "l", count: 256)))
-        try XCTAssertThrowsError(message.set(\CustomerService.Message.serviceImage <~ String(repeating: "s", count: 256)))
-        try XCTAssertThrowsError(message.set(\.sellerMessage <~ String(repeating: "s", count: 2_001)))
-        try message.set(\CustomerService.Message.headline <~ String(repeating: "h", count: 50))
-        try message.set(\CustomerService.Message.logo <~ String(repeating: "l", count: 255))
-        try message.set(\CustomerService.Message.serviceImage <~ String(repeating: "s", count: 255))
-        try message.set(\.sellerMessage <~ String(repeating: "s", count: 2_000))
+        try XCTAssertThrowsError(message.headline <~ String(repeating: "h", count: 51))
+        try XCTAssertThrowsError(message.logo <~ String(repeating: "l", count: 256))
+        try XCTAssertThrowsError(message.serviceImage <~ String(repeating: "s", count: 256))
+        try XCTAssertThrowsError(message.sellerMessage <~ String(repeating: "s", count: 2_001))
+        try message.headline <~ String(repeating: "h", count: 50)
+        try message.logo <~ String(repeating: "l", count: 255)
+        try message.serviceImage <~ String(repeating: "s", count: 255)
+        try message.sellerMessage <~ String(repeating: "s", count: 2_000)
         
-        XCTAssertEqual(message.headline, String(repeating: "h", count: 50))
-        XCTAssertEqual(message.logo, String(repeating: "l", count: 255))
-        XCTAssertEqual(message.serviceImage, String(repeating: "s", count: 255))
-        XCTAssertEqual(message.sellerMessage, String(repeating: "s", count: 2_000))
+        XCTAssertEqual(message.headline.value, String(repeating: "h", count: 50))
+        XCTAssertEqual(message.logo.value, String(repeating: "l", count: 255))
+        XCTAssertEqual(message.serviceImage.value, String(repeating: "s", count: 255))
+        XCTAssertEqual(message.sellerMessage.value, String(repeating: "s", count: 2_000))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let message = try CustomerService.Message(type: .online, headline: "Extra!", logo: "url", serviceImage: "url", sellerMessage: "Titanic sunk...")
+        let message = try CustomerService.Message(
+            type: .online,
+            headline: .init("Extra!"),
+            logo: .init("url-placeholder"),
+            serviceImage: .init("url"),
+            sellerMessage: .init("Titanic sunk...")
+        )
         let json = try String(data: encoder.encode(message), encoding: .utf8)!
         let generated =
             "{\"seller_message\":\"Titanic sunk...\",\"logo_image_url\":\"url\",\"type\":\"ONLINE\",\"service_image_url\":\"url\",\"headline\":\"Extra!\"}"
@@ -71,7 +90,13 @@ final class CustomerServiceMessageTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        let message = try CustomerService.Message(type: .online, headline: "Extra!", logo: "url", serviceImage: "url", sellerMessage: "Titanic sunk...")
+        let message = try CustomerService.Message(
+            type: .online,
+            headline: .init("Extra!"),
+            logo: .init("url-placeholder"),
+            serviceImage: .init("url"),
+            sellerMessage: .init("Titanic sunk...")
+        )
         try XCTAssertEqual(message, decoder.decode(CustomerService.Message.self, from: json))
     }
     

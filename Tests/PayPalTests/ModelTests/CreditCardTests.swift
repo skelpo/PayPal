@@ -1,4 +1,5 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class CreditCardTests: XCTestCase {
@@ -12,7 +13,7 @@ final class CreditCardTests: XCTestCase {
             firstName: "Jonnas",
             lastName: "Futher",
             billingAddress: nil,
-            customerID: "5FC894A2-FDA7-416D-818F-C0678C57371F"
+            customerID: .init("5FC894A2-FDA7-416D-818F-C0678C57371F")
         )
         
         XCTAssertEqual(cc.id, nil)
@@ -28,7 +29,7 @@ final class CreditCardTests: XCTestCase {
         XCTAssertEqual(cc.firstName, "Jonnas")
         XCTAssertEqual(cc.lastName, "Futher")
         XCTAssertEqual(cc.billingAddress, nil)
-        XCTAssertEqual(cc.customerID, "5FC894A2-FDA7-416D-818F-C0678C57371F")
+        XCTAssertEqual(cc.customerID.value, "5FC894A2-FDA7-416D-818F-C0678C57371F")
     }
     
     func testValidations()throws {
@@ -41,7 +42,7 @@ final class CreditCardTests: XCTestCase {
             firstName: "Jonnas",
             lastName: "Futher",
             billingAddress: nil,
-            customerID: "5FC894A2-FDA7-416D-818F-C0678C57371F"
+            customerID: .init("5FC894A2-FDA7-416D-818F-C0678C57371F")
         )
         
         try XCTAssertThrowsError(CreditCard(
@@ -53,7 +54,7 @@ final class CreditCardTests: XCTestCase {
             firstName: "Jonnas",
             lastName: "Futher",
             billingAddress: nil,
-            customerID: "5FC894A2-FDA7-416D-818F-C0678C57371F"
+            customerID: .init("5FC894A2-FDA7-416D-818F-C0678C57371F")
         ))
         try XCTAssertThrowsError(CreditCard(
             number: "4953912847443848",
@@ -64,7 +65,7 @@ final class CreditCardTests: XCTestCase {
             firstName: "Jonnas",
             lastName: "Futher",
             billingAddress: nil,
-            customerID: "5FC894A2-FDA7-416D-818F-C0678C57371F"
+            customerID: .init("5FC894A2-FDA7-416D-818F-C0678C57371F")
         ))
         try XCTAssertThrowsError(CreditCard(
             number: "4953912847443848",
@@ -75,23 +76,23 @@ final class CreditCardTests: XCTestCase {
             firstName: "Jonnas",
             lastName: "Futher",
             billingAddress: nil,
-            customerID: String(repeating: "i", count: 257)
+            customerID: .init(String(repeating: "i", count: 257))
         ))
         
         
-        try XCTAssertThrowsError(cc.set(\.expireMonth <~ 13))
-        try XCTAssertThrowsError(cc.set(\.expireMonth <~ 0))
-        try XCTAssertThrowsError(cc.set(\.expireYear <~ 18))
-        try XCTAssertThrowsError(cc.set(\.expireYear <~ 31415))
-        try XCTAssertThrowsError(cc.set(\CreditCard.customerID <~ String(repeating: "i", count: 257)))
+        try XCTAssertThrowsError(cc.expireMonth <~ 13)
+        try XCTAssertThrowsError(cc.expireMonth <~ 0)
+        try XCTAssertThrowsError(cc.expireYear <~ 18)
+        try XCTAssertThrowsError(cc.expireYear <~ 31415)
+        try XCTAssertThrowsError(cc.customerID <~ String(repeating: "i", count: 257))
         
-        try cc.set(\.expireMonth <~ 12)
-        try cc.set(\.expireYear <~ 2031)
-        try cc.set(\.customerID <~ "2770367C-4E61-4E28-99D5-CD86902356A7")
+        try cc.expireMonth <~ 12
+        try cc.expireYear <~ 2031
+        try cc.customerID <~ "2770367C-4E61-4E28-99D5-CD86902356A7"
         
-        XCTAssertEqual(cc.expireMonth, 12)
-        XCTAssertEqual(cc.expireYear, 2031)
-        XCTAssertEqual(cc.customerID, "2770367C-4E61-4E28-99D5-CD86902356A7")
+        XCTAssertEqual(cc.expireMonth.value, 12)
+        XCTAssertEqual(cc.expireYear.value, 2031)
+        XCTAssertEqual(cc.customerID.value, "2770367C-4E61-4E28-99D5-CD86902356A7")
     }
     
     func testEncoding()throws {
@@ -105,7 +106,7 @@ final class CreditCardTests: XCTestCase {
             firstName: "Jonnas",
             lastName: "Further",
             billingAddress: nil,
-            customerID: "5FC894A2-FDA7-416D-818F-C0678C57371F"
+            customerID: .init("5FC894A2-FDA7-416D-818F-C0678C57371F")
         )
         let generated = try String(data: encoder.encode(cc), encoding: .utf8)!
         let json =
@@ -133,7 +134,7 @@ final class CreditCardTests: XCTestCase {
             firstName: "Janner",
             lastName: "Wingfeather",
             billingAddress: nil,
-            customerID: "5048DFA8-3E19-408E-A390-23FEF939AF2E"
+            customerID: .init("5048DFA8-3E19-408E-A390-23FEF939AF2E")
         )
         let valid = """
         {

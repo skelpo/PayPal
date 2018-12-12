@@ -35,9 +35,9 @@ final class BillingAgreementsTests: XCTestCase {
         }
         
         let new = try NewAgreement(
-            name: "Nia's Maggot Loaf",
-            description: "Weekly maggot loaf subscription",
-            start: (Date() + 60 * 60 * 24).iso8601,
+            name: .init("Nia's Maggot Loaf"),
+            description: .init("Weekly maggot loaf subscription"),
+            start: Date() + 60 * 60 * 24,
             payer: Payer(
                 method: .paypal,
                 fundingInstruments: nil,
@@ -49,7 +49,7 @@ final class BillingAgreementsTests: XCTestCase {
         let agreement = try agreements.create(with: new).wait()
         
         self.id = agreement.id
-        XCTAssertEqual(agreement.name, "Nia's Maggot Loaf")
+        XCTAssertEqual(agreement.name.value, "Nia's Maggot Loaf")
     }
     
     func testUpdateEndpoint()throws {
@@ -73,7 +73,7 @@ final class BillingAgreementsTests: XCTestCase {
         let agreement = try agreements.get(agreement: id).wait()
         
         XCTAssertNotEqual(agreement.id, nil)
-        XCTAssert(agreement.name == "Nia's Maggot Loaf" || agreement.name == "Igby Maggot")
+        XCTAssert(agreement.name.value == "Nia's Maggot Loaf" || agreement.name.value == "Igby Maggot")
     }
     
     func testBillBalanceEndpoint()throws {

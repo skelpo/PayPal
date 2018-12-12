@@ -1,4 +1,5 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class PaymentReceivingPreferencesTests: XCTestCase {
@@ -11,8 +12,8 @@ final class PaymentReceivingPreferencesTests: XCTestCase {
             blockSendMoney: false,
             alternatePayment: "https://example.com/alternate",
             displayInstructionsInput: true,
-            ccDescriptor: "NOT-SURE",
-            ccDescriptorExtended: "NOTE-SURE-AGAIN"
+            ccDescriptor: .init("NOT-SURE"),
+            ccDescriptorExtended: .init("NOTE-SURE-AGAIN")
         )
         
         XCTAssertEqual(preference.blockUnconfirmedUSAddress, true)
@@ -22,26 +23,22 @@ final class PaymentReceivingPreferencesTests: XCTestCase {
         XCTAssertEqual(preference.blockSendMoney, false)
         XCTAssertEqual(preference.alternatePayment, "https://example.com/alternate")
         XCTAssertEqual(preference.displayInstructionsInput, true)
-        XCTAssertEqual(preference.ccDescriptor, "NOT-SURE")
-        XCTAssertEqual(preference.ccDescriptorExtended, "NOTE-SURE-AGAIN")
+        XCTAssertEqual(preference.ccDescriptor.value, "NOT-SURE")
+        XCTAssertEqual(preference.ccDescriptorExtended.value, "NOTE-SURE-AGAIN")
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(PaymentReceivingPreferences(ccDescriptor: "C"))
-        try XCTAssertThrowsError(PaymentReceivingPreferences(ccDescriptor: "CCCCCCCCCCCC"))
-        try XCTAssertThrowsError(PaymentReceivingPreferences(ccDescriptorExtended: "C"))
-        try XCTAssertThrowsError(PaymentReceivingPreferences(ccDescriptorExtended: "CCCCCCCCCCCCCCCCCCCC"))
-        var preference = try PaymentReceivingPreferences(ccDescriptor: "NOT-SURE", ccDescriptorExtended: "NOTE-SURE-AGAIN")
+        var preference = try PaymentReceivingPreferences(ccDescriptor: .init("NOT-SURE"), ccDescriptorExtended: .init("NOTE-SURE-AGAIN"))
         
-        try XCTAssertThrowsError(preference.set(\.ccDescriptor <~ "C"))
-        try XCTAssertThrowsError(preference.set(\.ccDescriptor <~ "CCCCCCCCCCCC"))
-        try XCTAssertThrowsError(preference.set(\.ccDescriptorExtended <~ "C"))
-        try XCTAssertThrowsError(preference.set(\.ccDescriptorExtended <~ "CCCCCCCCCCCCCCCCCCCC"))
-        try preference.set(\.ccDescriptor <~ "NOW-SURE")
-        try preference.set(\.ccDescriptorExtended <~ "NOW-SURE-AGAIN")
+        try XCTAssertThrowsError(preference.ccDescriptor <~ "C")
+        try XCTAssertThrowsError(preference.ccDescriptor <~ "CCCCCCCCCCCC")
+        try XCTAssertThrowsError(preference.ccDescriptorExtended <~ "C")
+        try XCTAssertThrowsError(preference.ccDescriptorExtended <~ "CCCCCCCCCCCCCCCCCCCC")
+        try preference.ccDescriptor <~ "NOW-SURE"
+        try preference.ccDescriptorExtended <~ "NOW-SURE-AGAIN"
         
-        XCTAssertEqual(preference.ccDescriptor, "NOW-SURE")
-        XCTAssertEqual(preference.ccDescriptorExtended, "NOW-SURE-AGAIN")
+        XCTAssertEqual(preference.ccDescriptor.value, "NOW-SURE")
+        XCTAssertEqual(preference.ccDescriptorExtended.value, "NOW-SURE-AGAIN")
     }
     
     func testEncoding()throws {
@@ -54,8 +51,8 @@ final class PaymentReceivingPreferencesTests: XCTestCase {
             blockSendMoney: false,
             alternatePayment: "https://example.com/alternate",
             displayInstructionsInput: true,
-            ccDescriptor: "NOT-SURE",
-            ccDescriptorExtended: "NOTE-SURE-AGAIN"
+            ccDescriptor: .init("NOT-SURE"),
+            ccDescriptorExtended: .init("NOTE-SURE-AGAIN")
         )
         let generated = try String(data: encoder.encode(preference), encoding: .utf8)!
         let json =
@@ -96,8 +93,8 @@ final class PaymentReceivingPreferencesTests: XCTestCase {
             blockSendMoney: false,
             alternatePayment: "https://example.com/alternate",
             displayInstructionsInput: true,
-            ccDescriptor: "NOT-SURE",
-            ccDescriptorExtended: "NOTE-SURE-AGAIN"
+            ccDescriptor: .init("NOT-SURE"),
+            ccDescriptorExtended: .init("NOTE-SURE-AGAIN")
         )
         
         try XCTAssertEqual(preference, decoder.decode(PaymentReceivingPreferences.self, from: json))

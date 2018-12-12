@@ -26,7 +26,7 @@ final class TemplatesTests: XCTestCase {
     }
     
     func testCreateEndpoint()throws {
-        let now = Date().iso8601
+        let now = Date()
         let templates = try self.app.make(Templates.self)
         let template = try Template(
             name: "Hours Template",
@@ -46,21 +46,21 @@ final class TemplatesTests: XCTestCase {
                 ),
                 billing: [],
                 shipping: nil,
-                cc: [.init(email: "collective@vapor.codes"), .init(email: "donator@example.com")],
+                cc: [.init(email: .init("collective@vapor.codes")), .init(email: .init("donator@example.com"))],
                 items: nil,
                 payment: PaymentTerm(type: .dueOnReceipt, due: now),
-                reference: "PO number",
+                reference: .init("PO number"),
                 discount: nil,
                 shippingCost: nil,
-                custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
+                custom: CustomAmount(label: nil, amount: .init(CurrencyAmount(currency: .usd, value: 10.00))),
                 allowPartialPayment: false,
                 minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
                 taxCalculatedAfterDiscount: true,
                 taxInclusive: true,
                 terms: nil,
-                note: "Thanks for your donation!",
-                memo: "Open Collective donation",
-                logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
+                note: .init("Thanks for your donation!"),
+                memo: .init("Open Collective donation"),
+                logo: .init("https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"),
                 attachments: [FileAttachment(name: "photo.png", url: "https://avatars3.githubusercontent.com/u/2872298?s=200&v=4")]
             ),
             settings: [
@@ -90,7 +90,7 @@ final class TemplatesTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Could not get ID of template to update")
         }
         
-        let now = Date().iso8601
+        let now = Date()
         let template = try Template(
             name: "Donation Template",
             default: true,
@@ -109,21 +109,21 @@ final class TemplatesTests: XCTestCase {
                 ),
                 billing: [],
                 shipping: nil,
-                cc: [.init(email: "collective@vapor.codes"), .init(email: "donator@example.com")],
+                cc: [.init(email: .init("collective@vapor.codes")), .init(email: .init("donator@example.com"))],
                 items: nil,
                 payment: PaymentTerm(type: .dueOnReceipt, due: now),
-                reference: "PO number",
+                reference: .init("PO number"),
                 discount: nil,
                 shippingCost: nil,
-                custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
+                custom: CustomAmount(label: nil, amount: .init(CurrencyAmount(currency: .usd, value: 10.00))),
                 allowPartialPayment: false,
                 minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
                 taxCalculatedAfterDiscount: true,
                 taxInclusive: true,
                 terms: nil,
-                note: "Thanks for your donation!",
-                memo: "Open Collective donation",
-                logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
+                note: .init("Thanks for your donation!"),
+                memo: .init("Open Collective donation"),
+                logo: .init("https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"),
                 attachments: [FileAttachment(name: "photo.png", url: "https://avatars3.githubusercontent.com/u/2872298?s=200&v=4")]
             ),
             settings: [

@@ -1,13 +1,14 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class NewAgreementTests: XCTestCase {
-    let now = Date().iso8601
+    let now = Date()
     
     func testInit()throws {
         let agreement = try NewAgreement(
-            name: "Nia's Maggot Loaf",
-            description: "Weekly maggot loaf subscription",
+            name: .init("Nia's Maggot Loaf"),
+            description: .init("Weekly maggot loaf subscription"),
             start: now,
             payer: Payer(
                 method: .paypal,
@@ -22,52 +23,37 @@ final class NewAgreementTests: XCTestCase {
         XCTAssertEqual(agreement.overrideMerchantPreferances, nil)
         XCTAssertEqual(agreement.overrideChargeModels, nil)
         
-        XCTAssertEqual(agreement.name, "Nia's Maggot Loaf")
-        XCTAssertEqual(agreement.description, "Weekly maggot loaf subscription")
+        XCTAssertEqual(agreement.name.value, "Nia's Maggot Loaf")
+        XCTAssertEqual(agreement.description.value, "Weekly maggot loaf subscription")
         XCTAssertEqual(agreement.start, now)
         XCTAssertEqual(agreement.payer, Payer(method: .paypal, fundingInstruments: nil, info: nil))
         XCTAssertEqual(agreement.plan, "P-52603F876DFD4C61")
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(NewAgreement(
-            name: String(repeating: "n", count: 129),
-            description: "Weekly maggot loaf subscription",
-            start: now,
-            payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
-            plan: "P-52603F876DFD4C61"
-        ))
-        try XCTAssertThrowsError(NewAgreement(
-            name: "Nia's Maggot Loaf",
-            description: String(repeating: "d", count: 129),
-            start: now,
-            payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
-            plan: "P-52603F876DFD4C61"
-        ))
-        
         var agreement = try NewAgreement(
-            name: "Nia's Maggot Loaf",
-            description: "Weekly maggot loaf subscription",
+            name: .init("Nia's Maggot Loaf"),
+            description: .init("Weekly maggot loaf subscription"),
             start: now,
             payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
             plan: "P-52603F876DFD4C61"
         )
         
-        try XCTAssertThrowsError(agreement.set(\.name <~ String(repeating: "n", count: 129)))
-        try XCTAssertThrowsError(agreement.set(\.description <~ String(repeating: "d", count: 129)))
+        try XCTAssertThrowsError(agreement.name <~ String(repeating: "n", count: 129))
+        try XCTAssertThrowsError(agreement.description <~ String(repeating: "d", count: 129))
         
-        try agreement.set(\.name <~ "No Other Name")
-        try agreement.set(\.description <~ "No other description")
+        try agreement.name <~ "No Other Name"
+        try agreement.description <~ "No other description"
         
-        XCTAssertEqual(agreement.name, "No Other Name")
-        XCTAssertEqual(agreement.description, "No other description")
+        XCTAssertEqual(agreement.name.value, "No Other Name")
+        XCTAssertEqual(agreement.description.value, "No other description")
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let agreement = try NewAgreement(
-            name: "Nia's Maggot Loaf",
-            description: "Weekly maggot loaf subscription",
+            name: .init("Nia's Maggot Loaf"),
+            description: .init("Weekly maggot loaf subscription"),
             start: now,
             payer: Payer(
                 method: .paypal,
@@ -92,8 +78,8 @@ final class NewAgreementTests: XCTestCase {
     func testDecoding()throws {
         let decoder = JSONDecoder()
         let agreement = try NewAgreement(
-            name: "Nia's Maggot Loaf",
-            description: "Weekly maggot loaf subscription",
+            name: .init("Nia's Maggot Loaf"),
+            description: .init("Weekly maggot loaf subscription"),
             start: now,
             payer: Payer(
                 method: .paypal,

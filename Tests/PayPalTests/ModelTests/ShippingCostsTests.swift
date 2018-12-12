@@ -3,18 +3,18 @@ import XCTest
 
 final class ShippingCostsTests: XCTestCase {
     func testInit()throws {
-        let shipping = try ShippingCosts(
+        let shipping = ShippingCosts(
             amount: CurrencyAmount(currency: .usd, value: 2.50),
             tax: Tax(name: "Shipping", percent: 7.5, amount: CurrencyAmount(currency: .usd, value: 0.18))
         )
         
         XCTAssertEqual(shipping.amount,  CurrencyAmount(currency: .usd, value: 2.50))
-        try XCTAssertEqual(shipping.tax, Tax(name: "Shipping", percent: 7.5, amount: CurrencyAmount(currency: .usd, value: 0.18)))
+        XCTAssertEqual(shipping.tax, Tax(name: "Shipping", percent: 7.5, amount: CurrencyAmount(currency: .usd, value: 0.18)))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let shipping = try ShippingCosts(
+        let shipping = ShippingCosts(
             amount: CurrencyAmount(currency: .usd, value: 2.50),
             tax: Tax(name: "Shipping", percent: 7.5, amount: CurrencyAmount(currency: .usd, value: 0.18))
         )
@@ -35,7 +35,7 @@ final class ShippingCostsTests: XCTestCase {
     
     func testDecoding()throws {
         let decoder = JSONDecoder()
-        let shipping = try ShippingCosts(
+        let shipping = ShippingCosts(
             amount: CurrencyAmount(currency: .usd, value: 2.50),
             tax: Tax(name: "Shipping", percent: 7.5, amount: CurrencyAmount(currency: .usd, value: 0.18))
         )

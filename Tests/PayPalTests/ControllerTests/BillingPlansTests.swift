@@ -28,16 +28,16 @@ final class BillingPlansTests: XCTestCase {
     func testCreateEndpoint()throws {
         let plans = try self.app.make(BillingPlans.self)
         let plan = try BillingPlan(
-            name: "Monthly Water",
-            description: "Your water payment",
+            name: .init("Monthly Water"),
+            description: .init("Your water payment"),
             type: .infinite,
             payments: [
                 BillingPayment(
-                    name: "Water Charge",
+                    name: .init("Water Charge"),
                     type: .regular,
-                    interval: "1",
+                    interval: 1,
                     frequency: .month,
-                    cycles: "0",
+                    cycles: 0,
                     amount: CurrencyAmount(currency: .usd, value: 10.00),
                     charges: nil
                 )

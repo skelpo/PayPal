@@ -3,7 +3,7 @@ import XCTest
 
 final class OrderTests: XCTestCase {
     func testInit()throws {
-        let order = try Order(
+        let order = Order(
             intent: .sale,
             units: [],
             payment: Order.Payment(captures: nil, refunds: nil, sales: nil, authorizations: nil),
@@ -19,12 +19,12 @@ final class OrderTests: XCTestCase {
         XCTAssertEqual(order.metadata, Order.Metadata(data: [:]))
         XCTAssertEqual(order.redirects, Redirects(return: "https://example.com/approved", cancel: "https://example.com/canceled"))
         XCTAssertEqual(order.total, CurrencyAmount(currency: .usd, value: 150.78))
-        try XCTAssertEqual(order.context, AppContext())
+        XCTAssertEqual(order.context, AppContext())
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let order = try Order(
+        let order = Order(
             intent: .sale,
             units: [],
             payment: Order.Payment(captures: nil, refunds: nil, sales: nil, authorizations: nil),
@@ -84,7 +84,7 @@ final class OrderTests: XCTestCase {
         XCTAssertEqual(order.updated, "2018-09-20T13:18:03+0000")
         XCTAssertEqual(order.links, [])
         XCTAssertEqual(order.total, CurrencyAmount(currency: .usd, value: 150.78))
-        try XCTAssertEqual(order.context, AppContext())
+        XCTAssertEqual(order.context, AppContext())
     }
     
     static var allTests: [(String, (OrderTests) -> ()throws -> ())] = [

@@ -4,7 +4,7 @@ import XCTest
 final class PayeeTests: XCTestCase {
     func testInit()throws {
         let metadata = try Payee.Metadata(
-            email: "payee@example.com",
+            email: .init("payee@example.com"),
             phone: DisplayPhone(country: .unitedStates, number: "423981155636432"),
             brand: "Example Inc."
         )
@@ -18,7 +18,7 @@ final class PayeeTests: XCTestCase {
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let metadata = try Payee.Metadata(
-            email: "payee@example.com",
+            email: .init("payee@example.com"),
             phone: DisplayPhone(country: .unitedStates, number: "423981155636432"),
             brand: "Example Inc."
         )
@@ -48,7 +48,7 @@ final class PayeeTests: XCTestCase {
         }
         """.data(using: .utf8)!
         let metadata = try Payee.Metadata(
-            email: "payee@example.com",
+            email: .init("payee@example.com"),
             phone: DisplayPhone(country: .unitedStates, number: "423981155636432"),
             brand: "Example Inc."
         )

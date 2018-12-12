@@ -1,4 +1,5 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class PaymentItemListTests: XCTestCase {
@@ -16,10 +17,10 @@ final class PaymentItemListTests: XCTestCase {
     )
     
     func testInit()throws {
-        let list = try Payment.ItemList(items: [], address: self.address, phoneNumber: "555-555-5555")
+        let list = try Payment.ItemList(items: [], address: self.address, phoneNumber: .init("555-555-5555"))
         
         XCTAssertEqual(list.items, [])
-        XCTAssertEqual(list.phoneNumber, "555-555-5555")
+        XCTAssertEqual(list.phoneNumber.value, "555-555-5555")
         XCTAssertEqual(list.address, Address(
             recipientName: nil,
             defaultAddress: nil,
@@ -35,20 +36,18 @@ final class PaymentItemListTests: XCTestCase {
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(Payment.ItemList(items: nil, address: nil, phoneNumber: String(repeating: "5", count: 51)))
-        try XCTAssertThrowsError(Payment.ItemList(items: nil, address: nil, phoneNumber: ""))
-        var list = try Payment.ItemList(items: [], address: self.address, phoneNumber: "555-555-5555")
+        var list = try Payment.ItemList(items: [], address: self.address, phoneNumber: .init("555-555-5555"))
         
-        try XCTAssertThrowsError(list.set(\.phoneNumber <~ ""))
-        try XCTAssertThrowsError(list.set(\.phoneNumber <~ "555555555555555555555555555555555555555555555555555"))
-        try list.set(\.phoneNumber <~ "666-666-6666")
+        try XCTAssertThrowsError(list.phoneNumber <~ "")
+        try XCTAssertThrowsError(list.phoneNumber <~ "555555555555555555555555555555555555555555555555555")
+        try list.phoneNumber <~ "666-666-6666"
         
-        XCTAssertEqual(list.phoneNumber, "666-666-6666")
+        XCTAssertEqual(list.phoneNumber.value, "666-666-6666")
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let list = try Payment.ItemList(items: [], address: self.address, phoneNumber: "555-555-5555")
+        let list = try Payment.ItemList(items: [], address: self.address, phoneNumber: .init("555-555-5555"))
         let generated = try String(data: encoder.encode(list), encoding: .utf8)!
         let json =
             "{\"items\":[],\"shipping_address\":{\"country_code\":\"US\",\"line1\":\"line\",\"city\":\"city\",\"postal_code\":\"1\"}," +
@@ -84,7 +83,7 @@ final class PaymentItemListTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        let list = try Payment.ItemList(items: [], address: self.address, phoneNumber: "555-555-5555")
+        let list = try Payment.ItemList(items: [], address: self.address, phoneNumber: .init("555-555-5555"))
         try XCTAssertEqual(list, decoder.decode(Payment.ItemList.self, from: json))
         try XCTAssertThrowsError(decoder.decode(Payment.ItemList.self, from: phone))
     }

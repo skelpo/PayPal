@@ -1,29 +1,29 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class SellerTests: XCTestCase {
     func testInit()throws {
-        let seller = try Seller(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather", merchantID: nil)
+        let seller = try Seller(email: .init("witheringheights@exmaple.com"), name: "Leeli Wingfeather", merchantID: nil)
         
         XCTAssertNil(seller.merchantID)
-        XCTAssertEqual(seller.email, "witheringheights@exmaple.com")
+        XCTAssertEqual(seller.email.value, "witheringheights@exmaple.com")
         XCTAssertEqual(seller.name, "Leeli Wingfeather")
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(Seller(email: "downsideup", name: "Leeli Wingfeather", merchantID: nil))
-        var seller = try Seller(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather", merchantID: nil)
+        var seller = try Seller(email: .init("witheringheights@exmaple.com"), name: "Leeli Wingfeather", merchantID: nil)
         
-        try XCTAssertThrowsError(seller.set(\.email <~ "upsidedown"))
-        try seller.set(\.email <~ "lizard.kicker@glipwood.com")
+        try XCTAssertThrowsError(seller.email <~ "upsidedown")
+        try seller.email <~ "lizard.kicker@glipwood.com"
         
-        XCTAssertEqual(seller.email, "lizard.kicker@glipwood.com")
+        XCTAssertEqual(seller.email.value, "lizard.kicker@glipwood.com")
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let generated = try String(
-            data: encoder.encode(Seller(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather", merchantID: nil)),
+            data: encoder.encode(Seller(email: .init("witheringheights@exmaple.com"), name: "Leeli Wingfeather", merchantID: nil)),
             encoding: .utf8
         )
         
@@ -49,7 +49,7 @@ final class SellerTests: XCTestCase {
         
         try XCTAssertThrowsError(decoder.decode(Buyer.self, from: invalid))
         try XCTAssertEqual(
-            Seller(email: "witheringheights@exmaple.com", name: "Leeli Wingfeather", merchantID: "456261F7-20E2-46F8-8BFD-EEF0C911D76D"),
+            Seller(email: .init("witheringheights@exmaple.com"), name: "Leeli Wingfeather", merchantID: "456261F7-20E2-46F8-8BFD-EEF0C911D76D"),
             decoder.decode(Seller.self, from: json)
         )
     }

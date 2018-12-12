@@ -4,19 +4,21 @@ import XCTest
 final class AccountOwnerRelationshipTests: XCTestCase {
     func testInit()throws {
         let relationship = try AccountOwnerRelationship(
-            name: Name(prefix: nil, given: "Abe", surname: "Lincon", middle: nil, suffix: nil, full: "Abe Lincon"),
+            name: Name(prefix: nil, given: .init("Abe"), surname: .init("Lincon"), middle: nil, suffix: nil, full: .init("Abe Lincon")),
             country: .unitedStates
         )
         
         XCTAssertEqual(relationship.relation, "MOTHER")
         XCTAssertEqual(relationship.country, .unitedStates)
-        try XCTAssertEqual(relationship.name, Name(prefix: nil, given: "Abe", surname: "Lincon", middle: nil, suffix: nil, full: "Abe Lincon"))
+        try XCTAssertEqual(relationship.name, Name(
+            prefix: nil, given: .init("Abe"), surname: .init("Lincon"), middle: nil, suffix: nil, full: .init("Abe Lincon"))
+        )
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let relationship = try AccountOwnerRelationship(
-            name: Name(prefix: nil, given: "Abe", surname: "Lincon", middle: nil, suffix: nil, full: "Abe Lincon"),
+            name: Name(prefix: nil, given: .init("Abe"), surname: .init("Lincon"), middle: nil, suffix: nil, full: .init("Abe Lincon")),
             country: .unitedStates
         )
         let generated = try String(data: encoder.encode(relationship), encoding: .utf8)!
@@ -36,7 +38,7 @@ final class AccountOwnerRelationshipTests: XCTestCase {
     func testDecoding()throws {
         let decoder = JSONDecoder()
         let relationship = try AccountOwnerRelationship(
-            name: Name(prefix: nil, given: "Abe", surname: "Lincon", middle: nil, suffix: nil, full: "Abe Lincon"),
+            name: Name(prefix: nil, given: .init("Abe"), surname: .init("Lincon"), middle: nil, suffix: nil, full: .init("Abe Lincon")),
             country: .unitedStates
         )
         let json = """

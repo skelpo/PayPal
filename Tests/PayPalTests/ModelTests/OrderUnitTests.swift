@@ -1,4 +1,5 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class OrderUnitTests: XCTestCase {
@@ -17,34 +18,34 @@ final class OrderUnitTests: XCTestCase {
             type: nil
         )
         let unit = try Order.Unit(
-            reference: "C1C099F2-D7E7-4E19-BBBF-98DD11EA911A",
+            reference: .init("C1C099F2-D7E7-4E19-BBBF-98DD11EA911A"),
             amount: DetailedAmount(currency: .usd, total: 5.00, details: nil),
             payee: payee,
-            description: "Descript",
-            invoice: "B5382984-3B90-4BC4-9F7A-6A6AFA61AC25",
-            custom: "C2B9FBFB-B97D-46E4-8553-522C6A25A2FC",
-            paymentDescriptor: "PayScript",
+            description: .init("Descript"),
+            invoice: .init("B5382984-3B90-4BC4-9F7A-6A6AFA61AC25"),
+            custom: .init("C2B9FBFB-B97D-46E4-8553-522C6A25A2FC"),
+            paymentDescriptor: .init("PayScript"),
             items: [],
-            notify: "https://example.com/notify",
+            notify: .init("https://example.com/notify"),
             shippingAddress: address,
             shippingMethod: "USPSParcel",
             partnerFee: PartnerFee(receiver: payee, amount: CurrencyAmount(currency: .usd, value: 2.50)),
-            paymentGroup: 1,
+            paymentGroup: .init(1),
             metadata: .init(data: ["name": "value"]),
             payment: .init(captures: nil, refunds: nil, sales: nil, authorizations: nil)
         )
         
-        XCTAssertEqual(unit.reference, "C1C099F2-D7E7-4E19-BBBF-98DD11EA911A")
+        XCTAssertEqual(unit.reference.value, "C1C099F2-D7E7-4E19-BBBF-98DD11EA911A")
         XCTAssertEqual(unit.payee, payee)
-        XCTAssertEqual(unit.description, "Descript")
-        XCTAssertEqual(unit.invoice, "B5382984-3B90-4BC4-9F7A-6A6AFA61AC25")
-        XCTAssertEqual(unit.custom, "C2B9FBFB-B97D-46E4-8553-522C6A25A2FC")
-        XCTAssertEqual(unit.paymentDescriptor, "PayScript")
+        XCTAssertEqual(unit.description.value, "Descript")
+        XCTAssertEqual(unit.invoice.value, "B5382984-3B90-4BC4-9F7A-6A6AFA61AC25")
+        XCTAssertEqual(unit.custom.value, "C2B9FBFB-B97D-46E4-8553-522C6A25A2FC")
+        XCTAssertEqual(unit.paymentDescriptor.value, "PayScript")
         XCTAssertEqual(unit.items, [])
-        XCTAssertEqual(unit.notify, "https://example.com/notify")
+        XCTAssertEqual(unit.notify.value, "https://example.com/notify")
         XCTAssertEqual(unit.shippingAddress, address)
         XCTAssertEqual(unit.shippingMethod, "USPSParcel")
-        XCTAssertEqual(unit.paymentGroup, 1)
+        XCTAssertEqual(unit.paymentGroup.value, 1)
         XCTAssertEqual(unit.metadata, .init(data: ["name": "value"]))
         XCTAssertEqual(unit.payment, .init(captures: nil, refunds: nil, sales: nil, authorizations: nil))
         XCTAssertEqual(unit.partnerFee, PartnerFee(receiver: payee, amount: CurrencyAmount(currency: .usd, value: 2.50)))
@@ -52,81 +53,46 @@ final class OrderUnitTests: XCTestCase {
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(Order.Unit(
-            reference: String(repeating: "r", count: 257), amount: DetailedAmount(currency: .usd, total: 5.00, details: nil), payee: nil,
-            description: nil, invoice: nil, custom: nil, paymentDescriptor: nil, items: [], notify: nil, shippingAddress: nil, shippingMethod: nil,
-            partnerFee: nil, paymentGroup: nil, metadata: nil, payment: nil
-        ))
-        try XCTAssertThrowsError(Order.Unit(
-            reference: "C1C099F2-D7E7-4E19-BBBF-98DD11EA911A", amount: DetailedAmount(currency: .usd, total: 5.00, details: nil), payee: nil,
-            description: String(repeating: "d", count: 128), invoice: nil, custom: nil, paymentDescriptor: nil,items: [], notify: nil, shippingAddress: nil,
-            shippingMethod: nil, partnerFee: nil, paymentGroup: nil, metadata: nil, payment: nil
-        ))
-        try XCTAssertThrowsError(Order.Unit(
-            reference: "C1C099F2-D7E7-4E19-BBBF-98DD11EA911A", amount: DetailedAmount(currency: .usd, total: 5.00, details: nil), payee: nil, description: nil,
-            invoice: nil, custom: String(repeating: "c", count: 128), paymentDescriptor: nil, items: [], notify: nil, shippingAddress: nil, shippingMethod: nil,
-            partnerFee: nil, paymentGroup: nil, metadata: nil, payment: nil
-        ))
-        try XCTAssertThrowsError(Order.Unit(
-            reference: "C1C099F2-D7E7-4E19-BBBF-98DD11EA911A", amount: DetailedAmount(currency: .usd, total: 5.00, details: nil), payee: nil, description: nil,
-            invoice: String(repeating: "i", count: 257), custom: nil, paymentDescriptor: nil, items: [], notify: nil, shippingAddress: nil, shippingMethod: nil,
-            partnerFee: nil, paymentGroup: nil, metadata: nil, payment: nil
-        ))
-        try XCTAssertThrowsError(Order.Unit(
-            reference: "C1C099F2-D7E7-4E19-BBBF-98DD11EA911A", amount: DetailedAmount(currency: .usd, total: 5.00, details: nil), payee: nil, description: nil,
-            invoice: nil, custom: nil, paymentDescriptor: String(repeating: "p", count: 23), items: [], notify: nil, shippingAddress: nil, shippingMethod: nil,
-            partnerFee: nil, paymentGroup: nil, metadata: nil, payment: nil
-        ))
-        try XCTAssertThrowsError(Order.Unit(
-            reference: "C1C099F2-D7E7-4E19-BBBF-98DD11EA911A", amount: DetailedAmount(currency: .usd, total: 5.00, details: nil), payee: nil, description: nil,
-            invoice: nil, custom: nil, paymentDescriptor: nil, items: [], notify: String(repeating: "n", count: 2049), shippingAddress: nil, shippingMethod: nil,
-            partnerFee: nil, paymentGroup: nil, metadata: nil, payment: nil
-        ))
-        try XCTAssertThrowsError(Order.Unit(
-            reference: "C1C099F2-D7E7-4E19-BBBF-98DD11EA911A", amount: DetailedAmount(currency: .usd, total: 5.00, details: nil), payee: nil, description: nil,
-            invoice: nil, custom: nil, paymentDescriptor: nil, items: [], notify: nil, shippingAddress: nil, shippingMethod: nil, partnerFee: nil,
-            paymentGroup: 101, metadata: nil, payment: nil
-        ))
         var unit = try Order.Unit(
-            reference: "C1C099F2-D7E7-4E19-BBBF-98DD11EA911A",
+            reference: .init("C1C099F2-D7E7-4E19-BBBF-98DD11EA911A"),
             amount: DetailedAmount(currency: .usd, total: 5.00, details: nil),
             payee: nil,
-            description: "Descript",
-            invoice: "B5382984-3B90-4BC4-9F7A-6A6AFA61AC25",
-            custom: "C2B9FBFB-B97D-46E4-8553-522C6A25A2FC",
-            paymentDescriptor: "PayScript",
+            description: .init("Descript"),
+            invoice: .init("B5382984-3B90-4BC4-9F7A-6A6AFA61AC25"),
+            custom: .init("C2B9FBFB-B97D-46E4-8553-522C6A25A2FC"),
+            paymentDescriptor: .init("PayScript"),
             items: [],
-            notify: "https://example.com/notify",
+            notify: .init("https://example.com/notify"),
             shippingAddress: nil,
             shippingMethod: "USPSParcel",
             partnerFee: nil,
-            paymentGroup: 1,
+            paymentGroup: .init(1),
             metadata: .init(data: ["name": "value"]),
             payment: .init(captures: nil, refunds: nil, sales: nil, authorizations: nil)
         )
         
-        try XCTAssertThrowsError(unit.set(\.reference <~ String(repeating: "r", count: 257)))
-        try XCTAssertThrowsError(unit.set(\Order.Unit.description <~ String(repeating: "d", count: 128)))
-        try XCTAssertThrowsError(unit.set(\Order.Unit.custom <~ String(repeating: "c", count: 128)))
-        try XCTAssertThrowsError(unit.set(\Order.Unit.invoice <~ String(repeating: "i", count: 257)))
-        try XCTAssertThrowsError(unit.set(\Order.Unit.paymentDescriptor <~ String(repeating: "p", count: 23)))
-        try XCTAssertThrowsError(unit.set(\Order.Unit.notify <~ String(repeating: "n", count: 2049)))
-        try XCTAssertThrowsError(unit.set(\.paymentGroup <~ 101))
-        try unit.set(\.reference <~ String(repeating: "r", count: 256))
-        try unit.set(\Order.Unit.description <~ String(repeating: "d", count: 127))
-        try unit.set(\Order.Unit.custom <~ String(repeating: "c", count: 127))
-        try unit.set(\Order.Unit.invoice <~ String(repeating: "i", count: 256))
-        try unit.set(\Order.Unit.paymentDescriptor <~ String(repeating: "p", count: 22))
-        try unit.set(\Order.Unit.notify <~ String(repeating: "n", count: 2048))
-        try unit.set(\.paymentGroup <~ 100)
+        try XCTAssertThrowsError(unit.reference <~ String(repeating: "r", count: 257))
+        try XCTAssertThrowsError(unit.description <~ String(repeating: "d", count: 128))
+        try XCTAssertThrowsError(unit.custom <~ String(repeating: "c", count: 128))
+        try XCTAssertThrowsError(unit.invoice <~ String(repeating: "i", count: 257))
+        try XCTAssertThrowsError(unit.paymentDescriptor <~ String(repeating: "p", count: 23))
+        try XCTAssertThrowsError(unit.notify <~ String(repeating: "n", count: 2049))
+        try XCTAssertThrowsError(unit.paymentGroup <~ 101)
+        try unit.reference <~ String(repeating: "r", count: 256)
+        try unit.description <~ String(repeating: "d", count: 127)
+        try unit.custom <~ String(repeating: "c", count: 127)
+        try unit.invoice <~ String(repeating: "i", count: 256)
+        try unit.paymentDescriptor <~ String(repeating: "p", count: 22)
+        try unit.notify <~ String(repeating: "n", count: 2048)
+        try unit.paymentGroup <~ 100
         
-        XCTAssertEqual(unit.reference, String(repeating: "r", count: 256))
-        XCTAssertEqual(unit.description, String(repeating: "d", count: 127))
-        XCTAssertEqual(unit.custom, String(repeating: "c", count: 127))
-        XCTAssertEqual(unit.invoice, String(repeating: "i", count: 256))
-        XCTAssertEqual(unit.paymentDescriptor, String(repeating: "p", count: 22))
-        XCTAssertEqual(unit.notify, String(repeating: "n", count: 2048))
-        XCTAssertEqual(unit.paymentGroup, 100)
+        XCTAssertEqual(unit.reference.value, String(repeating: "r", count: 256))
+        XCTAssertEqual(unit.description.value, String(repeating: "d", count: 127))
+        XCTAssertEqual(unit.custom.value, String(repeating: "c", count: 127))
+        XCTAssertEqual(unit.invoice.value, String(repeating: "i", count: 256))
+        XCTAssertEqual(unit.paymentDescriptor.value, String(repeating: "p", count: 22))
+        XCTAssertEqual(unit.notify.value, String(repeating: "n", count: 2048))
+        XCTAssertEqual(unit.paymentGroup.value, 100)
     }
     
     func testEncoding()throws {
@@ -145,19 +111,19 @@ final class OrderUnitTests: XCTestCase {
             type: nil
         )
         let unit = try Order.Unit(
-            reference: "C1C099F2-D7E7-4E19-BBBF-98DD11EA911A",
+            reference: .init("C1C099F2-D7E7-4E19-BBBF-98DD11EA911A"),
             amount: DetailedAmount(currency: .usd, total: 5.00, details: nil),
             payee: payee,
-            description: "Descript",
-            invoice: "B5382984-3B90-4BC4-9F7A-6A6AFA61AC25",
-            custom: "C2B9FBFB-B97D-46E4-8553-522C6A25A2FC",
-            paymentDescriptor: "PayScript",
+            description: .init("Descript"),
+            invoice: .init("B5382984-3B90-4BC4-9F7A-6A6AFA61AC25"),
+            custom: .init("C2B9FBFB-B97D-46E4-8553-522C6A25A2FC"),
+            paymentDescriptor: .init("PayScript"),
             items: [],
-            notify: "https://example.com/notify",
+            notify: .init("https://example.com/notify"),
             shippingAddress: address,
             shippingMethod: "USPSParcel",
             partnerFee: PartnerFee(receiver: payee, amount: CurrencyAmount(currency: .usd, value: 2.50)),
-            paymentGroup: 1,
+            paymentGroup: .init(1),
             metadata: .init(data: [:]),
             payment: .init(captures: nil, refunds: nil, sales: nil, authorizations: nil)
         )
@@ -241,15 +207,15 @@ final class OrderUnitTests: XCTestCase {
         XCTAssertEqual(unit.reason, .multiCurrency)
         XCTAssertEqual(unit.reference, "C1C099F2-D7E7-4E19-BBBF-98DD11EA911A")
         XCTAssertEqual(unit.payee, payee)
-        XCTAssertEqual(unit.description, "Descript")
-        XCTAssertEqual(unit.invoice, "B5382984-3B90-4BC4-9F7A-6A6AFA61AC25")
-        XCTAssertEqual(unit.custom, "C2B9FBFB-B97D-46E4-8553-522C6A25A2FC")
-        XCTAssertEqual(unit.paymentDescriptor, "PayScript")
+        XCTAssertEqual(unit.description.value, "Descript")
+        XCTAssertEqual(unit.invoice.value, "B5382984-3B90-4BC4-9F7A-6A6AFA61AC25")
+        XCTAssertEqual(unit.custom.value, "C2B9FBFB-B97D-46E4-8553-522C6A25A2FC")
+        XCTAssertEqual(unit.paymentDescriptor.value, "PayScript")
         XCTAssertEqual(unit.items, [])
-        XCTAssertEqual(unit.notify, "https://example.com/notify")
+        XCTAssertEqual(unit.notify.value, "https://example.com/notify")
         XCTAssertEqual(unit.shippingAddress, address)
         XCTAssertEqual(unit.shippingMethod, "USPSParcel")
-        XCTAssertEqual(unit.paymentGroup, 1)
+        XCTAssertEqual(unit.paymentGroup.value, 1)
         XCTAssertEqual(unit.metadata, .init(data: [:]))
         XCTAssertEqual(unit.payment, .init(captures: nil, refunds: nil, sales: nil, authorizations: nil))
         XCTAssertEqual(unit.partnerFee, PartnerFee(receiver: payee, amount: CurrencyAmount(currency: .usd, value: 2.50)))

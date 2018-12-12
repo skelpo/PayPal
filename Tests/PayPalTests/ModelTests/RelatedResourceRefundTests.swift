@@ -1,4 +1,5 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class RelatedResourceRefundTests: XCTestCase {
@@ -6,7 +7,7 @@ final class RelatedResourceRefundTests: XCTestCase {
         let refund = try RelatedResource.Refund(
             amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
             reason: "Reasonable",
-            invoice: "3086FF5B-13F2-4B6A-AB02-AD1C347B163C",
+            invoice: .init("3086FF5B-13F2-4B6A-AB02-AD1C347B163C"),
             description: "Descript"
         )
         
@@ -20,29 +21,23 @@ final class RelatedResourceRefundTests: XCTestCase {
         XCTAssertNil(refund.links)
         
         XCTAssertEqual(refund.reason, "Reasonable")
-        XCTAssertEqual(refund.invoice, "3086FF5B-13F2-4B6A-AB02-AD1C347B163C")
+        XCTAssertEqual(refund.invoice.value, "3086FF5B-13F2-4B6A-AB02-AD1C347B163C")
         XCTAssertEqual(refund.description, "Descript")
         XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: 67.23, details: nil))
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(RelatedResource.Refund(
-            amount: nil,
-            reason: nil,
-            invoice: String(repeating: "i", count: 128),
-            description: nil
-        ))
         var refund = try RelatedResource.Refund(
             amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
             reason: "Reasonable",
-            invoice: "3086FF5B-13F2-4B6A-AB02-AD1C347B163C",
+            invoice: .init("3086FF5B-13F2-4B6A-AB02-AD1C347B163C"),
             description: "Descript"
         )
         
-        try XCTAssertThrowsError(refund.set(\RelatedResource.Refund.invoice <~ String(repeating: "i", count: 128)))
-        try refund.set(\RelatedResource.Refund.invoice <~ String(repeating: "i", count: 127))
+        try XCTAssertThrowsError(refund.invoice <~ String(repeating: "i", count: 128))
+        try refund.invoice <~ String(repeating: "i", count: 127)
         
-        XCTAssertEqual(refund.invoice, String(repeating: "i", count: 127))
+        XCTAssertEqual(refund.invoice.value, String(repeating: "i", count: 127))
     }
     
     func testEncoding()throws {
@@ -50,12 +45,14 @@ final class RelatedResourceRefundTests: XCTestCase {
         let refund = try RelatedResource.Refund(
             amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
             reason: "Reasonable",
-            invoice: "3086FF5B-13F2-4B6A-AB02-AD1C347B163C",
+            invoice: .init("3086FF5B-13F2-4B6A-AB02-AD1C347B163C"),
             description: "Descript"
         )
         let generated = try String(data: encoder.encode(refund), encoding: .utf8)!
         
-        let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"67.23\"},\"reason\":\"Reasonable\",\"description\":\"Descript\",\"invoice_number\":\"3086FF5B-13F2-4B6A-AB02-AD1C347B163C\"}"
+        let json =
+            "{\"amount\":{\"currency\":\"USD\",\"total\":\"67.23\"},\"reason\":\"Reasonable\",\"description\":\"Descript\"," +
+            "\"invoice_number\":\"3086FF5B-13F2-4B6A-AB02-AD1C347B163C\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -103,7 +100,7 @@ final class RelatedResourceRefundTests: XCTestCase {
         XCTAssertEqual(refund.id, "7CC72DB1-079B-41C1-8380-06FC4B4A3CFD")
         XCTAssertEqual(refund.state, .pending)
         XCTAssertEqual(refund.reason, "Reasonable")
-        XCTAssertEqual(refund.invoice, "3086FF5B-13F2-4B6A-AB02-AD1C347B163C")
+        XCTAssertEqual(refund.invoice.value, "3086FF5B-13F2-4B6A-AB02-AD1C347B163C")
         XCTAssertEqual(refund.sale, "43E42A83-0C79-4254-BC46-8830EB49B760")
         XCTAssertEqual(refund.capture, "4AA80819-0094-4B2C-A04D-0CBD3E1FCA74")
         XCTAssertEqual(refund.payment, "FDA5BF1B-D68D-4DB8-93E5-0EA6910DA0A7")

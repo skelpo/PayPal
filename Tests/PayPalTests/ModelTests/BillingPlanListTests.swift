@@ -5,16 +5,16 @@ final class BillingPlanListTests: XCTestCase {
     func testInit()throws {
         let list = try BillingPlan.List(plans: [
             BillingPlan(
-                name: "Monthly Water",
-                description: "Your water payment",
+                name: .init("Monthly Water"),
+                description: .init("Your water payment"),
                 type: .infinite,
                 payments: [
                     BillingPayment(
-                        name: "Water Charge",
+                        name: .init("Water Charge"),
                         type: .regular,
-                        interval: "1",
+                        interval: 1,
                         frequency: .month,
-                        cycles: "0",
+                        cycles: 0,
                         amount: CurrencyAmount(currency: .usd, value: 10.00),
                         charges: nil
                     )
@@ -26,16 +26,16 @@ final class BillingPlanListTests: XCTestCase {
         XCTAssertEqual(list.items, "1")
         XCTAssertEqual(list.plans?.count, 1)
         try XCTAssertEqual(list.plans?.first,  BillingPlan(
-            name: "Monthly Water",
-            description: "Your water payment",
+            name: .init("Monthly Water"),
+            description: .init("Your water payment"),
             type: .infinite,
             payments: [
                 BillingPayment(
-                    name: "Water Charge",
+                    name: .init("Water Charge"),
                     type: .regular,
-                    interval: "1",
+                    interval: 1,
                     frequency: .month,
-                    cycles: "0",
+                    cycles: 0,
                     amount: CurrencyAmount(currency: .usd, value: 10.00),
                     charges: nil
                 )
@@ -48,16 +48,16 @@ final class BillingPlanListTests: XCTestCase {
         let encoder = JSONEncoder()
         let list = try BillingPlan.List(plans: [
             BillingPlan(
-                name: "Monthly Water",
-                description: "Your water payment",
+                name: .init("Monthly Water"),
+                description: .init("Your water payment"),
                 type: .infinite,
                 payments: [
                     BillingPayment(
-                        name: "Water Charge",
+                        name: .init("Water Charge"),
                         type: .regular,
-                        interval: "1",
+                        interval: 1,
                         frequency: .month,
-                        cycles: "0",
+                        cycles: 0,
                         amount: CurrencyAmount(currency: .usd, value: 10.00),
                         charges: nil
                     )
@@ -117,16 +117,16 @@ final class BillingPlanListTests: XCTestCase {
         XCTAssertEqual(plan.links, [])
         XCTAssertEqual(plan.plans?.count, 1)
         try XCTAssertEqual(plan.plans?.first, BillingPlan(
-            name: "Monthly Water",
-            description: "Your water payment",
+            name: .init("Monthly Water"),
+            description: .init("Your water payment"),
             type: .infinite,
             payments: [
                 BillingPayment(
-                    name: "Water Charge",
+                    name: .init("Water Charge"),
                     type: .regular,
-                    interval: "1",
+                    interval: 1,
                     frequency: .month,
-                    cycles: "0",
+                    cycles: 0,
                     amount: CurrencyAmount(currency: .usd, value: 10.00),
                     charges: nil
                 )

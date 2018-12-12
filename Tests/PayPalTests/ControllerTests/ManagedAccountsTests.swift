@@ -33,7 +33,7 @@ final class ManagedAccountsTests: XCTestCase {
             throw Abort(.internalServerError, reason: "ID is nil")
         }
         
-        let paymentPref = try PaymentReceivingPreferences(
+        let paymentPref = PaymentReceivingPreferences(
             blockUnconfirmedUSAddress: true,
             blockNonUS: false,
             blockEcheck: false,
@@ -52,9 +52,9 @@ final class ManagedAccountsTests: XCTestCase {
             names: [],
             ids: [],
             phones: [],
-            category: "3145",
-            subCategory: "5972",
-            merchantCategory: "4653",
+            category: .init("3145"),
+            subCategory: .init("5972"),
+            merchantCategory: .init("4653"),
             establishedDate: TimelessDate(date: "1882-05-13"),
             registrationDate: TimelessDate(date: "1975-04-22"),
             disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
@@ -62,12 +62,12 @@ final class ManagedAccountsTests: XCTestCase {
                 price: MoneyRange(50...60, currency: .usd),
                 volume: MoneyRange(50...60, currency: .usd),
                 venues: [],
-                website: "https://example.com",
+                website: .init("https://example.com"),
                 online: PercentRange(0...1)
             ),
             customerService: CustomerService(
-                email: EmailAddress(email: "help@nameless.com"),
-                phone: PhoneNumber(country: "1", number: "9963191901"),
+                email: EmailAddress(email: .init("help@nameless.com")),
+                phone: PhoneNumber(country: .init(1), number: .init(9963191901)),
                 message: []
             ),
             addresses: [],
@@ -77,18 +77,21 @@ final class ManagedAccountsTests: XCTestCase {
         )
         let owner = try BusinessOwner(
             email: "business@example.com",
-            name: Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "Bart.", full: "Sir Walter Scott"),
+            name: Name(
+                prefix: .init("Sir"), given: .init("Walter"), surname: .init("Scott"), middle: nil, suffix: .init("Bart."),
+                full: .init("Sir Walter Scott")
+            ),
             relationships: [],
             country: .unitedKingdom,
             addresses: [],
-            birthdate: "1771-08-15",
+            birthdate: Date(),
             language: .en_GB,
             phones: [],
             ids: [],
             occupation: "Author"
         )
         
-        let account = try MerchantAccount(
+        let account = MerchantAccount(
             owner: owner,
             business: business,
             status: .a,
@@ -130,7 +133,7 @@ final class ManagedAccountsTests: XCTestCase {
             throw Abort(.internalServerError, reason: "ID is nil")
         }
         
-        let paymentPref = try PaymentReceivingPreferences(
+        let paymentPref = PaymentReceivingPreferences(
             blockUnconfirmedUSAddress: true,
             blockNonUS: false,
             blockEcheck: false,
@@ -149,9 +152,9 @@ final class ManagedAccountsTests: XCTestCase {
             names: [],
             ids: [],
             phones: [],
-            category: "3145",
-            subCategory: "5972",
-            merchantCategory: "4653",
+            category: .init("3145"),
+            subCategory: .init("5972"),
+            merchantCategory: .init("4653"),
             establishedDate: TimelessDate(date: "1882-05-13"),
             registrationDate: TimelessDate(date: "1975-04-22"),
             disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
@@ -159,12 +162,12 @@ final class ManagedAccountsTests: XCTestCase {
                 price: MoneyRange(50...60, currency: .usd),
                 volume: MoneyRange(50...60, currency: .usd),
                 venues: [],
-                website: "https://example.com",
+                website: .init("https://example.com"),
                 online: PercentRange(0...1)
             ),
             customerService: CustomerService(
-                email: EmailAddress(email: "help@nameless.com"),
-                phone: PhoneNumber(country: "1", number: "9963191901"),
+                email: EmailAddress(email: .init("help@nameless.com")),
+                phone: PhoneNumber(country: .init(1), number: .init(9963191901)),
                 message: []
             ),
             addresses: [],
@@ -174,18 +177,21 @@ final class ManagedAccountsTests: XCTestCase {
         )
         let owner = try BusinessOwner(
             email: "business@example.com",
-            name: Name(prefix: "Sir", given: "Walter", surname: "Scott", middle: nil, suffix: "Bart.", full: "Sir Walter Scott"),
+            name: Name(
+                prefix: .init("Sir"), given: .init("Walter"), surname: .init("Scott"), middle: nil, suffix: .init("Bart."),
+                full: .init("Sir Walter Scott")
+            ),
             relationships: [],
             country: .unitedKingdom,
             addresses: [],
-            birthdate: "1771-08-15",
+            birthdate: Date(),
             language: .en_GB,
             phones: [],
             ids: [],
             occupation: "Author"
         )
         
-        let account = try MerchantAccount(
+        let account = MerchantAccount(
             owner: owner,
             business: business,
             status: .a,

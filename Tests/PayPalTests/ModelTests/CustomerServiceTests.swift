@@ -3,16 +3,24 @@ import XCTest
 
 final class CustomerServiceTests: XCTestCase {
     func testInit()throws {
-        let service = try CustomerService(email: EmailAddress(email: "address@email.com"), phone: PhoneNumber(country: "1", number: "9963191901"), message: [])
+        let service = try CustomerService(
+            email: EmailAddress(email: .init("address@email.com")),
+            phone: PhoneNumber(country: .init(1), number: .init(9963191901)),
+            message: []
+        )
         
-        try XCTAssertEqual(service.email, EmailAddress(email: "address@email.com"))
-        try XCTAssertEqual(service.phone, PhoneNumber(country: "1", number: "9963191901"))
+        try XCTAssertEqual(service.email, EmailAddress(email: .init("address@email.com")))
+        try XCTAssertEqual(service.phone, PhoneNumber(country: .init(1), number: .init(9963191901)))
         XCTAssertEqual(service.message, [])
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let service = try CustomerService(email: EmailAddress(email: "address@email.com"), phone: PhoneNumber(country: "1", number: "9963191901"), message: [])
+        let service = try CustomerService(
+            email: EmailAddress(email: .init("address@email.com")),
+            phone: PhoneNumber(country: .init(1), number: .init(9963191901)),
+            message: []
+        )
         let json = try String(data: encoder.encode(service), encoding: .utf8)!
         let generated =
         "{\"email\":{\"email_address\":\"address@email.com\"},\"phone\":{\"country_code\":\"1\",\"national_number\":\"9963191901\"},\"message\":[]}"
@@ -42,7 +50,11 @@ final class CustomerServiceTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        let service = try CustomerService(email: EmailAddress(email: "address@email.com"), phone: PhoneNumber(country: "1", number: "9963191901"), message: [])
+        let service = try CustomerService(
+            email: EmailAddress(email: .init("address@email.com")),
+            phone: PhoneNumber(country: .init(1), number: .init(9963191901)),
+            message: []
+        )
         try XCTAssertEqual(service, decoder.decode(CustomerService.self, from: json))
     }
     

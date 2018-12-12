@@ -4,11 +4,11 @@ import XCTest
 final class BillingInfoTests: XCTestCase {
     func testInit()throws {
         let info = try BillingInfo(
-            email: "ratigan@thirdceller.com",
-            phone: PhoneNumber(country: "1", number: "4586901518"),
-            firstName: "Padraic",
-            lastName: "Ratigan",
-            businessName: "Crime Lord",
+            email: .init("ratigan@thirdceller.com"),
+            phone: PhoneNumber(country: .init(1), number: .init(4586901518)),
+            firstName: .init("Padraic"),
+            lastName: .init("Ratigan"),
+            businessName: .init("Crime Lord"),
             address: Address(
                 recipientName: nil,
                 defaultAddress: true,
@@ -22,17 +22,17 @@ final class BillingInfoTests: XCTestCase {
                 type: nil
             ),
             language: .en_GB,
-            info: "For the captain."
+            info: .init("For the captain.")
         )
 
-        XCTAssertEqual(info.email, "ratigan@thirdceller.com")
-        XCTAssertEqual(info.firstName, "Padraic")
-        XCTAssertEqual(info.lastName, "Ratigan")
-        XCTAssertEqual(info.businessName, "Crime Lord")
+        XCTAssertEqual(info.email.value, "ratigan@thirdceller.com")
+        XCTAssertEqual(info.firstName.value, "Padraic")
+        XCTAssertEqual(info.lastName.value, "Ratigan")
+        XCTAssertEqual(info.businessName.value, "Crime Lord")
         XCTAssertEqual(info.language, .en_GB)
-        XCTAssertEqual(info.info, "For the captain.")
+        XCTAssertEqual(info.info.value, "For the captain.")
         
-        try XCTAssertEqual(info.phone, PhoneNumber(country: "1", number: "4586901518"))
+        try XCTAssertEqual(info.phone, PhoneNumber(country: .init(1), number: .init(4586901518)))
         XCTAssertEqual(info.address, Address(
             recipientName: nil,
             defaultAddress: true,
@@ -49,68 +49,68 @@ final class BillingInfoTests: XCTestCase {
     
     func testValidations()throws {
         try XCTAssertThrowsError(BillingInfo(
-            email: "\(String(repeating: "e", count: 260))@thirdceller.com",
+            email: .init("\(String(repeating: "e", count: 260))@thirdceller.com"),
             phone: nil,
-            firstName: "Padraic",
-            lastName: "Ratigan",
-            businessName: "Crime Lord",
+            firstName: .init("Padraic"),
+            lastName: .init("Ratigan"),
+            businessName: .init("Crime Lord"),
             address: nil,
             language: .en_GB,
-            info: "For the captain."
+            info: .init("For the captain.")
         ))
         try XCTAssertThrowsError(BillingInfo(
-            email: "ratigan@thirdceller.com",
+            email: .init("ratigan@thirdceller.com"),
             phone: nil,
-            firstName: String(repeating: "f", count: 31),
-            lastName: "Ratigan",
-            businessName: "Crime Lord",
+            firstName: .init(String(repeating: "f", count: 31)),
+            lastName: .init("Ratigan"),
+            businessName: .init("Crime Lord"),
             address: nil,
             language: .en_GB,
-            info: "For the captain."
+            info: .init("For the captain.")
         ))
         try XCTAssertThrowsError(BillingInfo(
-            email: "ratigan@thirdceller.com",
+            email: .init("ratigan@thirdceller.com"),
             phone: nil,
-            firstName: "Padraic",
-            lastName: String(repeating: "f", count: 31),
-            businessName: "Crime Lord",
+            firstName: .init("Padraic"),
+            lastName: .init(String(repeating: "f", count: 31)),
+            businessName: .init("Crime Lord"),
             address: nil,
             language: .en_GB,
-            info: "For the captain."
+            info: .init("For the captain.")
         ))
         try XCTAssertThrowsError(BillingInfo(
-            email: "ratigan@thirdceller.com",
+            email: .init("ratigan@thirdceller.com"),
             phone: nil,
-            firstName: "Padraic",
-            lastName: "Ratigan",
-            businessName: String(repeating: "b", count: 101),
+            firstName: .init("Padraic"),
+            lastName: .init("Ratigan"),
+            businessName: .init(String(repeating: "b", count: 101)),
             address: nil,
             language: .en_GB,
-            info: "For the captain."
+            info: .init("For the captain.")
         ))
         try XCTAssertThrowsError(BillingInfo(
-            email: "ratigan@thirdceller.com",
+            email: .init("ratigan@thirdceller.com"),
             phone: nil,
-            firstName: "Padraic",
-            lastName: "Ratigan",
-            businessName: "Crime Lord",
+            firstName: .init("Padraic"),
+            lastName: .init("Ratigan"),
+            businessName: .init("Crime Lord"),
             address: nil,
             language: .en_GB,
-            info: String(repeating: "i", count: 41)
+            info: .init(String(repeating: "i", count: 41))
         ))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let info = try BillingInfo(
-            email: "ratigan@thirdceller.com",
-            phone: PhoneNumber(country: "1", number: "4586901518"),
-            firstName: "Padraic",
-            lastName: "Ratigan",
-            businessName: "Crime Lord",
+            email: .init("ratigan@thirdceller.com"),
+            phone: PhoneNumber(country: .init(1), number: .init(4586901518)),
+            firstName: .init("Padraic"),
+            lastName: .init("Ratigan"),
+            businessName: .init("Crime Lord"),
             address: nil,
             language: .en_GB,
-            info: "For the captain."
+            info: .init("For the captain.")
         )
         let generated = try String(data: encoder.encode(info), encoding: .utf8)!
         let json =
@@ -221,13 +221,13 @@ final class BillingInfoTests: XCTestCase {
         try XCTAssertThrowsError(decoder.decode(BillingInfo.self, from: infoFail))
         
         let info = try decoder.decode(BillingInfo.self, from: json)
-        XCTAssertEqual(info.email, "ratigan@thirdceller.com")
-        XCTAssertEqual(info.firstName, "Padraic")
-        XCTAssertEqual(info.lastName, "Ratigan")
-        XCTAssertEqual(info.businessName, "Crime Lord")
+        XCTAssertEqual(info.email.value, "ratigan@thirdceller.com")
+        XCTAssertEqual(info.firstName.value, "Padraic")
+        XCTAssertEqual(info.lastName.value, "Ratigan")
+        XCTAssertEqual(info.businessName.value, "Crime Lord")
         XCTAssertEqual(info.language, .en_GB)
-        XCTAssertEqual(info.info, "For the captain.")
-        try XCTAssertEqual(info.phone, PhoneNumber(country: "1", number: "4586901518"))
+        XCTAssertEqual(info.info.value, "For the captain.")
+        try XCTAssertEqual(info.phone, PhoneNumber(country: .init(1), number: .init(4586901518)))
     }
     
     static var allTests: [(String, (BillingInfoTests) -> ()throws -> ())] = [

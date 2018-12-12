@@ -1,41 +1,37 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class PayeeMetadataTests: XCTestCase {
     func testInit()throws {
         let metadata = try Payee.Metadata(
-            email: "payee@example.com",
+            email: .init("payee@example.com"),
             phone: DisplayPhone(country: .unitedStates, number: "423981155636432"),
             brand: "Example Inc."
         )
         
-        XCTAssertEqual(metadata.email, "payee@example.com")
+        XCTAssertEqual(metadata.email.value, "payee@example.com")
         XCTAssertEqual(metadata.brand, "Example Inc.")
         XCTAssertEqual(metadata.phone, DisplayPhone(country: .unitedStates, number: "423981155636432"))
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(Payee.Metadata(
-            email: String(repeating: "e", count: 128),
-            phone: DisplayPhone(country: .unitedStates, number: "423981155636432"),
-            brand: "Example Inc."
-        ))
         var metadata = try Payee.Metadata(
-            email: "payee@example.com",
+            email: .init("payee@example.com"),
             phone: DisplayPhone(country: .unitedStates, number: "423981155636432"),
             brand: "Example Inc."
         )
         
-        try XCTAssertThrowsError(metadata.set(\Payee.Metadata.email <~ String(repeating: "e", count: 128)))
-        try metadata.set(\Payee.Metadata.email <~ String(repeating: "e", count: 127))
+        try XCTAssertThrowsError(metadata.email <~ String(repeating: "e", count: 128))
+        try metadata.email <~ String(repeating: "e", count: 127)
         
-        XCTAssertEqual(metadata.email, String(repeating: "e", count: 127))
+        XCTAssertEqual(metadata.email.value, String(repeating: "e", count: 127))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let metadata = try Payee.Metadata(
-            email: "payee@example.com",
+            email: .init("payee@example.com"),
             phone: DisplayPhone(country: .unitedStates, number: "423981155636432"),
             brand: "Example Inc."
         )
@@ -65,7 +61,7 @@ final class PayeeMetadataTests: XCTestCase {
         }
         """.data(using: .utf8)!
         let metadata = try Payee.Metadata(
-            email: "payee@example.com",
+            email: .init("payee@example.com"),
             phone: DisplayPhone(country: .unitedStates, number: "423981155636432"),
             brand: "Example Inc."
         )

@@ -31,7 +31,7 @@ final class PaymentsTests: XCTestCase {
             context: nil,
             transactions: [self.context.transaction],
             experience: nil,
-            payerNote: "Thanks for ordering!",
+            payerNote: .init("Thanks for ordering!"),
             redirects: Redirects(return: "https://example.com/approved", cancel: "https://example.com/canceled")
         )
         let payments = try self.app.make(Payments.self)
@@ -49,7 +49,7 @@ final class PaymentsTests: XCTestCase {
         
         let list = try payments.list(parameters: parameters).wait()
         
-        XCTAssertEqual(list.count, 15)
+        XCTAssertEqual(list.count.value, 15)
         XCTAssertLessThanOrEqual(list.payments?.count ?? 0, 15)
         
         if list.payments?.count ?? 0 > 1 {
@@ -68,7 +68,7 @@ final class PaymentsTests: XCTestCase {
         let updated = try payments.patch(payment: self.id, with: patches).wait()
         
         XCTAssertEqual(updated.id, self.id)
-        XCTAssertEqual(updated.payerNote, "Come Again!")
+        XCTAssertEqual(updated.payerNote.value, "Come Again!")
     }
     
     func testGetEndpoint()throws {
@@ -104,7 +104,7 @@ final class PaymentsTests: XCTestCase {
         guard let id = self.context.sale else {
             throw Abort(.internalServerError, reason: "Cannot get sale ID")
         }
-        let refund = try Payment.Refund(amount: nil, description: "A description of the refund", reason: "NOT_AS_MARKETED", invoice: nil)
+        let refund = try Payment.Refund(amount: nil, description: .init("A description of the refund"), reason: .init("NOT_AS_MARKETED"), invoice: nil)
         
         let result = try payments.refund(sale: id, with: refund).wait()
         
@@ -127,7 +127,7 @@ final class PaymentsTests: XCTestCase {
         guard let id = self.context.authorization else {
             throw Abort(.internalServerError, reason: "Cannot get authorization ID")
         }
-        let capture = try RelatedResource.Capture(
+        let capture = RelatedResource.Capture(
             amount: DetailedAmount(currency: .usd, total: 5.60, details: nil),
             isFinal: true,
             invoice: nil,
@@ -200,7 +200,7 @@ final class PaymentsTests: XCTestCase {
         guard let id = self.context.order else {
             throw Abort(.internalServerError, reason: "Cannot get order ID")
         }
-        let capture = try RelatedResource.Capture(
+        let capture = RelatedResource.Capture(
             amount: DetailedAmount(currency: .usd, total: 5.60, details: nil),
             isFinal: true,
             invoice: nil,
@@ -241,7 +241,7 @@ final class PaymentsTests: XCTestCase {
         guard let id = self.context.capture else {
             throw Abort(.internalServerError, reason: "Cannot get capture ID")
         }
-        let refund = try Payment.Refund(amount: nil, description: "Refunding a Captued Transaction", reason: "I have to do it this way", invoice: nil)
+        let refund = try Payment.Refund(amount: nil, description: .init("Refunding a Captued Transaction"), reason: .init("I have to do it this way"), invoice: nil)
         
         let capture = try payments.refund(captured: id, with: refund).wait()
         
@@ -311,12 +311,12 @@ internal struct PaymentTestsContext {
             type: nil
         )
         self.item = try Payment.Item(
-            quantity: "3",
-            price: "39.00",
+            quantity: .init(3),
+            price: .init(39.00),
             currency: .usd,
-            sku: "8EFAFEF3-72D2-4E5C-85EC-C14BA2F9D997",
-            name: "Plum Pudding",
-            description: "With sugar an inch thick",
+            sku: .init("8EFAFEF3-72D2-4E5C-85EC-C14BA2F9D997"),
+            name: .init("Plum Pudding"),
+            description: .init("With sugar an inch thick"),
             tax: "8.00"
         )
         self.details = DetailedAmount.Detail(
@@ -329,7 +329,7 @@ internal struct PaymentTestsContext {
             giftWrap: nil
         )
         self.amount = DetailedAmount(currency: .usd, total: 150.00, details: details)
-        self.items = try Payment.ItemList(
+        self.items = Payment.ItemList(
             items: [item],
             address: nil,
             phoneNumber: nil
@@ -338,13 +338,13 @@ internal struct PaymentTestsContext {
             amount: amount,
             payee: Payee(email: "payee@example.com", merchant: nil, metadata: nil),
             description: nil,
-            payeeNote: "Thanks for paying for the order!",
+            payeeNote: .init("Thanks for paying for the order!"),
             custom: nil,
             invoice: nil,
             softDescriptor: nil,
             payment: .unrestricted,
             itemList: items,
-            notify: "https://example.com/notify"
+            notify: .init("https://example.com/notify")
         )
     }
     

@@ -1,19 +1,20 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class BillingPlanTests: XCTestCase {
     func testInit()throws {
         let plan = try BillingPlan(
-            name: "Monthly Water",
-            description: "Your water payment",
+            name: .init("Monthly Water"),
+            description: .init("Your water payment"),
             type: .infinite,
             payments: [
                 BillingPayment(
-                    name: "Water Charge",
+                    name: .init("Water Charge"),
                     type: .regular,
-                    interval: "1",
+                    interval: 1,
                     frequency: .month,
-                    cycles: "0",
+                    cycles: 0,
                     amount: CurrencyAmount(currency: .usd, value: 10.00),
                     charges: nil
                 )
@@ -28,49 +29,34 @@ final class BillingPlanTests: XCTestCase {
         XCTAssertEqual(plan.terms, nil)
         XCTAssertEqual(plan.currency, nil)
         XCTAssertEqual(plan.links, nil)
-        XCTAssertEqual(plan.name, "Monthly Water")
-        XCTAssertEqual(plan.description, "Your water payment")
+        XCTAssertEqual(plan.name.value, "Monthly Water")
+        XCTAssertEqual(plan.description.value, "Your water payment")
         XCTAssertEqual(plan.type, .infinite)
         XCTAssertEqual(plan.preferances, nil)
-        XCTAssertEqual(plan.paymentDefinitions?.count, 1)
-        try XCTAssertEqual(plan.paymentDefinitions?.first, BillingPayment(
-            name: "Water Charge",
+        XCTAssertEqual(plan.payments?.count, 1)
+        try XCTAssertEqual(plan.payments?.first, BillingPayment(
+            name: .init("Water Charge"),
             type: .regular,
-            interval: "1",
+            interval: 1,
             frequency: .month,
-            cycles: "0",
+            cycles: 0,
             amount: CurrencyAmount(currency: .usd, value: 10.00),
             charges: nil
         ))
     }
     
     func testValueValidation()throws {
-        try XCTAssertThrowsError(BillingPlan(
-            name: String(repeating: "N", count: 129),
-            description: "Your water payment",
-            type: .infinite,
-            payments: nil,
-            preferances: nil
-        ))
-        try XCTAssertThrowsError(BillingPlan(
-            name: "Monthly Water",
-            description: String(repeating: "N", count: 129),
-            type: .infinite,
-            payments: nil,
-            preferances: nil
-        ))
-        
         var plan = try BillingPlan(
             name: "Monthly Water",
             description: "Your water payment",
             type: .infinite,
             payments: [
                 BillingPayment(
-                    name: "Water Charge",
+                    name: .init("Water Charge"),
                     type: .regular,
-                    interval: "1",
+                    interval: 1,
                     frequency: .month,
-                    cycles: "0",
+                    cycles: 0,
                     amount: CurrencyAmount(currency: .usd, value: 10.00),
                     charges: nil
                 )
@@ -78,31 +64,29 @@ final class BillingPlanTests: XCTestCase {
             preferances: nil
         )
         
-        try XCTAssertThrowsError(plan.set(\.name <~ String(repeating: "N", count: 129)))
-        try XCTAssertThrowsError(plan.set(\.description <~ String(repeating: "D", count: 129)))
+        try XCTAssertThrowsError(plan.name <~ String(repeating: "N", count: 129))
+        try XCTAssertThrowsError(plan.description <~ String(repeating: "D", count: 129))
         
-        try plan.set(\.name <~ "Electric")
-        try plan.set(\.description <~ "Monthly Electricity Charge")
-        plan.type = .fixed
+        try plan.name <~ "Electric"
+        try plan.description <~ "Monthly Electricity Charge"
         
-        XCTAssertEqual(plan.name, "Electric")
-        XCTAssertEqual(plan.description, "Monthly Electricity Charge")
-        XCTAssertEqual(plan.type, .fixed)
+        XCTAssertEqual(plan.name.value, "Electric")
+        XCTAssertEqual(plan.description.value, "Monthly Electricity Charge")
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let plan = try BillingPlan(
-            name: "Monthly Water",
-            description: "Your water payment",
+            name: .init("Monthly Water"),
+            description: .init("Your water payment"),
             type: .infinite,
             payments: [
                 BillingPayment(
-                    name: "Water Charge",
+                    name: .init("Water Charge"),
                     type: .regular,
-                    interval: "1",
+                    interval: 1,
                     frequency: .month,
-                    cycles: "0",
+                    cycles: 0,
                     amount: CurrencyAmount(currency: .usd, value: 10.00),
                     charges: nil
                 )
@@ -164,8 +148,8 @@ final class BillingPlanTests: XCTestCase {
         try XCTAssertThrowsError(decoder.decode(BillingPlan.self, from: descriptionFail))
         try XCTAssertEqual(
             BillingPlan(
-                name: "The Plan",
-                description: "Can't Tell",
+                name: .init("The Plan"),
+                description: .init("Can't Tell"),
                 type: .fixed,
                 payments: nil,
                 preferances: nil

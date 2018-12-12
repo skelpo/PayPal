@@ -3,16 +3,16 @@ import XCTest
 
 final class OrderPayerTests: XCTestCase {
     func testInit()throws {
-        let payer = try Order.Payer(method: .creditCard, funding: [], info: .init(email: nil, birthdate: nil, tax: nil, taxType: nil, country: nil, billing: nil))
+        let payer = Order.Payer(method: .creditCard, funding: [], info: .init(email: nil, birthdate: nil, tax: nil, taxType: nil, country: nil, billing: nil))
         
         XCTAssertEqual(payer.method, .creditCard)
         XCTAssertEqual(payer.funding, [])
-        try XCTAssertEqual(payer.info, .init(email: nil, birthdate: nil, tax: nil, taxType: nil, country: nil, billing: nil))
+        XCTAssertEqual(payer.info, .init(email: nil, birthdate: nil, tax: nil, taxType: nil, country: nil, billing: nil))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let payer = try Order.Payer(method: .creditCard, funding: [], info: .init(email: nil, birthdate: nil, tax: nil, taxType: nil, country: nil, billing: nil))
+        let payer = Order.Payer(method: .creditCard, funding: [], info: .init(email: nil, birthdate: nil, tax: nil, taxType: nil, country: nil, billing: nil))
         let generated = try String(data: encoder.encode(payer), encoding: .utf8)
         
         XCTAssertEqual(generated, "{\"payment_method\":\"credit_card\",\"funding_instruments\":[],\"payer_info\":{}}")
@@ -34,7 +34,7 @@ final class OrderPayerTests: XCTestCase {
         XCTAssertEqual(payer.funding, [])
         XCTAssertEqual(payer.status, .verified)
         XCTAssertEqual(payer.method, .creditCard)
-        try XCTAssertEqual(payer.info, .init(email: nil, birthdate: nil, tax: nil, taxType: nil, country: nil, billing: nil))
+        XCTAssertEqual(payer.info, .init(email: nil, birthdate: nil, tax: nil, taxType: nil, country: nil, billing: nil))
     }
     
     static var allTests: [(String, (OrderPayerTests) -> ()throws -> ())] = [

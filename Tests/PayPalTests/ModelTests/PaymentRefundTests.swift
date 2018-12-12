@@ -1,52 +1,50 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class PaymentRefundTests: XCTestCase {
     func testInit()throws {
         let refund = try Payment.Refund(
             amount: DetailedAmount(currency: .usd, total: 10.00, details: nil),
-            description: "description",
-            reason: "reason",
-            invoice: "invoice"
+            description: .init("description"),
+            reason: .init("reason"),
+            invoice: .init("invoice")
         )
         
-        XCTAssertEqual(refund.description, "description")
-        XCTAssertEqual(refund.reason, "reason")
-        XCTAssertEqual(refund.invoice, "invoice")
+        XCTAssertEqual(refund.description.value, "description")
+        XCTAssertEqual(refund.reason.value, "reason")
+        XCTAssertEqual(refund.invoice.value, "invoice")
         XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: 10.00, details: nil))
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(Payment.Refund(amount: nil, description: String(repeating: "d", count: 256), reason: nil, invoice: nil))
-        try XCTAssertThrowsError(Payment.Refund(amount: nil, description: nil, reason: String(repeating: "r", count: 31), invoice: nil))
-        try XCTAssertThrowsError(Payment.Refund(amount: nil, description: nil, reason: nil, invoice: String(repeating: "i", count: 128)))
         var refund = try Payment.Refund(
             amount: DetailedAmount(currency: .usd, total: 10.00, details: nil),
-            description: "description",
-            reason: "reason",
-            invoice: "invoice"
+            description: .init("description"),
+            reason: .init("reason"),
+            invoice: .init("invoice")
         )
         
-        try XCTAssertThrowsError(refund.set(\Payment.Refund.description, to:  String(repeating: "d", count: 256)))
-        try XCTAssertThrowsError(refund.set(\Payment.Refund.reason, to:  String(repeating: "r", count: 31)))
-        try XCTAssertThrowsError(refund.set(\Payment.Refund.invoice, to:  String(repeating: "i", count: 128)))
-        try refund.set(\Payment.Refund.description, to:  String(repeating: "d", count: 255))
-        try refund.set(\Payment.Refund.reason, to:  String(repeating: "r", count: 30))
-        try refund.set(\Payment.Refund.invoice, to:  String(repeating: "i", count: 127))
+        try XCTAssertThrowsError(refund.description <~ String(repeating: "d", count: 256))
+        try XCTAssertThrowsError(refund.reason <~ String(repeating: "r", count: 31))
+        try XCTAssertThrowsError(refund.invoice <~ String(repeating: "i", count: 128))
+        try refund.description <~ String(repeating: "d", count: 255)
+        try refund.reason <~  String(repeating: "r", count: 30)
+        try refund.invoice <~ String(repeating: "i", count: 127)
         
         
-        XCTAssertEqual(refund.description, String(repeating: "d", count: 255))
-        XCTAssertEqual(refund.reason, String(repeating: "r", count: 30))
-        XCTAssertEqual(refund.invoice, String(repeating: "i", count: 127))
+        XCTAssertEqual(refund.description.value, String(repeating: "d", count: 255))
+        XCTAssertEqual(refund.reason.value, String(repeating: "r", count: 30))
+        XCTAssertEqual(refund.invoice.value, String(repeating: "i", count: 127))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let refund = try Payment.Refund(
             amount: DetailedAmount(currency: .usd, total: 10.00, details: nil),
-            description: "desc",
-            reason: "reas",
-            invoice: "inv"
+            description: .init("desc"),
+            reason: .init("reas"),
+            invoice: .init("inv")
         )
         let generated = try String(data: encoder.encode(refund), encoding: .utf8)!
         let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"10.00\"},\"reason\":\"reas\",\"description\":\"desc\",\"invoice_number\":\"inv\"}"
@@ -77,9 +75,9 @@ final class PaymentRefundTests: XCTestCase {
        
         let refund = try Payment.Refund(
             amount: DetailedAmount(currency: .usd, total: 10.00, details: nil),
-            description: "desc",
-            reason: "reas",
-            invoice: "inv"
+            description: .init("desc"),
+            reason: .init("reas"),
+            invoice: .init("inv")
         )
         try XCTAssertEqual(refund, decoder.decode(Payment.Refund.self, from: json))
     }

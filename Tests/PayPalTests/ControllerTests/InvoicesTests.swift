@@ -29,7 +29,7 @@ final class InvoicesTests: XCTestCase {
     func testCreateEndpoint()throws {
         let invoices = try self.app.make(Invoices.self)
         
-        let now = Date().isoTZ
+        let now = Date()
         let invoice = try Invoice(
             number: nil,
             merchant: MerchantInfo(
@@ -46,10 +46,10 @@ final class InvoicesTests: XCTestCase {
             ),
             billing: [
                 BillingInfo(
-                    email: "payer@example.com",
+                    email: .init("payer@example.com"),
                     phone: nil,
-                    firstName: "Lester",
-                    lastName: "Dickerson",
+                    firstName: .init("Lester"),
+                    lastName: .init("Dickerson"),
                     businessName: nil,
                     address: Address(
                         recipientName: "Lester Dickerson",
@@ -72,18 +72,18 @@ final class InvoicesTests: XCTestCase {
             items: nil,
             date: now,
             payment: PaymentTerm(type: .dueOnReceipt, due: now),
-            reference: "PO number",
+            reference: .init("PO number"),
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: "Dough", amount: CurrencyAmount(currency: .usd, value: 10.00)),
+            custom: CustomAmount(label: .init("Dough"), amount: .init(CurrencyAmount(currency: .usd, value: 10.00))),
             allowPartialPayment: false,
             minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,
-            note: "Thanks for your donation!",
-            memo: "Open Collective donation",
-            logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
+            note: .init("Thanks for your donation!"),
+            memo: .init("Open Collective donation"),
+            logo: .init("https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"),
             allowTip: true,
             template: "PayPal system template"
         )
@@ -105,7 +105,7 @@ final class InvoicesTests: XCTestCase {
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
         }
-        let now = Date().isoTZ
+        let now = Date()
         let invoice = try Invoice(
             number: nil,
             merchant: MerchantInfo(
@@ -126,18 +126,18 @@ final class InvoicesTests: XCTestCase {
             items: nil,
             date: now,
             payment: PaymentTerm(type: .dueOnReceipt, due: now),
-            reference: "PO number",
+            reference: .init("PO number"),
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
+            custom: CustomAmount(label: nil, amount: .init(CurrencyAmount(currency: .usd, value: 10.00))),
             allowPartialPayment: false,
             minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,
-            note: "Thanks for your donation!",
-            memo: "Open Collective donation",
-            logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
+            note: .init("Thanks for your donation!"),
+            memo: .init("Open Collective donation"),
+            logo: .init("https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"),
             allowTip: true,
             template: "PayPal system template"
         )
@@ -243,7 +243,7 @@ final class InvoicesTests: XCTestCase {
             throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
         }
         
-        let reminder = try Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [.init(email: "payer@example.com")])
+        let reminder = try Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [.init(email: .init("payer@example.com"))])
         let status = try invoices.remind(invoice: id, with: reminder).wait()
         
         XCTAssertEqual(status, .accepted)

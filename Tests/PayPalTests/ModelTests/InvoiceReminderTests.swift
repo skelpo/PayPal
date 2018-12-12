@@ -3,16 +3,16 @@ import XCTest
 
 final class InvoiceReminderTests: XCTestCase {
     func testInit()throws {
-        let reminder = try Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [.init(email: "payer@example.com")])
+        let reminder = Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [.init(email: "payer@example.com")])
         
         XCTAssertEqual(reminder.subject, "Invoice Not Sent")
         XCTAssertEqual(reminder.note, "Please send the money")
-        try XCTAssertEqual(reminder.emails, [.init(email: "payer@example.com")])
+        XCTAssertEqual(reminder.emails, [.init(email: "payer@example.com")])
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let reminder = try Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [.init(email: "payer@example.com")])
+        let reminder = Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [.init(email: "payer@example.com")])
         let generated = try String(data: encoder.encode(reminder), encoding: .utf8)!
         let json =
             "{\"subject\":\"Invoice Not Sent\",\"send_to_merchant\":true,\"emails\":[{\"cc_email\":\"payer@example.com\"}],\"note\":\"Please send the money\"}"
@@ -43,7 +43,7 @@ final class InvoiceReminderTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        let reminder = try Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [.init(email: "payer@example.com")])
+        let reminder = Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [.init(email: "payer@example.com")])
         try XCTAssertEqual(reminder, decoder.decode(Invoice.Reminder.self, from: json))
     }
     

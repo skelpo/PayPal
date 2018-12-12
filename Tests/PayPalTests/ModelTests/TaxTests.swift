@@ -1,25 +1,23 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class TaxTests: XCTestCase {
     func testInit()throws {
-        let tax = try Tax(name: "Sales", percent: 10, amount: CurrencyAmount(currency: .usd, value: 0.59))
+        let tax = try Tax(name: .init("Sales"), percent: .init(10), amount: CurrencyAmount(currency: .usd, value: 0.59))
         
-        XCTAssertEqual(tax.name, "Sales")
-        XCTAssertEqual(tax.percent, 10)
+        XCTAssertEqual(tax.name.value, "Sales")
+        XCTAssertEqual(tax.percent.value, 10)
         XCTAssertEqual(tax.amount, CurrencyAmount(currency: .usd, value: 0.59))
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(Tax(name: "Sales", percent: -1, amount: nil))
-        try XCTAssertThrowsError(Tax(name: "Sales", percent: 101, amount: nil))
-        try XCTAssertThrowsError(Tax(name: String(repeating: "n", count: 101), percent: 10, amount: nil))
-        var tax = try Tax(name: "Sales", percent: 10, amount: nil)
+        var tax = try Tax(name: .init("Sales"), percent: .init(10), amount: nil)
         
-        try XCTAssertThrowsError(tax.set(\.name <~ String(repeating: "n", count: 101)))
-        try XCTAssertThrowsError(tax.set(\.percent <~ 200))
-        try tax.set(\.name <~ "Federal")
-        try tax.set(\.percent <~ 35)
+        try XCTAssertThrowsError(tax.name <~ String(repeating: "n", count: 101))
+        try XCTAssertThrowsError(tax.percent <~ 200)
+        try tax.name <~ "Federal"
+        try tax.percent <~ 35
         
         XCTAssertEqual(tax.name, "Federal")
         XCTAssertEqual(tax.percent, 35)
@@ -27,7 +25,7 @@ final class TaxTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let generated = try String(data: encoder.encode(Tax(name: "Sales", percent: 10, amount: nil)), encoding: .utf8)
+        let generated = try String(data: encoder.encode(Tax(name: .init("Sales"), percent: .init(10), amount: nil)), encoding: .utf8)
         
         XCTAssertEqual(generated, "{\"name\":\"Sales\",\"percent\":10}")
     }
@@ -56,7 +54,7 @@ final class TaxTests: XCTestCase {
         
         try XCTAssertThrowsError(decoder.decode(Tax.self, from: nameFail))
         try XCTAssertThrowsError(decoder.decode(Tax.self, from: percentFail))
-        try XCTAssertEqual(Tax(name: "Sales", percent: 10, amount: nil), decoder.decode(Tax.self, from: json))
+        try XCTAssertEqual(Tax(name: .init("Sales"), percent: .init(10), amount: nil), decoder.decode(Tax.self, from: json))
     }
     
     static var allTests: [(String, (TaxTests) -> ()throws -> ())] = [

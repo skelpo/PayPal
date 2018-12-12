@@ -1,109 +1,63 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class OrderItemTests: XCTestCase {
     func testInit()throws {
         let item = try Order.Item(
-            sku: "FAE11644-19BC-4643-8215-004C829B19C1",
-            name: "Widget",
-            description: "It's blue",
-            quantity: "5",
-            price: "33.33",
+            sku: .init("FAE11644-19BC-4643-8215-004C829B19C1"),
+            name: .init("Widget"),
+            description: .init("It's blue"),
+            quantity: .init(5),
+            price: .init(33.33),
             currency: .usd,
             tax: "16.16"
         )
         
-        XCTAssertEqual(item.sku, "FAE11644-19BC-4643-8215-004C829B19C1")
-        XCTAssertEqual(item.name, "Widget")
-        XCTAssertEqual(item.description, "It's blue")
-        XCTAssertEqual(item.quantity, "5")
-        XCTAssertEqual(item.price, "33.33")
+        XCTAssertEqual(item.sku.value, "FAE11644-19BC-4643-8215-004C829B19C1")
+        XCTAssertEqual(item.name.value, "Widget")
+        XCTAssertEqual(item.description.value, "It's blue")
+        XCTAssertEqual(item.quantity.value, 5)
+        XCTAssertEqual(item.price.value, 33.33)
         XCTAssertEqual(item.currency, .usd)
         XCTAssertEqual(item.tax, "16.16")
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(Order.Item(
-            sku: String(repeating: "s", count: 128),
-            name: "Widget",
-            description: "It's blue",
-            quantity: "5",
-            price: "33.33",
-            currency: .usd,
-            tax: "16.16"
-        ))
-        try XCTAssertThrowsError(Order.Item(
-            sku: "FAE11644-19BC-4643-8215-004C829B19C1",
-            name: String(repeating: "n", count: 128),
-            description: "It's blue",
-            quantity: "5",
-            price: "33.33",
-            currency: .usd,
-            tax: "16.16"
-        ))
-        try XCTAssertThrowsError(Order.Item(
-            sku: "FAE11644-19BC-4643-8215-004C829B19C1",
-            name: "Widget",
-            description: String(repeating: "d", count: 128),
-            quantity: "5",
-            price: "33.33",
-            currency: .usd,
-            tax: "16.16"
-        ))
-        try XCTAssertThrowsError(Order.Item(
-            sku: "FAE11644-19BC-4643-8215-004C829B19C1",
-            name: "Widget",
-            description: "It's blue",
-            quantity: "Five",
-            price: "33.33",
-            currency: .usd,
-            tax: "16.16"
-        ))
-        try XCTAssertThrowsError(Order.Item(
-            sku: "FAE11644-19BC-4643-8215-004C829B19C1",
-            name: "Widget",
-            description: "It's blue",
-            quantity: "5",
-            price: "33.334",
-            currency: .usd,
-            tax: "16.16"
-        ))
         var item = try Order.Item(
-            sku: "FAE11644-19BC-4643-8215-004C829B19C1",
-            name: "Widget",
-            description: "It's blue",
-            quantity: "5",
-            price: "33.33",
+            sku: .init("FAE11644-19BC-4643-8215-004C829B19C1"),
+            name: .init("Widget"),
+            description: .init("It's blue"),
+            quantity: .init(5),
+            price: .init(33.33),
             currency: .usd,
             tax: "16.16"
         )
         
-        try XCTAssertThrowsError(item.set(\Order.Item.sku <~ String(repeating: "s", count: 128)))
-        try XCTAssertThrowsError(item.set(\Order.Item.name <~ String(repeating: "n", count: 128)))
-        try XCTAssertThrowsError(item.set(\Order.Item.description <~ String(repeating: "d", count: 128)))
-        try XCTAssertThrowsError(item.set(\.quantity <~ "Five"))
-        try XCTAssertThrowsError(item.set(\.price <~ "33.334"))
-        try item.set(\Order.Item.sku <~ String(repeating: "s", count: 127))
-        try item.set(\Order.Item.name <~ String(repeating: "n", count: 127))
-        try item.set(\Order.Item.description <~ String(repeating: "d", count: 127))
-        try item.set(\.quantity <~ "9")
-        try item.set(\.price <~ "42.42")
+        try XCTAssertThrowsError(item.sku <~ String(repeating: "s", count: 128))
+        try XCTAssertThrowsError(item.name <~ String(repeating: "n", count: 128))
+        try XCTAssertThrowsError(item.description <~ String(repeating: "d", count: 128))
+        try item.sku <~ String(repeating: "s", count: 127)
+        try item.name <~ String(repeating: "n", count: 127)
+        try item.description <~ String(repeating: "d", count: 127)
+        try item.quantity <~ 9
+        try item.price <~ 42.42
         
-        XCTAssertEqual(item.sku, String(repeating: "s", count: 127))
-        XCTAssertEqual(item.name, String(repeating: "n", count: 127))
-        XCTAssertEqual(item.description, String(repeating: "d", count: 127))
-        XCTAssertEqual(item.quantity, "9")
-        XCTAssertEqual(item.price, "42.42")
+        XCTAssertEqual(item.sku.value, String(repeating: "s", count: 127))
+        XCTAssertEqual(item.name.value, String(repeating: "n", count: 127))
+        XCTAssertEqual(item.description.value, String(repeating: "d", count: 127))
+        XCTAssertEqual(item.quantity.value, 9)
+        XCTAssertEqual(item.price.value, 42.42)
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let item = try Order.Item(
-            sku: "FAE11644-19BC-4643-8215-004C829B19C1",
-            name: "Widget",
-            description: "It's blue",
-            quantity: "5",
-            price: "33.33",
+            sku: .init("FAE11644-19BC-4643-8215-004C829B19C1"),
+            name: .init("Widget"),
+            description: .init("It's blue"),
+            quantity: .init(5),
+            price: .init(33.33),
             currency: .usd,
             tax: "16.16"
         )
@@ -197,11 +151,11 @@ final class OrderItemTests: XCTestCase {
         try XCTAssertThrowsError(decoder.decode(Order.Item.self, from: name))
         try XCTAssertThrowsError(decoder.decode(Order.Item.self, from: sku))
         try XCTAssertEqual(decoder.decode(Order.Item.self, from: json), Order.Item(
-            sku: "FAE11644-19BC-4643-8215-004C829B19C1",
-            name: "Widget",
-            description: "It's blue",
-            quantity: "5",
-            price: "33.33",
+            sku: .init("FAE11644-19BC-4643-8215-004C829B19C1"),
+            name: .init("Widget"),
+            description: .init("It's blue"),
+            quantity: .init(5),
+            price: .init(33.33),
             currency: .usd,
             tax: "16.16"
         ))

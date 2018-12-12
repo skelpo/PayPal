@@ -1,4 +1,5 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class PaymentTests: XCTestCase {
@@ -9,7 +10,7 @@ final class PaymentTests: XCTestCase {
             context: .init(),
             transactions: [],
             experience: "exp",
-            payerNote: "note",
+            payerNote: .init("note"),
             redirects: .init(return: nil, cancel: nil)
         )
         
@@ -23,21 +24,18 @@ final class PaymentTests: XCTestCase {
         XCTAssertEqual(payment.payer, .init(method: nil, funding: nil, info: nil))
         XCTAssertEqual(payment.transactions, [])
         XCTAssertEqual(payment.experience, "exp")
-        XCTAssertEqual(payment.payerNote, "note")
+        XCTAssertEqual(payment.payerNote.value, "note")
         XCTAssertEqual(payment.redirects, .init(return: nil, cancel: nil))
-        try XCTAssertEqual(payment.context, .init())
+        XCTAssertEqual(payment.context, .init())
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(Payment(
-            intent: nil, payer: nil, context: nil, transactions: nil, experience: nil, payerNote: String(repeating: "p", count: 166), redirects: nil
-        ))
-        var payment = try Payment(intent: nil, payer: nil, context: nil, transactions: nil, experience: nil, payerNote: "note", redirects: nil)
+        var payment = try Payment(intent: nil, payer: nil, context: nil, transactions: nil, experience: nil, payerNote: .init("note"), redirects: nil)
         
-        try XCTAssertThrowsError(payment.set(\Payment.payerNote <~ String(repeating: "p", count: 166)))
-        try payment.set(\Payment.payerNote <~ String(repeating: "p", count: 165))
+        try XCTAssertThrowsError(payment.payerNote <~ String(repeating: "p", count: 166))
+        try payment.payerNote <~ String(repeating: "p", count: 165)
         
-        XCTAssertEqual(payment.payerNote, String(repeating: "p", count: 165))
+        XCTAssertEqual(payment.payerNote.value, String(repeating: "p", count: 165))
     }
     
     func testEncoding()throws {
@@ -48,7 +46,7 @@ final class PaymentTests: XCTestCase {
             context: .init(),
             transactions: [],
             experience: "exp",
-            payerNote: "note",
+            payerNote: .init("note"),
             redirects: .init(return: nil, cancel: nil)
         )
         let generated = try String(data: encoder.encode(payment), encoding: .utf8)!
@@ -106,9 +104,9 @@ final class PaymentTests: XCTestCase {
         XCTAssertEqual(payment.payer, .init(method: nil, funding: nil, info: nil))
         XCTAssertEqual(payment.transactions, [])
         XCTAssertEqual(payment.experience, "exp")
-        XCTAssertEqual(payment.payerNote, "note")
+        XCTAssertEqual(payment.payerNote.value, "note")
         XCTAssertEqual(payment.redirects, .init(return: nil, cancel: nil))
-        try XCTAssertEqual(payment.context, .init())
+        XCTAssertEqual(payment.context, .init())
         
         try XCTAssertThrowsError(decoder.decode(Payment.self, from: note))
     }

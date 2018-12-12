@@ -3,7 +3,7 @@ import XCTest
 
 final class MerchantPreferancesTests: XCTestCase {
     func testInit()throws {
-        let preferances = try MerchantPreferances(
+        let preferances = MerchantPreferances(
             setupFee: CurrencyCodeAmount(currency: .usd, value: 0),
             cancelURL: "https://example.com/agreements",
             returnURL: "https://example.com/agreements/latest",
@@ -26,7 +26,7 @@ final class MerchantPreferancesTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let preferances = try MerchantPreferances(
+        let preferances = MerchantPreferances(
             setupFee: CurrencyCodeAmount(currency: .usd, value: 0),
             cancelURL: "https://example.com/agreements",
             returnURL: "https://example.com/agreements/latest",
@@ -69,7 +69,7 @@ final class MerchantPreferancesTests: XCTestCase {
             "auto_bill_amount": "YES"
         }
         """.data(using: .utf8)!
-        let preferances = try MerchantPreferances(
+        let preferances = MerchantPreferances(
             setupFee: CurrencyCodeAmount(currency: .usd, value: 0),
             cancelURL: "https://example.com/agreements",
             returnURL: "https://example.com/agreements/latest",

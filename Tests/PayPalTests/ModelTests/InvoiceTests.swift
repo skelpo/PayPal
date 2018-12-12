@@ -2,7 +2,7 @@ import XCTest
 @testable import PayPal
 
 final class InvoiceTests: XCTestCase {
-    let now = Date().iso8601
+    let now = Date()
     
     func testInit()throws {
         let invoice = try Invoice(
@@ -25,18 +25,18 @@ final class InvoiceTests: XCTestCase {
             items: nil,
             date: now,
             payment: PaymentTerm(type: .dueOnReceipt, due: now),
-            reference: "PO number",
+            reference: .init("PO number"),
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
+            custom: CustomAmount(label: nil, amount: .init(CurrencyAmount(currency: .usd, value: 10.00))),
             allowPartialPayment: false,
             minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,
-            note: "Thanks for your donation!",
-            memo: "Open Collective donation",
-            logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
+            note: .init("Thanks for your donation!"),
+            memo: .init("Open Collective donation"),
+            logo: .init("https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"),
             allowTip: true,
             template: "PayPal system template"
         )
@@ -59,18 +59,18 @@ final class InvoiceTests: XCTestCase {
         XCTAssertEqual(invoice.billing, [])
         XCTAssertEqual(invoice.date, now)
         XCTAssertEqual(invoice.payment, PaymentTerm(type: .dueOnReceipt, due: now))
-        XCTAssertEqual(invoice.reference, "PO number")
+        XCTAssertEqual(invoice.reference.value, "PO number")
         XCTAssertEqual(invoice.allowPartialPayment, false)
         XCTAssertEqual(invoice.taxCalculatedAfterDiscount, true)
         XCTAssertEqual(invoice.taxInclusive, true)
-        XCTAssertEqual(invoice.note, "Thanks for your donation!")
-        XCTAssertEqual(invoice.memo, "Open Collective donation")
-        XCTAssertEqual(invoice.logo, "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png")
+        XCTAssertEqual(invoice.note.value, "Thanks for your donation!")
+        XCTAssertEqual(invoice.memo.value, "Open Collective donation")
+        XCTAssertEqual(invoice.logo.value, "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png")
         XCTAssertEqual(invoice.allowTip, true)
         XCTAssertEqual(invoice.template, "PayPal system template")
+        XCTAssertEqual(invoice.cc, [Invoice.Participant(email: "collective@vapor.codes"), Invoice.Participant(email: "donator@example.com")])
         
-        XCTAssertEqual(invoice.custom, CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)))
-        try XCTAssertEqual(invoice.cc, [Invoice.Participant(email: "collective@vapor.codes"), Invoice.Participant(email: "donator@example.com")])
+        try XCTAssertEqual(invoice.custom, CustomAmount(label: nil, amount: .init(CurrencyAmount(currency: .usd, value: 10.00))))
         try XCTAssertEqual(invoice.merchant, MerchantInfo(
             email: "hello@vapor.codes",
             business: "Qutheory LLC.",
@@ -87,81 +87,59 @@ final class InvoiceTests: XCTestCase {
     
     func testValidations()throws {
         try XCTAssertThrowsError(Invoice(
-            number: "one thousand",
+            number: 6751,
             merchant: MerchantInfo(
                 email: nil, business: nil, firstName: nil, lastName: nil, address: nil, phone: nil, fax: nil, website: nil, taxID: nil, info: nil
             ),
-            reference: "PO number",
-            terms: "keep going",
-            note: "Thanks for your donation!",
-            memo: "Open Collective donation",
-            logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"
+            reference: .init(String(repeating: "n", count: 61)),
+            terms: .init("keep going"),
+            note: .init("Thanks for your donation!"),
+            memo: .init("Open Collective donation"),
+            logo: .init("https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png")
         ))
         try XCTAssertThrowsError(Invoice(
-            number: String(repeating: "7", count: 26),
+            number: 6751,
             merchant: MerchantInfo(
                 email: nil, business: nil, firstName: nil, lastName: nil, address: nil, phone: nil, fax: nil, website: nil, taxID: nil, info: nil
             ),
-            reference: "PO number",
-            terms: "keep going",
-            note: "Thanks for your donation!",
-            memo: "Open Collective donation",
-            logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"
+            reference: .init("PO number"),
+            terms: .init(String(repeating: "n", count: 4_001)),
+            note: .init("Thanks for your donation!"),
+            memo: .init("Open Collective donation"),
+            logo: .init("https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png")
         ))
         try XCTAssertThrowsError(Invoice(
-            number: "6751",
+            number: 6751,
             merchant: MerchantInfo(
                 email: nil, business: nil, firstName: nil, lastName: nil, address: nil, phone: nil, fax: nil, website: nil, taxID: nil, info: nil
             ),
-            reference: String(repeating: "n", count: 61),
-            terms: "keep going",
-            note: "Thanks for your donation!",
-            memo: "Open Collective donation",
-            logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"
+            reference: .init("PO number"),
+            terms: .init("keep going"),
+            note: .init(String(repeating: "n", count: 4_001)),
+            memo: .init("Open Collective donation"),
+            logo: .init("https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png")
         ))
         try XCTAssertThrowsError(Invoice(
-            number: "6751",
+            number: 6751,
             merchant: MerchantInfo(
                 email: nil, business: nil, firstName: nil, lastName: nil, address: nil, phone: nil, fax: nil, website: nil, taxID: nil, info: nil
             ),
-            reference: "PO number",
-            terms: String(repeating: "n", count: 4_001),
-            note: "Thanks for your donation!",
-            memo: "Open Collective donation",
-            logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"
+            reference: .init("PO number"),
+            terms: .init("keep going"),
+            note: .init("Thanks for your donation!"),
+            memo: .init(String(repeating: "n", count: 501)),
+            logo: .init("https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png")
         ))
         try XCTAssertThrowsError(Invoice(
-            number: "6751",
+            number: 6751,
             merchant: MerchantInfo(
                 email: nil, business: nil, firstName: nil, lastName: nil, address: nil, phone: nil, fax: nil, website: nil, taxID: nil, info: nil
             ),
-            reference: "PO number",
-            terms: "keep going",
-            note: String(repeating: "n", count: 4_001),
-            memo: "Open Collective donation",
-            logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"
-        ))
-        try XCTAssertThrowsError(Invoice(
-            number: "6751",
-            merchant: MerchantInfo(
-                email: nil, business: nil, firstName: nil, lastName: nil, address: nil, phone: nil, fax: nil, website: nil, taxID: nil, info: nil
-            ),
-            reference: "PO number",
-            terms: "keep going",
-            note: "Thanks for your donation!",
-            memo: String(repeating: "n", count: 501),
-            logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"
-        ))
-        try XCTAssertThrowsError(Invoice(
-            number: "6751",
-            merchant: MerchantInfo(
-                email: nil, business: nil, firstName: nil, lastName: nil, address: nil, phone: nil, fax: nil, website: nil, taxID: nil, info: nil
-            ),
-            reference: "PO number",
-            terms: "keep going",
-            note: "Thanks for your donation!",
-            memo: "Open Collective donation",
-            logo: String(repeating: "n", count: 4_001)
+            reference: .init("PO number"),
+            terms: .init("keep going"),
+            note: .init("Thanks for your donation!"),
+            memo: .init("Open Collective donation"),
+            logo: .init(String(repeating: "n", count: 4_001))
         ))
     }
     
@@ -187,18 +165,18 @@ final class InvoiceTests: XCTestCase {
             items: nil,
             date: now,
             payment: PaymentTerm(type: .dueOnReceipt, due: now),
-            reference: "PO number",
+            reference: .init("PO number"),
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
+            custom: CustomAmount(label: nil, amount: .init(CurrencyAmount(currency: .usd, value: 10.00))),
             allowPartialPayment: false,
             minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,
-            note: "Thanks for your donation!",
-            memo: "Open Collective donation",
-            logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
+            note: .init("Thanks for your donation!"),
+            memo: .init("Open Collective donation"),
+            logo: .init("https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"),
             allowTip: true,
             template: "PayPal system template"
         )
@@ -361,18 +339,18 @@ final class InvoiceTests: XCTestCase {
             items: nil,
             date: now,
             payment: PaymentTerm(type: .dueOnReceipt, due: now),
-            reference: "PO number",
+            reference: .init("PO number"),
             discount: nil,
             shippingCost: nil,
-            custom: CustomAmount(label: nil, amount: CurrencyAmount(currency: .usd, value: 10.00)),
+            custom: CustomAmount(label: nil, amount: .init(CurrencyAmount(currency: .usd, value: 10.00))),
             allowPartialPayment: false,
             minimumDue: CurrencyAmount(currency: .usd, value: 1.00),
             taxCalculatedAfterDiscount: true,
             taxInclusive: true,
             terms: nil,
-            note: "Thanks for your donation!",
-            memo: "Open Collective donation",
-            logo: "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
+            note: .init("Thanks for your donation!"),
+            memo: .init("Open Collective donation"),
+            logo: .init("https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png"),
             allowTip: true,
             template: "PayPal system template"
         ))

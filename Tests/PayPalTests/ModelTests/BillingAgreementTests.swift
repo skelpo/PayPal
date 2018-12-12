@@ -1,4 +1,5 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class BillingAgreementTests: XCTestCase {
@@ -6,8 +7,8 @@ final class BillingAgreementTests: XCTestCase {
     
     func testInit()throws {
        let agreement = try BillingAgreement(
-            name: "Nia's Maggot Loaf",
-            description: "Weekly maggot loaf subscription",
+            name: .init("Nia's Maggot Loaf"),
+            description: .init("Weekly maggot loaf subscription"),
             start: self.now,
             details: nil,
             payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
@@ -25,10 +26,10 @@ final class BillingAgreementTests: XCTestCase {
         XCTAssertEqual(agreement.overrideMerchantPreferances, nil)
         XCTAssertEqual(agreement.overrideChargeModels, nil)
         
-        XCTAssertEqual(agreement.name, "Nia's Maggot Loaf")
-        XCTAssertEqual(agreement.description, "Weekly maggot loaf subscription")
         XCTAssertEqual(agreement.start, now)
         XCTAssertEqual(agreement.payer, Payer(method: .paypal, fundingInstruments: nil, info: nil))
+        try XCTAssertEqual(agreement.name, .init("Nia's Maggot Loaf"))
+        try XCTAssertEqual(agreement.description, .init("Weekly maggot loaf subscription"))
         try XCTAssertEqual(agreement.plan, BillingPlan(
             name: "Nia's Maggot Loaf",
             description: "Weekly maggot loaf subscription",
@@ -40,8 +41,8 @@ final class BillingAgreementTests: XCTestCase {
     
     func testValidations()throws {
         try XCTAssertThrowsError(BillingAgreement(
-            name: String(repeating: "n", count: 129),
-            description: "Weekly maggot loaf subscription",
+            name: .init(String(repeating: "n", count: 129)),
+            description: .init("Weekly maggot loaf subscription"),
             start: self.now,
             details: nil,
             payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
@@ -51,8 +52,8 @@ final class BillingAgreementTests: XCTestCase {
             plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
         ))
         try XCTAssertThrowsError(BillingAgreement(
-            name: "Nia's Maggot Loaf",
-            description: String(repeating: "d", count: 129),
+            name: .init("Nia's Maggot Loaf"),
+            description: .init(String(repeating: "d", count: 129)),
             start: self.now,
             details: nil,
             payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
@@ -63,8 +64,8 @@ final class BillingAgreementTests: XCTestCase {
         ))
         
         var agreement = try BillingAgreement(
-            name: "Nia's Maggot Loaf",
-            description: "Weekly maggot loaf subscription",
+            name: .init("Nia's Maggot Loaf"),
+            description: .init("Weekly maggot loaf subscription"),
             start: self.now,
             details: nil,
             payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
@@ -74,21 +75,21 @@ final class BillingAgreementTests: XCTestCase {
             plan: BillingPlan(name: "Nia's Maggot Loaf", description: "Weekly maggot loaf subscription", type: .infinite, payments: nil, preferances: nil)
         )
         
-        try XCTAssertThrowsError(agreement.set(\BillingAgreement.name <~ String(repeating: "n", count: 129)))
-        try XCTAssertThrowsError(agreement.set(\BillingAgreement.description <~ String(repeating: "d", count: 129)))
+        try XCTAssertThrowsError(agreement.name <~ String(repeating: "n", count: 129))
+        try XCTAssertThrowsError(agreement.description <~ String(repeating: "d", count: 129))
         
-        try agreement.set(\.name <~ "No Other Name")
-        try agreement.set(\.description <~ "No other description")
+        try agreement.name <~ "No Other Name"
+        try agreement.description <~ "No other description"
         
-        XCTAssertEqual(agreement.name, "No Other Name")
-        XCTAssertEqual(agreement.description, "No other description")
+        XCTAssertEqual(agreement.name.value, "No Other Name")
+        XCTAssertEqual(agreement.description.value, "No other description")
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let agreement = try BillingAgreement(
-            name: "Nia's Maggot Loaf",
-            description: "Weekly maggot loaf subscription",
+            name: .init("Nia's Maggot Loaf"),
+            description: .init("Weekly maggot loaf subscription"),
             start: self.now,
             details: nil,
             payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),
@@ -113,8 +114,8 @@ final class BillingAgreementTests: XCTestCase {
     func testDecoding()throws {
         let decoder = JSONDecoder()
         let agreement = try BillingAgreement(
-            name: "Nia's Maggot Loaf",
-            description: "Weekly maggot loaf subscription",
+            name: .init("Nia's Maggot Loaf"),
+            description: .init("Weekly maggot loaf subscription"),
             start: self.now,
             details: nil,
             payer: Payer(method: .paypal, fundingInstruments: nil, info: nil),

@@ -1,4 +1,5 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class BusinessTests: XCTestCase {
@@ -11,9 +12,9 @@ final class BusinessTests: XCTestCase {
             names: [],
             ids: [],
             phones: [],
-            category: "3145",
-            subCategory: "5972",
-            merchantCategory: "4653",
+            category: .init("3145"),
+            subCategory: .init("5972"),
+            merchantCategory: .init("4653"),
             establishedDate: TimelessDate(date: "1882-05-13"),
             registrationDate: TimelessDate(date: "1975-04-22"),
             disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
@@ -21,12 +22,12 @@ final class BusinessTests: XCTestCase {
                 price: MoneyRange(50...60, currency: .usd),
                 volume: MoneyRange(50...60, currency: .usd),
                 venues: [],
-                website: "https://nameless.io",
+                website: .init("https://nameless.io"),
                 online: PercentRange(0...1)
             ),
             customerService: CustomerService(
-                email: EmailAddress(email: "help@nameless.com"),
-                phone: PhoneNumber(country: "1", number: "9963191901"),
+                email: EmailAddress(email: .init("help@nameless.com")),
+                phone: PhoneNumber(country: .init(1), number: .init(9963191901)),
                 message: []
             ),
             addresses: [],
@@ -41,9 +42,9 @@ final class BusinessTests: XCTestCase {
         XCTAssertEqual(business.names, [])
         XCTAssertEqual(business.ids, [])
         XCTAssertEqual(business.phones, [])
-        XCTAssertEqual(business.category, "3145")
-        XCTAssertEqual(business.subCategory, "5972")
-        XCTAssertEqual(business.merchantCategory, "4653")
+        XCTAssertEqual(business.category.value, "3145")
+        XCTAssertEqual(business.subCategory.value, "5972")
+        XCTAssertEqual(business.merchantCategory.value, "4653")
         XCTAssertEqual(business.addresses, [])
         XCTAssertEqual(business.country, .unitedStates)
         XCTAssertEqual(business.stakeholders, [])
@@ -52,81 +53,17 @@ final class BusinessTests: XCTestCase {
         XCTAssertEqual(business.establishment, Establishment(state: .ks, country: .unitedStates))
         XCTAssertEqual(business.establishedDate, TimelessDate(date: "1882-05-13"))
         XCTAssertEqual(business.registrationDate, TimelessDate(date: "1975-04-22"))
-        try XCTAssertEqual(business.disputeEmail, EmailAddress(email: "disputable@exmaple.com"))
+        try XCTAssertEqual(business.disputeEmail, EmailAddress(email: .init("disputable@exmaple.com")))
         try XCTAssertEqual(business.sales, Business.Sales.init(
             price: MoneyRange(50...60, currency: .usd),
             volume: MoneyRange(50...60, currency: .usd),
             venues: [],
-            website: "https://nameless.io",
+            website: .init("https://nameless.io"),
             online: PercentRange(0...1)
         ))
     }
     
     func testValueValidation()throws {
-        try XCTAssertThrowsError(Business(
-            type: .individual,
-            subType: nil,
-            government: nil,
-            establishment: nil,
-            names: [],
-            ids: [],
-            phones: [],
-            category: "314",
-            subCategory: "5972",
-            merchantCategory: "4653",
-            establishedDate: nil,
-            registrationDate: nil,
-            disputeEmail: nil,
-            sales: nil,
-            customerService: nil,
-            addresses: [],
-            country: nil,
-            stakeholders: [],
-            designation: nil
-        ))
-        try XCTAssertThrowsError(Business(
-            type: .individual,
-            subType: nil,
-            government: nil,
-            establishment: nil,
-            names: [],
-            ids: [],
-            phones: [],
-            category: "3145",
-            subCategory: "59726",
-            merchantCategory: "4653",
-            establishedDate: nil,
-            registrationDate: nil,
-            disputeEmail: nil,
-            sales: nil,
-            customerService: nil,
-            addresses: [],
-            country: nil,
-            stakeholders: [],
-            designation: nil
-        ))
-        try XCTAssertThrowsError(Business(
-            type: .individual,
-            subType: nil,
-            government: nil,
-            establishment: nil,
-            names: [],
-            ids: [],
-            phones: [],
-            category: "3145",
-            subCategory: "5972",
-            merchantCategory: "463",
-            establishedDate: nil,
-            registrationDate: nil,
-            disputeEmail: nil,
-            sales: nil,
-            customerService: nil,
-            addresses: [],
-            country: nil,
-            stakeholders: [],
-            designation: nil
-        ))
-        
         var business = try Business(
             type: .individual,
             subType: nil,
@@ -135,9 +72,9 @@ final class BusinessTests: XCTestCase {
             names: [],
             ids: [],
             phones: [],
-            category: "3145",
-            subCategory: "5972",
-            merchantCategory: "4653",
+            category: .init("3145"),
+            subCategory: .init("5972"),
+            merchantCategory: .init("4653"),
             establishedDate: nil,
             registrationDate: nil,
             disputeEmail: nil,
@@ -149,16 +86,16 @@ final class BusinessTests: XCTestCase {
             designation: nil
         )
         
-        try XCTAssertThrowsError(business.set(\.category <~ "314"))
-        try XCTAssertThrowsError(business.set(\.subCategory <~ "59726"))
-        try XCTAssertThrowsError(business.set(\.merchantCategory <~ "463"))
-        try business.set(\.category <~ "3145")
-        try business.set(\.subCategory <~ "5972")
-        try business.set(\.merchantCategory <~ "4653")
+        try XCTAssertThrowsError(business.category <~ "314")
+        try XCTAssertThrowsError(business.subCategory <~ "59726")
+        try XCTAssertThrowsError(business.merchantCategory <~ "463")
+        try business.category <~ "3145"
+        try business.subCategory <~ "5972"
+        try business.merchantCategory <~ "4653"
         
-        XCTAssertEqual(business.category, "3145")
-        XCTAssertEqual(business.subCategory, "5972")
-        XCTAssertEqual(business.merchantCategory, "4653")
+        XCTAssertEqual(business.category.value, "3145")
+        XCTAssertEqual(business.subCategory.value, "5972")
+        XCTAssertEqual(business.merchantCategory.value, "4653")
     }
     
     func testEncoding()throws {
@@ -171,9 +108,9 @@ final class BusinessTests: XCTestCase {
             names: [],
             ids: [],
             phones: [],
-            category: "3145",
-            subCategory: "5972",
-            merchantCategory: "4653",
+            category: .init("3145"),
+            subCategory: .init("5972"),
+            merchantCategory: .init("4653"),
             establishedDate: TimelessDate(date: nil),
             registrationDate: TimelessDate(date: nil),
             disputeEmail: nil,
@@ -185,7 +122,7 @@ final class BusinessTests: XCTestCase {
                 online: nil
             ),
             customerService: CustomerService(
-                email: EmailAddress(email: "help@nameless.com"),
+                email: EmailAddress(email: .init("help@nameless.com")),
                 phone: nil,
                 message: nil
             ),
@@ -250,9 +187,9 @@ final class BusinessTests: XCTestCase {
                 names: [],
                 ids: [],
                 phones: [],
-                category: "3145",
-                subCategory: "5972",
-                merchantCategory: "4653",
+                category: .init("3145"),
+                subCategory: .init("5972"),
+                merchantCategory: .init("4653"),
                 establishedDate: TimelessDate(date: nil),
                 registrationDate: TimelessDate(date: nil),
                 disputeEmail: nil,
@@ -264,7 +201,7 @@ final class BusinessTests: XCTestCase {
                     online: nil
                 ),
                 customerService: CustomerService(
-                    email: EmailAddress(email: "help@nameless.com"),
+                    email: EmailAddress(email: .init("help@nameless.com")),
                     phone: nil,
                     message: nil
                 ),

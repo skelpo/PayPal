@@ -1,4 +1,5 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class MerchantAccountTests: XCTestCase {
@@ -13,7 +14,7 @@ final class MerchantAccountTests: XCTestCase {
             relations: [],
             permissions: [],
             timezone: .chicago,
-            partnerExternalID: "F42E7896-17E3-455C-9B85-5F96729A4FD9",
+            partnerExternalID: .init("F42E7896-17E3-455C-9B85-5F96729A4FD9"),
             loginable: true,
             partnerTaxReporting: false,
             signupOptions: SignupOptions(partner: nil, legal: nil, web: nil, notification: nil),
@@ -28,33 +29,16 @@ final class MerchantAccountTests: XCTestCase {
         XCTAssertEqual(account.relations, [])
         XCTAssertEqual(account.permissions, [])
         XCTAssertEqual(account.timezone, .chicago)
-        XCTAssertEqual(account.partnerExternalID, "F42E7896-17E3-455C-9B85-5F96729A4FD9")
+        XCTAssertEqual(account.partnerExternalID.value, "F42E7896-17E3-455C-9B85-5F96729A4FD9")
         XCTAssertEqual(account.loginable, true)
         XCTAssertEqual(account.partnerTaxReporting, false)
         XCTAssertEqual(account.signupOptions, SignupOptions(partner: nil, legal: nil, web: nil, notification: nil))
         XCTAssertEqual(account.errors, [])
         XCTAssertEqual(account.financialInstruments, FinancialInstruments(instruments: nil))
-        try XCTAssertEqual(account.paymentReceiving, PaymentReceivingPreferences())
+        XCTAssertEqual(account.paymentReceiving, PaymentReceivingPreferences())
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(MerchantAccount(
-            owner: nil,
-            business: nil,
-            status: .a,
-            currency: nil,
-            seconderyCurrencies: [],
-            paymentReceiving: nil,
-            relations: nil,
-            permissions: nil,
-            timezone: nil,
-            partnerExternalID: String(repeating: "p", count: 128),
-            loginable: nil,
-            partnerTaxReporting: nil,
-            signupOptions: nil,
-            errors: [],
-            financialInstruments: nil
-        ))
         var account = try MerchantAccount(
             owner: nil,
             business: nil,
@@ -65,7 +49,7 @@ final class MerchantAccountTests: XCTestCase {
             relations: nil,
             permissions: nil,
             timezone: nil,
-            partnerExternalID: String(repeating: "p", count: 127),
+            partnerExternalID: .init(String(repeating: "p", count: 127)),
             loginable: nil,
             partnerTaxReporting: nil,
             signupOptions: nil,
@@ -73,10 +57,10 @@ final class MerchantAccountTests: XCTestCase {
             financialInstruments: nil
         )
         
-        try XCTAssertThrowsError(account.set(\MerchantAccount.partnerExternalID <~ String(repeating: "p", count: 128)))
-        try account.set(\.partnerExternalID <~ "id")
+        try XCTAssertThrowsError(account.partnerExternalID <~ String(repeating: "p", count: 128))
+        try account.partnerExternalID <~ "id"
         
-        XCTAssertEqual(account.partnerExternalID, "id")
+        XCTAssertEqual(account.partnerExternalID.value, "id")
     }
     
     func testEncoding()throws {
@@ -91,7 +75,7 @@ final class MerchantAccountTests: XCTestCase {
             relations: [],
             permissions: [],
             timezone: .chicago,
-            partnerExternalID: "F42E7896-17E3-455C-9B85-5F96729A4FD9",
+            partnerExternalID: .init("F42E7896-17E3-455C-9B85-5F96729A4FD9"),
             loginable: true,
             partnerTaxReporting: false,
             signupOptions: SignupOptions(partner: nil, legal: nil, web: nil, notification: nil),
@@ -145,7 +129,7 @@ final class MerchantAccountTests: XCTestCase {
             relations: [],
             permissions: [],
             timezone: .chicago,
-            partnerExternalID: "F42E7896-17E3-455C-9B85-5F96729A4FD9",
+            partnerExternalID: .init("F42E7896-17E3-455C-9B85-5F96729A4FD9"),
             loginable: true,
             partnerTaxReporting: false,
             signupOptions: SignupOptions(partner: nil, legal: nil, web: nil, notification: nil),

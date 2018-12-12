@@ -1,4 +1,5 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class RelatedResourceCaptureTests: XCTestCase {
@@ -6,9 +7,9 @@ final class RelatedResourceCaptureTests: XCTestCase {
         let capture = try RelatedResource.Capture(
             amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
             isFinal: false,
-            invoice: "242841E3-7ADE-4C5C-AC88-78103E2132F2",
+            invoice: .init("242841E3-7ADE-4C5C-AC88-78103E2132F2"),
             transaction: CurrencyAmount(currency: .usd, value: 2.71),
-            payerNote: "Notable text"
+            payerNote: .init("Notable text")
         )
         
         XCTAssertNil(capture.id)
@@ -20,42 +21,28 @@ final class RelatedResourceCaptureTests: XCTestCase {
         XCTAssertNil(capture.links)
         
         XCTAssertEqual(capture.isFinal, false)
-        XCTAssertEqual(capture.invoice, "242841E3-7ADE-4C5C-AC88-78103E2132F2")
-        XCTAssertEqual(capture.payerNote, "Notable text")
+        XCTAssertEqual(capture.invoice.value, "242841E3-7ADE-4C5C-AC88-78103E2132F2")
+        XCTAssertEqual(capture.payerNote.value, "Notable text")
         XCTAssertEqual(capture.transaction, CurrencyAmount(currency: .usd, value: 2.71))
         XCTAssertEqual(capture.amount, DetailedAmount(currency: .usd, total: 67.23, details: nil))
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(RelatedResource.Capture(
-            amount: nil,
-            isFinal: nil,
-            invoice: String(repeating: "i", count: 128),
-            transaction: nil,
-            payerNote: nil
-        ))
-        try XCTAssertThrowsError(RelatedResource.Capture(
-            amount: nil,
-            isFinal: nil,
-            invoice: nil,
-            transaction: nil,
-            payerNote: String(repeating: "p", count: 256)
-        ))
         var capture = try RelatedResource.Capture(
             amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
             isFinal: false,
-            invoice: "242841E3-7ADE-4C5C-AC88-78103E2132F2",
+            invoice: .init("242841E3-7ADE-4C5C-AC88-78103E2132F2"),
             transaction: CurrencyAmount(currency: .usd, value: 2.71),
-            payerNote: "Notable text"
+            payerNote: .init("Notable text")
         )
         
-        try XCTAssertThrowsError(capture.set(\RelatedResource.Capture.invoice <~ String(repeating: "i", count: 128)))
-        try XCTAssertThrowsError(capture.set(\RelatedResource.Capture.payerNote <~ String(repeating: "p", count: 256)))
-        try capture.set(\RelatedResource.Capture.invoice <~ String(repeating: "i", count: 127))
-        try capture.set(\RelatedResource.Capture.payerNote <~ String(repeating: "p", count: 255))
+        try XCTAssertThrowsError(capture.invoice <~ String(repeating: "i", count: 128))
+        try XCTAssertThrowsError(capture.payerNote <~ String(repeating: "p", count: 256))
+        try capture.invoice <~ String(repeating: "i", count: 127)
+        try capture.payerNote <~ String(repeating: "p", count: 255)
         
-        XCTAssertEqual(capture.invoice, String(repeating: "i", count: 127))
-        XCTAssertEqual(capture.payerNote, String(repeating: "p", count: 255))
+        XCTAssertEqual(capture.invoice.value, String(repeating: "i", count: 127))
+        XCTAssertEqual(capture.payerNote.value, String(repeating: "p", count: 255))
     }
     
     func testEncoding()throws {
@@ -63,9 +50,9 @@ final class RelatedResourceCaptureTests: XCTestCase {
         let capture = try RelatedResource.Capture(
             amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
             isFinal: false,
-            invoice: "242841E3-7ADE-4C5C-AC88-78103E2132F2",
+            invoice: .init("242841E3-7ADE-4C5C-AC88-78103E2132F2"),
             transaction: CurrencyAmount(currency: .usd, value: 2.71),
-            payerNote: "Notable text"
+            payerNote: .init("Notable text")
         )
         let generated = try String(data: encoder.encode(capture), encoding: .utf8)!
         
@@ -127,12 +114,12 @@ final class RelatedResourceCaptureTests: XCTestCase {
         XCTAssertEqual(capture.state, .pending)
         XCTAssertEqual(capture.reason, .awaitingFunding)
         XCTAssertEqual(capture.parent, "4690C70C-19B0-4AF7-A7A9-C77C0345C448")
-        XCTAssertEqual(capture.created, created.iso8601)
-        XCTAssertEqual(capture.updated, updated.iso8601)
+        XCTAssertEqual(capture.created, created)
+        XCTAssertEqual(capture.updated, updated)
         XCTAssertEqual(capture.links, [])
         XCTAssertEqual(capture.isFinal, false)
-        XCTAssertEqual(capture.invoice, "242841E3-7ADE-4C5C-AC88-78103E2132F2")
-        XCTAssertEqual(capture.payerNote, "Notable text")
+        XCTAssertEqual(capture.invoice.value, "242841E3-7ADE-4C5C-AC88-78103E2132F2")
+        XCTAssertEqual(capture.payerNote.value, "Notable text")
         XCTAssertEqual(capture.transaction, CurrencyAmount(currency: .usd, value: 2.71))
         XCTAssertEqual(capture.amount, DetailedAmount(currency: .usd, total: 67.23, details: nil))
         

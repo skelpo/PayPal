@@ -1,15 +1,16 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class BusinessOwnerAddressTests: XCTestCase {
     func testInit()throws {
         let address = try BusinessOwner.Address(
             type: .home,
-            line1: "89 Furnace Dr.",
+            line1: .init("89 Furnace Dr."),
             line2: nil,
             line3: nil,
-            suburb: "Invisible Winds",
-            city: "Nowhere",
+            suburb: .init("Invisible Winds"),
+            city: .init("Nowhere"),
             state: .ks,
             country: .unitedStates,
             postalCode: "66167"
@@ -18,81 +19,36 @@ final class BusinessOwnerAddressTests: XCTestCase {
         XCTAssertNil(address.line2)
         XCTAssertNil(address.line3)
         XCTAssertEqual(address.type, .home)
-        XCTAssertEqual(address.line1, "89 Furnace Dr.")
-        XCTAssertEqual(address.suburb, "Invisible Winds")
-        XCTAssertEqual(address.city, "Nowhere")
+        XCTAssertEqual(address.line1.value, "89 Furnace Dr.")
+        XCTAssertEqual(address.suburb.value, "Invisible Winds")
+        XCTAssertEqual(address.city.value, "Nowhere")
         XCTAssertEqual(address.state, .ks)
         XCTAssertEqual(address.country, .unitedStates)
         XCTAssertEqual(address.postalCode, "66167")
     }
     
     func testValueValidation()throws {
-        try XCTAssertThrowsError(BusinessOwner.Address(
-            type: .home,
-            line1: String(repeating: "l", count: 301),
-            line2: nil,
-            line3: nil,
-            suburb: "Invisible Winds",
-            city: "Nowhere",
-            state: .ks,
-            country: .unitedStates,
-            postalCode: "66167"
-        ))
-        try XCTAssertThrowsError(BusinessOwner.Address(
-            type: .home,
-            line1: "89 Furnace Dr.",
-            line2: String(repeating: "l", count: 301),
-            line3: nil,
-            suburb: "Invisible Winds",
-            city: "Nowhere",
-            state: .ks,
-            country: .unitedStates,
-            postalCode: "66167"
-        ))
-        try XCTAssertThrowsError(BusinessOwner.Address(
-            type: .home,
-            line1: "89 Furnace Dr.",
-            line2: nil,
-            line3: String(repeating: "l", count: 301),
-            suburb: "Invisible Winds",
-            city: "Nowhere",
-            state: .ks,
-            country: .unitedStates,
-            postalCode: "66167"
-        ))
-        try XCTAssertThrowsError(BusinessOwner.Address(
-            type: .home,
-            line1: "89 Furnace Dr.",
-            line2: nil,
-            line3: nil,
-            suburb: String(repeating: "l", count: 301),
-            city: "Nowhere",
-            state: .ks,
-            country: .unitedStates,
-            postalCode: "66167"
-        ))
-        try XCTAssertThrowsError(BusinessOwner.Address(
-            type: .home,
-            line1: "89 Furnace Dr.",
-            line2: nil,
-            line3: nil,
-            suburb: "Invisible Winds",
-            city: String(repeating: "l", count: 121),
-            state: .ks,
-            country: .unitedStates,
-            postalCode: "66167"
-        ))
+        var address = try BusinessOwner.Address(
+            type: .home, line1: .init("89 Furnace Dr."), line2: nil, line3: nil, suburb: .init("Invisible Winds"),
+            city: .init("Nowhere"), state: .ks, country: .unitedStates, postalCode: "66167"
+        )
+        
+        try XCTAssertThrowsError(address.line1 <~ String(repeating: "l", count: 301))
+        try XCTAssertThrowsError(address.line2 <~ String(repeating: "l", count: 301))
+        try XCTAssertThrowsError(address.line3 <~ String(repeating: "l", count: 301))
+        try XCTAssertThrowsError(address.suburb <~ String(repeating: "l", count: 301))
+        try XCTAssertThrowsError(address.city <~ String(repeating: "l", count: 121))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let address = try BusinessOwner.Address(
             type: .home,
-            line1: "89 Furnace Dr.",
+            line1: .init("89 Furnace Dr."),
             line2: nil,
             line3: nil,
-            suburb: "Invisible Winds",
-            city: "Nowhere",
+            suburb: .init("Invisible Winds"),
+            city: .init("Nowhere"),
             state: .ks,
             country: .unitedStates,
             postalCode: "66167"
@@ -117,11 +73,11 @@ final class BusinessOwnerAddressTests: XCTestCase {
         
         let address = try BusinessOwner.Address(
             type: .home,
-            line1: "89 Furnace Dr.",
+            line1: .init("89 Furnace Dr."),
             line2: nil,
             line3: nil,
-            suburb: "Invisible Winds",
-            city: "Nowhere",
+            suburb: .init("Invisible Winds"),
+            city: .init("Nowhere"),
             state: .ks,
             country: .unitedStates,
             postalCode: "66167"

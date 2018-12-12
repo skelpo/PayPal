@@ -1,43 +1,44 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class AppContextTests: XCTestCase {
     func testInit()throws {
         let context = try AppContext(
-            brand: "Example Inc.",
-            locale: "us-AZ",
+            brand: .init("Example Inc."),
+            locale: .init("us-AZ"),
             landingPage: "Login",
             shipping: .buyer,
             userAction: "Continue",
             data: [:]
         )
         
-        XCTAssertEqual(context.brand, "Example Inc.")
-        XCTAssertEqual(context.locale, "us-AZ")
+        XCTAssertEqual(context.brand.value, "Example Inc.")
+        XCTAssertEqual(context.locale.value, "us-AZ")
         XCTAssertEqual(context.landingPage, "Login")
         XCTAssertEqual(context.shipping, .buyer)
         XCTAssertEqual(context.data, [:])
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(AppContext(brand: String(repeating: "b", count: 128)))
-        try XCTAssertThrowsError(AppContext(locale: "US"))
-        var context = try AppContext(brand: "Example Inc.", locale: "us-AZ")
+        try XCTAssertThrowsError(AppContext(brand: .init(String(repeating: "b", count: 128))))
+        try XCTAssertThrowsError(AppContext(locale: .init("US")))
+        var context = try AppContext(brand: .init("Example Inc."), locale: .init("us-AZ"))
         
-        try XCTAssertThrowsError(context.set(\AppContext.brand <~ String(repeating: "b", count: 128)))
-        try XCTAssertThrowsError(context.set(\.locale <~ "US"))
-        try context.set(\AppContext.brand <~ String(repeating: "b", count: 127))
-        try context.set(\.locale <~ "us")
+        try XCTAssertThrowsError(context.brand <~ String(repeating: "b", count: 128))
+        try XCTAssertThrowsError(context.locale <~ "US")
+        try context.brand <~ String(repeating: "b", count: 127)
+        try context.locale <~ "us"
         
-        XCTAssertEqual(context.brand, String(repeating: "b", count: 127))
-        XCTAssertEqual(context.locale, "us")
+        XCTAssertEqual(context.brand.value, String(repeating: "b", count: 127))
+        XCTAssertEqual(context.locale.value, "us")
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let context = try AppContext(
-            brand: "Example Inc.",
-            locale: "us-AZ",
+            brand: .init("Example Inc."),
+            locale: .init("us-AZ"),
             landingPage: "Login",
             shipping: .buyer,
             userAction: "Continue",
@@ -84,8 +85,8 @@ final class AppContextTests: XCTestCase {
         try XCTAssertThrowsError(decoder.decode(AppContext.self, from: locale))
         try XCTAssertThrowsError(decoder.decode(AppContext.self, from: brand))
         try XCTAssertEqual(decoder.decode(AppContext.self, from: json), AppContext(
-            brand: "Example Inc.",
-            locale: "us-AZ",
+            brand: .init("Example Inc."),
+            locale: .init("us-AZ"),
             landingPage: "Login",
             shipping: .buyer,
             userAction: "Continue",

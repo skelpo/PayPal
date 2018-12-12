@@ -3,12 +3,12 @@ import XCTest
 
 final class IdentificationTests: XCTestCase {
     func testInit()throws {
-        let id = try Identification(
+        let id = Identification(
             type: .driversLicense,
             value: "123abc456def",
             masked: false,
-            issuerCountry: "US",
-            issuerState: "OR",
+            issuerCountry: .unitedStates,
+            issuerState: .or,
             issuerCity: "Portland",
             placeOfIssue: nil,
             description: "DMV"
@@ -18,48 +18,20 @@ final class IdentificationTests: XCTestCase {
         XCTAssertEqual(id.type, .driversLicense)
         XCTAssertEqual(id.value, "123abc456def")
         XCTAssertEqual(id.masked, false)
-        XCTAssertEqual(id.issuerCountry, "US")
-        XCTAssertEqual(id.issuerState, "OR")
+        XCTAssertEqual(id.issuerCountry, .unitedStates)
+        XCTAssertEqual(id.issuerState, .or)
         XCTAssertEqual(id.issuerCity, "Portland")
         XCTAssertEqual(id.description, "DMV")
     }
     
-    func testValueValidation()throws {
-        try XCTAssertThrowsError(Identification(
-            type: .cpf,
-            value: "123abc456def",
-            masked: nil,
-            issuerCountry: "usa",
-            issuerState: nil,
-            issuerCity: nil,
-            placeOfIssue: nil,
-            description: nil
-        ))
-        var id = try Identification(
-            type: .driversLicense,
-            value: "123abc456def",
-            masked: false,
-            issuerCountry: "US",
-            issuerState: "OR",
-            issuerCity: "Portland",
-            placeOfIssue: nil,
-            description: "DMV"
-        )
-        
-        try XCTAssertThrowsError(id.set(\.issuerCountry <~ "usa"))
-        try id.set(\.issuerCountry <~ "UN")
-        
-        XCTAssertEqual(id.issuerCountry, "UN")
-    }
-    
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let id = try Identification(
+        let id = Identification(
             type: .driversLicense,
             value: "123abc456def",
             masked: false,
-            issuerCountry: "US",
-            issuerState: "OR",
+            issuerCountry: .unitedStates,
+            issuerState: .or,
             issuerCity: "Portland",
             placeOfIssue: nil,
             description: "DMV"
@@ -82,12 +54,12 @@ final class IdentificationTests: XCTestCase {
     func testDecoding()throws {
         let decoder = JSONDecoder()
         
-        let id = try Identification(
+        let id = Identification(
             type: .driversLicense,
             value: "123abc456def",
             masked: false,
-            issuerCountry: "US",
-            issuerState: "OR",
+            issuerCountry: .unitedStates,
+            issuerState: .or,
             issuerCity: "Portland",
             placeOfIssue: nil,
             description: "DMV"
@@ -122,7 +94,6 @@ final class IdentificationTests: XCTestCase {
     
     static var allTests: [(String, (IdentificationTests) -> ()throws -> ())] = [
         ("testInit", testInit),
-        ("testValueValidation", testValueValidation),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)
     ]

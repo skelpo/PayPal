@@ -1,26 +1,26 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class InvoiceParticipantTests: XCTestCase {
     func testInit()throws {
-        let participant = try Invoice.Participant(email: "participant@example.com")
+        let participant = try Invoice.Participant(email: .init("participant@example.com"))
         
-        XCTAssertEqual(participant.email, "participant@example.com")
+        XCTAssertEqual(participant.email.value, "participant@example.com")
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(Invoice.Participant(email: String(repeating: "e", count: 261)))
-        var participant = try Invoice.Participant(email: "participant@example.com")
+        var participant = Invoice.Participant(email: "participant@example.com")
         
-        try XCTAssertThrowsError(participant.set(\.email <~ String(repeating: "e", count: 261)))
-        try participant.set(\.email <~ "email@example.com")
+        try XCTAssertThrowsError(participant.email <~ String(repeating: "e", count: 261))
+        try participant.email <~ "email@example.com"
         
-        XCTAssertEqual(participant.email, "email@example.com")
+        XCTAssertEqual(participant.email.value, "email@example.com")
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let participant = try Invoice.Participant(email: "participant@example.com")
+        let participant = try Invoice.Participant(email: .init("participant@example.com"))
         let generated = try String(data: encoder.encode(participant), encoding: .utf8)
         let json = "{\"email\":\"participant@example.com\"}"
         
@@ -35,8 +35,7 @@ final class InvoiceParticipantTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        let participant = try Invoice.Participant(email: "participant@example.com")
-        try XCTAssertEqual(participant, decoder.decode(Invoice.Participant.self, from: json))
+        try XCTAssertEqual(Invoice.Participant(email: .init("participant@example.com")), decoder.decode(Invoice.Participant.self, from: json))
     }
     
     static var allTests: [(String, (InvoiceParticipantTests) -> ()throws -> ())] = [

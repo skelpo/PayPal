@@ -1,12 +1,13 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class ShippingInfoTests: XCTestCase {
     func testInit()throws {
         let info = try ShippingInfo(
-            firstName: "Oskar",
-            lastName: "Reteep",
-            businessName: "Books and Crannies",
+            firstName: .init("Oskar"),
+            lastName: .init("Reteep"),
+            businessName: .init("Books and Crannies"),
             address: Address(
                 recipientName: "Oskar Reteep",
                 defaultAddress: true,
@@ -21,9 +22,9 @@ final class ShippingInfoTests: XCTestCase {
             )
         )
         
-        XCTAssertEqual(info.firstName, "Oskar")
-        XCTAssertEqual(info.lastName, "Reteep")
-        XCTAssertEqual(info.businessName, "Books and Crannies")
+        XCTAssertEqual(info.firstName.value, "Oskar")
+        XCTAssertEqual(info.lastName.value, "Reteep")
+        XCTAssertEqual(info.businessName.value, "Books and Crannies")
         XCTAssertEqual(info.address, Address(
             recipientName: "Oskar Reteep",
             defaultAddress: true,
@@ -39,49 +40,31 @@ final class ShippingInfoTests: XCTestCase {
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(ShippingInfo(
-            firstName: String(repeating: "f", count: 257),
-            lastName: "Reteep",
-            businessName: "Books and Crannies",
-            address: nil
-        ))
-        try XCTAssertThrowsError(ShippingInfo(
-            firstName: "Oskar",
-            lastName: String(repeating: "l", count: 257),
-            businessName: "Books and Crannies",
-            address: nil
-        ))
-        try XCTAssertThrowsError(ShippingInfo(
-            firstName: "Oskar",
-            lastName: "Reteep",
-            businessName: String(repeating: "b", count: 481),
-            address: nil
-        ))
         var info = try ShippingInfo(
-            firstName: "Oskar",
-            lastName: "Reteep",
-            businessName: "Books and Crannies",
+            firstName: .init("Oskar"),
+            lastName: .init("Reteep"),
+            businessName: .init("Books and Crannies"),
             address: nil
         )
         
-        try XCTAssertThrowsError(info.set(\ShippingInfo.firstName <~ String(repeating: "f", count: 257)))
-        try XCTAssertThrowsError(info.set(\ShippingInfo.lastName <~ String(repeating: "l", count: 257)))
-        try XCTAssertThrowsError(info.set(\ShippingInfo.businessName <~ String(repeating: "b", count: 481)))
-        try info.set(\ShippingInfo.firstName <~ String(repeating: "f", count: 256))
-        try info.set(\ShippingInfo.lastName <~ String(repeating: "l", count: 256))
-        try info.set(\ShippingInfo.businessName <~ String(repeating: "b", count: 480))
+        try XCTAssertThrowsError(info.firstName <~ String(repeating: "f", count: 257))
+        try XCTAssertThrowsError(info.lastName <~ String(repeating: "l", count: 257))
+        try XCTAssertThrowsError(info.businessName <~ String(repeating: "b", count: 481))
+        try info.firstName <~ String(repeating: "f", count: 256)
+        try info.lastName <~ String(repeating: "l", count: 256)
+        try info.businessName <~ String(repeating: "b", count: 480)
         
-        XCTAssertEqual(info.firstName, String(repeating: "f", count: 256))
-        XCTAssertEqual(info.lastName, String(repeating: "l", count: 256))
-        XCTAssertEqual(info.businessName, String(repeating: "b", count: 480))
+        XCTAssertEqual(info.firstName.value, String(repeating: "f", count: 256))
+        XCTAssertEqual(info.lastName.value, String(repeating: "l", count: 256))
+        XCTAssertEqual(info.businessName.value, String(repeating: "b", count: 480))
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let info = try ShippingInfo(
-            firstName: "Oskar",
-            lastName: "Reteep",
-            businessName: "Books and Crannies",
+            firstName: .init("Oskar"),
+            lastName: .init("Reteep"),
+            businessName: .init("Books and Crannies"),
             address: nil
         )
         
@@ -108,9 +91,9 @@ final class ShippingInfoTests: XCTestCase {
         }
         """.data(using: .utf8)!
         let info = try ShippingInfo(
-            firstName: "Oskar",
-            lastName: "Reteep",
-            businessName: "Books and Crannies",
+            firstName: .init("Oskar"),
+            lastName: .init("Reteep"),
+            businessName: .init("Books and Crannies"),
             address: nil
         )
         

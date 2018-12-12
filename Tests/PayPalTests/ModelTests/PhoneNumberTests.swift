@@ -1,33 +1,30 @@
 import XCTest
+import Failable
 @testable import PayPal
 
 final class PhoneNumberTests: XCTestCase {
     func testInit()throws {
-        let number = try PhoneNumber(country: "1", number: "9963191901")
+        let number = try PhoneNumber(country: .init(1), number: .init(9963191901))
         
-        XCTAssertEqual(number.country, "1")
-        XCTAssertEqual(number.number, "9963191901")
+        XCTAssertEqual(number.country.value, 1)
+        XCTAssertEqual(number.number.value, 9963191901)
     }
     
     func testValidations()throws {
-        try XCTAssertThrowsError(PhoneNumber(country: "1", number: "996319190112301"))
-        try XCTAssertThrowsError(PhoneNumber(country: "1", number: ""))
-        try XCTAssertThrowsError(PhoneNumber(country: "", number: "9963191901"))
-        try XCTAssertThrowsError(PhoneNumber(country: "1098", number: "9963191901"))
-        var number = try PhoneNumber(country: "1", number: "9963191901")
+        var number = try PhoneNumber(country: .init(1), number: .init(9963191901))
         
-        try XCTAssertThrowsError(number.set(\.country <~ "1098"))
-        try XCTAssertThrowsError(number.set(\.number <~ "996319190112301"))
-        try number.set(\.country <~ "2")
-        try number.set(\.number <~ "2682814139")
+        try XCTAssertThrowsError(number.country <~ 1098)
+        try XCTAssertThrowsError(number.number <~ 996319190112301)
+        try number.country <~ 2
+        try number.number <~ 2682814139
         
-        XCTAssertEqual(number.country, "2")
-        XCTAssertEqual(number.number, "2682814139")
+        XCTAssertEqual(number.country.value, 2)
+        XCTAssertEqual(number.number.value, 2682814139)
     }
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let generated = try String(data: encoder.encode(PhoneNumber(country: "1", number: "9963191901")), encoding: .utf8)
+        let generated = try String(data: encoder.encode(PhoneNumber(country: .init(1), number: .init(9963191901))), encoding: .utf8)
         
         XCTAssertEqual(generated, "{\"country_code\":\"1\",\"national_number\":\"9963191901\"}")
     }
@@ -49,7 +46,7 @@ final class PhoneNumberTests: XCTestCase {
         """.data(using: .utf8)!
         
         try XCTAssertThrowsError(decoder.decode(PhoneNumber.self, from: invalid))
-        try XCTAssertEqual(PhoneNumber(country: "1", number: "9963191901"), decoder.decode(PhoneNumber.self, from: json))
+        try XCTAssertEqual(PhoneNumber(country: .init(1), number: .init(9963191901)), decoder.decode(PhoneNumber.self, from: json))
     }
     
     static var allTests: [(String, (PhoneNumberTests) -> ()throws -> ())] = [
