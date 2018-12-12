@@ -9,7 +9,7 @@ public enum Environment: String, Codable, CaseIterable {
     
     /// The root of the URI used to access the PayPal API
     /// based on the current environment.
-    var domain: String {
+    public var domain: String {
         switch self {
         case .sandbox: return "https://api.sandbox.paypal.com"
         case .production: return "https://api.paypal.com"
