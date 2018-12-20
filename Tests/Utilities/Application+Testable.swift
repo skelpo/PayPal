@@ -1,14 +1,15 @@
 import Vapor
+import PayPal
 
-var secret: String! = nil
-var id: String! = nil
+public var secret: String! = nil
+public var id: String! = nil
 
 extension Application {
-    static func testable(
+    public static func testable(
         services: Services = .default(),
-        environment: Environment = .testing,
+        environment: Vapor.Environment = .testing,
         environmentArguments: [String]? = nil
-    )throws -> Application {
+        )throws -> Application {
         let config = Config.default()
         var env = environment
         
@@ -22,7 +23,7 @@ extension Application {
     }
 }
 
-func setPaypalVars() {
+public func setPaypalVars() {
     if let clientID = Environment.get("PAYPAL_CLIENT_ID") {
         id = clientID
     } else {
@@ -35,5 +36,11 @@ func setPaypalVars() {
     } else {
         secret = "fake_paypal_secret"
         setenv("PAYPAL_CLIENT_SECRET", secret, 1)
+    }
+}
+
+extension PayPalProvider {
+    public convenience init() {
+        self.init(id: id, secret: secret)
     }
 }
