@@ -36,8 +36,8 @@ final class CreditCardTests: XCTestCase {
         var cc = try CreditCard(
             number: "4953912847443848",
             type: "Visa",
-            expireMonth: 09,
-            expireYear: 2028,
+            expireMonth: 09.failable(),
+            expireYear: 2028.failable(),
             ccv2: 633,
             firstName: "Jonnas",
             lastName: "Futher",
@@ -48,8 +48,8 @@ final class CreditCardTests: XCTestCase {
         try XCTAssertThrowsError(CreditCard(
             number: "4953912847443848",
             type: "Visa",
-            expireMonth: 13,
-            expireYear: 2028,
+            expireMonth: 13.failable(),
+            expireYear: 2028.failable(),
             ccv2: 633,
             firstName: "Jonnas",
             lastName: "Futher",
@@ -59,8 +59,8 @@ final class CreditCardTests: XCTestCase {
         try XCTAssertThrowsError(CreditCard(
             number: "4953912847443848",
             type: "Visa",
-            expireMonth: 09,
-            expireYear: 31415,
+            expireMonth: 09.failable(),
+            expireYear: 31415.failable(),
             ccv2: 633,
             firstName: "Jonnas",
             lastName: "Futher",
@@ -70,8 +70,8 @@ final class CreditCardTests: XCTestCase {
         try XCTAssertThrowsError(CreditCard(
             number: "4953912847443848",
             type: "Visa",
-            expireMonth: 09,
-            expireYear: 2028,
+            expireMonth: 09.failable(),
+            expireYear: 2028.failable(),
             ccv2: 633,
             firstName: "Jonnas",
             lastName: "Futher",

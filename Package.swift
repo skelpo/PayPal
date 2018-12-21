@@ -17,9 +17,9 @@ let package = Package(
     targets: [
         .target(name: "PayPal", dependencies: ["Vapor", "JSON", "Failable", "Countries"]),
         
-        .testTarget(name: "Utilities", dependencies: ["PayPal", "Vapor"]),
-        .testTarget(name: "ConfigTests", dependencies: ["PayPal", "Utilities"]),
-        .testTarget(name: "ControllerTests", dependencies: ["PayPal", "SwiftGD", "Utilities"]),
+        .target(name: "TestsUtilities", dependencies: ["PayPal", "Vapor"]),
+        .testTarget(name: "ConfigTests", dependencies: ["PayPal", "TestsUtilities"]),
+        .testTarget(name: "ControllerTests", dependencies: ["PayPal", "SwiftGD", "TestsUtilities"]),
         .testTarget(name: "ModelTests", dependencies: ["PayPal"]),
         .testTarget(name: "PayPalTests", dependencies: ["PayPal", "Vapor", "JSON"]),
     ]

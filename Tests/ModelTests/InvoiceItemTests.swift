@@ -31,7 +31,7 @@ final class InvoiceItemTests: XCTestCase {
         try XCTAssertThrowsError(Invoice.Item(
             name: .init(String(repeating: "n", count: 201)),
             description: .init("Round and white, like a ping-pong ball"),
-            quantity: 3,
+            quantity: .init(3),
             unitPrice: .init(CurrencyAmount(currency: .usd, value: 50)),
             tax: nil,
             date: nil,
@@ -41,7 +41,7 @@ final class InvoiceItemTests: XCTestCase {
         try XCTAssertThrowsError(Invoice.Item(
             name: "Widget",
             description: .init(String(repeating: "d", count: 1001)),
-            quantity: 3,
+            quantity: .init(3),
             unitPrice: .init(CurrencyAmount(currency: .usd, value: 50)),
             tax: nil,
             date: nil,
@@ -51,7 +51,7 @@ final class InvoiceItemTests: XCTestCase {
         try XCTAssertThrowsError(Invoice.Item(
             name: "Widget",
             description: .init("Round and white, like a ping-pong ball"),
-            quantity: -10_001,
+            quantity: .init(-10_001),
             unitPrice: .init(CurrencyAmount(currency: .usd, value: 50)),
             tax: nil,
             date: nil,
@@ -61,7 +61,7 @@ final class InvoiceItemTests: XCTestCase {
         try XCTAssertThrowsError(Invoice.Item(
             name: "Widget",
             description: .init("Round and white, like a ping-pong ball"),
-            quantity: 3,
+            quantity: .init(3),
             unitPrice: .init(CurrencyAmount(currency: .usd, value: 1000001)),
             tax: nil,
             date: nil,
@@ -72,7 +72,7 @@ final class InvoiceItemTests: XCTestCase {
         var item = try Invoice.Item(
             name: "Widget",
             description: .init("Round and white, like a ping-pong ball"),
-            quantity: 3,
+            quantity: .init(3),
             unitPrice: .init(CurrencyAmount(currency: .usd, value: 50)),
             tax: Tax(name: "Sales", percent: 10, amount: CurrencyAmount(currency: .usd, value: 5.00)),
             date: self.now,

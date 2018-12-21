@@ -194,7 +194,6 @@ final class InvoiceTests: XCTestCase {
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
             if jsonChar == genChar { index += 1; continue }
-            print(json[json.index(json.startIndex, offsetBy: index - 10)...json.index(json.startIndex, offsetBy: index + 10)])
             XCTAssertEqual(jsonChar, genChar, "values don't match. Failure starts at index \(index)")
             break
         }

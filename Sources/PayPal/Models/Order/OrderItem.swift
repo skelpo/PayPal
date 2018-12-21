@@ -65,10 +65,5 @@ extension Order {
             self.currency = currency
             self.tax = tax
         }
-        
-        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
-        public init(from decoder: Decoder)throws {
-            fatalError()
-        }
     }
 }

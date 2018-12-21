@@ -9,7 +9,7 @@ extension Application {
         services: Services = .default(),
         environment: Vapor.Environment = .testing,
         environmentArguments: [String]? = nil
-        )throws -> Application {
+    )throws -> Application {
         let config = Config.default()
         var env = environment
         
