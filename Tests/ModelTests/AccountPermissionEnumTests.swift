@@ -1,10 +1,10 @@
 import XCTest
 @testable import PayPal
 
-typealias Permission = AccountPermission.Permission
+private typealias Permission = AccountPermission.Permission
 
 final class AccountPermissionEnumTests: XCTestCase {
-    struct Account: Codable {
+    private struct Account: Codable {
         let permission: Permission
     }
     
