@@ -4,10 +4,6 @@ import XCTest
 private typealias Name = Product.Name
 
 final class ProductNameTests: XCTestCase {
-    struct Phone: Codable {
-        let type: PhoneType
-    }
-    
     private struct Product: Codable {
         let name: Name
     }
