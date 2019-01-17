@@ -43,7 +43,7 @@ public struct DetailedAmount: Content, Equatable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(String(describing: self.amount.value), forKey: .total)
         try container.encode(self.amount.currency, forKey: .currency)
-        try container.encode(self.details, forKey: .details)
+        try container.encodeIfPresent(self.details, forKey: .details)
     }
     
     enum CodingKeys: String, CodingKey {
@@ -194,12 +194,12 @@ extension DetailedAmount {
             var container = encoder.container(keyedBy: CodingKeys.self)
 
             if let value = try Detail.string(from: self.subtotal)         { try container.encode(value, forKey: .subtotal) }
-            if let value = try Detail.string(from: self.shipping)         { try container.encode(value, forKey: .shipping) }
-            if let value = try Detail.string(from: self.tax)              { try container.encode(value, forKey: .tax) }
-            if let value = try Detail.string(from: self.handlingFee)      { try container.encode(value, forKey: .handlingFee) }
-            if let value = try Detail.string(from: self.shippingDiscount) { try container.encode(value, forKey: .shippingDiscount) }
-            if let value = try Detail.string(from: self.insurance)        { try container.encode(value, forKey: .insurance) }
-            if let value = try Detail.string(from: self.giftWrap)         { try container.encode(value, forKey: .giftWrap) }
+            if let value = try Detail.string(from: self.shipping)         { try container.encodeIfPresent(value, forKey: .shipping) }
+            if let value = try Detail.string(from: self.tax)              { try container.encodeIfPresent(value, forKey: .tax) }
+            if let value = try Detail.string(from: self.handlingFee)      { try container.encodeIfPresent(value, forKey: .handlingFee) }
+            if let value = try Detail.string(from: self.shippingDiscount) { try container.encodeIfPresent(value, forKey: .shippingDiscount) }
+            if let value = try Detail.string(from: self.insurance)        { try container.encodeIfPresent(value, forKey: .insurance) }
+            if let value = try Detail.string(from: self.giftWrap)         { try container.encodeIfPresent(value, forKey: .giftWrap) }
         }
         
         enum CodingKeys: String, CodingKey {

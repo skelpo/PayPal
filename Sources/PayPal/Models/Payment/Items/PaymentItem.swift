@@ -98,7 +98,7 @@ extension Payment {
             try container.encode(self.sku, forKey: .sku)
             try container.encode(self.name, forKey: .name)
             try container.encode(self.description, forKey: .description)
-            try container.encode(self.tax, forKey: .tax)
+            try container.encodeIfPresent(self.tax, forKey: .tax)
         }
         
         

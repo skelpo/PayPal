@@ -37,7 +37,7 @@ public struct PaymentTerm: Content, Equatable {
     public func encode(to encoder: Encoder)throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(self.type, forKey: .type)
+        try container.encodeIfPresent(self.type, forKey: .type)
         
         if let due = self.due {
             try container.encode(BusinessOwner.birthdateFormatter.string(from: due), forKey: .due)
