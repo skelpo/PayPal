@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/vapor/crypto.git",
         "state": {
           "branch": null,
-          "revision": "5605334590affd4785a5839806b4504407e054ac",
-          "version": "3.3.0"
+          "revision": "bce9ac891c9b33fc045deda713e0d976d13b749a",
+          "version": "3.3.1"
         }
       },
       {
@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/skelpo/Failable.git",
         "state": {
           "branch": null,
-          "revision": "244d61a3b8f0152f8b20abb77938875c375f9864",
-          "version": "0.2.0"
+          "revision": "fde0c8669eac3bbaba5e1bdb36c2609008170237",
+          "version": "0.2.1"
         }
       },
       {
@@ -186,8 +186,8 @@
         "repositoryURL": "https://github.com/vapor/vapor.git",
         "state": {
           "branch": null,
-          "revision": "157d3b15336caa882662cc75024dd04b2e225246",
-          "version": "3.1.0"
+          "revision": "54cbf396147aba77ecb32e7fc75a3d13251551b1",
+          "version": "3.1.1"
         }
       },
       {
@@ -195,8 +195,8 @@
         "repositoryURL": "https://github.com/vapor/websocket.git",
         "state": {
           "branch": null,
-          "revision": "eb4277f75f1d96a3d15c852cdd89af1799093dcd",
-          "version": "1.1.0"
+          "revision": "21eb4773e25a8ff96fe347a31fe106900a69fa6a",
+          "version": "1.1.1"
         }
       }
     ]
