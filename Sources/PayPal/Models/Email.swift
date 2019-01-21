@@ -69,12 +69,12 @@ public struct EmailType<Keys>: Content, Equatable where Keys: EmailCodingKey {
     
     /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
-        self.email = try decoder.singleValueContainer().decode(Failable<String, EmailString>.self)
+        self.email = try decoder.container(keyedBy: Keys.self).decode(Failable<String, EmailString>.self, forKey: .email)
     }
     
     /// See [`Encodable.encode(to:)`](https://developer.apple.com/documentation/swift/encodable/2893603-encode).
     public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(self.email)
+        var container = encoder.container(keyedBy: Keys.self)
+        try container.encode(self.email, forKey: .email)
     }
 }
