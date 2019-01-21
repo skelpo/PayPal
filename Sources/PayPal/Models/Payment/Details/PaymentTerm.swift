@@ -25,7 +25,7 @@ public struct PaymentTerm: Content, Equatable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         let dueStr = try container.decode(String.self, forKey: .due)
-        guard let due = BusinessOwner.birthdateFormatter.date(from: dueStr) else {
+        guard let due = TimelessDate.formatter.date(from: dueStr) else {
             throw DecodingError.dataCorruptedError(forKey: .due, in: container, debugDescription: "Date format must be `yyyy-MM-dd`")
         }
         
@@ -40,7 +40,7 @@ public struct PaymentTerm: Content, Equatable {
         try container.encodeIfPresent(self.type, forKey: .type)
         
         if let due = self.due {
-            try container.encode(BusinessOwner.birthdateFormatter.string(from: due), forKey: .due)
+            try container.encode(TimelessDate.formatter.string(from: due), forKey: .due)
         }
     }
     
