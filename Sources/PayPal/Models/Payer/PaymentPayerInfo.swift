@@ -84,7 +84,7 @@ extension Order.Payer {
             
             if
                 let string = try container.decodeIfPresent(String.self, forKey: .birthdate),
-                let date = BusinessOwner.birthdateFormatter.date(from: string)
+                let date = TimelessDate.formatter.date(from: string)
             {
                 self.birthdate = date
             } else {
@@ -109,7 +109,7 @@ extension Order.Payer {
             var container = encoder.container(keyedBy: CodingKeys.self)
             
             if let date = self.birthdate {
-                try container.encode(BusinessOwner.birthdateFormatter.string(from: date), forKey: .birthdate)
+                try container.encode(TimelessDate.formatter.string(from: date), forKey: .birthdate)
             }
             
             try container.encodeIfPresent(self.salutation, forKey: .salutation)
