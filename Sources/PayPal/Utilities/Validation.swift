@@ -79,7 +79,7 @@ public struct MonthRange: InRangeValidation {
     public typealias Supported = Int
     
     public static var max: Int? = 12
-    public static var min: Int? = 0
+    public static var min: Int? = 1
 }
 
 public struct YearRange: InRangeValidation {
