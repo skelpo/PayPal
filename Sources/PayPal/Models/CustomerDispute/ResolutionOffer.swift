@@ -8,7 +8,7 @@ extension CustomerDispute {
         /// The merchant's notes about the offer. PayPal can, but the customer cannot, view these notes.
         ///
         /// Minimum length: 1. Maximum length: 2000.
-        public var note: Failable<String, Length2000>
+        public var note: Failable<String, Length1To2000>
         
         /// The amount proposed to resolve the dispute.
         public var amount: CurrencyCodeAmount
@@ -32,7 +32,7 @@ extension CustomerDispute {
         ///   - type: The type of offer that the merchant proposes for the dispute.
         ///   - returnAddress: The return address for the item.
         ///   - invoiceID: The merchant-provided ID of the invoice for the refund.
-        public init(note: Failable<String, Length2000>, amount: CurrencyCodeAmount, type: Offer.OfferType, returnAddress: Address?, invoiceID: String?) {
+        public init(note: Failable<String, Length1To2000>, amount: CurrencyCodeAmount, type: Offer.OfferType, returnAddress: Address?, invoiceID: String?) {
             self.note = note
             self.amount = amount
             self.type = type
