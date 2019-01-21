@@ -6,7 +6,7 @@ public struct BillingPlan: Content, Equatable {
     /// The PayPal-generated ID for the resource.
     ///
     /// Maximum length: 128.
-    public let id: String?
+    public let id: Optional128String
     
     /// The plan name.
     ///
