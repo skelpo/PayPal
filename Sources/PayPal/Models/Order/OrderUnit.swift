@@ -38,7 +38,7 @@ extension Order {
         /// The API caller-provided external invoice ID for this order. Only supported for the PayPal payment method.
         ///
         /// Maximum length: 256.
-        public var custom: Failable<String?, NotNilValidate<Length256>>
+        public var custom: Optional127String
         
         /// The payment descriptor on the buyer credit card statement of account activity.
         ///
@@ -99,7 +99,7 @@ extension Order {
             payee: Payee?,
             description: Optional127String,
             invoice: Optional127String,
-            custom: Failable<String?, NotNilValidate<Length256>>,
+            custom: Optional127String,
             paymentDescriptor: Failable<String?, NotNilValidate<Length22>>,
             items: [Item]?,
             notify: Failable<String?, NotNilValidate<Length2048>>,
