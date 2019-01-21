@@ -3,14 +3,6 @@ import Vapor
 
 /// Information on a business owner, which owns an account.
 public struct BusinessOwner: Content, Equatable {
-    internal static let birthdateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.calendar = Calendar(identifier: .iso8601)
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
-    }()
     
     /// The account holder's email address, in [Simple Mail Transfer Protocol](https://www.ietf.org/rfc/rfc5321.txt) as defined in RFC 5321 or
     /// in [Internet Message Format](https://www.ietf.org/rfc/rfc5322.txt) as defined in RFC 5322. Does not support Unicode email addresses.
@@ -81,11 +73,17 @@ public struct BusinessOwner: Content, Equatable {
         self.relationships = relationships
         self.country = country
         self.addresses = addresses
-        self.birthdate = birthdate
         self.language = language
         self.phones = phones
         self.ids = ids
         self.occupation = occupation
+        
+        if let date = birthdate {
+            let calendar = Calendar.current
+            self.birthdate = calendar.date(from: calendar.dateComponents([.year, .month, .day], from: date))
+        } else {
+            self.birthdate = nil
+        }
     }
     
     /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
@@ -94,7 +92,7 @@ public struct BusinessOwner: Content, Equatable {
         
         if
             let birthdate = try container.decodeIfPresent(String.self, forKey: .birthdate),
-            let date = BusinessOwner.birthdateFormatter.date(from: birthdate)
+            let date = TimelessDate.formatter.date(from: birthdate)
         {
             self.birthdate = date
         }
@@ -115,7 +113,7 @@ public struct BusinessOwner: Content, Equatable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         if let date = self.birthdate {
-            try container.encode(BusinessOwner.birthdateFormatter.string(from: date), forKey: .birthdate)
+            try container.encode(TimelessDate.formatter.string(from: date), forKey: .birthdate)
         }
         
         try container.encode(self.email, forKey: .email)
