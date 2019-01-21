@@ -46,11 +46,14 @@ public struct TimelessDate: Content, Equatable, ExpressibleByFloatLiteral {
     
     /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
-        let raw = try decoder.container(keyedBy: CodingKeys.self).decode(String.self, forKey: .date)
-        guard let date = TimelessDate.formatter.date(from: raw) else {
-            throw PayPalError(status: .badRequest, identifier: "dateFormat", reason: "Expected date to be formatted as `yyyy-mm-dd`")
+        if let raw = try decoder.container(keyedBy: CodingKeys.self).decodeIfPresent(String.self, forKey: .date) {
+            guard let date = TimelessDate.formatter.date(from: raw) else {
+                throw PayPalError(status: .badRequest, identifier: "dateFormat", reason: "Expected date to be formatted as `yyyy-mm-dd`")
+            }
+            self.timestamp = date.timeIntervalSince1970
+        } else {
+            self.timestamp = nil
         }
-        self.timestamp = date.timeIntervalSince1970
     }
     
     /// See [`Encodable.encode(to:)`](https://developer.apple.com/documentation/swift/encodable/2893603-encode).
@@ -60,8 +63,6 @@ public struct TimelessDate: Content, Equatable, ExpressibleByFloatLiteral {
             let date = Date(timeIntervalSince1970: timestamp)
             let raw = TimelessDate.formatter.string(from: date)
             try container.encode(raw, forKey: .date)
-        } else {
-            try container.encodeNil(forKey: .date)
         }
     }
     
