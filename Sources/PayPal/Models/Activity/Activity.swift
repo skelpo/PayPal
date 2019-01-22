@@ -8,7 +8,7 @@ public struct Activity: Content, Equatable {
     
     /// The date and time when the activity was created,
     /// in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public var timeCreated: String
+    public var timeCreated: ISO8601Date
     
     /// The type of activity that the object represents.
     public var type: ActivityType
@@ -42,7 +42,7 @@ public struct Activity: Content, Equatable {
     /// Creates a new `Activity` instance.
     public init(
         id: String,
-        timeCreated: String,
+        timeCreated: Date,
         type: ActivityType,
         subtype: SubType?,
         status: Status?,
@@ -54,7 +54,7 @@ public struct Activity: Content, Equatable {
         extensions: Extensions?
     ) {
         self.id = id
-        self.timeCreated = timeCreated
+        self.timeCreated = ISO8601Date(timeCreated)
         self.type = type
         self.subtype = subtype
         self.status = status

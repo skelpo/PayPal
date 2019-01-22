@@ -7,10 +7,10 @@ public struct CustomerDispute: Content, Equatable {
     public let id: String?
     
     /// The date and time when the dispute was created, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public let created: Date?
+    public let created: ISO8601Date?
     
     /// The date and time when the dispute was updated, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public let updated: Date?
+    public let updated: ISO8601Date?
     
     /// The status of the dispute.
     public let status: Status?
@@ -46,7 +46,7 @@ public struct CustomerDispute: Content, Equatable {
     
     /// The date and time by when the merchant must respond to the dispute, in
     /// [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public var responseDue: Date?
+    public var responseDue: ISO8601Date?
     
     
     /// Creates a new `CustomerDispute` instance.
@@ -72,7 +72,7 @@ public struct CustomerDispute: Content, Equatable {
         self.reason = reason
         self.amount = amount
         self.messages = messages
-        self.responseDue = responseDue
+        self.responseDue = responseDue == nil ? nil : ISO8601Date(responseDue!)
     }
     
     enum CodingKeys: String, CodingKey {

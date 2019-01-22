@@ -33,7 +33,7 @@ public struct BillingAgreement: Content, Equatable {
     /// for an account in the Berlin time zone (UTC + 1) to `2017-01-02T00:00:00`. When the API returns this date and time in the execute
     /// agreement response, it shows the converted date and time in the UTC time zone. So, the internal `2017-01-02T00:00:00` start date
     /// and time becomes `2017-01-01T23:00:00` externally.
-    public var start: String?
+    public var start: ISO8601Date?
     
     /// The agreement details.
     public var details: Details?
@@ -72,7 +72,7 @@ public struct BillingAgreement: Content, Equatable {
     public init(
         name: Optional128String,
         description: Optional128String,
-        start: String?,
+        start: Date?,
         details: Details?,
         payer: Payer?,
         shippingAddress: Address?,
@@ -86,7 +86,7 @@ public struct BillingAgreement: Content, Equatable {
         
         self.name = name
         self.description = description
-        self.start = start
+        self.start = start == nil ? nil : ISO8601Date(start!)
         self.details = details
         self.payer = payer
         self.shippingAddress = shippingAddress

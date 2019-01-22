@@ -28,14 +28,14 @@ extension RelatedResource {
         public let payment: String?
         
         /// The date and time when the authorization expires, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-        public let expiration: String?
+        public let expiration: ISO8601Date?
         
         /// The date and time when the authorization was created, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-        public let created: String?
+        public let created: ISO8601Date?
         
         /// The date and time when the authorization was last updated,
         /// in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-        public let updated: String?
+        public let updated: ISO8601Date?
         
         /// The receipt ID, which identifies the payment. Value is 16-digit numeric payment ID number that is returned for guest users.
         ///

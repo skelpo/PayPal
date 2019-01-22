@@ -32,7 +32,7 @@ extension Invoice {
         
         /// The date when the item or service was provided, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
         /// For example, _yyyy-MM-dd z_.
-        public var date: String?
+        public var date: ISO8601Date?
         
         /// The item discount, as a percent or an amount value.
         public var discount: Discount<CurrencyAmount>?
@@ -60,7 +60,7 @@ extension Invoice {
             quantity: Failable<Decimal, TenThousand<Decimal>>,
             unitPrice: Failable<CurrencyAmount, CurrencyMillion<CurrencyKeys>>,
             tax: Tax?,
-            date: String?,
+            date: Date?,
             discount: Discount<CurrencyAmount>?,
             unitMeasure: Measure?
         ) {
@@ -69,7 +69,7 @@ extension Invoice {
             self.quantity = quantity
             self.unitPrice = unitPrice
             self.tax = tax
-            self.date = date
+            self.date = date == nil ? nil : ISO8601Date(date!)
             self.discount = discount
             self.unitMeasure = unitMeasure
         }

@@ -20,7 +20,7 @@ public struct Transaction: Content, Equatable {
     
     /// The date and time when the transaction occurred,
     /// in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public let timestamp: String?
+    public let timestamp: ISO8601Date?
     
     /// The time zone of the `update_time` field.
     public let timezone: String?

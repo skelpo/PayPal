@@ -40,3 +40,53 @@ extension Date {
         self = date
     }
 }
+
+public struct ISO8601Date: Codable, Hashable {
+    public let date: Date
+    public let raw: String?
+    
+    public init(_ date: Date) {
+        self.date = date
+        self.raw = nil
+    }
+    
+    public init?(string: String) {
+        guard let date = Date(iso8601: string) else {
+            return nil
+        }
+        
+        self.date = date
+        self.raw = string
+    }
+    
+    public init(from decoder: Decoder)throws {
+        let decoder = try decoder.singleValueContainer()
+        let raw = try decoder.decode(String.self)
+        guard let date = Date(iso8601: raw) else {
+            throw DecodingError.dataCorruptedError(in: decoder, debugDescription: "Invalid date format for string `\(raw)`")
+        }
+        
+        self.raw = raw
+        self.date = date
+    }
+    
+    public func encode(to encoder: Encoder)throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.date.iso8601)
+    }
+    
+    public static func ==(lhs: ISO8601Date, rhs: ISO8601Date) -> Bool {
+        let lRaw = lhs.raw ?? lhs.date.iso8601
+        let rRaw = rhs.raw ?? rhs.date.iso8601
+        
+        return lRaw == rRaw
+    }
+    
+    public static func ==(lhs: ISO8601Date, rhs: Date) -> Bool {
+        if let raw = lhs.raw {
+            return raw == rhs.iso8601
+        } else {
+            return lhs.date.iso8601 == rhs.iso8601
+        }
+    }
+}

@@ -12,7 +12,7 @@ public struct RefundDetail: Content, Equatable {
     
     
     /// The date when the invoice was refunded, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public var date: String?
+    public var date: ISO8601Date?
     
     /// A note associated with the refund.
     public var note: String?
@@ -23,12 +23,15 @@ public struct RefundDetail: Content, Equatable {
     
     /// Creates a new `RefundDetail` instance.
     ///
-    ///     RefundDetail(date: Date().iso8601, note: "Hello World", amount: Amount(currency: .usd, value: "4.50"))
-    public init(date: String?, note: String?, amount: CurrencyAmount?) {
+    /// - Parameters:
+    /// - date: The date when the invoice was refunded.
+    /// - note: A note associated with the refund.
+    /// - amount: The currency and amount to record as refunded.
+    public init(date: Date?, note: String?, amount: CurrencyAmount?) {
         self.type = nil
         self.transaction = nil
         
-        self.date = date
+        self.date = date == nil ? nil : ISO8601Date(date!)
         self.note = note
         self.amount = amount
     }

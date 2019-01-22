@@ -64,7 +64,7 @@ public struct Invoice: Content, Equatable {
     public var items: [Item]?
     
     /// The invoice date as specified by the sender, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public var date: Date?
+    public var date: ISO8601Date?
     
     /// The payment due date of the invoice. If you include `due_date`, the `term_type` value is ignored.
     public var payment: PaymentTerm?
@@ -201,7 +201,7 @@ public struct Invoice: Content, Equatable {
         self.shipping = shipping
         self.cc = cc
         self.items = items
-        self.date = date
+        self.date = date == nil ? nil : ISO8601Date(date!)
         self.payment = payment
         self.reference = reference
         self.discount = discount

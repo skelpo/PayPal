@@ -29,7 +29,7 @@ extension RelatedResource {
         
         /// The date and time when the PayPal eCheck transaction is expected to clear,
         /// in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-        public let clearing: String?
+        public let clearing: ISO8601Date?
         
         /// The recipient fund status. Returned only when the fund status is `held`.
         public let holdStatus: String?
@@ -49,10 +49,10 @@ extension RelatedResource {
         public let billingAgreement: String?
         
         /// The date and time of the sale, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-        public let created: String
+        public let created: ISO8601Date
         
         /// The date and time when the resource was last updated, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-        public let updated: String?
+        public let updated: ISO8601Date?
         
         /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
         public let links: [LinkDescription]?
@@ -104,7 +104,7 @@ extension RelatedResource {
             fmf: FraudManagementFilter? = nil,
             processor: ProcessorResponse? = nil,
             parent: String,
-            created: String = Date().iso8601
+            created: Date = Date()
         ) {
             self.id = id
             self.purchaseID = nil
@@ -119,7 +119,7 @@ extension RelatedResource {
             self.receipt = nil
             self.parent = parent
             self.billingAgreement = nil
-            self.created = created
+            self.created = ISO8601Date(created)
             self.updated = nil
             self.links = nil
             self.amount = amount

@@ -13,7 +13,7 @@ public struct TransactionInfo: Content, Equatable {
     public var sellerID: String?
     
     /// The date and time when the transaction was created, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public var created: Date?
+    public var created: ISO8601Date?
     
     /// The transaction status.
     public var status: Status?
@@ -61,7 +61,7 @@ public struct TransactionInfo: Content, Equatable {
         
         self.buyerID = buyerID
         self.sellerID = sellerID
-        self.created = created
+        self.created = created == nil ? nil : ISO8601Date(created!)
         self.status = status
         self.gross = gross
         self.invoice = invoice

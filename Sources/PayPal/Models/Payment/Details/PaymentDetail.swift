@@ -15,7 +15,7 @@ public struct PaymentDetail: Content, Equatable {
     
     
     /// The date when the invoice was paid, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public var date: String?
+    public var date: ISO8601Date?
     
     /// The payment mode or method.
     public var method: Method
@@ -30,13 +30,17 @@ public struct PaymentDetail: Content, Equatable {
     
     /// Creates a new `PaymentDetail` instance.
     ///
-    ///     PaymentDetail(date: Date().iso8601, method: .cash, note: "Hello World", amount: Amount(currency: .usd, value: "4.50"))
-    public init(date: String?, method: Method, note: String?, amount: CurrencyAmount?) {
+    /// - Parameters:
+    ///   - date: The date when the invoice was paid.
+    ///   - method: The payment mode or method.
+    ///   - note: A note associated with the payment.
+    ///   - amount: The payment amount to record against the invoice.
+    public init(date: Date?, method: Method, note: String?, amount: CurrencyAmount?) {
         self.type = nil
         self.transaction = nil
         self.transactionType = nil
         
-        self.date = date
+        self.date = date == nil ? nil : ISO8601Date(date!)
         self.method = method
         self.note = note
         self.amount = amount
