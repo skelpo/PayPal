@@ -17,10 +17,10 @@ let package = Package(
     targets: [
         .target(name: "PayPal", dependencies: ["Vapor", "JSON", "Failable", "Countries"]),
         
-        .target(name: "TestsUtilities", dependencies: ["PayPal", "Vapor"]),
-        .testTarget(name: "ConfigTests", dependencies: ["PayPal", "TestsUtilities"]),
-        .testTarget(name: "ControllerTests", dependencies: ["PayPal", "SwiftGD", "TestsUtilities"]),
-        .testTarget(name: "ModelTests", dependencies: ["PayPal"]),
+        .target(name: "TestUtilities", dependencies: ["PayPal", "Vapor"]),
+        .testTarget(name: "ConfigTests", dependencies: ["PayPal", "TestUtilities"]),
+        .testTarget(name: "ControllerTests", dependencies: ["PayPal", "SwiftGD", "TestUtilities"]),
+        .testTarget(name: "ModelTests", dependencies: ["PayPal", "TestUtilities"]),
         .testTarget(name: "PayPalTests", dependencies: ["PayPal", "Vapor", "JSON"]),
     ]
 )
