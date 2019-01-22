@@ -92,8 +92,12 @@ extension Payment {
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: CodingKeys.self)
 
-            try container.encode(String(describing: self.quantity), forKey: .quantity)
-            try container.encode(String(describing: self.price), forKey: .price)
+            var price = self.price.value
+            var encodePrice = self.price.value
+            NSDecimalRound(&encodePrice, &price, 2, .bankers)
+            
+            try container.encode(self.quantity.value.description, forKey: .quantity)
+            try container.encode(encodePrice.description, forKey: .price)
             try container.encode(self.currency, forKey: .currency)
             try container.encode(self.sku, forKey: .sku)
             try container.encode(self.name, forKey: .name)
