@@ -65,5 +65,50 @@ extension Order {
             self.currency = currency
             self.tax = tax
         }
+        
+        public init(from decoder: Decoder)throws {
+            let container = try decoder.container(keyedBy: Order.Item.CodingKeys.self)
+            
+            guard let quantityValue = try Int(container.decode(String.self, forKey: .quantity)) else {
+                throw DecodingError.dataCorruptedError(forKey: .quantity, in: container, debugDescription: "Cannot get int from given string")
+            }
+            guard let priceValue = try Decimal(string: container.decode(String.self, forKey: .price)) else {
+                throw DecodingError.dataCorruptedError(forKey: .price, in: container, debugDescription: "Cannot get decimal from given string")
+            }
+            
+            self.price = try Failable<Decimal, TenDigits<Decimal>>(priceValue)
+            self.quantity = try Failable<Int, TenDigits<Int>>(quantityValue)
+            self.sku = try container.decode(Optional127String.self, forKey: .sku)
+            self.name = try container.decode(Optional127String.self, forKey: .name)
+            self.description = try container.decode(Optional127String.self, forKey: .description)
+            self.currency = try container.decode(Currency.self, forKey: .currency)
+            self.tax = try container.decodeIfPresent(String.self, forKey: .tax)
+        }
+        
+        public func encode(to encoder: Encoder)throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            
+            var price = self.price.value
+            var encodePrice = self.price.value
+            NSDecimalRound(&encodePrice, &price, 2, .bankers)
+            
+            try container.encode(self.sku, forKey: .sku)
+            try container.encode(self.name, forKey: .name)
+            try container.encode(self.description, forKey: .description)
+            try container.encode(self.quantity.value.description, forKey: .quantity)
+            try container.encode(encodePrice.description, forKey: .price)
+            try container.encode(self.currency, forKey: .currency)
+            try container.encodeIfPresent(self.tax, forKey: .tax)
+        }
+        
+        enum CodingKeys: String, CodingKey {
+            case sku
+            case name
+            case description
+            case quantity
+            case price
+            case currency
+            case tax
+        }
     }
 }
