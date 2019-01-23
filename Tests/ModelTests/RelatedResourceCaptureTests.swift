@@ -56,7 +56,9 @@ final class RelatedResourceCaptureTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(capture), encoding: .utf8)!
         
-        let json = "{\"amount\":{\"total\":\"67.23\",\"currency\":\"USD\"},\"transaction_fee\":{\"currency\":\"USD\",\"value\":\"2.71\"},\"note_to_payer\":\"Notable text\",\"is_final_capture\":false,\"invoice_number\":\"242841E3-7ADE-4C5C-AC88-78103E2132F2\"}"
+        let json =
+            "{\"amount\":{\"currency\":\"USD\",\"total\":\"67.23\"},\"transaction_fee\":{\"currency\":\"USD\",\"value\":\"2.71\"}," +
+            "\"note_to_payer\":\"Notable text\",\"is_final_capture\":false,\"invoice_number\":\"242841E3-7ADE-4C5C-AC88-78103E2132F2\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

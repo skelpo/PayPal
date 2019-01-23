@@ -32,7 +32,7 @@ final class TransactionTests: XCTestCase {
         let generated = try String(data: encoder.encode(transaction), encoding: .utf8)
         let json =
             "{\"amount\":{\"value\":\"79.25\",\"currency_code\":\"USD\"},\"fee_amount\":{\"value\":\"7.25\",\"currency_code\":\"USD\"}," +
-            "\"net_amount\":{\"value\":\"72\",\"currency_code\":\"USD\"}}"
+            "\"net_amount\":{\"value\":\"72.00\",\"currency_code\":\"USD\"}}"
         
         XCTAssertEqual(generated, json)
     }

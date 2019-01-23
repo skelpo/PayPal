@@ -109,7 +109,7 @@ final class InvoiceItemTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(item), encoding: .utf8)!
         let json =
-            "{\"quantity\":3,\"unit_price\":{\"currency\":\"USD\",\"value\":\"50\"},\"unit_of_measure\":\"QUANTITY\",\"name\":\"Widget\"," +
+            "{\"quantity\":3,\"unit_price\":{\"currency\":\"USD\",\"value\":\"50.00\"},\"unit_of_measure\":\"QUANTITY\",\"name\":\"Widget\"," +
             "\"description\":\"Round and white, like a ping-pong ball\",\"date\":\"\(self.now.iso8601)\"}"
         
         var index = 0

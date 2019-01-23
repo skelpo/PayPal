@@ -131,11 +131,12 @@ final class OrderUnitTests: XCTestCase {
         let generated = try String(data: encoder.encode(unit), encoding: .utf8)!
         let json =
             "{\"description\":\"Descript\",\"payment_summary\":{},\"payment_descriptor\":\"PayScript\"," +
-            "\"notify_url\":\"https:\\/\\/example.com\\/notify\",\"amount\":{\"total\":\"5\",\"currency\":\"USD\"}," +
+            "\"notify_url\":\"https:\\/\\/example.com\\/notify\",\"amount\":{\"currency\":\"USD\",\"total\":\"5.00\"}," +
             "\"invoice_number\":\"B5382984-3B90-4BC4-9F7A-6A6AFA61AC25\",\"metadata\":{\"supplementary_data\":[]},\"payee\":{}," +
             "\"reference_id\":\"C1C099F2-D7E7-4E19-BBBF-98DD11EA911A\",\"payment_linked_group\":1,\"shipping_address\":{\"country_code\":\"US\"," +
             "\"line1\":\"1 Infinate Loop\",\"city\":\"Cupertino\",\"postal_code\":\"94024\"},\"custom\":\"C2B9FBFB-B97D-46E4-8553-522C6A25A2FC\"," +
-            "\"items\":[],\"shipping_method\":\"USPSParcel\",\"partner_fee_details\":{\"amount\":{\"currency\":\"USD\",\"value\":\"2.5\"},\"receiver\":{}}}"
+            "\"items\":[],\"shipping_method\":\"USPSParcel\",\"partner_fee_details\":{\"amount\":{\"currency\":\"USD\",\"value\":\"2.50\"}," +
+            "\"receiver\":{}}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

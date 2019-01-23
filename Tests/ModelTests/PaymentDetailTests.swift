@@ -18,7 +18,7 @@ final class PaymentDetailTests: XCTestCase {
         let detail = PaymentDetail(date: self.now, method: .cash, note: "Hello World", amount: CurrencyAmount(currency: .usd, value: 4.50))
         let generated = try String(data: encoder.encode(detail), encoding: .utf8)!
         let json =
-            "{\"amount\":{\"currency\":\"USD\",\"value\":\"4.5\"},\"method\":\"CASH\",\"note\":\"Hello World\",\"date\":\"\(self.now.iso8601)\"}"
+            "{\"amount\":{\"currency\":\"USD\",\"value\":\"4.50\"},\"method\":\"CASH\",\"note\":\"Hello World\",\"date\":\"\(self.now.iso8601)\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

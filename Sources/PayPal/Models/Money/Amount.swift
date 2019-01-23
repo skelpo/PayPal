@@ -120,6 +120,6 @@ public struct AmountType<Key>: Content, Amount, Equatable where Key: AmountCodin
         }
         
         try container.encode(self.currency, forKey: .currency)
-        try container.encode(String(describing: rounded), forKey: .value)
+        try container.encode(self.currency.string(for: self.value), forKey: .value)
     }
 }

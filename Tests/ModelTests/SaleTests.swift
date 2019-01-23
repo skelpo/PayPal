@@ -18,7 +18,7 @@ final class SaleTests: XCTestCase {
         let encoder = JSONEncoder()
         let sale = Sale(amount: DetailedAmount(currency: .usd, total: 10.00, details: nil), transaction: CurrencyAmount(currency: .usd, value: 1.00))
         let generated = try String(data: encoder.encode(sale), encoding: .utf8)!
-        let json = "{\"amount\":{\"total\":\"10\",\"currency\":\"USD\"},\"transaction_fee\":{\"currency\":\"USD\",\"value\":\"1\"}}"
+        let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"10.00\"},\"transaction_fee\":{\"currency\":\"USD\",\"value\":\"1.00\"}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
