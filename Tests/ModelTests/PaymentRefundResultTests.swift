@@ -42,8 +42,8 @@ final class PaymentRefundResultTests: XCTestCase {
         var refund = try decoder.decode(Payment.RefundResult.self, from: json)
         
         XCTAssertEqual(refund.id, "5CY176817C379973E")
-        XCTAssertEqual(refund.created, "2018-08-15T17:11:32Z")
-        XCTAssertEqual(refund.updated, "2018-08-15T17:11:32Z")
+        XCTAssertEqual(refund.created, Date(iso8601: "2018-08-15T17:11:32Z"))
+        XCTAssertEqual(refund.updated, Date(iso8601: "2018-08-15T17:11:32Z"))
         XCTAssertEqual(refund.state, .completed)
         XCTAssertEqual(refund.reason, "I don't like it")
         XCTAssertEqual(refund.sale, "2MU78835H4515710F")
@@ -56,7 +56,7 @@ final class PaymentRefundResultTests: XCTestCase {
         
         XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: 2.34, details: nil))
         XCTAssertEqual(refund.transactionFee, CurrencyAmount(currency: .usd, value: 0.06))
-        XCTAssertEqual(refund.received, CurrencyAmount(currency: .usd, value: 2.28))
+        XCTAssertEqual(refund.received, CurrencyAmount(currency: .usd, value: Decimal(sign: .plus, exponent: -2, significand: 228)))
         XCTAssertEqual(refund.total, CurrencyAmount(currency: .usd, value: 2.34))
         
         

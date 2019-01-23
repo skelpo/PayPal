@@ -4,6 +4,13 @@ import XCTest
 final class InvoiceTests: XCTestCase {
     let now = Date()
     
+    var dueStr: String {
+        return TimelessDate.formatter.string(from: self.now)
+    }
+    var due: Date {
+        return TimelessDate.formatter.date(from: TimelessDate.formatter.string(from: self.now))!
+    }
+    
     func testInit()throws {
         let invoice = try Invoice(
             number: nil,
@@ -182,14 +189,14 @@ final class InvoiceTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(invoice), encoding: .utf8)!
         let json =
-            "{\"tax_calculated_after_discount\":true,\"invoice_date\":\"\(now)\"," +
+            "{\"tax_calculated_after_discount\":true,\"invoice_date\":\"\(now.iso8601)\"," +
             "\"logo_url\":\"https:\\/\\/vapor.codes\\/dist\\/e032390c38279fbdf18ebf0e763eb44f.png\"," +
             "\"note\":\"Thanks for your donation!\",\"billing_info\":[],\"allow_partial_payment\":false,\"template_id\":\"PayPal system template\"," +
-            "\"minimum_amount_due\":{\"value\":\"1.00\",\"currency\":\"USD\"},\"merchant_info\":{\"email\":\"hello@vapor.codes\"" +
+            "\"minimum_amount_due\":{\"currency\":\"USD\",\"value\":\"1\"},\"merchant_info\":{\"email\":\"hello@vapor.codes\"" +
             ",\"last_name\":\"Nelson\",\"website\":\"https:\\/\\/vapor.codes\\/\",\"business_name\":\"Qutheory LLC.\",\"first_name\":\"Tanner\"}," +
-            "\"cc_info\":[{\"email\":\"collective@vapor.codes\"},{\"email\":\"donator@example.com\"}],\"payment_term\":{\"due_date\":\"\(now)\"," +
-            "\"term_type\":\"DUE_ON_RECEIPT\"},\"custom\":{\"amount\":{\"value\":\"10.00\",\"currency\":\"USD\"}},\"allow_tip\":true," +
-            "\"reference\":\"PO number\",\"tax_inclusive\":true,\"merchant_memo\":\"Open Collective donation\"}"
+            "\"cc_info\":[{\"email\":\"collective@vapor.codes\"},{\"email\":\"donator@example.com\"}],\"payment_term\":{" +
+            "\"due_date\":\"\(self.dueStr)\",\"term_type\":\"DUE_ON_RECEIPT\"},\"custom\":{\"amount\":{\"currency\":\"USD\",\"value\":\"10\"}}," +
+            "\"allow_tip\":true,\"reference\":\"PO number\",\"tax_inclusive\":true,\"merchant_memo\":\"Open Collective donation\"}"
         print(json.count)
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -207,7 +214,7 @@ final class InvoiceTests: XCTestCase {
         let json = """
         {
             "tax_calculated_after_discount": true,
-            "invoice_date": "\(now)",
+            "invoice_date": "\(now.iso8601)",
             "logo_url": "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
             "note": "Thanks for your donation!",
             "billing_info": [],
@@ -233,7 +240,7 @@ final class InvoiceTests: XCTestCase {
                 }
             ],
             "payment_term": {
-                "due_date": "\(now)",
+                "due_date": "\(self.dueStr)",
                 "term_type": "DUE_ON_RECEIPT"
             },
             "custom": {
@@ -337,7 +344,7 @@ final class InvoiceTests: XCTestCase {
             cc: [Invoice.Participant(email: "collective@vapor.codes"), Invoice.Participant(email: "donator@example.com")],
             items: nil,
             date: now,
-            payment: PaymentTerm(type: .dueOnReceipt, due: now),
+            payment: PaymentTerm(type: .dueOnReceipt, due: self.due),
             reference: .init("PO number"),
             discount: nil,
             shippingCost: nil,

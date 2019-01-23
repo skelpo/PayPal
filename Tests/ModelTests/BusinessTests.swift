@@ -26,7 +26,7 @@ final class BusinessTests: XCTestCase {
                 online: PercentRange(0...1)
             ),
             customerService: CustomerService(
-                email: EmailAddress(email: .init("help@nameless.com")),
+                email: .init("help@nameless.com"),
                 phone: PhoneNumber(country: .init(1), number: .init(9963191901)),
                 message: []
             ),
@@ -122,7 +122,7 @@ final class BusinessTests: XCTestCase {
                 online: nil
             ),
             customerService: CustomerService(
-                email: EmailAddress(email: .init("help@nameless.com")),
+                email: .init("help@nameless.com"),
                 phone: nil,
                 message: nil
             ),
@@ -134,11 +134,10 @@ final class BusinessTests: XCTestCase {
         
         let generated = try String(data: encoder.encode(business), encoding: .utf8)!
         let json =
-            "{\"date_of_registration\":{},\"category\":\"3145\",\"sub_type\":\"UNSELECTED\",\"addresses\":[],\"sub_category\":\"5972\",\"names\":[]," +
+            "{\"category\":\"3145\",\"sub_type\":\"UNSELECTED\",\"addresses\":[],\"sub_category\":\"5972\",\"names\":[]," +
             "\"business_sales_details\":{},\"phones\":[],\"government_body\":{},\"type\":\"INDIVIDUAL\",\"identifications\":[]," +
-            "\"date_business_established\":{},\"country_code_of_incorporation\":\"US\",\"stakeholders\":[]," +
-            "\"customer_service\":{\"email\":\"help@nameless.com\"},\"designation\":{},\"merchant_category_code\":\"4653\"," +
-            "\"place_of_establishment\":{}}"
+            "\"country_code_of_incorporation\":\"US\",\"stakeholders\":[],\"customer_service\":{\"email\":\"help@nameless.com\"}," +
+            "\"designation\":{},\"merchant_category_code\":\"4653\",\"place_of_establishment\":{}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -164,8 +163,6 @@ final class BusinessTests: XCTestCase {
             "category": "3145",
             "sub_category": "5972",
             "merchant_category_code": "4653",
-            "date_business_established": {},
-            "date_of_registration": {},
             "dispute_email": null,
             "business_sales_details": {},
             "customer_service": {
@@ -201,7 +198,7 @@ final class BusinessTests: XCTestCase {
                     online: nil
                 ),
                 customerService: CustomerService(
-                    email: EmailAddress(email: .init("help@nameless.com")),
+                    email: .init("help@nameless.com"),
                     phone: nil,
                     message: nil
                 ),

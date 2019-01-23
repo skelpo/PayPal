@@ -23,7 +23,7 @@ final class CaptureTests: XCTestCase {
             transaction: CurrencyAmount(currency: .usd, value: 1.00)
         )
         let generated = try String(data: encoder.encode(capture), encoding: .utf8)
-        let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"10.00\"},\"transaction_fee\":{\"value\":\"1.00\",\"currency\":\"USD\"}}"
+        let json = "{\"amount\":{\"total\":\"10\",\"currency\":\"USD\"},\"transaction_fee\":{\"currency\":\"USD\",\"value\":\"1\"}}"
         
         XCTAssertEqual(generated, json)
     }

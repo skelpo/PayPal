@@ -32,7 +32,7 @@ final class TransactionTests: XCTestCase {
         let generated = try String(data: encoder.encode(transaction), encoding: .utf8)
         let json =
             "{\"amount\":{\"value\":\"79.25\",\"currency_code\":\"USD\"},\"fee_amount\":{\"value\":\"7.25\",\"currency_code\":\"USD\"}," +
-            "\"net_amount\":{\"value\":\"72.00\",\"currency_code\":\"USD\"}}"
+            "\"net_amount\":{\"value\":\"72\",\"currency_code\":\"USD\"}}"
         
         XCTAssertEqual(generated, json)
     }
@@ -91,7 +91,7 @@ final class TransactionTests: XCTestCase {
         XCTAssertEqual(transaction.type, "Recurring Payment")
         XCTAssertEqual(transaction.email, "3E6F6A01-BB46-440E-B41D-9C2D611041E8")
         XCTAssertEqual(transaction.name, "Skelpo Inc.")
-        XCTAssertEqual(transaction.timestamp, "2018-07-23T17:24:48Z")
+        XCTAssertEqual(transaction.timestamp, Date(iso8601: "2018-07-23T17:24:48Z")!)
         XCTAssertEqual(transaction.timezone, "CDT")
         XCTAssertEqual(transaction.amount, CurrencyCodeAmount(currency: .usd, value: 79.25))
         XCTAssertEqual(transaction.fee, CurrencyCodeAmount(currency: .usd, value: 7.25))

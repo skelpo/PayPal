@@ -48,7 +48,7 @@ final class RelatedResourceCaptureTests: XCTestCase {
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let capture = try RelatedResource.Capture(
-            amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
+            amount: DetailedAmount(currency: .usd, total: Decimal(sign: .plus, exponent: -2, significand: 6723), details: nil),
             isFinal: false,
             invoice: .init("242841E3-7ADE-4C5C-AC88-78103E2132F2"),
             transaction: CurrencyAmount(currency: .usd, value: 2.71),
@@ -56,7 +56,7 @@ final class RelatedResourceCaptureTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(capture), encoding: .utf8)!
         
-        let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"67.23\"},\"transaction_fee\":{\"value\":\"2.71\",\"currency\":\"USD\"},\"note_to_payer\":\"Notable text\",\"is_final_capture\":false,\"invoice_number\":\"242841E3-7ADE-4C5C-AC88-78103E2132F2\"}"
+        let json = "{\"amount\":{\"total\":\"67.23\",\"currency\":\"USD\"},\"transaction_fee\":{\"currency\":\"USD\",\"value\":\"2.71\"},\"note_to_payer\":\"Notable text\",\"is_final_capture\":false,\"invoice_number\":\"242841E3-7ADE-4C5C-AC88-78103E2132F2\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -121,7 +121,10 @@ final class RelatedResourceCaptureTests: XCTestCase {
         XCTAssertEqual(capture.invoice.value, "242841E3-7ADE-4C5C-AC88-78103E2132F2")
         XCTAssertEqual(capture.payerNote.value, "Notable text")
         XCTAssertEqual(capture.transaction, CurrencyAmount(currency: .usd, value: 2.71))
-        XCTAssertEqual(capture.amount, DetailedAmount(currency: .usd, total: 67.23, details: nil))
+        XCTAssertEqual(
+            capture.amount,
+            DetailedAmount(currency: .usd, total: Decimal(sign: .plus, exponent: -2, significand: 6723), details: nil)
+        )
         
     }
     

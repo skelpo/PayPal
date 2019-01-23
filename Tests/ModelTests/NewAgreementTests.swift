@@ -64,7 +64,7 @@ final class NewAgreementTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(agreement), encoding: .utf8)!
         let json =
-            "{\"plan\":{\"id\":\"P-52603F876DFD4C61\"},\"start_date\":\"\(now)\",\"name\":\"Nia's Maggot Loaf\"," +
+            "{\"plan\":{\"id\":\"P-52603F876DFD4C61\"},\"start_date\":\"\(self.now.iso8601)\",\"name\":\"Nia's Maggot Loaf\"," +
             "\"description\":\"Weekly maggot loaf subscription\",\"payer\":{\"payment_method\":\"paypal\"}}"
         
         var index = 0
@@ -73,6 +73,8 @@ final class NewAgreementTests: XCTestCase {
             XCTAssertEqual(jsonChar, genChar, "values don't match. Failure starts at index \(index)")
             break
         }
+        
+        XCTAssertEqual(generated, json)
     }
     
     func testDecoding()throws {
@@ -93,7 +95,7 @@ final class NewAgreementTests: XCTestCase {
         {
             "name": "Nia's Maggot Loaf",
             "description": "Weekly maggot loaf subscription",
-            "start_date": "\(now)",
+            "start_date": "\(self.now.iso8601)",
             "payer": {
                 "payment_method": "paypal"
             },
@@ -106,7 +108,7 @@ final class NewAgreementTests: XCTestCase {
         {
             "name": "\(String(repeating: "n", count: 129))",
             "description": "Weekly maggot loaf subscription",
-            "start_date": "\(now)",
+            "start_date": "\(self.now.iso8601)",
             "payer": {
                 "payment_method": "paypal"
             },
@@ -119,7 +121,7 @@ final class NewAgreementTests: XCTestCase {
         {
             "name": "Nia's Maggot Loaf",
             "description": "\(String(repeating: "d", count: 129))",
-            "start_date": "\(now)",
+            "start_date": "\(self.now.iso8601)",
             "payer": {
                 "payment_method": "paypal"
             },

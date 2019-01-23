@@ -14,7 +14,7 @@ final class DiscountTests: XCTestCase {
         let discount = Discount(percent: 15, amount: CurrencyAmount(currency: .usd, value: 1.25))
         let json = try String(data: encoder.encode(discount), encoding: .utf8)
         
-        XCTAssertEqual(json, "{\"percent\":15,\"amount\":{\"value\":\"1.25\",\"currency\":\"USD\"}}")
+        XCTAssertEqual(json, "{\"percent\":15,\"amount\":{\"currency\":\"USD\",\"value\":\"1.25\"}}")
     }
     
     func testDecoding()throws {

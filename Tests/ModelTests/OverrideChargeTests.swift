@@ -50,8 +50,10 @@ final class OverrideChargeTests: XCTestCase {
         """.data(using: .utf8)!
         
         try XCTAssertEqual(OverrideCharge(id: randID, amount: CurrencyCodeAmount(currency: .ang, value: 45.31)), decoder.decode(OverrideCharge.self, from: variable))
+        
+        let value = Decimal(sign: .plus, exponent: -2, significand: 1354)
         try XCTAssertEqual(
-            OverrideCharge(id: "94F7A65B-ACEF-45AA-BA01-F141FAF40986", amount: CurrencyCodeAmount(currency: .eur, value: 13.54)),
+            OverrideCharge(id: "94F7A65B-ACEF-45AA-BA01-F141FAF40986", amount: CurrencyCodeAmount(currency: .eur, value: value)),
             decoder.decode(OverrideCharge.self, from: constant)
         )
     }

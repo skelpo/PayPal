@@ -18,7 +18,7 @@ final class SaleTests: XCTestCase {
         let encoder = JSONEncoder()
         let sale = Sale(amount: DetailedAmount(currency: .usd, total: 10.00, details: nil), transaction: CurrencyAmount(currency: .usd, value: 1.00))
         let generated = try String(data: encoder.encode(sale), encoding: .utf8)!
-        let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"10.00\"},\"transaction_fee\":{\"value\":\"1.00\",\"currency\":\"USD\"}}"
+        let json = "{\"amount\":{\"total\":\"10\",\"currency\":\"USD\"},\"transaction_fee\":{\"currency\":\"USD\",\"value\":\"1\"}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -55,8 +55,8 @@ final class SaleTests: XCTestCase {
         
         XCTAssertEqual(sale.id, "259CEDEE-4A03-45A0-B088-B6A318544619")
         XCTAssertEqual(sale.status, .pending)
-        XCTAssertEqual(sale.created, "2018-09-18T21:22:51+0000")
-        XCTAssertEqual(sale.updated, "2018-09-18T21:23:25+0000")
+        XCTAssertEqual(sale.created, Date(iso8601: "2018-09-18T21:22:51+0000"))
+        XCTAssertEqual(sale.updated, Date(iso8601: "2018-09-18T21:23:25+0000"))
         XCTAssertEqual(sale.links, [])
         XCTAssertEqual(sale.transaction, CurrencyAmount(currency: .usd, value: 1.00))
         XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: 10.00, details: nil))

@@ -18,7 +18,7 @@ final class BillingPlansTests: XCTestCase {
         
         let plans = try! self.app.make(BillingPlans.self)
         let list = try! plans.list(parameters: QueryParamaters(totalCountRequired: true)).wait()
-        self.id = list.plans?.first?.id
+        self.id = list.plans?.first?.id.value
     }
     
     func testServiceExists()throws {
@@ -85,7 +85,7 @@ final class BillingPlansTests: XCTestCase {
         
         let details = try plans.details(plan: id).wait()
         
-        XCTAssertEqual(details.id, id)
+        XCTAssert(details.id.value == id)
     }
     
     func testSetStateHelper()throws {

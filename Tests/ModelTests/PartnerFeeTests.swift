@@ -19,7 +19,7 @@ final class PartnerFeeTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(fee), encoding: .utf8)
         
-        XCTAssertEqual(generated, "{\"amount\":{\"value\":\"54.96\",\"currency\":\"USD\"},\"receiver\":{}}")
+        XCTAssertEqual(generated, "{\"amount\":{\"currency\":\"USD\",\"value\":\"54.96\"},\"receiver\":{}}")
     }
     
     func testDecoding()throws {

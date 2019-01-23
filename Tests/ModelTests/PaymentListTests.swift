@@ -10,7 +10,7 @@ final class PaymentListTests: XCTestCase {
         {
             "next_id": "2B3A938C-1CB7-41C2-BC2C-DA8902649CF4",
             "payments": [],
-            "count" 15
+            "count": 15
         }
         """.data(using: .utf8)!
         

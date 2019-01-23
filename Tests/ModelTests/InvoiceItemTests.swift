@@ -3,7 +3,7 @@ import Failable
 @testable import PayPal
 
 final class InvoiceItemTests: XCTestCase {
-    let now = Date().iso8601
+    let now = Date()
     
     func testInit()throws {
         let item = try Invoice.Item(
@@ -109,8 +109,8 @@ final class InvoiceItemTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(item), encoding: .utf8)!
         let json =
-            "{\"unit_of_measure\":\"QUANTITY\",\"date\":\"\(self.now)\",\"unit_price\":{\"currency\":\"50\",\"value\":\"USD\"},\"quantity\":3," +
-            "\"description\":\"Round and white, like a ping-pong ball\",\"name\":\"Widget\"}"
+            "{\"quantity\":3,\"unit_price\":{\"currency\":\"USD\",\"value\":\"50\"},\"unit_of_measure\":\"QUANTITY\",\"name\":\"Widget\"," +
+            "\"description\":\"Round and white, like a ping-pong ball\",\"date\":\"\(self.now.iso8601)\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -118,6 +118,8 @@ final class InvoiceItemTests: XCTestCase {
             XCTAssertEqual(jsonChar, genChar, "values don't match. Failure starts at index \(index)")
             break
         }
+        
+        XCTAssertEqual(generated, json)
     }
     
     func testDecoding()throws {
@@ -136,10 +138,10 @@ final class InvoiceItemTests: XCTestCase {
         let json = """
         {
             "unit_of_measure": "QUANTITY",
-            "date": "\(self.now)",
+            "date": "\(self.now.iso8601)",
             "unit_price": {
-                "currency": "50",
-                "value": "USD"
+                "currency": "USD",
+                "value": "50"
             },
             "quantity": 3,
             "description": "Round and white, like a ping-pong ball",
@@ -149,10 +151,10 @@ final class InvoiceItemTests: XCTestCase {
         let nameFail = """
         {
             "unit_of_measure": "QUANTITY",
-            "date": "\(self.now)",
+            "date": "\(self.now.iso8601)",
             "unit_price": {
-                "currency": "50",
-                "value": "USD"
+                "currency": "USD",
+                "value": "50"
             },
             "quantity": 3,
             "description": "Round and white, like a ping-pong ball",
@@ -162,10 +164,10 @@ final class InvoiceItemTests: XCTestCase {
         let descriptionFail = """
         {
             "unit_of_measure": "QUANTITY",
-            "date": "\(self.now)",
+            "date": "\(self.now.iso8601)",
             "unit_price": {
-                "currency": "50",
-                "value": "USD"
+                "currency": "USD",
+                "value": "50"
             },
             "quantity": 3,
             "description": "\(String(repeating: "d", count: 1001))",
@@ -175,10 +177,10 @@ final class InvoiceItemTests: XCTestCase {
         let quantityFail = """
         {
             "unit_of_measure": "QUANTITY",
-            "date": "\(self.now)",
+            "date": "\(self.now.iso8601)",
             "unit_price": {
-                "currency": "50",
-                "value": "USD"
+                "currency": "USD",
+                "value": "50"
             },
             "quantity": -10001,
             "description": "Round and white, like a ping-pong ball",
@@ -188,10 +190,10 @@ final class InvoiceItemTests: XCTestCase {
         let currencyFail = """
         {
             "unit_of_measure": "QUANTITY",
-            "date": "\(self.now)",
+            "date": "\(self.now.iso8601)",
             "unit_price": {
-                "currency": "1000001",
-                "value": "USD"
+                "currency": "USD",
+                "value": "1000001"
             },
             "quantity": 3,
             "description": "Round and white, like a ping-pong ball",

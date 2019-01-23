@@ -65,7 +65,7 @@ final class CustomerDisputeTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(dispute), encoding: .utf8)!
         let json =
-            "{\"dispute_amount\":{\"value\":\"89.45\",\"currency_code\":\"USD\"},\"reason\":\"UNAUTHORISED\",\"seller_response_due_date\":\"\(self.due)\"," +
+            "{\"dispute_amount\":{\"value\":\"89.45\",\"currency_code\":\"USD\"},\"reason\":\"UNAUTHORISED\",\"seller_response_due_date\":\"\(self.due.iso8601)\"," +
             "\"disputed_transactions\":[]}"
         
         var index = 0
@@ -82,7 +82,7 @@ final class CustomerDisputeTests: XCTestCase {
         let decoder = JSONDecoder()
         let min = """
         {
-            "seller_response_due_date": "\(self.due)",
+            "seller_response_due_date": "\(self.due.iso8601)",
             "dispute_amount": {
                 "value": "89.45",
                 "currency_code": "USD"
@@ -94,12 +94,12 @@ final class CustomerDisputeTests: XCTestCase {
         let more = """
         {
             "dispute_id": "B321E1FA-5F62-4599-99C1-C6E933AEBBE4",
-            "create_time": "\(self.due)",
-            "update_time": "\(self.due)",
+            "create_time": "\(self.due.iso8601)",
+            "update_time": "\(self.due.iso8601)",
             "status": "WAITING_FOR_SELLER_RESPONSE",
             "dispute_life_cycle_stage": "INQUIRY",
             "dispute_channel": "INTERNAL",
-            "seller_response_due_date": "\(self.due)",
+            "seller_response_due_date": "\(self.due.iso8601)",
             "dispute_amount": {
                 "value": "89.45",
                 "currency_code": "USD"

@@ -4,8 +4,11 @@ import Failable
 
 final class BusinessOwnerTests: XCTestCase {
     let (date, dateStr): (Date, String) = {
-        let date = Date()
-        return (date, TimelessDate.formatter.string(from: date))
+        let now = Date()
+        let str = TimelessDate.formatter.string(from: now)
+        let date = TimelessDate.formatter.date(from: str)!
+        
+        return (date, str)
     }()
     
     func testInit()throws {
@@ -70,10 +73,9 @@ final class BusinessOwnerTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(owner), encoding: .utf8)!
         let json =
-            "{\"phones\":[],\"account_owner_relationships\":[],\"country_code_of_nationality\":\"GB\",\"date_of_birth\":\"\(dateStr)\"," +
-            "\"addresses\":[],\"email\":\"business@example.com\",\"occupation\":\"Author\",\"identifications\":[]," +
-            "\"name\":{\"given_name\":\"Walter\",\"full_name\":\"Sir Walter Scott\",\"prefix\":\"Sir\",\"surname\":\"Scott\"," +
-            "\"suffix\":\"Bart.\"},\"language_code\":\"en_GB\"}"
+            "{\"phones\":[],\"country_code_of_nationality\":\"GB\",\"date_of_birth\":\"\(dateStr)\",\"account_owner_relationships\":[]," +
+            "\"addresses\":[],\"email\":\"business@example.com\",\"identifications\":[],\"occupation\":\"Author\"," +
+            "\"name\":{},\"language_code\":\"en_GB\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

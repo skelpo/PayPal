@@ -74,14 +74,14 @@ final class OrderUnitTests: XCTestCase {
         try XCTAssertThrowsError(unit.reference <~ String(repeating: "r", count: 257))
         try XCTAssertThrowsError(unit.description <~ String(repeating: "d", count: 128))
         try XCTAssertThrowsError(unit.custom <~ String(repeating: "c", count: 128))
-        try XCTAssertThrowsError(unit.invoice <~ String(repeating: "i", count: 257))
+        try XCTAssertThrowsError(unit.invoice <~ String(repeating: "i", count: 128))
         try XCTAssertThrowsError(unit.paymentDescriptor <~ String(repeating: "p", count: 23))
         try XCTAssertThrowsError(unit.notify <~ String(repeating: "n", count: 2049))
         try XCTAssertThrowsError(unit.paymentGroup <~ 101)
         try unit.reference <~ String(repeating: "r", count: 256)
         try unit.description <~ String(repeating: "d", count: 127)
         try unit.custom <~ String(repeating: "c", count: 127)
-        try unit.invoice <~ String(repeating: "i", count: 256)
+        try unit.invoice <~ String(repeating: "i", count: 127)
         try unit.paymentDescriptor <~ String(repeating: "p", count: 22)
         try unit.notify <~ String(repeating: "n", count: 2048)
         try unit.paymentGroup <~ 100
@@ -89,7 +89,7 @@ final class OrderUnitTests: XCTestCase {
         XCTAssertEqual(unit.reference.value, String(repeating: "r", count: 256))
         XCTAssertEqual(unit.description.value, String(repeating: "d", count: 127))
         XCTAssertEqual(unit.custom.value, String(repeating: "c", count: 127))
-        XCTAssertEqual(unit.invoice.value, String(repeating: "i", count: 256))
+        XCTAssertEqual(unit.invoice.value, String(repeating: "i", count: 127))
         XCTAssertEqual(unit.paymentDescriptor.value, String(repeating: "p", count: 22))
         XCTAssertEqual(unit.notify.value, String(repeating: "n", count: 2048))
         XCTAssertEqual(unit.paymentGroup.value, 100)
@@ -131,11 +131,11 @@ final class OrderUnitTests: XCTestCase {
         let generated = try String(data: encoder.encode(unit), encoding: .utf8)!
         let json =
             "{\"description\":\"Descript\",\"payment_summary\":{},\"payment_descriptor\":\"PayScript\"," +
-            "\"notify_url\":\"https:\\/\\/example.com\\/notify\",\"amount\":{\"currency\":\"USD\",\"total\":\"5.00\"}," +
+            "\"notify_url\":\"https:\\/\\/example.com\\/notify\",\"amount\":{\"total\":\"5\",\"currency\":\"USD\"}," +
             "\"invoice_number\":\"B5382984-3B90-4BC4-9F7A-6A6AFA61AC25\",\"metadata\":{\"supplementary_data\":[]},\"payee\":{}," +
             "\"reference_id\":\"C1C099F2-D7E7-4E19-BBBF-98DD11EA911A\",\"payment_linked_group\":1,\"shipping_address\":{\"country_code\":\"US\"," +
             "\"line1\":\"1 Infinate Loop\",\"city\":\"Cupertino\",\"postal_code\":\"94024\"},\"custom\":\"C2B9FBFB-B97D-46E4-8553-522C6A25A2FC\"," +
-            "\"items\":[],\"shipping_method\":\"USPSParcel\",\"partner_fee_details\":{\"amount\":{\"value\":\"2.50\",\"currency\":\"USD\"},\"receiver\":{}}}"
+            "\"items\":[],\"shipping_method\":\"USPSParcel\",\"partner_fee_details\":{\"amount\":{\"currency\":\"USD\",\"value\":\"2.5\"},\"receiver\":{}}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

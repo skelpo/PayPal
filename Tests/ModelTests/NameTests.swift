@@ -60,32 +60,32 @@ final class NameTests: XCTestCase {
         """
         let full = """
         {
-            "full_name": "Sir Walter Scott",
+            "full_name": "\(String(repeating: "f", count: 301))",
         }
         """
         let suffix = """
         {
-            "suffix": "auth."
+            "suffix": "\(String(repeating: "f", count: 141))"
         }
         """
         let surname = """
         {
-            "surname": "Scott"
+            "surname": "\(String(repeating: "f", count: 141))"
         }
         """
         let middle = """
         {
-            "middle_name": "Unknown"
+            "middle_name": "\(String(repeating: "f", count: 141))"
         }
         """
         let given = """
         {
-            "given_name": "Walter"
+            "given_name": "\(String(repeating: "f", count: 141))"
         }
         """
         let prefix = """
         {
-            "prefix": "Sir"
+            "prefix": "\(String(repeating: "f", count: 141))"
         }
         """
         

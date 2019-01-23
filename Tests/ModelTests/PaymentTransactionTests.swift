@@ -82,7 +82,7 @@ final class PaymentTransactionTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(transaction), encoding: .utf8)!
         let json =
-            "{\"amount\":{\"currency\":\"USD\",\"total\":\"54.56\"},\"custom\":\"custom\",\"item_list\":{}," +
+            "{\"amount\":{\"total\":\"54.56\",\"currency\":\"USD\"},\"custom\":\"custom\",\"item_list\":{}," +
             "\"notify_url\":\"https:\\/\\/example.com\\/notify\",\"payment_options\":{\"allowed_payment_method\":\"UNRESTRICTED\"}," +
             "\"soft_descriptor\":\"22\",\"description\":\"Description\",\"invoice_number\":\"12-654-89\",\"payee\":{},\"note_to_payee\":\"noted\"}"
         

@@ -30,7 +30,7 @@ final class BillingAgreementsTests: XCTestCase {
         guard let plan = try app.make(BillingPlans.self).list(state: .active).wait().plans?.first else {
             throw Abort(.internalServerError, reason: "No billing plan found")
         }
-        guard let id = plan.id else {
+        guard let id = plan.id.value else {
             throw Abort(.internalServerError, reason: "Billing plan missing ID")
         }
         

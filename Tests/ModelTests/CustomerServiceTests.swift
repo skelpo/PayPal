@@ -4,12 +4,12 @@ import XCTest
 final class CustomerServiceTests: XCTestCase {
     func testInit()throws {
         let service = try CustomerService(
-            email: EmailAddress(email: .init("address@email.com")),
+            email: .init("address@email.com"),
             phone: PhoneNumber(country: .init(1), number: .init(9963191901)),
             message: []
         )
         
-        try XCTAssertEqual(service.email, EmailAddress(email: .init("address@email.com")))
+        try XCTAssertEqual(service.email, .init("address@email.com"))
         try XCTAssertEqual(service.phone, PhoneNumber(country: .init(1), number: .init(9963191901)))
         XCTAssertEqual(service.message, [])
     }
@@ -17,13 +17,13 @@ final class CustomerServiceTests: XCTestCase {
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let service = try CustomerService(
-            email: EmailAddress(email: .init("address@email.com")),
+            email: .init("address@email.com"),
             phone: PhoneNumber(country: .init(1), number: .init(9963191901)),
             message: []
         )
         let json = try String(data: encoder.encode(service), encoding: .utf8)!
         let generated =
-        "{\"email\":{\"email_address\":\"address@email.com\"},\"phone\":{\"country_code\":\"1\",\"national_number\":\"9963191901\"},\"message\":[]}"
+        "{\"email\":\"address@email.com\",\"phone\":{\"country_code\":\"1\",\"national_number\":\"9963191901\"},\"message\":[]}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -39,9 +39,7 @@ final class CustomerServiceTests: XCTestCase {
         let decoder = JSONDecoder()
         let json = """
         {
-            "email": {
-                "email_address": "address@email.com"
-            },
+            "email": "address@email.com",
             "message": [],
             "phone": {
                 "country_code": "1",
@@ -51,7 +49,7 @@ final class CustomerServiceTests: XCTestCase {
         """.data(using: .utf8)!
         
         let service = try CustomerService(
-            email: EmailAddress(email: .init("address@email.com")),
+            email: .init("address@email.com"),
             phone: PhoneNumber(country: .init(1), number: .init(9963191901)),
             message: []
         )

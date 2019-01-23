@@ -9,7 +9,7 @@ final class FraudManagementFilterTypeTests: XCTestCase {
     }
     
     func testCaseRawValues() {
-        XCTAssertEqual(Type.accept.rawValue, "ACCPET")
+        XCTAssertEqual(Type.accept.rawValue, "ACCEPT")
         XCTAssertEqual(Type.pending.rawValue, "PENDING")
         XCTAssertEqual(Type.deny.rawValue, "DENY")
         XCTAssertEqual(Type.report.rawValue, "REPORT")

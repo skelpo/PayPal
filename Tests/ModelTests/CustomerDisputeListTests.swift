@@ -53,7 +53,6 @@ final class CustomerDisputeListTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let due = Date(timeIntervalSinceNow: 60 * 60 * 24).iso8601
         let list = CustomerDisputeList(items: [
             CustomerDispute(
                 transactions: [],
@@ -66,19 +65,18 @@ final class CustomerDisputeListTests: XCTestCase {
         let generated = try String(data: encoder.encode(list), encoding: .utf8)
         let json =
             "{\"items\":[{\"dispute_amount\":{\"value\":\"89.45\",\"currency_code\":\"USD\"},\"reason\":\"UNAUTHORISED\"," +
-            "\"seller_response_due_date\":\"\(due)\",\"disputed_transactions\":[]}]}"
+            "\"seller_response_due_date\":\"\(self.due.iso8601)\",\"disputed_transactions\":[]}]}"
         
         XCTAssertEqual(generated, json)
     }
     
     func testDecoding()throws {
         let decoder = JSONDecoder()
-        let due = Date(timeIntervalSinceNow: 60 * 60 * 24).iso8601
         let json = """
         {
             "items": [
                 {
-                    "seller_response_due_date": "\(due)",
+                    "seller_response_due_date": "\(self.due.iso8601)",
                     "dispute_amount": {
                         "value": "89.45",
                         "currency_code": "USD"

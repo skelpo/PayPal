@@ -12,7 +12,7 @@ final class RefundTests: XCTestCase {
         let encoder = JSONEncoder()
         let refund = Refund(amount: DetailedAmount(currency: .usd, total: 10.00, details: nil))
         let generated = try String(data: encoder.encode(refund), encoding: .utf8)!
-        let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"10.00\"}}"
+        let json = "{\"amount\":{\"total\":\"10\",\"currency\":\"USD\"}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

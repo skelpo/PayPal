@@ -3,7 +3,7 @@ import Failable
 @testable import PayPal
 
 final class BillingAgreementTests: XCTestCase {
-    let now = Date().iso8601
+    let now = Date()
     
     func testInit()throws {
        let agreement = try BillingAgreement(
@@ -100,7 +100,7 @@ final class BillingAgreementTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(agreement), encoding: .utf8)!
         let json =
-            "{\"plan\":{\"name\":\"Nia's Maggot Loaf\",\"type\":\"INFINITE\",\"description\":\"Weekly maggot loaf subscription\"},\"start_date\":\"\(now)\"," +
+            "{\"plan\":{\"name\":\"Nia's Maggot Loaf\",\"type\":\"INFINITE\",\"description\":\"Weekly maggot loaf subscription\"},\"start_date\":\"\(now.iso8601)\"," +
             "\"name\":\"Nia's Maggot Loaf\",\"description\":\"Weekly maggot loaf subscription\",\"payer\":{\"payment_method\":\"paypal\"}}"
         
         var index = 0
@@ -129,7 +129,7 @@ final class BillingAgreementTests: XCTestCase {
         {
             "name": "Nia's Maggot Loaf",
             "description": "Weekly maggot loaf subscription",
-            "start_date": "\(now)",
+            "start_date": "\(now.iso8601)",
             "payer": {
                 "payment_method": "paypal"
             },
@@ -144,7 +144,7 @@ final class BillingAgreementTests: XCTestCase {
         {
             "name": "\(String(repeating: "n", count: 129))",
             "description": "Weekly maggot loaf subscription",
-            "start_date": "\(now)",
+            "start_date": "\(now.iso8601)",
             "payer": {
                 "payment_method": "paypal"
             },
@@ -159,7 +159,7 @@ final class BillingAgreementTests: XCTestCase {
         {
             "name": "Nia's Maggot Loaf",
             "description": "\(String(repeating: "d", count: 129))",
-            "start_date": "\(now)",
+            "start_date": "\(now.iso8601)",
             "payer": {
                 "payment_method": "paypal"
             },

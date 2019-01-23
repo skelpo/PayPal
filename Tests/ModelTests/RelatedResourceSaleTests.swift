@@ -15,7 +15,7 @@ final class RelatedResourceSaleTests: XCTestCase {
             fmf: .init(type: .deny, id: .addressMismatch, name: "Name", description: "Desc."),
             processor: .init(code: "6399", avs: "e", cvv: "h", advice: .newAccount, eci: "152823", vpas: "stat"),
             parent: "E7FBF930-B0F3-4514-B1DD-810BDCD6541F",
-            created: self.now.iso8601
+            created: self.now
         )
         
         XCTAssertEqual(sale.id, "9FF17892-49F8-47C9-8117-7662F889DAEA")
@@ -24,7 +24,7 @@ final class RelatedResourceSaleTests: XCTestCase {
         XCTAssertEqual(sale.fmf, .init(type: .deny, id: .addressMismatch, name: "Name", description: "Desc."))
         XCTAssertEqual(sale.processor, .init(code: "6399", avs: "e", cvv: "h", advice: .newAccount, eci: "152823", vpas: "stat"))
         XCTAssertEqual(sale.parent, "E7FBF930-B0F3-4514-B1DD-810BDCD6541F")
-        XCTAssertEqual(sale.created, self.now.iso8601)
+        XCTAssertEqual(sale.created, self.now)
         XCTAssertEqual(sale.transaction, CurrencyAmount(currency: .usd, value: 0.31))
         XCTAssertEqual(sale.receivable, CurrencyAmount(currency: .usd, value: 42.00))
         XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: 42.31, details: nil))
@@ -42,11 +42,11 @@ final class RelatedResourceSaleTests: XCTestCase {
             fmf: .init(type: .deny, id: .addressMismatch, name: "Name", description: "Desc."),
             processor: .init(code: "6399", avs: "e", cvv: "h", advice: .newAccount, eci: "152823", vpas: "stat"),
             parent: "E7FBF930-B0F3-4514-B1DD-810BDCD6541F",
-            created: self.now.iso8601
+            created: self.now
         )
         let generated = try String(data: encoder.encode(sale), encoding: .utf8)!
         
-        let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"42.31\"},\"id\":\"9FF17892-49F8-47C9-8117-7662F889DAEA\",\"exchange_rate\":\"0.0\",\"transaction_fee\":{\"value\":\"0.31\",\"currency\":\"USD\"},\"receivable_amount\":{\"value\":\"42.00\",\"currency\":\"USD\"},\"fmf_details\":{\"filter_id\":\"BILLING_OR_SHIPPING_ADDRESS_MISMATCH\",\"name\":\"Name\",\"description\":\"Desc.\",\"filter_type\":\"DENY\"},\"create_time\":\"\(self.now.iso8601)\",\"parent_payment\":\"E7FBF930-B0F3-4514-B1DD-810BDCD6541F\",\"state\":\"pending\",\"processor_response\":{\"avs_code\":\"e\",\"response_code\":\"6399\",\"advice_code\":\"01_NEW_ACCOUNT_INFORMATION\",\"cvv_code\":\"h\",\"eci_submitted\":\"152823\",\"vpas\":\"stat\"}}"
+        let json = "{\"amount\":{\"total\":\"42.31\",\"currency\":\"USD\"},\"id\":\"9FF17892-49F8-47C9-8117-7662F889DAEA\",\"exchange_rate\":\"0.0\",\"transaction_fee\":{\"currency\":\"USD\",\"value\":\"0.31\"},\"receivable_amount\":{\"currency\":\"USD\",\"value\":\"42\"},\"fmf_details\":{\"filter_id\":\"BILLING_OR_SHIPPING_ADDRESS_MISMATCH\",\"name\":\"Name\",\"description\":\"Desc.\",\"filter_type\":\"DENY\"},\"create_time\":\"\(self.now.iso8601)\",\"parent_payment\":\"E7FBF930-B0F3-4514-B1DD-810BDCD6541F\",\"state\":\"pending\",\"processor_response\":{\"avs_code\":\"e\",\"response_code\":\"6399\",\"advice_code\":\"01_NEW_ACCOUNT_INFORMATION\",\"cvv_code\":\"h\",\"eci_submitted\":\"152823\",\"vpas\":\"stat\"}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -120,7 +120,7 @@ final class RelatedResourceSaleTests: XCTestCase {
         XCTAssertEqual(sale.reason, .chargeback)
         XCTAssertEqual(sale.protection, .eligible)
         XCTAssertEqual(sale.protectionType, .unauthorizedPayment)
-        XCTAssertEqual(sale.clearing, clearing.iso8601)
+        XCTAssertEqual(sale.clearing, clearing)
         XCTAssertEqual(sale.holdStatus, "HELD")
         XCTAssertEqual(sale.holdReasons, [])
         XCTAssertEqual(sale.exchangeRate, "0.0")
@@ -128,8 +128,8 @@ final class RelatedResourceSaleTests: XCTestCase {
         XCTAssertEqual(sale.receipt, "2784-8646-6863-4296")
         XCTAssertEqual(sale.parent, "92752C9C-5FA2-425D-A03E-5716C5ED67E2")
         XCTAssertEqual(sale.billingAgreement, "A9A2ACB1-5C01-4B92-807D-F04C08F570C5")
-        XCTAssertEqual(sale.created, self.now.iso8601)
-        XCTAssertEqual(sale.updated, updated.iso8601)
+        XCTAssertEqual(sale.created, self.now)
+        XCTAssertEqual(sale.updated, updated)
         XCTAssertEqual(sale.links, [])
         XCTAssertEqual(
             sale.processor,

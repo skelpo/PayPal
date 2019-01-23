@@ -2,7 +2,7 @@ import XCTest
 @testable import PayPal
 
 final class InvoicePaymentTests: XCTestCase {
-    let now = Date().iso8601
+    let now = Date()
     
     func testInit()throws {
         let payment = Invoice.Payment(method: .cash, amount: CurrencyAmount(currency: .usd, value: 20.00), date: self.now, note: "I got the payment by cash!")
@@ -17,7 +17,7 @@ final class InvoicePaymentTests: XCTestCase {
         let encoder = JSONEncoder()
         let payment = Invoice.Payment(method: .cash, amount: CurrencyAmount(currency: .usd, value: 20.00), date: self.now, note: "I got the payment by cash!")
         let generated = try String(data: encoder.encode(payment), encoding: .utf8)!
-        let json = "{\"amount\":{\"value\":\"20.00\",\"currency\":\"USD\"},\"method\":\"CASH\",\"note\":\"I got the payment by cash!\",\"date\":\"\(self.now)\"}"
+        let json = "{\"amount\":{\"currency\":\"USD\",\"value\":\"20\"},\"method\":\"CASH\",\"note\":\"I got the payment by cash!\",\"date\":\"\(self.now.iso8601)\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -40,7 +40,7 @@ final class InvoicePaymentTests: XCTestCase {
                 "currency": "USD",
                 "value": "20.00"
             },
-            "date": "\(self.now)",
+            "date": "\(self.now.iso8601)",
             "note": "I got the payment by cash!"
         }
         """.data(using: .utf8)!

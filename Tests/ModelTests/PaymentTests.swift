@@ -65,8 +65,8 @@ final class PaymentTests: XCTestCase {
     }
     
     func testDecoding()throws {
-        let created = (Date() - (60 * 60 * 24 * 7)).iso8601
-        let updated = (Date() - (60 * 60 * 24 * 3)).iso8601
+        let created = (Date() - (60 * 60 * 24 * 7))
+        let updated = (Date() - (60 * 60 * 24 * 3))
         let decoder = JSONDecoder()
         
         let json = """
@@ -74,8 +74,8 @@ final class PaymentTests: XCTestCase {
             "id": "0F08F1F7-28CC-41AB-A451-5A5398B27F6F",
             "state": "failed",
             "failure_reason": "REDIRECT_REQUIRED",
-            "create_time": "\(created)",
-            "update_time": "\(updated)",
+            "create_time": "\(created.iso8601)",
+            "update_time": "\(updated.iso8601)",
             "links": [],
             "redirect_urls": {},
             "note_to_payer": "note",

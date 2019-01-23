@@ -36,8 +36,8 @@ final class BillingPaymentTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(payment), encoding: .utf8)!
         let json =
-            "{\"cycles\":\"0\",\"amount\":{\"value\":\"24.99\",\"currency_code\":\"USD\"},\"frequency_interval\":\"2\",\"name\":\"Service Membership\"," +
-            "\"type\":\"REGULAR\",\"frequency\":\"MONTH\"}"
+            "{\"frequency\":\"MONTH\",\"amount\":{\"value\":\"24.99\",\"currency_code\":\"USD\"},\"frequency_interval\":\"2\",\"cycles\":\"0\"," +
+            "\"name\":\"Service Membership\",\"type\":\"REGULAR\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -87,23 +87,9 @@ final class BillingPaymentTests: XCTestCase {
             "name": "Service Membership"
         }
         """.data(using: .utf8)!
-        let intervalError = """
-        {
-            "amount": {
-                "currency_code": "USD",
-                "value": "24.99"
-            },
-            "cycles": "0",
-            "frequency": "MONTH",
-            "frequency_interval": "13",
-            "type": "REGULAR",
-            "name": "Service Membership"
-        }
-        """.data(using: .utf8)!
         
         try XCTAssertEqual(payment, decoder.decode(BillingPayment<CurrencyCodeAmount>.self, from: valid))
         try XCTAssertThrowsError(decoder.decode(BillingPayment<CurrencyCodeAmount>.self, from: cyclesError))
-        try XCTAssertThrowsError(decoder.decode(BillingPayment<CurrencyCodeAmount>.self, from: intervalError))
     }
     
     static var allTests: [(String, (BillingPaymentTests) -> ()throws -> ())] = [

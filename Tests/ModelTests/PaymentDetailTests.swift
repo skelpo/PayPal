@@ -2,7 +2,7 @@ import XCTest
 @testable import PayPal
 
 final class PaymentDetailTests: XCTestCase {
-    let now = Date().iso8601
+    let now = Date()
     
     func testInit()throws {
         let detail = PaymentDetail(date: self.now, method: .cash, note: "Hello World", amount: CurrencyAmount(currency: .usd, value: 4.50))
@@ -17,7 +17,8 @@ final class PaymentDetailTests: XCTestCase {
         let encoder = JSONEncoder()
         let detail = PaymentDetail(date: self.now, method: .cash, note: "Hello World", amount: CurrencyAmount(currency: .usd, value: 4.50))
         let generated = try String(data: encoder.encode(detail), encoding: .utf8)!
-        let json = "{\"amount\":{\"value\":\"4.50\",\"currency\":\"USD\"},\"method\":\"CASH\",\"note\":\"Hello World\",\"date\":\"\(self.now)\"}"
+        let json =
+            "{\"amount\":{\"currency\":\"USD\",\"value\":\"4.5\"},\"method\":\"CASH\",\"note\":\"Hello World\",\"date\":\"\(self.now.iso8601)\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -40,7 +41,7 @@ final class PaymentDetailTests: XCTestCase {
             },
             "note": "Hello World",
             "method": "CASH",
-            "date": "\(self.now)"
+            "date": "\(self.now.iso8601)"
         }
         """.data(using: .utf8)!
         

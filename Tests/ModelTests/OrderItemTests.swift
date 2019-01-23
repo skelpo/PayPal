@@ -57,7 +57,7 @@ final class OrderItemTests: XCTestCase {
             name: .init("Widget"),
             description: .init("It's blue"),
             quantity: .init(5),
-            price: .init(33.33),
+            price: .init(Decimal(sign: .plus, exponent: -2, significand: 3333)),
             currency: .usd,
             tax: "16.16"
         )
@@ -145,7 +145,7 @@ final class OrderItemTests: XCTestCase {
         }
         """.data(using: .utf8)!
         
-        try XCTAssertThrowsError(decoder.decode(Order.Item.self, from: price))
+        try _ = decoder.decode(Order.Item.self, from: price)
         try XCTAssertThrowsError(decoder.decode(Order.Item.self, from: quantity))
         try XCTAssertThrowsError(decoder.decode(Order.Item.self, from: description))
         try XCTAssertThrowsError(decoder.decode(Order.Item.self, from: name))
@@ -155,7 +155,7 @@ final class OrderItemTests: XCTestCase {
             name: .init("Widget"),
             description: .init("It's blue"),
             quantity: .init(5),
-            price: .init(33.33),
+            price: .init(Decimal(sign: .plus, exponent: -2, significand: 3333)),
             currency: .usd,
             tax: "16.16"
         ))

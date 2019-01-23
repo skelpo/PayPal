@@ -66,7 +66,7 @@ final class CustomerServiceMessageTests: XCTestCase {
         )
         let json = try String(data: encoder.encode(message), encoding: .utf8)!
         let generated =
-            "{\"seller_message\":\"Titanic sunk...\",\"logo_image_url\":\"url\",\"type\":\"ONLINE\",\"service_image_url\":\"url\",\"headline\":\"Extra!\"}"
+            "{\"seller_message\":\"Titanic sunk...\",\"logo_image_url\":\"url-placeholder\",\"type\":\"ONLINE\",\"service_image_url\":\"url\",\"headline\":\"Extra!\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -84,7 +84,7 @@ final class CustomerServiceMessageTests: XCTestCase {
         {
             "type": "ONLINE",
             "headline": "Extra!",
-            "logo_image_url": "url",
+            "logo_image_url": "url-placeholder",
             "service_image_url": "url",
             "seller_message": "Titanic sunk..."
         }

@@ -6,7 +6,7 @@ final class ActivityResponseTests: XCTestCase {
     let response = Activity.Response(items: [
             Activity(
                 id: "94C67654-A41B-4421-B0D0-81E6CD587CDB",
-                timeCreated: "2018-07-12T14:14:56Z",
+                timeCreated: Date(iso8601: "2018-07-12T14:14:56Z")!,
                 type: .payment,
                 subtype: nil,
                 status: .pending,
@@ -31,7 +31,7 @@ final class ActivityResponseTests: XCTestCase {
         XCTAssertEqual(response.items, [
             Activity(
                 id: "94C67654-A41B-4421-B0D0-81E6CD587CDB",
-                timeCreated: "2018-07-12T14:14:56Z",
+                timeCreated: Date(iso8601: "2018-07-12T14:14:56Z")!,
                 type: .payment,
                 subtype: nil,
                 status: .pending,

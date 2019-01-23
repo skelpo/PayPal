@@ -48,7 +48,7 @@ final class DetailTests: XCTestCase {
         let json =
             "{\"final_payment_date\":\"\(later)\",\"last_payment_date\":\"\(now)\",\"failed_payment_count\":\"5\"," +
             "\"cycles_remaining\":\"30\",\"cycles_completed\":\"45\",\"last_payment_amount\":{\"value\":\"19.97\",\"currency_code\":\"USD\"}," +
-            "\"outstanding_balance\":{\"value\":\"599.00\",\"currency_code\":\"USD\"},\"next_billing_date\":\"\(oneYear)\"}"
+            "\"outstanding_balance\":{\"value\":\"599\",\"currency_code\":\"USD\"},\"next_billing_date\":\"\(oneYear)\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

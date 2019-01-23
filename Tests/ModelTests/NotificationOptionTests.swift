@@ -18,7 +18,9 @@ final class NotificationOptionTests: XCTestCase {
         let encoder = JSONEncoder()
         let options = NotificationOptions(suppressWelcome: false, ipnNotify: "https://example.com/ipn/notification", emailFrequency: .default)
         let generated = try String(data: encoder.encode(options), encoding: .utf8)
-        let json = "{\"reminder_email_frequency\":\"DEFAULT\",\"ipn_notify_url\":\"https:\\/\\/example.com\\/ipn\\/notification\",\"suppress_welcome_email\":false}"
+        let json =
+            "{\"suppress_welcome_email\":false,\"ipn_notify_url\":\"https:\\/\\/example.com\\/ipn\\/notification\"," +
+            "\"reminder_email_frequency\":\"DEFAULT\"}"
         
         XCTAssertEqual(generated, json)
     }

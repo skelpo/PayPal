@@ -13,7 +13,7 @@ final class PaymentExecutorTests: XCTestCase {
         let encoder = JSONEncoder()
         let executor = Payment.Executor(payer: "payer", amounts: [DetailedAmount(currency: .usd, total: 10.00, details: nil)])
         let generated = try String(data: encoder.encode(executor), encoding: .utf8)!
-        let json = "{\"payer_id\":\"payer\",\"transactions\":[{\"amount\":{\"currency\":\"USD\",\"total\":\"10.00\"}}]}"
+        let json = "{\"payer_id\":\"payer\",\"transactions\":[{\"amount\":{\"total\":\"10\",\"currency\":\"USD\"}}]}"
         
         XCTAssertEqual(generated, json)
     }

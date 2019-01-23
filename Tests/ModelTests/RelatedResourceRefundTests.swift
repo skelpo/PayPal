@@ -43,7 +43,7 @@ final class RelatedResourceRefundTests: XCTestCase {
     func testEncoding()throws {
         let encoder = JSONEncoder()
         let refund = try RelatedResource.Refund(
-            amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),
+            amount: DetailedAmount(currency: .usd, total: Decimal(sign: .plus, exponent: -2, significand: 6723), details: nil),
             reason: "Reasonable",
             invoice: .init("3086FF5B-13F2-4B6A-AB02-AD1C347B163C"),
             description: "Descript"
@@ -51,7 +51,7 @@ final class RelatedResourceRefundTests: XCTestCase {
         let generated = try String(data: encoder.encode(refund), encoding: .utf8)!
         
         let json =
-            "{\"amount\":{\"currency\":\"USD\",\"total\":\"67.23\"},\"reason\":\"Reasonable\",\"description\":\"Descript\"," +
+            "{\"amount\":{\"total\":\"67.23\",\"currency\":\"USD\"},\"reason\":\"Reasonable\",\"description\":\"Descript\"," +
             "\"invoice_number\":\"3086FF5B-13F2-4B6A-AB02-AD1C347B163C\"}"
         
         var index = 0
@@ -97,6 +97,8 @@ final class RelatedResourceRefundTests: XCTestCase {
         try XCTAssertThrowsError(decoder.decode(RelatedResource.Refund.self, from: invoice))
         
         let refund = try decoder.decode(RelatedResource.Refund.self, from: json)
+        let value = Decimal(sign: .plus, exponent: -2, significand: 6723)
+        
         XCTAssertEqual(refund.id, "7CC72DB1-079B-41C1-8380-06FC4B4A3CFD")
         XCTAssertEqual(refund.state, .pending)
         XCTAssertEqual(refund.reason, "Reasonable")
@@ -105,10 +107,10 @@ final class RelatedResourceRefundTests: XCTestCase {
         XCTAssertEqual(refund.capture, "4AA80819-0094-4B2C-A04D-0CBD3E1FCA74")
         XCTAssertEqual(refund.payment, "FDA5BF1B-D68D-4DB8-93E5-0EA6910DA0A7")
         XCTAssertEqual(refund.description, "Descript")
-        XCTAssertEqual(refund.created, created.iso8601)
-        XCTAssertEqual(refund.updated, updated.iso8601)
+        XCTAssertEqual(refund.created, created)
+        XCTAssertEqual(refund.updated, updated)
         XCTAssertEqual(refund.links, [])
-        XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: 67.23, details: nil))
+        XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: value, details: nil))
         
     }
     

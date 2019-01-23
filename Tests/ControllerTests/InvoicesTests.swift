@@ -144,7 +144,7 @@ final class InvoicesTests: XCTestCase {
         
         let updated = try invoices.update(invoice: id, with: invoice).wait()
         
-        XCTAssertEqual(invoice.date, now)
+        XCTAssertEqual(invoice.date?.date, now)
         XCTAssertEqual(invoice.payment?.due, now)
         XCTAssertEqual(updated.cc?.last?.email, "dont.ater@example.com")
     }
@@ -212,7 +212,7 @@ final class InvoicesTests: XCTestCase {
     }
     
     func testPaymentEndpoint()throws {
-        let now = Date().isoTZ
+        let now = Date()
         let invoices = try self.app.make(Invoices.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")
@@ -225,7 +225,7 @@ final class InvoicesTests: XCTestCase {
     }
     
     func testRefundEndpoint()throws {
-        let now = Date().isoTZ
+        let now = Date()
         let invoices = try self.app.make(Invoices.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get ID for updating invoice")

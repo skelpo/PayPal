@@ -2,8 +2,8 @@ import XCTest
 @testable import PayPal
 
 final class InvoiceSearchTests: XCTestCase {
-    let now = Date().iso8601
-    let later = (Date() + 60 * 60 * 24 * 60).iso8601
+    let now = Date()
+    let later = (Date() + 60 * 60 * 24 * 60)
     
     func testInit()throws {
         let search = Invoice.Search(
@@ -46,7 +46,8 @@ final class InvoiceSearchTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(search), encoding: .utf8)!
         let json =
-        "{\"page_size\":3,\"total_count_required\":true,\"end_invoice_date\":\"\(self.later)\",\"start_invoice_date\":\"\(self.now)\",\"page\":0}"
+            "{\"page_size\":3,\"total_count_required\":true,\"end_invoice_date\":\"\(self.later.iso8601)\"," +
+            "\"start_invoice_date\":\"\(self.now.iso8601)\",\"page\":0}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -63,8 +64,8 @@ final class InvoiceSearchTests: XCTestCase {
         
         let json = """
         {
-            "start_invoice_date": "\(self.now)",
-            "end_invoice_date": "\(self.later)",
+            "start_invoice_date": "\(self.now.iso8601)",
+            "end_invoice_date": "\(self.later.iso8601)",
             "page": 0,
             "page_size": 3,
             "total_count_required": true

@@ -55,7 +55,7 @@ final class PaymentsTests: XCTestCase {
         if list.payments?.count ?? 0 > 1 {
             let now = Date()
             let sorted = list.payments?.sorted { first, second in
-                return (Date(iso8601: first.created ?? now.iso8601) ?? now > Date(iso8601: second.created ?? now.iso8601) ?? now)
+                return first.created?.date ?? now > second.created?.date ?? now
             }
             XCTAssertEqual(sorted, list.payments)
         }

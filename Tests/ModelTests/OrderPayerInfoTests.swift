@@ -74,7 +74,7 @@ final class OrderPayerInfoTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(info), encoding: .utf8)!
         let json =
-        "{\"email\":\"email@example.com\",\"tax_id\":\"85323EC0-A9114\",\"country_code\":\"US\",\"birth_date\":\"2018-09-20\",\"billing_address\":{\"country_code\":\"WF\",\"state\":\"LE\",\"line1\":\"Plum Fairy Ln.\",\"city\":\"Ginger Planes\",\"postal_code\":\"3552\"},\"tax_id_type\":\"BR_CPF\"}"
+        "{\"email\":\"email@example.com\",\"tax_id\":\"85323EC0-A9114\",\"country_code\":\"US\",\"birth_date\":\"2018-09-08\",\"billing_address\":{\"country_code\":\"WF\",\"state\":\"LE\",\"line1\":\"Plum Fairy Ln.\",\"city\":\"Ginger Planes\",\"postal_code\":\"3552\"},\"tax_id_type\":\"BR_CPF\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -106,7 +106,7 @@ final class OrderPayerInfoTests: XCTestCase {
             "country_code": "US",
             "tax_id_type": "BR_CPF",
             "tax_id": "85323EC0-A9114",
-            "birth_date": "2018-09-20",
+            "birth_date": "2018-09-08",
             "email": "email@example.com"
         }
         """.data(using: .utf8)!
@@ -121,7 +121,7 @@ final class OrderPayerInfoTests: XCTestCase {
         XCTAssertEqual(info.country, .unitedStates)
         XCTAssertEqual(info.taxType, .cpf)
         XCTAssertEqual(info.tax.value, "85323EC0-A9114")
-        XCTAssertEqual(info.birthdate, Date(timeIntervalSince1970: 1_536_447_600))
+        XCTAssertEqual(info.birthdate, Date(timeIntervalSince1970: 1_536_364_800))
         XCTAssertEqual(info.email.value, "email@example.com")
         XCTAssertEqual(info.billing, Address(
             recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: .le,

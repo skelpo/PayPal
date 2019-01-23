@@ -23,7 +23,7 @@ final class RelatedResourceTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let date = Date().iso8601
+        let date = Date()
         let resource = RelatedResource(
             sale: .init(id: "", amount: DetailedAmount(currency: .usd, total: 10, details: nil), state: .pending, parent: "10", created: date),
             authorization: .init(amount: DetailedAmount(currency: .usd, total: 10, details: nil), fmf: nil, processor: nil),
@@ -34,9 +34,9 @@ final class RelatedResourceTests: XCTestCase {
         let generated = try String(data: encoder.encode(resource), encoding: .utf8)!
         
         let json =
-            "{\"refund\":{},\"order\":{\"amount\":{\"currency\":\"USD\",\"total\":\"10\"}}," +
-            "\"sale\":{\"amount\":{\"currency\":\"USD\",\"total\":\"10\"},\"id\":\"\",\"state\":\"pending\",\"create_time\":\"\(date)\"," +
-            "\"parent_payment\":\"10\"},\"authorization\":{\"amount\":{\"currency\":\"USD\",\"total\":\"10\"}},\"capture\":{}}"
+            "{\"refund\":{},\"order\":{\"amount\":{\"total\":\"10\",\"currency\":\"USD\"}}," +
+            "\"sale\":{\"amount\":{\"total\":\"10\",\"currency\":\"USD\"},\"id\":\"\",\"state\":\"pending\",\"create_time\":\"\(date.iso8601)\"," +
+            "\"parent_payment\":\"10\"},\"authorization\":{\"amount\":{\"total\":\"10\",\"currency\":\"USD\"}},\"capture\":{}}"
         
         
         var index = 0
@@ -50,7 +50,7 @@ final class RelatedResourceTests: XCTestCase {
     }
     
     func testDecoding()throws {
-        let date = Date().iso8601
+        let date = Date()
         let decoder = JSONDecoder()
         let json = """
         {
@@ -62,7 +62,7 @@ final class RelatedResourceTests: XCTestCase {
                 },
                 "state": "pending",
                 "parent_payment": "10",
-                "create_time": "\(date)"
+                "create_time": "\(date.iso8601)"
             },
             "authorization": {
                 "amount": {

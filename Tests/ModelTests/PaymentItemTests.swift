@@ -25,7 +25,7 @@ final class PaymentItemTests: XCTestCase {
         )
         
         try XCTAssertThrowsError(item.quantity <~ 12345678900)
-        try XCTAssertThrowsError(item.price <~ 123456789.00)
+        try XCTAssertThrowsError(item.price <~ 12345678900.00)
         try XCTAssertThrowsError(item.sku <~ String(repeating: "s", count: 128))
         try XCTAssertThrowsError(item.name <~ String(repeating: "n", count: 128))
         try XCTAssertThrowsError(item.description <~ String(repeating: "d", count: 128))
@@ -51,7 +51,7 @@ final class PaymentItemTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(item), encoding: .utf8)!
         let json =
-            "{\"quantity\":\"3\",\"sku\":\"123456\",\"tax\":\"0.25\",\"price\":\"2.50\",\"description\":\"Foo Bar\",\"currency\":\"USD\"," +
+            "{\"quantity\":\"3\",\"sku\":\"123456\",\"tax\":\"0.25\",\"price\":\"2.5\",\"description\":\"Foo Bar\",\"currency\":\"USD\"," +
             "\"name\":\"Foo\"}"
         
         var index = 0

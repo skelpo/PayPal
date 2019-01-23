@@ -66,7 +66,7 @@ final class ManagedAccountsTests: XCTestCase {
                 online: PercentRange(0...1)
             ),
             customerService: CustomerService(
-                email: EmailAddress(email: .init("help@nameless.com")),
+                email: .init("help@nameless.com"),
                 phone: PhoneNumber(country: .init(1), number: .init(9963191901)),
                 message: []
             ),
@@ -166,7 +166,7 @@ final class ManagedAccountsTests: XCTestCase {
                 online: PercentRange(0...1)
             ),
             customerService: CustomerService(
-                email: EmailAddress(email: .init("help@nameless.com")),
+                email: .init("help@nameless.com"),
                 phone: PhoneNumber(country: .init(1), number: .init(9963191901)),
                 message: []
             ),

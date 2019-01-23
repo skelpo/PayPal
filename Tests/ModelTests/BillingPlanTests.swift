@@ -95,8 +95,8 @@ final class BillingPlanTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(plan), encoding: .utf8)!
         let json =
-            "{\"payment_definitions\":[{\"cycles\":\"0\",\"amount\":{\"value\":\"10.00\",\"currency\":\"USD\"},\"frequency_interval\":\"1\"," +
-            "\"name\":\"Water Charge\",\"type\":\"REGULAR\",\"frequency\":\"MONTH\"}],\"name\":\"Monthly Water\",\"type\":\"INFINITE\"," +
+            "{\"payment_definitions\":[{\"frequency\":\"MONTH\",\"amount\":{\"currency\":\"USD\",\"value\":\"10\"},\"frequency_interval\":\"1\"," +
+            "\"cycles\":\"0\",\"name\":\"Water Charge\",\"type\":\"REGULAR\"}],\"name\":\"Monthly Water\",\"type\":\"INFINITE\"," +
             "\"description\":\"Your water payment\"}"
         
         var index = 0

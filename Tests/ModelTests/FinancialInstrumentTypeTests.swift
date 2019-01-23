@@ -21,7 +21,7 @@ final class FinancialInstrumentTypeTests: XCTestCase {
         let encoder = JSONEncoder()
         let bank = try String(data: encoder.encode(Instrument(type: .bank)), encoding: .utf8)
         
-        XCTAssertEqual(bank, "{\"account\":\"BANK\"}")
+        XCTAssertEqual(bank, "{\"type\":\"BANK\"}")
     }
     
     func testDecoding()throws {

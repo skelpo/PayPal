@@ -33,7 +33,7 @@ final class RelatedResourceOrderTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(order), encoding: .utf8)!
         
-        let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"645.12\"},\"fmf_details\":{\"filter_id\":\"MAXIMUM_TRANSACTION_AMOUNT\",\"filter_type\":\"ACCEPT\"}}"
+        let json = "{\"amount\":{\"total\":\"645.12\",\"currency\":\"USD\"},\"fmf_details\":{\"filter_id\":\"MAXIMUM_TRANSACTION_AMOUNT\",\"filter_type\":\"ACCEPT\"}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -84,8 +84,8 @@ final class RelatedResourceOrderTests: XCTestCase {
         XCTAssertEqual(sale.protectionType, .unauthorizedPayment)
         XCTAssertEqual(sale.fmf, FMF(type: .accept, id: .maxAmount, name: nil, description: nil))
         XCTAssertEqual(sale.parent, "2C63C0B7-F06A-4743-8D40-F55CA007A40B")
-        XCTAssertEqual(sale.created, created.iso8601)
-        XCTAssertEqual(sale.updated, updated.iso8601)
+        XCTAssertEqual(sale.created, created)
+        XCTAssertEqual(sale.updated, updated)
         XCTAssertEqual(sale.links, [])
         
         XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: 645.12, details: nil))

@@ -30,7 +30,8 @@ final class ChargeTests: XCTestCase {
         }
         """.data(using: .utf8)!
 
-        try XCTAssertEqual(Charge(type: .tax, amount: CurrencyCodeAmount(currency: .eur, value: 13.54)), decoder.decode(Charge.self, from: json))
+        let value = Decimal(sign: .plus, exponent: -2, significand: 1354)
+        try XCTAssertEqual(Charge(type: .tax, amount: CurrencyCodeAmount(currency: .eur, value: value)), decoder.decode(Charge.self, from: json))
     }
     
     static var allTests: [(String, (ChargeTests) -> ()throws -> ())] = [

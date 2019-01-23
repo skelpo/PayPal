@@ -3,7 +3,12 @@ import Failable
 @testable import PayPal
 
 final class TemplateDataTests: XCTestCase {
-    let now = Date()
+    let (now, timlessNow): (Date, String) = {
+        let now = Date()
+        let timeless = TimelessDate.formatter.string(from: now)
+        
+        return (now, timeless)
+    }()
     
     func testInit()throws {
         let data = try Template.Data(
@@ -130,11 +135,11 @@ final class TemplateDataTests: XCTestCase {
         let json =
             "{\"tax_calculated_after_discount\":true,\"logo_url\":\"https:\\/\\/vapor.codes\\/dist\\/e032390c38279fbdf18ebf0e763eb44f.png\"," +
             "\"note\":\"Thanks for your donation!\",\"billing_info\":[],\"allow_partial_payment\":false," +
-            "\"minimum_amount_due\":{\"value\":\"1.00\",\"currency\":\"USD\"},\"merchant_info\":{\"email\":\"hello@vapor.codes\"" +
+            "\"minimum_amount_due\":{\"currency\":\"USD\",\"value\":\"1\"},\"merchant_info\":{\"email\":\"hello@vapor.codes\"" +
             ",\"last_name\":\"Nelson\",\"website\":\"https:\\/\\/vapor.codes\\/\",\"business_name\":\"Qutheory LLC.\",\"first_name\":\"Tanner\"}," +
-            "\"cc_info\":[{\"cc_email\":\"collective@vapor.codes\"},{\"cc_email\":\"donator@example.com\"}],\"payment_term\":{\"due_date\":\"\(now)\"," +
-            "\"term_type\":\"DUE_ON_RECEIPT\"},\"custom\":{\"amount\":{\"value\":\"10.00\",\"currency\":\"USD\"}},\"attachments\":" +
-            "[{\"name\":\"photo.jpg\",\"url\":\"https:\\/\\/avatars3.githubusercontent.com\\/u\\/2872298?s=200&v=4\"}]," +
+            "\"cc_info\":[{\"email\":\"collective@vapor.codes\"},{\"email\":\"donator@example.com\"}],\"payment_term\":{" +
+            "\"due_date\":\"\(self.timlessNow)\",\"term_type\":\"DUE_ON_RECEIPT\"},\"custom\":{\"amount\":{\"currency\":\"USD\",\"value\":\"10\"}}," +
+            "\"attachments\":[{\"name\":\"photo.jpg\",\"url\":\"https:\\/\\/avatars3.githubusercontent.com\\/u\\/2872298?s=200&v=4\"}]," +
             "\"reference\":\"PO number\",\"tax_inclusive\":true,\"merchant_memo\":\"Open Collective donation\"}"
         
         var index = 0
@@ -153,7 +158,7 @@ final class TemplateDataTests: XCTestCase {
         let json = """
         {
             "tax_calculated_after_discount": true,
-            "invoice_date": "\(now)",
+            "invoice_date": "\(self.timlessNow)",
             "logo_url": "https://vapor.codes/dist/e032390c38279fbdf18ebf0e763eb44f.png",
             "note": "Thanks for your donation!",
             "billing_info": [],
@@ -171,14 +176,14 @@ final class TemplateDataTests: XCTestCase {
             },
             "cc_info": [
                 {
-                    "cc_email": "collective@vapor.codes"
+                    "email": "collective@vapor.codes"
                 },
                 {
-                    "cc_email": "donator@example.com"
+                    "email": "donator@example.com"
                 }
             ],
             "payment_term": {
-                "due_date": "\(now)",
+                "due_date": "\(self.timlessNow)",
                 "term_type": "DUE_ON_RECEIPT"
             },
             "custom": {
@@ -269,7 +274,7 @@ final class TemplateDataTests: XCTestCase {
             shipping: nil,
             cc: [.init(email: "collective@vapor.codes"), .init(email: "donator@example.com")],
             items: nil,
-            payment: PaymentTerm(type: .dueOnReceipt, due: now),
+            payment: PaymentTerm(type: .dueOnReceipt, due: TimelessDate.formatter.date(from: self.timlessNow)!),
             reference: .init("PO number"),
             discount: nil,
             shippingCost: nil,
