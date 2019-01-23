@@ -75,6 +75,37 @@ public struct Currency: Content, Equatable {
         try container.encode(self.code)
     }
     
+    /// Converts a decimal number to a string with the expected number of decimal places.
+    ///
+    ///     let decimal = Decimal(string: "85.80")! // 85.8
+    ///     Currency.usd.string(for: decimal) // "85.80"
+    ///
+    /// - Parameter decimal: The decimal to convert to a string
+    ///
+    /// - Returns: The string representation of the decimal.
+    func string(for decimal: Decimal) -> String {
+        var rounded = decimal
+        
+        if let exponent = self.e {
+            var value = decimal
+            NSDecimalRound(&rounded, &value, exponent, .bankers)
+        } else {
+            return rounded.description
+        }
+        
+        if -rounded.exponent != self.e {
+            var string = rounded.description
+            
+            let index = string.index(string.firstIndex(of: ".") ?? string.endIndex, offsetBy: 1, limitedBy: string.endIndex) ?? string.endIndex
+            let oCount = (self.e ?? 0) - string[index...].count
+            
+            string.append(String(repeating: "0", count: oCount))
+            return string
+        } else {
+            return rounded.description
+        }
+    }
+    
     
     // MARK: - Known Currencies
     
