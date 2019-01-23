@@ -69,15 +69,23 @@ extension Order {
         public init(from decoder: Decoder)throws {
             let container = try decoder.container(keyedBy: Order.Item.CodingKeys.self)
             
-            guard let quantityValue = try Int(container.decode(String.self, forKey: .quantity)) else {
-                throw DecodingError.dataCorruptedError(forKey: .quantity, in: container, debugDescription: "Cannot get int from given string")
+            let quantity: Int
+            do {
+                quantity = try container.decode(Int.self, forKey: .quantity)
+            } catch let error as DecodingError {
+                guard case DecodingError.typeMismatch(_, _) = error else { throw error }
+                guard let value = try Int(container.decode(String.self, forKey: .quantity)) else {
+                    throw DecodingError.dataCorruptedError(forKey: .quantity, in: container, debugDescription: "Cannot get int from given string")
+                }
+                quantity = value
             }
-            guard let priceValue = try Decimal(string: container.decode(String.self, forKey: .price)) else {
+            
+            guard let price = try Decimal(string: container.decode(String.self, forKey: .price)) else {
                 throw DecodingError.dataCorruptedError(forKey: .price, in: container, debugDescription: "Cannot get decimal from given string")
             }
             
-            self.price = try Failable<Decimal, TenDigits<Decimal>>(priceValue)
-            self.quantity = try Failable<Int, TenDigits<Int>>(quantityValue)
+            self.price = try price.failable()
+            self.quantity = try quantity.failable()
             self.sku = try container.decode(Optional127String.self, forKey: .sku)
             self.name = try container.decode(Optional127String.self, forKey: .name)
             self.description = try container.decode(Optional127String.self, forKey: .description)

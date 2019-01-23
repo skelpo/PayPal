@@ -71,13 +71,19 @@ extension Payment {
         public init(from decoder: Decoder)throws {
             let container = try decoder.container(keyedBy: Payment.Item.CodingKeys.self)
          
-            let strInt = try container.decode(String.self, forKey: .quantity)
-            let strDec = try container.decode(String.self, forKey: .price)
-            guard let quantity = Int(strInt) else {
-                throw DecodingError.dataCorruptedError(forKey: .quantity, in: container, debugDescription: "String not convertible to int")
+            let quantity: Int
+            do {
+                quantity = try container.decode(Int.self, forKey: .quantity)
+            } catch let error as DecodingError {
+                guard case DecodingError.typeMismatch(_, _) = error else { throw error }
+                guard let value = try Int(container.decode(String.self, forKey: .quantity)) else {
+                    throw DecodingError.dataCorruptedError(forKey: .quantity, in: container, debugDescription: "Given string not convertible to int")
+                }
+                quantity = value
             }
-            guard let price = Decimal(string: strDec) else {
-                throw DecodingError.dataCorruptedError(forKey: .price, in: container, debugDescription: "String not convertible to decimal")
+            
+            guard let price = try Decimal(string: container.decode(String.self, forKey: .price)) else {
+                throw DecodingError.dataCorruptedError(forKey: .price, in: container, debugDescription: "Given string not convertible to decimal")
             }
             
             self.quantity = try quantity.failable()
