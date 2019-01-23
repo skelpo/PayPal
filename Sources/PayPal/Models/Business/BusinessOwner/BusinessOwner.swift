@@ -79,8 +79,7 @@ public struct BusinessOwner: Content, Equatable {
         self.occupation = occupation
         
         if let date = birthdate {
-            let calendar = Calendar.current
-            self.birthdate = calendar.date(from: calendar.dateComponents([.year, .month, .day], from: date))
+            self.birthdate = TimelessDate.formatter.date(from: TimelessDate.formatter.string(from: date))
         } else {
             self.birthdate = nil
         }
