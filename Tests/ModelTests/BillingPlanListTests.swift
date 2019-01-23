@@ -67,9 +67,9 @@ final class BillingPlanListTests: XCTestCase {
             ])
         let generated = try String(data: encoder.encode(list), encoding: .utf8)!
         let json =
-            "{\"plans\":[{\"payment_definitions\":[{\"frequency\":\"MONTH\",\"amount\":{\"currency\":\"USD\",\"value\":\"10\"},\"frequency_interval\":\"1\"," +
-            "\"cycles\":\"0\",\"name\":\"Water Charge\",\"type\":\"REGULAR\"}],\"name\":\"Monthly Water\",\"type\":\"INFINITE\"," +
-            "\"description\":\"Your water payment\"}],\"total_items\":\"1\"}"
+            "{\"plans\":[{\"payment_definitions\":[{\"frequency\":\"MONTH\",\"amount\":{\"currency\":\"USD\",\"value\":\"10.00\"}," +
+            "\"frequency_interval\":\"1\",\"cycles\":\"0\",\"name\":\"Water Charge\",\"type\":\"REGULAR\"}],\"name\":\"Monthly Water\"," +
+            "\"type\":\"INFINITE\",\"description\":\"Your water payment\"}],\"total_items\":\"1\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

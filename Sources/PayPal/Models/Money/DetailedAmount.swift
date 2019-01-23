@@ -41,8 +41,8 @@ public struct DetailedAmount: Content, Equatable {
     /// See [`Encodable.encode(to:)`](https://developer.apple.com/documentation/swift/encodable/2893603-encode).
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(String(describing: self.amount.value), forKey: .total)
         try container.encode(self.amount.currency, forKey: .currency)
+        try container.encode(self.amount.currency.string(for: self.amount.value), forKey: .total)
         try container.encodeIfPresent(self.details, forKey: .details)
     }
     

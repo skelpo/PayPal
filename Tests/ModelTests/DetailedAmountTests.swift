@@ -24,7 +24,7 @@ final class DetailedAmountTests: XCTestCase {
         let encoder = JSONEncoder()
         let amount = DetailedAmount(currency: .usd, total: 172.89, details: .init(subtotal: 134.56))
         let generated = try String(data: encoder.encode(amount), encoding: .utf8)
-        let json = "{\"total\":\"172.89\",\"currency\":\"USD\",\"details\":{\"subtotal\":\"134.56\"}}"
+        let json = "{\"currency\":\"USD\",\"total\":\"172.89\",\"details\":{\"subtotal\":\"134.56\"}}"
         
         XCTAssertEqual(generated, json)
     }

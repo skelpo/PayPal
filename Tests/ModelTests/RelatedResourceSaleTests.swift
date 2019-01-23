@@ -46,7 +46,7 @@ final class RelatedResourceSaleTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(sale), encoding: .utf8)!
         
-        let json = "{\"amount\":{\"total\":\"42.31\",\"currency\":\"USD\"},\"id\":\"9FF17892-49F8-47C9-8117-7662F889DAEA\",\"exchange_rate\":\"0.0\",\"transaction_fee\":{\"currency\":\"USD\",\"value\":\"0.31\"},\"receivable_amount\":{\"currency\":\"USD\",\"value\":\"42\"},\"fmf_details\":{\"filter_id\":\"BILLING_OR_SHIPPING_ADDRESS_MISMATCH\",\"name\":\"Name\",\"description\":\"Desc.\",\"filter_type\":\"DENY\"},\"create_time\":\"\(self.now.iso8601)\",\"parent_payment\":\"E7FBF930-B0F3-4514-B1DD-810BDCD6541F\",\"state\":\"pending\",\"processor_response\":{\"avs_code\":\"e\",\"response_code\":\"6399\",\"advice_code\":\"01_NEW_ACCOUNT_INFORMATION\",\"cvv_code\":\"h\",\"eci_submitted\":\"152823\",\"vpas\":\"stat\"}}"
+        let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"42.31\"},\"id\":\"9FF17892-49F8-47C9-8117-7662F889DAEA\",\"exchange_rate\":\"0.0\",\"transaction_fee\":{\"currency\":\"USD\",\"value\":\"0.31\"},\"receivable_amount\":{\"currency\":\"USD\",\"value\":\"42.00\"},\"fmf_details\":{\"filter_id\":\"BILLING_OR_SHIPPING_ADDRESS_MISMATCH\",\"name\":\"Name\",\"description\":\"Desc.\",\"filter_type\":\"DENY\"},\"create_time\":\"\(self.now.iso8601)\",\"parent_payment\":\"E7FBF930-B0F3-4514-B1DD-810BDCD6541F\",\"state\":\"pending\",\"processor_response\":{\"avs_code\":\"e\",\"response_code\":\"6399\",\"advice_code\":\"01_NEW_ACCOUNT_INFORMATION\",\"cvv_code\":\"h\",\"eci_submitted\":\"152823\",\"vpas\":\"stat\"}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

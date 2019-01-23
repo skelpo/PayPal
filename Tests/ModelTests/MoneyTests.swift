@@ -15,9 +15,13 @@ final class MoneyTests: XCTestCase {
         let xxx = try String(data: encoder.encode(CurrencyCodeAmount(currency: .xxx, value: 0)), encoding: .utf8)
         let eur = try String(data: encoder.encode(CurrencyCodeAmount(currency: .eur, value: 4.5)), encoding: .utf8)
         
+        let usdO = try String(data: encoder.encode(CurrencyCodeAmount(currency: .usd, value: 0)), encoding: .utf8)
+        
         XCTAssertEqual(usd, "{\"value\":\"12.25\",\"currency_code\":\"USD\"}")
         XCTAssertEqual(xxx, "{\"value\":\"0\",\"currency_code\":\"XXX\"}")
-        XCTAssertEqual(eur, "{\"value\":\"4.5\",\"currency_code\":\"EUR\"}")
+        XCTAssertEqual(eur, "{\"value\":\"4.50\",\"currency_code\":\"EUR\"}")
+        
+        XCTAssertEqual(usdO, "{\"value\":\"0.00\",\"currency_code\":\"USD\"}")
     }
     
     func testDecoding()throws {

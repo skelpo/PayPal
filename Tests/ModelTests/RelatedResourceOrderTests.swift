@@ -33,7 +33,9 @@ final class RelatedResourceOrderTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(order), encoding: .utf8)!
         
-        let json = "{\"amount\":{\"total\":\"645.12\",\"currency\":\"USD\"},\"fmf_details\":{\"filter_id\":\"MAXIMUM_TRANSACTION_AMOUNT\",\"filter_type\":\"ACCEPT\"}}"
+        let json =
+            "{\"amount\":{\"currency\":\"USD\",\"total\":\"645.12\"},\"fmf_details\":{\"filter_id\":\"MAXIMUM_TRANSACTION_AMOUNT\"," +
+            "\"filter_type\":\"ACCEPT\"}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

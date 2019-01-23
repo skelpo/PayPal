@@ -51,7 +51,7 @@ final class RelatedResourceRefundTests: XCTestCase {
         let generated = try String(data: encoder.encode(refund), encoding: .utf8)!
         
         let json =
-            "{\"amount\":{\"total\":\"67.23\",\"currency\":\"USD\"},\"reason\":\"Reasonable\",\"description\":\"Descript\"," +
+            "{\"amount\":{\"currency\":\"USD\",\"total\":\"67.23\"},\"reason\":\"Reasonable\",\"description\":\"Descript\"," +
             "\"invoice_number\":\"3086FF5B-13F2-4B6A-AB02-AD1C347B163C\"}"
         
         var index = 0

@@ -192,10 +192,10 @@ final class InvoiceTests: XCTestCase {
             "{\"tax_calculated_after_discount\":true,\"invoice_date\":\"\(now.iso8601)\"," +
             "\"logo_url\":\"https:\\/\\/vapor.codes\\/dist\\/e032390c38279fbdf18ebf0e763eb44f.png\"," +
             "\"note\":\"Thanks for your donation!\",\"billing_info\":[],\"allow_partial_payment\":false,\"template_id\":\"PayPal system template\"," +
-            "\"minimum_amount_due\":{\"currency\":\"USD\",\"value\":\"1\"},\"merchant_info\":{\"email\":\"hello@vapor.codes\"" +
+            "\"minimum_amount_due\":{\"currency\":\"USD\",\"value\":\"1.00\"},\"merchant_info\":{\"email\":\"hello@vapor.codes\"" +
             ",\"last_name\":\"Nelson\",\"website\":\"https:\\/\\/vapor.codes\\/\",\"business_name\":\"Qutheory LLC.\",\"first_name\":\"Tanner\"}," +
             "\"cc_info\":[{\"email\":\"collective@vapor.codes\"},{\"email\":\"donator@example.com\"}],\"payment_term\":{" +
-            "\"due_date\":\"\(self.dueStr)\",\"term_type\":\"DUE_ON_RECEIPT\"},\"custom\":{\"amount\":{\"currency\":\"USD\",\"value\":\"10\"}}," +
+            "\"due_date\":\"\(self.dueStr)\",\"term_type\":\"DUE_ON_RECEIPT\"},\"custom\":{\"amount\":{\"currency\":\"USD\",\"value\":\"10.00\"}}," +
             "\"allow_tip\":true,\"reference\":\"PO number\",\"tax_inclusive\":true,\"merchant_memo\":\"Open Collective donation\"}"
         print(json.count)
         var index = 0

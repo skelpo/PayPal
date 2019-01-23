@@ -47,7 +47,7 @@ final class PaymentRefundTests: XCTestCase {
             invoice: .init("inv")
         )
         let generated = try String(data: encoder.encode(refund), encoding: .utf8)!
-        let json = "{\"amount\":{\"total\":\"10\",\"currency\":\"USD\"},\"reason\":\"reas\",\"description\":\"desc\",\"invoice_number\":\"inv\"}"
+        let json = "{\"amount\":{\"currency\":\"USD\",\"total\":\"10.00\"},\"reason\":\"reas\",\"description\":\"desc\",\"invoice_number\":\"inv\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

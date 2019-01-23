@@ -18,7 +18,7 @@ final class RefundDetailTests: XCTestCase {
         let encoder = JSONEncoder()
         let detail = RefundDetail(date: self.now, note: "Hello World", amount: CurrencyAmount(currency: .usd, value: 4.50))
         let generated = try String(data: encoder.encode(detail), encoding: .utf8)!
-        let json = "{\"date\":\"\(self.now.iso8601)\",\"amount\":{\"currency\":\"USD\",\"value\":\"4.5\"},\"note\":\"Hello World\"}"
+        let json = "{\"date\":\"\(self.now.iso8601)\",\"amount\":{\"currency\":\"USD\",\"value\":\"4.50\"},\"note\":\"Hello World\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

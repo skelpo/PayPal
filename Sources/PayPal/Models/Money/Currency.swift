@@ -95,9 +95,14 @@ public struct Currency: Content, Equatable {
         
         if -rounded.exponent != self.e {
             var string = rounded.description
+            let oCount: Int
             
-            let index = string.index(string.firstIndex(of: ".") ?? string.endIndex, offsetBy: 1, limitedBy: string.endIndex) ?? string.endIndex
-            let oCount = (self.e ?? 0) - string[index...].count
+            if let i = string.firstIndex(of: ".") {
+                oCount = string[string.index(after: i)...].count
+            } else {
+                oCount = self.e ?? 0
+                string.append(".")
+            }
             
             string.append(String(repeating: "0", count: oCount))
             return string

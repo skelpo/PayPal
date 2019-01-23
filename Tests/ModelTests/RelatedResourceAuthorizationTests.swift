@@ -38,7 +38,11 @@ final class RelatedResourceAuthorizationTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(auth), encoding: .utf8)!
         
-        let json = "{\"amount\":{\"total\":\"5896\",\"currency\":\"USD\"},\"fmf_details\":{\"filter_id\":\"BILLING_OR_SHIPPING_ADDRESS_MISMATCH\",\"name\":\"Name\",\"description\":\"Desc.\",\"filter_type\":\"DENY\"},\"processor_response\":{\"avs_code\":\"e\",\"response_code\":\"6399\",\"advice_code\":\"01_NEW_ACCOUNT_INFORMATION\",\"cvv_code\":\"h\",\"eci_submitted\":\"152823\",\"vpas\":\"stat\"}}"
+        let json =
+            "{\"amount\":{\"currency\":\"USD\",\"total\":\"5896.00\"},\"fmf_details\":{\"filter_id\":\"BILLING_OR_SHIPPING_ADDRESS_MISMATCH\"," +
+            "\"name\":\"Name\",\"description\":\"Desc.\",\"filter_type\":\"DENY\"},\"processor_response\":{\"avs_code\":\"e\"," +
+            "\"response_code\":\"6399\",\"advice_code\":\"01_NEW_ACCOUNT_INFORMATION\",\"cvv_code\":\"h\",\"eci_submitted\":\"152823\"," +
+            "\"vpas\":\"stat\"}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

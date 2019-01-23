@@ -34,9 +34,9 @@ final class RelatedResourceTests: XCTestCase {
         let generated = try String(data: encoder.encode(resource), encoding: .utf8)!
         
         let json =
-            "{\"refund\":{},\"order\":{\"amount\":{\"total\":\"10\",\"currency\":\"USD\"}}," +
-            "\"sale\":{\"amount\":{\"total\":\"10\",\"currency\":\"USD\"},\"id\":\"\",\"state\":\"pending\",\"create_time\":\"\(date.iso8601)\"," +
-            "\"parent_payment\":\"10\"},\"authorization\":{\"amount\":{\"total\":\"10\",\"currency\":\"USD\"}},\"capture\":{}}"
+            "{\"refund\":{},\"order\":{\"amount\":{\"currency\":\"USD\",\"total\":\"10.00\"}}," +
+            "\"sale\":{\"amount\":{\"currency\":\"USD\",\"total\":\"10.00\"},\"id\":\"\",\"state\":\"pending\",\"create_time\":\"\(date.iso8601)\"," +
+            "\"parent_payment\":\"10\"},\"authorization\":{\"amount\":{\"currency\":\"USD\",\"total\":\"10.00\"}},\"capture\":{}}"
         
         
         var index = 0

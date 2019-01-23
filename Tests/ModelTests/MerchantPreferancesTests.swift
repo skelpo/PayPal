@@ -38,9 +38,9 @@ final class MerchantPreferancesTests: XCTestCase {
         
         let generated = try String(data: encoder.encode(preferances), encoding: .utf8)!
         let json =
-            "{\"max_fail_attempts\":\"0\",\"char_set\":\"UTF-8\",\"initial_fail_amount_action\":\"CONTINUE\",\"cancel_url\":\"https:\\/\\/example.com\\/agreements\"," +
-            "\"return_url\":\"https:\\/\\/example.com\\/agreements\\/latest\",\"setup_fee\":{\"value\":\"0\",\"currency_code\":\"USD\"}," +
-            "\"auto_bill_amount\":\"YES\"}"
+            "{\"max_fail_attempts\":\"0\",\"char_set\":\"UTF-8\",\"initial_fail_amount_action\":\"CONTINUE\"," +
+            "\"cancel_url\":\"https:\\/\\/example.com\\/agreements\",\"return_url\":\"https:\\/\\/example.com\\/agreements\\/latest\"," +
+            "\"setup_fee\":{\"value\":\"0.00\",\"currency_code\":\"USD\"},\"auto_bill_amount\":\"YES\"}"
         
         // JSON is 434 characters long.
         var index = 0
