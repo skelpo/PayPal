@@ -101,7 +101,7 @@ public struct TenThousand<C>: InRangeValidation where C: Comparable & Expressibl
 public struct TenDigits<C>: InRangeValidation where C: Comparable & ExpressibleByIntegerLiteral {
     public typealias Supported = C
     
-    public static var max: C? { return 1_000_000_000 }
+    public static var max: C? { return 9_999_999_999 }
     public static var min: C? { return 0 }
 }
 
