@@ -81,12 +81,8 @@ public struct ISO8601Date: Codable, Hashable {
         
         return lRaw == rRaw
     }
-    
-    public static func ==(lhs: ISO8601Date, rhs: Date) -> Bool {
-        if let raw = lhs.raw {
-            return raw == rhs.iso8601
-        } else {
-            return lhs.date.iso8601 == rhs.iso8601
-        }
-    }
+}
+
+public func ==(lhs: ISO8601Date, rhs: Date) -> Bool {
+    return lhs.date.iso8601 == rhs.iso8601
 }
