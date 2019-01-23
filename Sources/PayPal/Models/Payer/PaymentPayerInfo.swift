@@ -1,9 +1,10 @@
+import Countries
 import Vapor
 
 extension Order.Payer {
     
     /// The payer information for an order's payer.
-    public struct Info: Content, ValidationSetable, Equatable {
+    public struct Info: Content, Equatable {
         
         /// The payer's salutation.
         public let salutation: String?
@@ -25,21 +26,15 @@ extension Order.Payer {
         
         
         /// The payer's email address. Maximum length is 127 characters.
-        ///
-        /// This property can be set using the `Inof.set(_:)` method.
-        /// This method validates the new value before assigning it to the property.
-        public private(set) var email: String?
+        public var email: Optional127String
         
-        /// The birth date of the payer, in [Internet date format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, `1990-04-12`.
-        public var birthdate: String?
+        /// The birth date of the payer, in [Internet date format](https://tools.ietf.org/html/rfc3339#section-5.6).
+        public var birthdate: Date?
         
         /// The payer's tax ID. Supported for the PayPal payment method only.
         ///
-        /// This property can be set using the `Inof.set(_:)` method.
-        /// This method validates the new value before assigning it to the property.
-        ///
         /// Maximum length: 14.
-        public private(set) var tax: String?
+        public var tax: Failable<String?, NotNilValidate<Length14>>
         
         /// The payer's tax ID type. Supported for the PayPal payment method only.
         public var taxType: TaxType?
@@ -61,13 +56,13 @@ extension Order.Payer {
         ///   - country: The payer's country code.
         ///   - billing: The payer's billing address.
         public init(
-            email: String?,
-            birthdate: String?,
-            tax: String?,
+            email: Optional127String,
+            birthdate: Date?,
+            tax: Failable<String?, NotNilValidate<Length14>>,
             taxType: TaxType?,
             country: Country?,
             billing: Address?
-        )throws {
+        ) {
             self.salutation = nil
             self.firstname = nil
             self.middlename = nil
@@ -81,14 +76,20 @@ extension Order.Payer {
             self.taxType = taxType
             self.country = country
             self.billing = billing
-            
-            try self.set(\.email <~ email)
-            try self.set(\.tax <~ tax)
         }
         
         /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
-        public init(from decoder: Decoder)throws {
+        public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            if
+                let string = try container.decodeIfPresent(String.self, forKey: .birthdate),
+                let date = TimelessDate.formatter.date(from: string)
+            {
+                self.birthdate = date
+            } else {
+                self.birthdate = nil
+            }
             
             self.salutation = try container.decodeIfPresent(String.self, forKey: .salutation)
             self.firstname = try container.decodeIfPresent(String.self, forKey: .firstname)
@@ -96,33 +97,33 @@ extension Order.Payer {
             self.lastname = try container.decodeIfPresent(String.self, forKey: .lastname)
             self.suffix = try container.decodeIfPresent(String.self, forKey: .suffix)
             self.payer = try container.decodeIfPresent(String.self, forKey: .payer)
-            self.email = try container.decodeIfPresent(String.self, forKey: .email)
-            self.birthdate = try container.decodeIfPresent(String.self, forKey: .birthdate)
-            self.tax = try container.decodeIfPresent(String.self, forKey: .tax)
+            self.email = try container.decode(Optional127String.self, forKey: .email)
+            self.tax = try container.decode(Failable<String?, NotNilValidate<Length14>>.self, forKey: .tax)
             self.taxType = try container.decodeIfPresent(TaxType.self, forKey: .taxType)
             self.country = try container.decodeIfPresent(Country.self, forKey: .country)
             self.billing = try container.decodeIfPresent(Address.self, forKey: .billing)
-            
-            try self.set(\.email <~ email)
-            try self.set(\.tax <~ tax)
         }
         
-        /// See `ValidationSetable.setterValidations()`.
-        public func setterValidations() -> SetterValidations<Info> {
-            var validations = SetterValidations(Info.self)
+        /// See [`Encodable.encode(to:)`](https://developer.apple.com/documentation/swift/encodable/2893603-encode).
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
             
-            validations.set(\.email) { email in
-                guard email?.count ?? 0 <= 127 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`email` value must have a length of 127 or less")
-                }
-            }
-            validations.set(\.tax) { tax in
-                guard tax?.count ?? 0 <= 14 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`tax_id` value must have a length of 14 or less")
-                }
+            if let date = self.birthdate {
+                try container.encode(TimelessDate.formatter.string(from: date), forKey: .birthdate)
             }
             
-            return validations
+            try container.encodeIfPresent(self.salutation, forKey: .salutation)
+            try container.encodeIfPresent(self.firstname, forKey: .firstname)
+            try container.encodeIfPresent(self.middlename, forKey: .middlename)
+            try container.encodeIfPresent(self.lastname, forKey: .lastname)
+            try container.encodeIfPresent(self.suffix, forKey: .suffix)
+            try container.encodeIfPresent(self.payer, forKey: .payer)
+            try container.encode(self.email, forKey: .email)
+            try container.encode(self.tax, forKey: .tax)
+            try container.encodeIfPresent(self.taxType, forKey: .taxType)
+            try container.encodeIfPresent(self.country, forKey: .country)
+            try container.encodeIfPresent(self.billing, forKey: .billing)
+            
         }
         
         enum CodingKeys: String, CodingKey {

@@ -29,10 +29,10 @@ extension RelatedResource {
         public let parent: String?
         
         /// The date and time when the resource was created, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-        public let created: String?
+        public let created: ISO8601Date?
         
         /// The date and time when the resource was last updated, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-        public let updated: String?
+        public let updated: ISO8601Date?
         
         /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
         public let links: [LinkDescription]?

@@ -1,7 +1,34 @@
 import Vapor
 
+/// The validation for the `PaymentReceivingPreferences.ccDescriptor` property.
+public struct CCDescriptor: LengthValidation {
+    
+    /// See `Validation.Supported`.
+    public typealias Supported = String
+    
+    /// The string can be no more than 11 characters.
+    public static var maxLength: Int = 11
+    
+    /// The string can be no less than 2 characters.
+    public static var minLength: Int = 2
+}
+
+/// The validation for the `PaymentReceivingPreferences.ccDescriptorExtended` property.
+public struct CCExtendedDescriptor: LengthValidation {
+    
+    /// See `Validation.Supported`.
+    public typealias Supported = String
+    
+    /// The string can be no more than 19 characters.
+    public static var maxLength: Int = 19
+    
+    /// The string can be no less than 2 characters.
+    public static var minLength: Int = 2
+}
+
+
 /// Account preferences for the receipt of payments.
-public struct PaymentReceivingPreferences: Content, ValidationSetable, Equatable {
+public struct PaymentReceivingPreferences: Content, Equatable {
     
     /// Indicates whether to block payments to this account from US buyers who do not provide a confirmed shipping address. To block, set to `TRUE`.
     public var blockUnconfirmedUSAddress: Bool?
@@ -30,30 +57,29 @@ public struct PaymentReceivingPreferences: Content, ValidationSetable, Equatable
     /// and the `.`, `-`, and `*` special characters. Include one alphanumeric character with special characters.
     ///
     /// Minimum length: 2. Maximum length: 11.
-    public var ccDescriptor: String?
+    public var ccDescriptor: Failable<String?, NotNilValidate<CCDescriptor>>
     
     /// The name of the business that appears on the buyer’s bank or credit card statement. Supports only capital letters, numbers, spaces,
     /// and the `.`, `-`, and `*` special characters. Include one alphanumeric character with special characters.
     ///
     /// Minimum length: 2. Maximum length: 19.
-    public var ccDescriptorExtended: String?
+    public var ccDescriptorExtended: Failable<String?, NotNilValidate<CCExtendedDescriptor>>
     
     
     /// Creates a new `PaymentReceivingPreferences` instance.
     ///
     /// All paramaters have default values of `nil`.
     ///
-    ///     PaymentReceivingPreferences(
-    ///         blockUnconfirmedUSAddress: true,
-    ///         blockNonUS: false,
-    ///         blockEcheck: false,
-    ///         blockCrossCurrency: true,
-    ///         blockSendMoney: false,
-    ///         alternatePayment: "https://example.com/alternate",
-    ///         displayInstructionsInput: true,
-    ///         ccDescriptor: "NOT-SURE",
-    ///         ccDescriptorExtended: "NOTE-SURE-AGAIN"
-    ///     )
+    /// - Parameters:
+    ///   - blockUnconfirmedUSAddress: Indicates whether to block payments from US buyers who do not provide a confirmed shipping address.
+    ///   - blockNonUS: Indicates whether to block payments to this account from buyers who reside outside of the United States.
+    ///   - blockEcheck: Indicates whether to block eCheck payments. To block, set to `TRUE`.
+    ///   - blockCrossCurrency: Indicates whether to block payments made in currencies that are not held by this account.
+    ///   - blockSendMoney: Indicates whether to block payments to this account from the PayPal Send Money page.
+    ///   - alternatePayment: The alternative payments URL to use in place of the PayPal Send Money page.
+    ///   - displayInstructionsInput: Indicates whether to show the **Special instructions to merchant*** field during checkout.
+    ///   - ccDescriptor: The name of the campaign that appears on the buyer’s bank or credit card statement.
+    ///   - ccDescriptorExtended: The name of the business that appears on the buyer’s bank or credit card statement.
     public init(
         blockUnconfirmedUSAddress: Bool? = nil,
         blockNonUS: Bool? = nil,
@@ -62,9 +88,9 @@ public struct PaymentReceivingPreferences: Content, ValidationSetable, Equatable
         blockSendMoney: Bool? = nil,
         alternatePayment: String? = nil,
         displayInstructionsInput: Bool? = nil,
-        ccDescriptor: String? = nil,
-        ccDescriptorExtended: String? = nil
-    )throws {
+        ccDescriptor: Failable<String?, NotNilValidate<CCDescriptor>> = nil,
+        ccDescriptorExtended: Failable<String?, NotNilValidate<CCExtendedDescriptor>> = nil
+    ) {
         self.blockUnconfirmedUSAddress = blockUnconfirmedUSAddress
         self.blockNonUS = blockNonUS
         self.blockEcheck = blockEcheck
@@ -74,49 +100,6 @@ public struct PaymentReceivingPreferences: Content, ValidationSetable, Equatable
         self.displayInstructionsInput = displayInstructionsInput
         self.ccDescriptor = ccDescriptor
         self.ccDescriptorExtended = ccDescriptorExtended
-        
-        try self.set(\.ccDescriptor <~ ccDescriptor)
-        try self.set(\.ccDescriptorExtended <~ ccDescriptorExtended)
-    }
-    
-    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
-    public init(from decoder: Decoder)throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let ccDescriptor = try container.decodeIfPresent(String.self, forKey: .ccDescriptor)
-        let ccDescriptorExtended = try container.decodeIfPresent(String.self, forKey: .ccDescriptorExtended)
-        
-        self.blockUnconfirmedUSAddress = try container.decodeIfPresent(Bool.self, forKey: .blockUnconfirmedUSAddress)
-        self.blockNonUS = try container.decodeIfPresent(Bool.self, forKey: .blockNonUS)
-        self.blockEcheck = try container.decodeIfPresent(Bool.self, forKey: .blockEcheck)
-        self.blockCrossCurrency = try container.decodeIfPresent(Bool.self, forKey: .blockCrossCurrency)
-        self.blockSendMoney = try container.decodeIfPresent(Bool.self, forKey: .blockSendMoney)
-        self.alternatePayment = try container.decodeIfPresent(String.self, forKey: .alternatePayment)
-        self.displayInstructionsInput = try container.decodeIfPresent(Bool.self, forKey: .displayInstructionsInput)
-        self.ccDescriptor = try container.decodeIfPresent(String.self, forKey: .ccDescriptor)
-        self.ccDescriptorExtended =  try container.decodeIfPresent(String.self, forKey: .ccDescriptorExtended)
-        
-        try self.set(\.ccDescriptor <~ ccDescriptor)
-        try self.set(\.ccDescriptorExtended <~ ccDescriptorExtended)
-    }
-    
-    /// See `PaymentReceivingPreferences.setterValidations()`.
-    public func setterValidations() -> SetterValidations<PaymentReceivingPreferences> {
-        var validations = SetterValidations(PaymentReceivingPreferences.self)
-        
-        validations.set(\.ccDescriptor) { descriptor in
-            guard let descriptor = descriptor else { return }
-            guard (2...11).contains(descriptor.count) else {
-                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`ccDescriptor` length must be in range 2 - 11")
-            }
-        }
-        validations.set(\.ccDescriptorExtended) { descriptor in
-            guard let descriptor = descriptor else { return }
-            guard (2...19).contains(descriptor.count) else {
-                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`ccDescriptorExtended` length must be in range 2 - 19")
-            }
-        }
-        
-        return validations
     }
     
     enum CodingKeys: String, CodingKey {

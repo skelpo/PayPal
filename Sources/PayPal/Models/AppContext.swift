@@ -1,15 +1,12 @@
 import Vapor
 
 /// Customization for a payer's experience during the approval process for a payment with PayPal.
-public struct AppContext: Content, ValidationSetable, Equatable {
+public struct AppContext: Content, Equatable {
     
     /// A label that overrides the business name in the PayPal account on the PayPal pages.
     ///
-    /// This property can be set using the `AppContext.set(_:)` method. This method
-    /// validates the new value before assigning it to the property.
-    ///
     /// - Maximum length: 127.
-    public var brand: String?
+    public var brand: Optional127String
     
     /// The [language tag](https://tools.ietf.org/html/bcp47#section-2) for the language in which to localize the error-related strings, such as messages,
     /// issues, and suggested actions. The tag is made up of the [ISO 639-2 language code](https://www.loc.gov/standards/iso639-2/php/code_list.php),
@@ -20,7 +17,7 @@ public struct AppContext: Content, ValidationSetable, Equatable {
     /// validates the new value before assigning it to the property.
     ///
     /// Minimum length: 2. Maximum length: 10. Pattern: `^[a-z]{2}(?:-[A-Z][a-z]{3})?(?:-(?:[A-Z]{2}))?$`.
-    public var locale: String?
+    public var locale: Failable<String?, NotNilValidate<LocaleString>>
     
     /// The type of landing page to display on the PayPal site for user checkout. To use the non-PayPal account landing page,
     /// set to `Billing`. To use the PayPal account login landing page, set to `Login`.
@@ -57,55 +54,19 @@ public struct AppContext: Content, ValidationSetable, Equatable {
     ///   - userAction: Defines whether to present the customer with a **Continue** or **Pay Now** checkout flow.
     ///   - data: An array of name-and-value pairs that contain supplementary data required by PayPal for transaction processing.
     public init(
-       brand: String? = nil,
-       locale: String? = nil,
+       brand: Optional127String = nil,
+       locale: Failable<String?, NotNilValidate<LocaleString>> = nil,
        landingPage: String? = nil,
        shipping: Shipping? = nil,
        userAction: String? = nil,
        data: [NameValue]? = nil
-    )throws {
+    ) {
         self.brand = brand
         self.locale = locale
         self.landingPage = landingPage
         self.shipping = shipping
         self.userAction = userAction
         self.data = data
-        
-        try self.set(\.brand <~ brand)
-        try self.set(\.locale <~ locale)
-    }
-    
-    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
-    public init(from decoder: Decoder)throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        try self.init(
-            brand: container.decodeIfPresent(String.self, forKey: .brand),
-            locale: container.decodeIfPresent(String.self, forKey: .locale),
-            landingPage: container.decodeIfPresent(String.self, forKey: .landingPage),
-            shipping: container.decodeIfPresent(Shipping.self, forKey: .shipping),
-            userAction: container.decodeIfPresent(String.self, forKey: .userAction),
-            data: container.decodeIfPresent([NameValue].self, forKey: .data)
-        )
-    }
-    
-    /// See `ValidationSetable.setterValidations()`.
-    public func setterValidations() -> SetterValidations<AppContext> {
-        var validations = SetterValidations(AppContext.self)
-        
-        validations.set(\.brand) { brand in
-            guard brand?.count ?? 0 <= 127 else {
-                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`brand_name` value must have a length of 127 or less")
-            }
-        }
-        validations.set(\.locale) { locale in
-            guard let locale = locale else { return }
-            let regex = "^[a-z]{2}(?:-[A-Z][a-z]{3})?(?:-(?:[A-Z]{2}))?$"
-            guard locale.range(of: regex, options: .regularExpression) != nil else {
-                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`locale` value must match RegEx pattern '\(regex)'")
-            }
-        }
-        
-        return validations
     }
     
     enum CodingKeys: String, CodingKey {

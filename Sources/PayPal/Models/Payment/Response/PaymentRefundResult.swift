@@ -3,7 +3,7 @@ import Vapor
 extension Payment {
     
     /// The response object returned when refunding payments, from API endpoints such as `POST /v1/payments/refund/{refund_id}`.
-    public struct RefundResult: Content, ValidationSetable, Equatable {
+    public struct RefundResult: Content, Equatable {
         
         /// The ID of the refund transaction. Maximum length is 17 characters.
         public let id: String?
@@ -21,10 +21,10 @@ extension Payment {
         public let parent: String?
         
         /// The date and time when the refund was created, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-        public let created: String?
+        public let created: ISO8601Date?
         
         /// The date and time when the resource was last updated, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-        public let updated: String?
+        public let updated: ISO8601Date?
         
         /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
         public let links: [LinkDescription]?
@@ -38,11 +38,8 @@ extension Payment {
         
         /// The invoice or tracking ID number.
         ///
-        /// This property can be set using the `RefundResult.set(_:)` method.
-        /// This method validates the new value before assigning it to the property.
-        ///
         /// Maximum length: 127.
-        public private(set) var invoice: String?
+        public var invoice: Optional127String
         
         /// The refund description. Value must be single-byte alphanumeric characters.
         public var description: String?
@@ -50,7 +47,7 @@ extension Payment {
         /// The note to the payer in this transaction.
         ///
         /// Maximum length: 127.
-        public var custom: String?
+        public var custom: Optional127String
         
         /// The currency and amount of the transaction fee that is refunded to original the recipient of payment.
         public var transactionFee: CurrencyAmount?
@@ -63,25 +60,6 @@ extension Payment {
         /// As an example, if a payer makes $100 purchase and the payer was refunded $20 a week ago and $30 in this transaction,
         /// the gross refund amount is $30 for this transaction and the total refunded amount is $50.
         public var total: CurrencyAmount?
-        
-        
-        /// See `ValidationSetable.setterValidations()`.
-        public func setterValidations() -> SetterValidations<Payment.RefundResult> {
-            var validations = SetterValidations(Payment.RefundResult.self)
-            
-            validations.set(\.invoice) { invoice in
-                guard invoice?.count ?? 0 <= 127 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`invoice_number` value length must be 127 or less")
-                }
-            }
-            validations.set(\.custom) { custom in
-                guard custom?.count ?? 0 <= 127 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`custom` value length must be 127 or less")
-                }
-            }
-            
-            return validations
-        }
         
         enum CodingKeys: String, CodingKey {
             case id, amount, state, reason, description, links, custom

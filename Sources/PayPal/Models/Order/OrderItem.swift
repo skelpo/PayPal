@@ -3,47 +3,32 @@ import Vapor
 extension Order {
     
     /// An item that a customer is purchasing from a merchant.
-    public struct Item: Content, ValidationSetable, Equatable {
+    public struct Item: Content, Equatable {
         
         /// The stock keeping unit (SKU) for the item.
         ///
-        /// This property can be set with the `Item.set(_:)` method. This method
-        /// verifies the new value before assigning it to the property
-        ///
         /// Maximum length: 127.
-        public private(set) var sku: String?
+        public var sku: Optional127String
         
         /// The item name. If this value is greater than the maximum allowed length, the API truncates the string.
         ///
-        /// This property can be set with the `Item.set(_:)` method. This method
-        /// verifies the new value before assigning it to the property
-        ///
         /// Maximum length: 127.
-        public var name: String?
+        public var name: Optional127String
         
         /// The item description. Supported for only the PayPal payment method.
         ///
-        /// This property can be set with the `Item.set(_:)` method. This method
-        /// verifies the new value before assigning it to the property
-        ///
         /// Maximum length: 127.
-        public var description: String?
+        public var description: Optional127String
         
         /// The item quantity. Must be a whole number.
         ///
-        /// This property can be set with the `Item.set(_:)` method. This method
-        /// verifies the new value before assigning it to the property
-        ///
         /// Maximum length: 10. Pattern: `^[0-9]{0,10}$`.
-        public var quantity: String
+        public var quantity: Failable<Int, TenDigits<Int>>
         
         /// The item cost. Supports two decimal places.
         ///
-        /// This property can be set with the `Item.set(_:)` method. This method
-        /// verifies the new value before assigning it to the property
-        ///
         /// Maximum length: 10. Pattern: `^[0-9]{0,10}(\.[0-9]{0,2})?$`.
-        public var price: String
+        public var price: Failable<Decimal, TenDigits<Decimal>>
         
         /// The [three-character ISO-4217 currency code](https://developer.paypal.com/docs/integration/direct/rest/currency-codes/)
         /// that identifies the currency.
@@ -64,14 +49,14 @@ extension Order {
         ///   - currency: The currency code that identifies the currency.
         ///   - tax: The item tax.
         public init(
-            sku: String?,
-            name: String?,
-            description: String?,
-            quantity: String,
-            price: String,
+            sku: Optional127String,
+            name: Optional127String,
+            description: Optional127String,
+            quantity: Failable<Int, TenDigits<Int>>,
+            price: Failable<Decimal, TenDigits<Decimal>>,
             currency: Currency,
             tax: String?
-        )throws {
+        ) {
             self.sku = sku
             self.name = name
             self.description = description
@@ -79,74 +64,51 @@ extension Order {
             self.price = price
             self.currency = currency
             self.tax = tax
-            
-            try self.set(\.sku <~ sku)
-            try self.set(\.name <~ name)
-            try self.set(\.description <~ description)
-            try self.set(\.quantity <~ quantity)
-            try self.set(\.price <~ price)
         }
         
-        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
         public init(from decoder: Decoder)throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            let quantity: String
-            do {
-                quantity = try container.decode(String.self, forKey: .quantity)
-            } catch {
-                quantity = try String(describing: container.decode(Int.self, forKey: .quantity))
+            let container = try decoder.container(keyedBy: Order.Item.CodingKeys.self)
+            
+            guard let quantityValue = try Int(container.decode(String.self, forKey: .quantity)) else {
+                throw DecodingError.dataCorruptedError(forKey: .quantity, in: container, debugDescription: "Cannot get int from given string")
+            }
+            guard let priceValue = try Decimal(string: container.decode(String.self, forKey: .price)) else {
+                throw DecodingError.dataCorruptedError(forKey: .price, in: container, debugDescription: "Cannot get decimal from given string")
             }
             
-            try self.init(
-                sku: container.decodeIfPresent(String.self, forKey: .sku),
-                name: container.decodeIfPresent(String.self, forKey: .name),
-                description: container.decodeIfPresent(String.self, forKey: .description),
-                quantity: quantity,
-                price: container.decode(String.self, forKey: .price),
-                currency: container.decode(Currency.self, forKey: .currency),
-                tax: container.decodeIfPresent(String.self, forKey: .tax)
-            )
+            self.price = try Failable<Decimal, TenDigits<Decimal>>(priceValue)
+            self.quantity = try Failable<Int, TenDigits<Int>>(quantityValue)
+            self.sku = try container.decode(Optional127String.self, forKey: .sku)
+            self.name = try container.decode(Optional127String.self, forKey: .name)
+            self.description = try container.decode(Optional127String.self, forKey: .description)
+            self.currency = try container.decode(Currency.self, forKey: .currency)
+            self.tax = try container.decodeIfPresent(String.self, forKey: .tax)
         }
         
-        /// See `ValidationSetable.setterValidations()`.
-        public func setterValidations() -> SetterValidations<Order.Item> {
-            var validations = SetterValidations(Item.self)
+        public func encode(to encoder: Encoder)throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
             
-            validations.set(\.sku) { sku in
-                guard let sku = sku else { return }
-                guard sku.count <= 127 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`sku` value must have a length of 127 or less")
-                }
-            }
-            validations.set(\.name) { name in
-                guard let name = name else { return }
-                guard name.count <= 127 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`name` value must have a length of 127 or less")
-                }
-            }
-            validations.set(\.description) { description in
-                guard let description = description else { return }
-                guard description.count <= 127 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`description` value must have a length of 127 or less")
-                }
-            }
-            validations.set(\.quantity) { quantity in
-                guard quantity.range(of: "^[0-9]{0,10}$", options: .regularExpression) != nil else {
-                    throw PayPalError(
-                        status: .badRequest, identifier: "malformedString", reason: "`quantity` value must match match RegEx pattern '^[0-9]{0,10}$'"
-                    )
-                }
-            }
-            validations.set(\.price) { price in
-                guard price.range(of: "^[0-9]{0,10}(\\.[0-9]{0,2})?$", options: .regularExpression) != nil else {
-                    throw PayPalError(
-                        status: .badRequest, identifier: "malformedString", reason: "`price` value must match match RegEx pattern '^[0-9]{0,10}(\\.[0-9]{0,2})?$'"
-                    )
-                }
-            }
+            var price = self.price.value
+            var encodePrice = self.price.value
+            NSDecimalRound(&encodePrice, &price, 2, .bankers)
             
-            
-            return validations
+            try container.encode(self.sku, forKey: .sku)
+            try container.encode(self.name, forKey: .name)
+            try container.encode(self.description, forKey: .description)
+            try container.encode(self.quantity.value.description, forKey: .quantity)
+            try container.encode(encodePrice.description, forKey: .price)
+            try container.encode(self.currency, forKey: .currency)
+            try container.encodeIfPresent(self.tax, forKey: .tax)
+        }
+        
+        enum CodingKeys: String, CodingKey {
+            case sku
+            case name
+            case description
+            case quantity
+            case price
+            case currency
+            case tax
         }
     }
 }

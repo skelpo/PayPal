@@ -1,53 +1,39 @@
+import Countries
 import Vapor
 
 extension BusinessOwner {
     
     /// The address object structure used for a business owner.
-    public struct Address: Content, ValidationSetable, Equatable {
+    public struct Address: Content, Equatable {
         
         /// The address type.
         public var type: AddressType
         
         /// The first line of the address. For example, number, street, and so on.
         ///
-        /// This property can be set using the `Address.set(_:)` method. This method
-        /// validates the new value before assigning it to the property.
-        ///
         /// Maximum length: 300.
-        public private(set) var line1: String
+        public var line1: Failable<String, Length300>
         
         /// The second line of the address. For example, suite, apt number, and so on.
         ///
-        /// This property can be set using the `Address.set(_:)` method. This method
-        /// validates the new value before assigning it to the property.
-        ///
         /// Maximum length: 300.
-        public private(set) var line2: String?
+        public var line2: Optional300String
         
         /// The third line of the address. For example, the street complement for Brazil, direction text, such as next to Walmart,
         /// or a landmark in an Indian address.
         ///
-        /// This property can be set using the `Address.set(_:)` method. This method
-        /// validates the new value before assigning it to the property.
-        ///
         /// Maximum length: 300.
-        public private(set) var line3: String?
+        public var line3: Optional300String
         
         /// The suburb or neighborhood.
         ///
-        /// This property can be set using the `Address.set(_:)` method. This method
-        /// validates the new value before assigning it to the property.
-        ///
         /// Maximum length: 300.
-        public private(set) var suburb: String?
+        public var suburb: Optional300String
         
         /// The city.
         ///
-        /// This property can be set using the `Address.set(_:)` method. This method
-        /// validates the new value before assigning it to the property.
-        ///
         /// Maximum length: 120.
-        public private(set) var city: String
+        public var city: Failable<String, Length120>
         
         /// The [code](https://developer.paypal.com/docs/integration/direct/rest/state-codes/) for a US state or the
         /// equivalent for other countries. Required for transactions if the address is in one of these countries:
@@ -81,28 +67,27 @@ extension BusinessOwner {
         
         /// Creates a new `BusinessOwner.Address` instance.
         ///
-        ///     Address(
-        ///         type: .home,
-        ///         line1: "89 Furnace Dr.",
-        ///         line2: nil,
-        ///         line3: nil,
-        ///         suburb: "Invisible Winds",
-        ///         city: "Nowhere",
-        ///         state: "KS",
-        ///         country: "US",
-        ///         postalCode: "66167"
-        ///     )
+        /// - Parameters:
+        ///   - type: The address type.
+        ///   - line1: The first line of the address.
+        ///   - line2: The second line of the address.
+        ///   - line3: The third line of the address.
+        ///   - suburb: The suburb or neighborhood.
+        ///   - city: The city.
+        ///   - state: The code for a US state or the equivalent for other countries.
+        ///   - country: The two-character ISO 3166-1 code that identifies the country or region.
+        ///   - postalCode: The postal code, which is the zip code or equivalent.
         public init(
             type: AddressType,
-            line1: String,
-            line2: String?,
-            line3: String?,
-            suburb: String?,
-            city: String,
+            line1: Failable<String, Length300>,
+            line2: Optional300String,
+            line3: Optional300String,
+            suburb: Optional300String,
+            city: Failable<String, Length120>,
             state: Province?,
             country: Country,
             postalCode: String?
-        )throws {
+        ) {
             self.type = type
             self.line1 = line1
             self.line2 = line2
@@ -112,62 +97,6 @@ extension BusinessOwner {
             self.state = state
             self.country = country
             self.postalCode = postalCode
-            
-            try self.set(\.line1 <~ line1)
-            try self.set(\.line2 <~ line2)
-            try self.set(\.line3 <~ line3)
-            try self.set(\.suburb <~ suburb)
-            try self.set(\.city <~ city)
-            try self.set(\.country <~ country)
-        }
-        
-        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
-        public init(from decoder: Decoder)throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            try self.init(
-                type: container.decode(AddressType.self, forKey: .type),
-                line1: container.decode(String.self, forKey: .line1),
-                line2: container.decodeIfPresent(String.self, forKey: .line2),
-                line3: container.decodeIfPresent(String.self, forKey: .line3),
-                suburb: container.decodeIfPresent(String.self, forKey: .suburb),
-                city: container.decode(String.self, forKey: .city),
-                state: container.decodeIfPresent(Province.self, forKey: .state),
-                country: container.decode(Country.self, forKey: .country),
-                postalCode: container.decodeIfPresent(String.self, forKey: .postalCode)
-            )
-        }
-        
-        /// See `ValidationSetable.setterValidations()`
-        public func setterValidations() -> SetterValidations<BusinessOwner.Address> {
-            var validations = SetterValidations(Address.self)
-            
-            validations.set(\.line1) { line1 in
-                guard line1.count <= 300 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`line1` property length can be no longer 300")
-                }
-            }
-            validations.set(\.line2) { line2 in
-                guard line2?.count ?? 0 <= 300 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`line2` property length can be no longer 300")
-                }
-            }
-            validations.set(\.line3) { line3 in
-                guard line3?.count ?? 0 <= 300 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`line3` property length can be no longer 300")
-                }
-            }
-            validations.set(\.suburb) { suburb in
-                guard suburb?.count ?? 0 <= 300 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`suburb` property length can be no longer 300")
-                }
-            }
-            validations.set(\.city) { city in
-                guard city.count <= 120 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`city` property length can be no longer 120")
-                }
-            }
-            
-            return validations
         }
         
         enum CodingKeys: String, CodingKey {

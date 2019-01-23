@@ -53,52 +53,28 @@ public enum EmailAddressKeys: String, EmailCodingKey {
 // MARK: - Generic Struct
 
 /// An email container for for sending notiifications email.
-public struct EmailType<Keys>: Content, ValidationSetable, Equatable where Keys: EmailCodingKey {
+public struct EmailType<Keys>: Content, Equatable where Keys: EmailCodingKey {
     
     /// A CC: email to which to send a notification email.
     ///
-    /// This property can be set by the `CCEmail.set(_:)` method. This method will
-    /// validate the the new value before assigning it to the property.
-    ///
     /// Minimum length: 3. Maximum length: 254. Pattern: `^.+@[^"\-].+$`.
-    public private(set) var email: String
+    public var email: Failable<String, EmailString>
     
     /// Creates a new `CCEmail` instance.
     ///
-    ///     CCEmail(email: "holmer@shlock.com")
-    public init(email: String)throws {
+    /// - Parameter email: A CC: email to which to send a notification email.
+    public init(email: Failable<String, EmailString>) {
         self.email = email
-        try self.set(\.email <~ email)
     }
     
     /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
-        let container = try decoder.singleValueContainer()
-        self.email = try container.decode(String.self)
-
-        
-        try self.set(\.email <~ self.email)
+        self.email = try decoder.container(keyedBy: Keys.self).decode(Failable<String, EmailString>.self, forKey: .email)
     }
     
     /// See [`Encodable.encode(to:)`](https://developer.apple.com/documentation/swift/encodable/2893603-encode).
     public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(self.email)
-    }
-    
-    /// See `ValidationSetable.setterValidations()`
-    public func setterValidations() -> SetterValidations<EmailType<Keys>> {
-        var validations = SetterValidations(EmailType<Keys>.self)
-        
-        validations.set(\.email) { email in
-            guard email.count >= 3 && email.count <= 254 else {
-                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`email` property must have a length between 3 and 254")
-            }
-            guard email.range(of: "^.+@[^\"\\-].+$", options: .regularExpression) != nil else {
-                throw PayPalError(status: .badRequest, identifier: "malformedString", reason: "`email` property must match RegEx pattern `^.+@[^\"\\-].+$`")
-            }
-        }
-        
-        return validations
+        var container = encoder.container(keyedBy: Keys.self)
+        try container.encode(self.email, forKey: .email)
     }
 }

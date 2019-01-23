@@ -1,7 +1,7 @@
 import Vapor
 
 /// The payment data for a sale, authorized payment, or order.
-public struct Payment: Content, ValidationSetable, Equatable {
+public struct Payment: Content, Equatable {
     
     /// The ID of the payment.
     public let id: String?
@@ -13,10 +13,10 @@ public struct Payment: Content, ValidationSetable, Equatable {
     public let failure: Failure?
     
     /// The date and time when the payment was created, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public let created: String?
+    public let created: ISO8601Date?
     
     /// The date and time when the payment was updated, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-    public let updated: String?
+    public let updated: ISO8601Date?
     
     /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
     public let links: [LinkDescription]?
@@ -41,11 +41,8 @@ public struct Payment: Content, ValidationSetable, Equatable {
     
     /// A free-form field that clients can use to send a note to the payer.
     ///
-    /// This property can be set using the `Payment.set(_:)` method.
-    /// This method validates the new value before assigning it to the property.
-    ///
     /// Maximum length: 165.
-    public private(set) var payerNote: String?
+    public var payerNote: Failable<String?, NotNilValidate<Length165>>
     
     /// A set of redirect URLs that you provide for PayPal-based payments.
     public var redirects: Redirects?
@@ -67,9 +64,9 @@ public struct Payment: Content, ValidationSetable, Equatable {
        context: AppContext?,
        transactions: [Transaction]?,
        experience: String?,
-       payerNote: String?,
+       payerNote: Failable<String?, NotNilValidate<Length165>>,
        redirects: Redirects?
-    )throws {
+    ) {
         self.id = nil
         self.state = nil
         self.failure = nil
@@ -84,42 +81,6 @@ public struct Payment: Content, ValidationSetable, Equatable {
         self.experience = experience
         self.payerNote = payerNote
         self.redirects = redirects
-        
-        try self.set(\.payerNote <~ payerNote)
-    }
-    
-    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
-    public init(from decoder: Decoder)throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.id = try container.decodeIfPresent(String.self, forKey: .id)
-        self.state = try container.decodeIfPresent(State.self, forKey: .state)
-        self.failure = try container.decodeIfPresent(Failure.self, forKey: .failure)
-        self.created = try container.decodeIfPresent(String.self, forKey: .created)
-        self.updated = try container.decodeIfPresent(String.self, forKey: .updated)
-        self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
-        self.intent = try container.decodeIfPresent(Intent.self, forKey: .intent)
-        self.payer = try container.decodeIfPresent(PaymentPayer.self, forKey: .payer)
-        self.context = try container.decodeIfPresent(AppContext.self, forKey: .context)
-        self.transactions = try container.decodeIfPresent([Transaction].self, forKey: .transactions)
-        self.experience = try container.decodeIfPresent(String.self, forKey: .experience)
-        self.payerNote = try container.decodeIfPresent(String.self, forKey: .payerNote)
-        self.redirects = try container.decodeIfPresent(Redirects.self, forKey: .redirects)
-        
-        try self.set(\.payerNote <~ payerNote)
-    }
-    
-    /// See `ValidationSetable.setterValidations()`.
-    public func setterValidations() -> SetterValidations<Payment> {
-        var validations = SetterValidations(Payment.self)
-        
-        validations.set(\.payerNote) { note in
-            guard note?.count ?? 0 <= 165 else {
-                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note_to_payer` length must be 165 or less.")
-            }
-        }
-        
-        return validations
     }
     
     enum CodingKeys: String, CodingKey {

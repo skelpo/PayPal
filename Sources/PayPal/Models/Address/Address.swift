@@ -1,3 +1,4 @@
+import Countries
 import Vapor
 
 public struct Address: Content, Equatable {

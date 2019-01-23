@@ -1,7 +1,7 @@
 import Vapor
 
 /// Credit card information used for making a payment.
-public struct CreditCard: Content, ValidationSetable, Equatable {
+public struct CreditCard: Content, Equatable {
     
     /// The PayPal-generated ID for the resource.
     public let id: String?
@@ -13,16 +13,10 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
     public var type: String
     
     /// The two-digit card expiry month, in `MM` format. Value is from `01` to `12`.
-    ///
-    /// This property can be set using the `CreditCard.set(_:)` method, which
-    /// will validate the new value before it is assigned to the property.
-    public var expireMonth: Int
+    public var expireMonth: Failable<Int, MonthRange>
     
     /// The four-digit card expiry year, in `YYYY` format.
-    ///
-    /// This property can be set using the `CreditCard.set(_:)` method, which
-    /// will validate the new value before it is assigned to the property.
-    public var expireYear: Int
+    public var expireYear: Failable<Int, YearRange>
     
     /// The card validation code. Supported only when making a payment but not when saving a credit card for future use.
     public var ccv2: Int?
@@ -39,11 +33,8 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
     /// The facilitator-provided ID of the customer who owns this bank account.
     /// Required when storing a funding instrument or using a stored funding instrument in the PayPal vault.
     ///
-    /// This property can be set using the `CreditCard.set(_:)` method, which
-    /// will validate the new value before it is assigned to the property.
-    ///
     /// Maximum length: 256.
-    public private(set) var customerID: String?
+    public var customerID: Failable<String?, NotNilValidate<Length256>>
     
     /// The state of the funding instrument.
     public let state: CreditCard.State?
@@ -59,27 +50,26 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
     
     /// Creates a new `CreditCard` instance.
     ///
-    ///     CreditCard(
-    ///         number: "4953912847443848",
-    ///         type: "Visa",
-    ///         expireMonth: 09,
-    ///         expireYear: 2028,
-    ///         ccv2: 633,
-    ///         firstName: "Jonnas",
-    ///         lastName: "Futher",
-    ///         billingAddress: nil,
-    ///         customerID: "5FC894A2-FDA7-416D-818F-C0678C57371F"
-    ///     )
+    /// - Parameters:
+    ///   - number: The card number.
+    ///   - type: The card type. For example, Visa, MasterCard, and so on.
+    ///   - expireMonth: The two-digit card expiry month, in `MM` format.
+    ///   - expireYear: The four-digit card expiry year, in `YYYY` format.
+    ///   - ccv2: The card validation code.
+    ///   - firstName: The first name of the card holder.
+    ///   - lastName: The last name of the card holder.
+    ///   - billingAddress: The billing address associated with this card.
+    ///   - customerID: The facilitator-provided ID of the customer who owns this bank account.
     public init(
         number: String,
         type: String,
-        expireMonth: Int,
-        expireYear: Int,
+        expireMonth: Failable<Int, MonthRange>,
+        expireYear: Failable<Int, YearRange>,
         ccv2: Int?,
         firstName: String?,
         lastName: String?,
         billingAddress: Address?,
-        customerID: String?
+        customerID: Failable<String?, NotNilValidate<Length256>>
     )throws {
         self.id = nil
         self.state = nil
@@ -95,55 +85,6 @@ public struct CreditCard: Content, ValidationSetable, Equatable {
         self.lastName = lastName
         self.billingAddress = billingAddress
         self.customerID = customerID
-        
-        try self.set(\.expireMonth <~ expireMonth)
-        try self.set(\.expireYear <~ expireYear)
-        try self.set(\.customerID <~ customerID)
-    }
-    
-    public init(from decoder: Decoder)throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        self.id = try container.decodeIfPresent(String.self, forKey: .id)
-        self.state = try container.decodeIfPresent(CreditCard.State.self, forKey: .state)
-        self.validUntil = try container.decodeIfPresent(Date.self, forKey: .validUntil)
-        self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
-        
-        self.number = try container.decode(String.self, forKey: .number)
-        self.type = try container.decode(String.self, forKey: .type)
-        self.expireMonth = try container.decode(Int.self, forKey: .expireMonth)
-        self.expireYear = try container.decode(Int.self, forKey: .expireYear)
-        self.ccv2 = try container.decodeIfPresent(Int.self, forKey: .ccv2)
-        self.firstName = try container.decodeIfPresent(String.self, forKey: .firstName)
-        self.lastName = try container.decodeIfPresent(String.self, forKey: .lastName)
-        self.billingAddress = try container.decodeIfPresent(Address.self, forKey: .billingAddress)
-        self.customerID = try container.decodeIfPresent(String.self, forKey: .customerID)
-        
-        try self.set(\.expireMonth <~ expireMonth)
-        try self.set(\.expireYear <~ expireYear)
-        try self.set(\.customerID <~ customerID)
-    }
-    
-    public func setterValidations() -> SetterValidations<CreditCard> {
-        var validations = SetterValidations(CreditCard.self)
-        
-        validations.set(\.expireMonth) { month in
-            guard month > 0 && month <= 12 else {
-                throw PayPalError(status: .badRequest, identifier: "invalidDate", reason: "`expire_month` property must have a value from 1 to 12.")
-            }
-        }
-        validations.set(\.expireYear) { year in
-            guard String(describing: year).count == 4 else {
-                throw PayPalError(status: .badRequest, identifier: "invalidDate", reason: "`expire_year` property must have 4 digits.")
-            }
-        }
-        validations.set(\.customerID) { id in
-            guard id?.count ?? 0 <= 256 else {
-                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`external_customer_id` property must have a length of 128 or less")
-            }
-        }
-        
-        return validations
     }
     
     enum CodingKeys: String, CodingKey {

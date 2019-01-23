@@ -32,18 +32,13 @@ public final class Term: Content, Equatable {
     ///   - amountRange: The amount range for this term.
     ///   - editable: Indicates whether the customer can edit the amount in this term.
     public init(
-        id: String? = nil,
         type: TermType,
         maxAmount: CurrencyCodeAmount,
         occurrences: String,
         amountRange: CurrencyCodeAmount,
         editable: String
     )throws {
-        guard id?.count ?? 0 < 128 else {
-            throw PayPalError(identifier: "excededIDLength", reason: "ID length must be no greater then 128 characters")
-        }
-        
-        self.id = id
+        self.id = nil
         self.type = type
         self.maxAmount = maxAmount
         self.occurrences = occurrences

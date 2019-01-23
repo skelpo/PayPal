@@ -23,20 +23,10 @@ public struct PayerInfo: Content, Equatable {
     
     /// Creates a new `PayerInfo` instance.
     ///
-    ///     PayerInfo(
-    ///         email: "payer@exmaple.com",
-    ///         shippingAddress: nil,
-    ///         billingAddress: Address(
-    ///             recipientName: "Puffin Billy",
-    ///             defaultAddress: true,
-    ///             line1: "89 Furnace Dr.",
-    ///             line2: nil,
-    ///             city: "Nowhere",
-    ///             state: "KS",
-    ///             countryCode: "US",
-    ///             postalCode: "66167"
-    ///         )
-    ///     )
+    /// - Parameters:
+    ///   - email: The payer's email address.
+    ///   - shippingAddress: The shipping address for a payment.
+    ///   - billingAddress: The payer's billing address.
     public init(email: String?, shippingAddress: Address?, billingAddress: Address?) {
         self.id = nil
         self.firstName = nil

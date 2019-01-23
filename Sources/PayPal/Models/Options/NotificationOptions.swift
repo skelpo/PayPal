@@ -24,6 +24,12 @@ public struct NotificationOptions: Content, Equatable {
         self.ipnNotify = ipnNotify
         self.emailFrequency = emailFrequency
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case suppressWelcome = "suppress_welcome_email"
+        case ipnNotify = "ipn_notify_url"
+        case emailFrequency = "reminder_email_frequency"
+    }
 }
 
 extension NotificationOptions {

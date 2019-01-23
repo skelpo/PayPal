@@ -3,7 +3,7 @@ import Vapor
 extension RelatedResource {
     
     /// The details of a capture transaction.
-    public struct Capture: Content, ValidationSetable, Equatable {
+    public struct Capture: Content, Equatable {
         
         /// The ID of the capture transaction.
         public let id: String?
@@ -18,10 +18,10 @@ extension RelatedResource {
         public let parent: String?
         
         /// The date and time of the capture, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
-        public let created: String?
+        public let created: ISO8601Date?
         
         /// The date and time when the resource was last updated, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6)
-        public let updated: String?
+        public let updated: ISO8601Date?
         
         /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
         public let links: [LinkDescription]?
@@ -36,22 +36,16 @@ extension RelatedResource {
         
         /// The invoice number to track this payment.
         ///
-        /// This property can be set using the `Capture.set(_:)` method. This
-        /// method validates the new value before assigning it to the property.
-        ///
         /// Maximum length: 127.
-        public private(set) var invoice: String?
+        public var invoice: Optional127String
         
         /// The currency and amount of the transaction fee for this payment.
         public var transaction: CurrencyAmount?
         
         /// A free-form field that clients can use to send a note to the payer.
         ///
-        /// This property can be set using the `Capture.set(_:)` method. This
-        /// method validates the new value before assigning it to the property.
-        ///
         /// Maximum length: 255.
-        public private(set) var payerNote: String?
+        public var payerNote: Failable<String?, NotNilValidate<Length255>>
         
         
         /// Creates a new `RelatedResource.Capture` struct.
@@ -62,7 +56,13 @@ extension RelatedResource {
         ///   - invoice: The invoice number to track this payment.
         ///   - transaction: The currency and amount of the transaction fee for this payment.
         ///   - payerNote: A free-form field that clients can use to send a note to the payer.
-        public init(amount: DetailedAmount?, isFinal: Bool?, invoice: String?, transaction: CurrencyAmount?, payerNote: String?)throws {
+        public init(
+            amount: DetailedAmount?,
+            isFinal: Bool?,
+            invoice: Optional127String,
+            transaction: CurrencyAmount?,
+            payerNote: Failable<String?, NotNilValidate<Length255>>
+        ) {
             self.id = nil
             self.state = nil
             self.reason = nil
@@ -76,47 +76,6 @@ extension RelatedResource {
             self.invoice = invoice
             self.transaction = transaction
             self.payerNote = payerNote
-            
-            try self.set(\.invoice <~ invoice)
-            try self.set(\.payerNote <~ payerNote)
-        }
-        
-        /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
-        public init(from decoder: Decoder)throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            self.id = try container.decodeIfPresent(String.self, forKey: .id)
-            self.state = try container.decodeIfPresent(State.self, forKey: .state)
-            self.reason = try container.decodeIfPresent(Reason.self, forKey: .reason)
-            self.parent = try container.decodeIfPresent(String.self, forKey: .parent)
-            self.created = try container.decodeIfPresent(String.self, forKey: .created)
-            self.updated = try container.decodeIfPresent(String.self, forKey: .updated)
-            self.links = try container.decodeIfPresent([LinkDescription].self, forKey: .links)
-            self.amount = try container.decodeIfPresent(DetailedAmount.self, forKey: .amount)
-            self.isFinal = try container.decodeIfPresent(Bool.self, forKey: .isFinal)
-            self.invoice = try container.decodeIfPresent(String.self, forKey: .invoice)
-            self.transaction = try container.decodeIfPresent(CurrencyAmount.self, forKey: .transaction)
-            self.payerNote = try container.decodeIfPresent(String.self, forKey: .payerNote)
-            
-            try self.set(\.invoice <~ invoice)
-            try self.set(\.payerNote <~ payerNote)
-        }
-        
-        /// See `ValidationSetable.setterValidations()`.
-        public func setterValidations() -> SetterValidations<RelatedResource.Capture> {
-            var validations = SetterValidations(RelatedResource.Capture.self)
-            
-            validations.set(\.invoice) { invoice in
-                guard invoice?.count ?? 0 <= 127 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`invoice` value must have a length of 127 or less")
-                }
-            }
-            validations.set(\.payerNote) { note in
-                guard note?.count ?? 0 <= 255 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`payerNote` value lnegth must be 255 or less")
-                }
-            }
-            
-            return validations
         }
         
         enum CodingKeys: String, CodingKey {

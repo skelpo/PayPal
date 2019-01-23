@@ -1,20 +1,18 @@
 import Vapor
 
 /// The body of the request for PayPal's `POST /v1/customer/disputes/{dispute_id}/accept-claim` endpoint.
-public struct AcceptDisputeBody: Content, ValidationSetable, Equatable {
+public struct AcceptDisputeBody: Content, Equatable {
     
     /// The merchant's notes about the claim. PayPal can, but the customer cannot, view these notes.
     ///
-    /// This property can be set using the `AcceptDisputeBody.set(_:)` method. This
-    /// will validate the new value before assigning it to the property.
-    ///
     /// Minimum length: 1. Maximum length: 2000.
-    public private(set) var note: String?
+    public var note: Optional2000String
     
     /// The merchant's reason for acceptance of the customer's claim.
     public var reason: Reason?
     
-    /// The merchant-provided ID of the invoice for the refund. This optional value is used to map the refund to an invoice ID in the merchant's system.
+    /// The merchant-provided ID of the invoice for the refund. This optional value is used to
+    /// map the refund to an invoice ID in the merchant's system.
     public var invoiceID: String?
     
     /// The return address for the item.
@@ -27,55 +25,25 @@ public struct AcceptDisputeBody: Content, ValidationSetable, Equatable {
     ///
     /// The subsequent action depends on the amount:
     /// - If this amount is less than the customer-requested amount, the dispute updates to require customer acceptance.
-    /// - If this amount is equal to or greater than the customer-requested amount, this amount is automatically refunded to the customer and the dispute closes.
+    /// - If this amount is equal to or greater than the customer-requested amount,
+    ///   this amount is automatically refunded to the customer and the dispute closes.
     public var refund: CurrencyCodeAmount?
     
     
     /// Creates a new `AcceptDisputeBody` instance.
     ///
-    ///     AcceptDisputeBody(
-    ///         note: "Refund to customer",
-    ///         reason: .policy,
-    ///         invoiceID: "3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5",
-    ///         returnAddress: nil,
-    ///         refund: Money(currency: .usd, value: "55.50")
-    ///     )
-    public init(note: String?, reason: Reason?, invoiceID: String?, returnAddress: Address?, refund: CurrencyCodeAmount?)throws {
+    /// - Parameters:
+    ///   - note: The merchant's notes about the claim.
+    ///   - reason: The merchant's reason for acceptance of the customer's claim.
+    ///   - invoiceID: The merchant-provided ID of the invoice for the refund.
+    ///   - returnAddress: The return address for the item.
+    ///   - refund: To accept a customer's claim, the amount that the merchant agrees to refund the customer.
+    public init(note: Optional2000String, reason: Reason?, invoiceID: String?, returnAddress: Address?, refund: CurrencyCodeAmount?) {
         self.note = note
         self.reason = reason
         self.invoiceID = invoiceID
         self.returnAddress = returnAddress
         self.refund = refund
-        
-        try self.set(\.note <~ note)
-    }
-    
-    /// See [`Decoder.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
-    public init(from decoder: Decoder)throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let note = try container.decodeIfPresent(String.self, forKey: .note)
-        
-        self.note = note
-        self.reason = try container.decodeIfPresent(Reason.self, forKey: .reason)
-        self.invoiceID = try container.decodeIfPresent(String.self, forKey: .invoiceID)
-        self.returnAddress = try container.decodeIfPresent(Address.self, forKey: .returnAddress)
-        self.refund = try container.decodeIfPresent(CurrencyCodeAmount.self, forKey: .refund)
-        
-        try self.set(\.note <~ note)
-    }
-    
-    /// See `ValidationSetable.setterValidations()`.
-    public func setterValidations() -> SetterValidations<AcceptDisputeBody> {
-        var validations = SetterValidations(AcceptDisputeBody.self)
-        
-        validations.set(\.note) { note in
-            guard let note = note else { return }
-            guard note.count >= 1 && note.count <= 2000 else {
-                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`note` property must have a length between 1 and 2000")
-            }
-        }
-        
-        return validations
     }
     
     enum CodingKeys: String, CodingKey {

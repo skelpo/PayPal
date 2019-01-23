@@ -3,23 +3,17 @@ import Vapor
 /// The body of the POST request used to create a new billing agreement on PayPal.
 ///
 /// https://developer.paypal.com/docs/api/payments.billing-agreements/v1/#billing-agreements-create-request-body
-public struct NewAgreement: Content, ValidationSetable, Equatable {
+public struct NewAgreement: Content, Equatable {
     
     /// The agreement name.
     ///
-    /// This property can be set using the `NewAgreement.set(_:)` method
-    /// which will validate the new valie before asigning it to the property.
-    ///
     /// Maximum length: 128.
-    public private(set) var name: String
+    public var name: Failable<String, Length128>
     
     /// The agreement description.
     ///
-    /// This property can be set using the `NewAgreement.set(_:)` method
-    /// which will validate the new valie before asigning it to the property.
-    ///
     /// Maximum length: 128.
-    public private(set) var description: String
+    public var description: Failable<String, Length128>
     
     /// The date and time when this agreement begins, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
     /// The start date must be no less than 24 hours after the current date as the agreement can take up to 24 hours to activate.
@@ -30,7 +24,7 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
     /// for an account in the Berlin time zone (UTC + 1) to `2017-01-02T00:00:00`. When the API returns this date and time in the execute
     /// agreement response, it shows the converted date and time in the UTC time zone. So, the internal `2017-01-02T00:00:00` start date
     /// and time becomes `2017-01-01T23:00:00` externally.
-    public var start: String
+    public var start: ISO8601Date
     
     /// The agreement details.
     public var details: Details?
@@ -56,76 +50,36 @@ public struct NewAgreement: Content, ValidationSetable, Equatable {
     
     /// Creatse a new `NewAgreement` instance.
     ///
-    ///     NewAgreement(
-    ///         name: "Nia's Maggot Loaf",
-    ///         description: "Weekly maggot loaf subscription",
-    ///         start: Date().iso8601,
-    ///         payer: Payer(
-    ///             method: .paypal,
-    ///             fundingInstruments: nil,
-    ///             info: nil
-    ///         ),
-    ///         plan: "P-15B72BF371C34D24"
-    ///     )
+    /// - Parameters:
+    ///   - name: The agreement name.
+    ///   - description: The agreement description.
+    ///   - start: The date and time when this agreement begins, in Internet date and time format.
+    ///   - payer: The details for the customer who funds the payment.
+    ///   - plan: The ID of the plan on which this agreement is based.
+    ///   - details: The agreement details.
+    ///   - shippingAddress: The shipping address for a payment.
+    ///   - overrideMerchantPreferances: The merchant preferences that override the default information in the plan.
+    ///   - overrideChargeModels: An array of charge models to override the charge models in the plan.
     public init(
-        name: String,
-        description: String,
-        start: String,
+        name: Failable<String, Length128>,
+        description: Failable<String, Length128>,
+        start: Date,
         payer: Payer,
         plan: ID,
         details: Details? = nil,
         shippingAddress: Address? = nil,
         overrideMerchantPreferances: MerchantPreferances<CurrencyCodeAmount>? = nil,
         overrideChargeModels: [OverrideCharge]? = nil
-    )throws {
+    ) {
         self.name = name
         self.description = description
-        self.start = start
+        self.start = ISO8601Date(start)
         self.details = details
         self.payer = payer
         self.shippingAddress = shippingAddress
         self.overrideMerchantPreferances = overrideMerchantPreferances
         self.overrideChargeModels = overrideChargeModels
         self.plan = plan
-        
-        try self.set(\.name <~ name)
-        try self.set(\.description <~ description)
-    }
-    
-    public init(from decoder: Decoder)throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let name = try container.decode(String.self, forKey: .name)
-        let description = try container.decode(String.self, forKey: .description)
-        
-        self.name = name
-        self.description = description
-        self.start = try container.decode(String.self, forKey: .start)
-        self.plan = try container.decode(ID.self, forKey: .plan)
-        self.payer = try container.decode(Payer.self, forKey: .payer)
-        self.details = try container.decodeIfPresent(Details.self, forKey: .details)
-        self.shippingAddress = try container.decodeIfPresent(Address.self, forKey: .shippingAddress)
-        self.overrideMerchantPreferances = try container.decodeIfPresent(MerchantPreferances<CurrencyCodeAmount>.self, forKey: .overrideMerchantPreferances)
-        self.overrideChargeModels = try container.decodeIfPresent([OverrideCharge].self, forKey: .overrideChargeModels)
-        
-        try self.set(\.name <~ name)
-        try self.set(\.description <~ description)
-    }
-    
-    public func setterValidations() -> SetterValidations<NewAgreement> {
-        var validations = SetterValidations(NewAgreement.self)
-        
-        validations.set(\.name) { name in
-            guard name.count <= 128 else {
-                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`name` property must have a length of 128 or less")
-            }
-        }
-        validations.set(\.description) { description in
-            guard description.count <= 128 else {
-                throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`description` property must have a length of 128 or less")
-            }
-        }
-        
-        return validations
     }
     
     enum CodingKeys: String, CodingKey {

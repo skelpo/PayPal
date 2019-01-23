@@ -3,7 +3,7 @@ import Vapor
 extension Business {
     
     /// The sales information for a business.
-    public struct Sales: Content, ValidationSetable, Equatable {
+    public struct Sales: Content, Equatable {
         
         /// The average transaction price.
         public var price: MoneyRange<CurrencyAmount>?
@@ -16,11 +16,8 @@ extension Business {
         
         /// The primary URL of the business.
         ///
-        /// This property can be set using the `Sales.set(_:)` method. This method
-        /// will validate the new value before assigning it to the property.
-        ///
         /// Maximum length: 255.
-        public private(set) var website: String?
+        public var website: Failable<String?, NotNilValidate<Length255>>
         
         /// The percentage of revenue attributable to online sales.
         public var online: PercentRange?
@@ -28,33 +25,24 @@ extension Business {
         
         /// Creates a new `Business.Sales` instance.
         ///
-        ///     Business.Sales(
-        ///         price: MoneyRange("50"..."60", currency: .usd),
-        ///         volume: MoneyRange("50"..."60", currency: .usd),
-        ///         venues: [],
-        ///         website: "https://finiansbooksteacoffeeetc.com",
-        ///         online: PercentRange(0...1)
-        ///     )
-        public init(price: MoneyRange<CurrencyAmount>?, volume: MoneyRange<CurrencyAmount>?, venues: [SalesVenue]?, website: String?, online: PercentRange?)throws {
+        /// - Parameters:
+        ///   - price: The average transaction price.
+        ///   - volume: The average volume of monthly sales.
+        ///   - venues: An array of sales venues for the business.
+        ///   - website: The primary URL of the business.
+        ///   - online: The percentage of revenue attributable to online sales.
+        public init(
+            price: MoneyRange<CurrencyAmount>?,
+            volume: MoneyRange<CurrencyAmount>?,
+            venues: [SalesVenue]?,
+            website: Failable<String?, NotNilValidate<Length255>>,
+            online: PercentRange?
+        ) {
             self.price = price
             self.volume = volume
             self.venues = venues
             self.website = website
             self.online = online
-        }
-        
-        /// See `ValidationSetable.setterValidations()`.
-        public func setterValidations() -> SetterValidations<Business.Sales> {
-            var validations = SetterValidations(Sales.self)
-            
-            validations.set(\.website) { website in
-                guard let website = website else { return }
-                guard website.count <= 255 else {
-                    throw PayPalError(status: .badRequest, identifier: "invalidLength", reason: "`website` value must have a length of 255 or less")
-                }
-            }
-            
-            return validations
         }
         
         enum CodingKeys: String, CodingKey {

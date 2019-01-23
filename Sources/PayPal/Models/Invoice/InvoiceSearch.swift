@@ -32,35 +32,35 @@ extension Invoice {
         
         /// The start date for the invoice, in
         /// [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, yyyy-MM-dd z.
-        public var startInvoiceAt: String?
+        public var startInvoiceAt: ISO8601Date?
         
         /// The end date for the invoice, in
         /// [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, yyyy-MM-dd z.
-        public var endInvoiceAt: String?
+        public var endInvoiceAt: ISO8601Date?
         
         /// The start due date for the invoice, in
         /// [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, yyyy-MM-dd z.
-        public var startDueAt: String?
+        public var startDueAt: ISO8601Date?
         
         /// The end due date for the invoice, in
         /// [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, yyyy-MM-dd z.
-        public var endDueAt: String?
+        public var endDueAt: ISO8601Date?
         
         /// The start payment date for the invoice, in
         /// [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, yyyy-MM-dd z.
-        public var startPaymentAt: String?
+        public var startPaymentAt: ISO8601Date?
         
         /// The end payment date for the invoice, in
         /// [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, yyyy-MM-dd z.
-        public var endPaymentAt: String?
+        public var endPaymentAt: ISO8601Date?
         
         /// The start creation date for the invoice, in
         /// [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, yyyy-MM-dd z.
-        public var startCreationAt: String?
+        public var startCreationAt: ISO8601Date?
         
         /// The end creation date for the invoice, in
         /// [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). For example, yyyy-MM-dd z.
-        public var endCreationAt: String?
+        public var endCreationAt: ISO8601Date?
         
         /// The zero-relative start index of the entire list of merchant invoices to return in the response. So, a combination of `page=0`
         /// and `page_size=20` returns the first 20 invoices. A combination of `page=20` and `page_size=20` returns the next 20 invoices.
@@ -89,14 +89,14 @@ extension Invoice {
             status: Status? = nil,
             lowerAmount: String? = nil,
             upperAmount: String? = nil,
-            startInvoiceAt: String? = nil,
-            endInvoiceAt: String? = nil,
-            startDueAt: String? = nil,
-            endDueAt: String? = nil,
-            startPaymentAt: String? = nil,
-            endPaymentAt: String? = nil,
-            startCreationAt: String? = nil,
-            endCreationAt: String? = nil,
+            startInvoiceAt: Date? = nil,
+            endInvoiceAt: Date? = nil,
+            startDueAt: Date? = nil,
+            endDueAt: Date? = nil,
+            startPaymentAt: Date? = nil,
+            endPaymentAt: Date? = nil,
+            startCreationAt: Date? = nil,
+            endCreationAt: Date? = nil,
             page: Int? = nil,
             pageSize: Int? = nil,
             totalCount: Bool? = nil,
@@ -110,14 +110,14 @@ extension Invoice {
             self.status = status
             self.lowerAmount = lowerAmount
             self.upperAmount = upperAmount
-            self.startInvoiceAt = startInvoiceAt
-            self.endInvoiceAt = endInvoiceAt
-            self.startDueAt = startDueAt
-            self.endDueAt = endDueAt
-            self.startPaymentAt = startPaymentAt
-            self.endPaymentAt = endPaymentAt
-            self.startCreationAt = startCreationAt
-            self.endCreationAt = endCreationAt
+            self.startInvoiceAt = startInvoiceAt == nil ? nil : ISO8601Date(startInvoiceAt!)
+            self.endInvoiceAt = endInvoiceAt == nil ? nil : ISO8601Date(endInvoiceAt!)
+            self.startDueAt = startDueAt == nil ? nil : ISO8601Date(startDueAt!)
+            self.endDueAt = endDueAt == nil ? nil : ISO8601Date(endDueAt!)
+            self.startPaymentAt = startPaymentAt == nil ? nil : ISO8601Date(startPaymentAt!)
+            self.endPaymentAt = endPaymentAt == nil ? nil : ISO8601Date(endPaymentAt!)
+            self.startCreationAt = startCreationAt == nil ? nil : ISO8601Date(startCreationAt!)
+            self.endCreationAt = endCreationAt == nil ? nil : ISO8601Date(endCreationAt!)
             self.page = page
             self.pageSize = pageSize
             self.totalCount = totalCount

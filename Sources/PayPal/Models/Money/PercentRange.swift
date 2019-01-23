@@ -1,56 +1,67 @@
 import Vapor
 
+/// Validation used for the `PercentRange.max` property.
+public struct PercentMax: InRangeValidation {
+    
+    /// See `Validations.Supported`.
+    public typealias Supported = Int
+    
+    /// The `PercentRange.max` property must be `100` or less.
+    public static var max: Int? = 100
+    
+    /// The `PercentRange.max` property must be `1` or more.
+    public static var min: Int? = 1
+}
+
+/// Validation used for the `PercentRange.min` property.
+public struct PercentMin: InRangeValidation {
+    
+    /// See `Validations.Supported`.
+    public typealias Supported = Int
+    
+    /// The `PercentRange.min` property must be `99` or less.
+    public static var max: Int? = 99
+    
+    /// The `PercentRange.min` property must be `0` or more.
+    public static var min: Int? = 0
+}
+
 /// A range of percentages, including all whole numbers between a spoecified minimum and maximum values.
-public struct PercentRange: Content, ValidationSetable, Hashable {
+public struct PercentRange: Content, Hashable {
     
     /// The minimum inclusive value of the range.
     ///
-    /// This property can be set using the `PercentRange.set(_:)`. This method
-    /// validates the new value before assigning it to thr property.
-    ///
     /// Minimum value: 0. Maximum value: 99.
-    public private(set) var minimum: Int
+    public var minimum: Failable<Int, PercentMin>
     
     /// The maximum inclusive value of the range.
     ///
-    /// This property can be set using the `PercentRange.set(_:)`. This method
-    /// validates the new value before assigning it to thr property.
-    ///
     /// Minimum value: 1. Maximum value: 100.
-    public private(set) var maximum: Int
+    public var maximum: Failable<Int, PercentMax>
     
     
     /// Creates a new `PercentRange` instance.
     ///
     ///     PercentRange(min: 25, max: 75)
-    public init(min: Int, max: Int)throws {
+    public init(min: Failable<Int, PercentMin>, max: Failable<Int, PercentMax>) {
         self.minimum = min
         self.maximum = max
-        
-        try self.set(\.minimum <~ min)
-        try self.set(\.maximum <~ max)
     }
     
     /// Creates a new `PercentRange` instance with a closed range.
     ///
     ///     PercentRange(50..<100)
     public init(_ range: Range<Int>)throws {
-        self.minimum = range.lowerBound
-        self.maximum = range.last ?? range.upperBound
-        
-        try self.set(\.minimum <~ range.lowerBound)
-        try self.set(\.maximum <~ (range.last ?? range.upperBound))
+        self.minimum = try range.lowerBound.failable()
+        self.maximum = try (range.last ?? range.upperBound).failable()
     }
     
     /// Creates a new `PercentRange` instance with a closed range.
     ///
     ///     PercentRange(50...75)
     public init(_ range: ClosedRange<Int>)throws {
-        self.minimum = range.lowerBound
-        self.maximum = range.upperBound
-        
-        try self.set(\.minimum <~ range.lowerBound)
-        try self.set(\.maximum <~ range.upperBound)
+        self.minimum = try range.lowerBound.failable()
+        self.maximum = try range.upperBound.failable()
     }
     
     /// Creates a new `PercentRange` instance with a closed range.
@@ -59,10 +70,8 @@ public struct PercentRange: Content, ValidationSetable, Hashable {
     ///
     /// - Note: `maximum` property gets assigned `100`.
     public init(_ range: PartialRangeFrom<Int>)throws {
-        self.minimum = range.lowerBound
+        self.minimum = try range.lowerBound.failable()
         self.maximum = 100
-        
-        try self.set(\.minimum <~ range.lowerBound)
     }
     
     
@@ -73,9 +82,7 @@ public struct PercentRange: Content, ValidationSetable, Hashable {
     /// - Note: `minimum` property gets assigned `0`.
     public init(_ range: PartialRangeThrough<Int>)throws {
         self.minimum = 0
-        self.maximum = range.upperBound
-        
-        try self.set(\.maximum <~ range.upperBound)
+        self.maximum = try range.upperBound.failable()
     }
     
     /// Creates a new `PercentRange` instance with a closed range.
@@ -85,40 +92,7 @@ public struct PercentRange: Content, ValidationSetable, Hashable {
     /// - Note: `minimum` property gets assigned `0`.
     public init(_ range: PartialRangeUpTo<Int>)throws {
         self.minimum = 0
-        self.maximum = range.upperBound - 1
-        
-        try self.set(\.maximum <~ (range.upperBound - 1))
-    }
-    
-    /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
-    public init(from decoder: Decoder)throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let min = try container.decode(Int.self, forKey: .minimum)
-        let max = try container.decode(Int.self, forKey: .maximum)
-        
-        self.minimum = min
-        self.maximum = max
-        
-        try self.set(\.minimum <~ min)
-        try self.set(\.maximum <~ max)
-    }
-    
-    /// See `ValidationSetable.setterValidations()`.
-    public func setterValidations() -> SetterValidations<PercentRange> {
-        var validations = SetterValidations(PercentRange.self)
-        
-        validations.set(\.minimum) { min in
-            guard (0...99).contains(min) else {
-                throw PayPalError(status: .badRequest, identifier: "invalidPercent", reason: "`min` value must be no less than 0 and no greater then 99 (0-99)")
-            }
-        }
-        validations.set(\.maximum) { max in
-            guard (1...100).contains(max) else {
-                throw PayPalError(status: .badRequest, identifier: "invalidPercent", reason: "`max` value must be no less than 1 and no greater then 100 (1-100)")
-            }
-        }
-        
-        return validations
+        self.maximum = try (range.upperBound - 1).failable()
     }
     
     enum CodingKeys: String, CodingKey {
@@ -134,15 +108,15 @@ extension PercentRange: RangeExpression {
     
     /// See [`RangeExpression.relative(to:)`](https://developer.apple.com/documentation/swift/rangeexpression/2944184-relative).
     public func relative<C>(to collection: C) -> Range<Int> where C : Collection, PercentRange.Bound == C.Index {
-        let start: Int = collection.startIndex > self.minimum && collection.startIndex < 100 ? collection.startIndex : self.minimum
-        let end: Int = collection.endIndex < self.maximum && collection.endIndex > 0 ? collection.endIndex : self.maximum
+        let start = (collection.startIndex > self.minimum.value && collection.startIndex < 100) ? collection.startIndex : self.minimum.value
+        let end = (collection.endIndex < self.maximum.value && collection.endIndex > 0) ? collection.endIndex : self.maximum.value
         
         return Range<Int>.init(uncheckedBounds: (start, end))
     }
     
     /// See [`RangeExpression.contains(_:)`](https://developer.apple.com/documentation/swift/rangeexpression/2893202-contains)
     public func contains(_ element: Int) -> Bool {
-        return element >= self.minimum && element <= self.maximum
+        return element >= self.minimum.value && element <= self.maximum.value
     }
 }
 
@@ -159,15 +133,15 @@ extension PercentRange: RandomAccessCollection {
     public var startIndex: Int { return 0 }
     
     /// See [`RandomAccessCollection.endIndex`](https://developer.apple.com/documentation/swift/randomaccesscollection/2945831-endindex).
-    public var endIndex: Int { return (self.maximum - self.minimum) + 1 }
+    public var endIndex: Int { return (self.maximum.value - self.minimum.value) + 1 }
     
     
     /// See [`RandomAccessCollection.subscript(position:)`](https://developer.apple.com/documentation/swift/randomaccesscollection/2944476-subscript).
     public subscript(position: Int) -> Int {
         guard (self.startIndex...self.endIndex).contains(position) else {
-            return Array(self.minimum...self.maximum)[position]
+            return Array(self.minimum.value...self.maximum.value)[position]
         }
-        return self.minimum + position
+        return self.minimum.value + position
     }
     
     

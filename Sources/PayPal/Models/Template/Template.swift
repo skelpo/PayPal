@@ -32,16 +32,12 @@ public struct Template: Content, Equatable {
     
     /// Creates a new `Template` instance.
     ///
-    ///     Template(
-    ///         name: "Hours Template",
-    ///         default: true,
-    ///         data: nil,
-    ///         settings: [
-    ///             .init(field: .itemsDate, preference: .init(hidden: true)),
-    ///             .init(field: .custom, preference: .init(hidden: true))
-    ///         ],
-    ///         measureUnit: .hours
-    ///     )
+    /// - Parameters:
+    ///   - name: The template name.
+    ///   - default: Indicates whether this template is the default merchant template.
+    ///   - data: The template data.
+    ///   - settings: An array of template settings that describe which fields to show or hide when creating an invoice.
+    ///   - measureUnit: The unit of measure for the template.
     public init(name: String?, default: Bool?, data: Data?, settings: [Settings]?, measureUnit: Invoice.Measure?) {
         self.id = nil
         self.custom = nil

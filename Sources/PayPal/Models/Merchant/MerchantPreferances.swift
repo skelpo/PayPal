@@ -1,7 +1,7 @@
 import Vapor
 
 /// Merchant preferances that override the default information for a billing agreement.
-public struct MerchantPreferances<M>: Content, ValidationSetable, Equatable where M: Amount {
+public struct MerchantPreferances<M>: Content, Equatable where M: Amount {
     
     /// The PayPal-generated ID for the resource.
     ///
@@ -13,19 +13,13 @@ public struct MerchantPreferances<M>: Content, ValidationSetable, Equatable wher
     
     /// The URL to which the customer is redirected if they cancel the agreement.
     ///
-    /// This property can be set with the `MerchantPreferances.set(_:)` method,
-    /// which will validate the new value before assigning it.
-    ///
     /// Maximum length: 1000.
-    public private(set) var cancelURL: String
+    public var cancelURL: Failable<String, Length1000>
     
     /// The URL to which the customer is redirected if they accept the agreement.
     ///
-    /// This property can be set with the `MerchantPreferances.set(_:)` method,
-    /// which will validate the new value before assigning it.
-    ///
     /// Maximum length: 1000.
-    public private(set) var returnURL: String
+    public var returnURL: Failable<String, Length1000>
     
     /// The maximum number of allowed failed payment attempts.
     /// Default is `0`, which allows infinite failed payment attempts.
@@ -47,31 +41,26 @@ public struct MerchantPreferances<M>: Content, ValidationSetable, Equatable wher
     
     /// Creates a new `MerchantPreferances` instance.
     ///
-    ///     MerchantPreferances(
-    ///         setupFee: Money(currency: .usd, value: "0"),
-    ///         cancelURL: "https://example.com/agreements",
-    ///         returnURL: "https://example.com/agreements/latest",
-    ///         autoBill: .yes,
-    ///         initialFailAction: .continue,
-    ///         acceptedPaymentType: nil,
-    ///         charSet: "UTF-8"
-    ///     )
+    /// - Parameters:
+    ///   - setupFee: The currency and amount of the fee to set up the agreement.
+    ///   - cancelURL: The URL to which the customer is redirected if they cancel the agreement.
+    ///   - returnURL: The URL to which the customer is redirected if they accept the agreement.
+    ///   - maxFails: The maximum number of allowed failed payment attempts.
+    ///   - autoBill: Indicates whether PayPal automatically bills the outstanding balance in the next billing cycle.
+    ///   - initialFailAction: The action if the customer's initial payment fails.
+    ///   - acceptedPaymentType: The payment types that are accepted for this agreement.
+    ///   - charSet: The character set for this agreement.
     public init(
-        id: String? = nil,
         setupFee: M?,
-        cancelURL: String,
-        returnURL: String,
+        cancelURL: Failable<String, Length1000>,
+        returnURL: Failable<String, Length1000>,
         maxFails: String? = "0",
         autoBill: AutoBill?,
         initialFailAction: InitialFailAction?,
         acceptedPaymentType: String?,
         charSet: String?
-    )throws {
-        guard id?.count ?? 0 < 128 else {
-            throw PayPalError(identifier: "excededIDLength", reason: "ID length must be no greater then 128 characters")
-        }
-        
-        self.id = id
+    ) {
+        self.id = nil
         self.setupFee = setupFee
         self.cancelURL = cancelURL
         self.returnURL = returnURL
@@ -80,41 +69,6 @@ public struct MerchantPreferances<M>: Content, ValidationSetable, Equatable wher
         self.initialFailAction = initialFailAction
         self.acceptedPaymentType = acceptedPaymentType
         self.charSet = charSet
-        
-        try self.set(\.cancelURL <~ cancelURL)
-        try self.set(\.returnURL <~ returnURL)
-    }
-    
-    public init(from decoder: Decoder)throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        try self.init(
-            id: container.decodeIfPresent(String.self, forKey: .id),
-            setupFee: container.decodeIfPresent(M.self, forKey: .setupFee),
-            cancelURL: container.decode(String.self, forKey: .cancelURL),
-            returnURL: container.decode(String.self, forKey: .returnURL),
-            maxFails: container.decodeIfPresent(String.self, forKey: .maxFails),
-            autoBill: container.decodeIfPresent(AutoBill.self, forKey: .autoBill),
-            initialFailAction: container.decodeIfPresent(InitialFailAction.self, forKey: .initialFailAction),
-            acceptedPaymentType: container.decodeIfPresent(String.self, forKey: .acceptedPaymentType),
-            charSet: container.decodeIfPresent(String.self, forKey: .charSet)
-        )
-    }
-    
-    public func setterValidations() -> SetterValidations<MerchantPreferances> {
-        var validations = SetterValidations(MerchantPreferances.self)
-        
-        validations.set(\.cancelURL) { url in
-            guard url.count <= 1000 else {
-                throw PayPalError(status: .badRequest, identifier: "urlLengthExceded", reason: "URL length must be less then, or equal to, 1000")
-            }
-        }
-        validations.set(\.returnURL) { url in
-            guard url.count <= 1000 else {
-                throw PayPalError(status: .badRequest, identifier: "urlLengthExceded", reason: "URL length must be less then, or equal to, 1000")
-            }
-        }
-        
-        return validations
     }
     
     enum CodingKeys: String, CodingKey {
