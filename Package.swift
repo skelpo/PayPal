@@ -21,6 +21,6 @@ let package = Package(
         .testTarget(name: "ConfigTests", dependencies: ["PayPal", "TestUtilities"]),
         .testTarget(name: "ControllerTests", dependencies: ["PayPal", "SwiftGD", "TestUtilities"]),
         .testTarget(name: "ModelTests", dependencies: ["PayPal", "TestUtilities"]),
-        .testTarget(name: "PayPalTests", dependencies: ["PayPal", "Vapor", "JSON"]),
+        .testTarget(name: "PayPalTests", dependencies: ["PayPal", "Vapor", "JSON", "ConfigTests", "ControllerTests", "ModelTests"]),
     ]
 )

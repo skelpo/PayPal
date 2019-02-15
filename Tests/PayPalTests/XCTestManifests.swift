@@ -1,4 +1,7 @@
 import XCTest
+import ModelTests
+import ConfigTests
+import ControllerTests
 
 #if !os(macOS)
 public func allTests() -> [XCTestCaseEntry] {
