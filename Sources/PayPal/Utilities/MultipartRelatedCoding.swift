@@ -23,14 +23,6 @@ extension MultipartPart {
     }
 }
 
-extension MultipartPart: MultipartPartConvertible {
-    /// /// Converts `self` to `MultipartPart`. In other words, we return `self`.
-    public func convertToMultipartPart() throws -> MultipartPart { return self }
-    
-    /// Converts a `MultipartPart` to `Self`. In other words, we return what is passed in.
-    public static func convertFromMultipartPart(_ part: MultipartPart) throws -> MultipartPart { return part }
-}
-
 extension Dictionary where Key: LosslessStringConvertible, Value == MultipartPartConvertible {
     
     /// Converts an dictionary of `String: MultipartPartConvertible` objects to keyed `MultipartPart`s
