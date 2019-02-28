@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class PaymentItemTests: XCTestCase {
+public final class PaymentItemTests: XCTestCase {
     func testInit()throws {
         let item = try Payment.Item(
             quantity: .init(3), price: .init(2.50), currency: .usd, sku: .init("123456"), name: .init("Foo"),

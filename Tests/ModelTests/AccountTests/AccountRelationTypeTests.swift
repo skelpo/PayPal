@@ -3,7 +3,7 @@ import XCTest
 
 typealias RelationType = AccountRelation.RelationType
 
-final class AccountRelationTypeTests: XCTestCase {
+public final class AccountRelationTypeTests: XCTestCase {
     struct Relation: Codable {
         let type: RelationType
     }
@@ -44,7 +44,7 @@ final class AccountRelationTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Relation.self, from: same).type, .same)
     }
     
-    static var allTests: [(String, (AccountRelationTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (AccountRelationTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

@@ -3,7 +3,7 @@ import XCTest
 
 typealias AgreementType = LegalAgreement.AgreementType
 
-final class LegalAgreementTypeTests: XCTestCase {
+public final class LegalAgreementTypeTests: XCTestCase {
     struct Agreement: Codable {
         let type: AgreementType
     }

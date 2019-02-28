@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class DetailedAmountDetailTests: XCTestCase {
+public final class DetailedAmountDetailTests: XCTestCase {
     func testInit()throws {
         let details = DetailedAmount.Detail(
             subtotal: 134.56,

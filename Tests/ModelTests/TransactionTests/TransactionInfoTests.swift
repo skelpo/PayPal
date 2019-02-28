@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class TransactionInfoTests: XCTestCase {
+public final class TransactionInfoTests: XCTestCase {
     let now = Date()
     
     func testInit()throws {

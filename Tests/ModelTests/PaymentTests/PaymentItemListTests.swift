@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class PaymentItemListTests: XCTestCase {
+public final class PaymentItemListTests: XCTestCase {
     let address = Address(
         recipientName: nil,
         defaultAddress: nil,

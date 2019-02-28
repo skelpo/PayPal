@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class PhoneNumberTests: XCTestCase {
+public final class PhoneNumberTests: XCTestCase {
     func testInit()throws {
         let number = try PhoneNumber(country: .init(1), number: .init(9963191901))
         

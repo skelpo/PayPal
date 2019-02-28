@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class CustomerDisputeListTests: XCTestCase {
+public final class CustomerDisputeListTests: XCTestCase {
     let date = Date()
     let due = Date(timeIntervalSinceNow: 60 * 60 * 24)
     

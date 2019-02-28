@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class PaymentTransactionTypeTests: XCTestCase {
+public final class PaymentTransactionTypeTests: XCTestCase {
     struct Pay: Codable {
         let type: PaymentType
     }

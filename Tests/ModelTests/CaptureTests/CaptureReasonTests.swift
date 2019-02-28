@@ -3,7 +3,7 @@ import XCTest
 
 typealias CapReas = Capture.Reason
 
-final class CaptureReasonTests: XCTestCase {
+public final class CaptureReasonTests: XCTestCase {
     struct Cap: Codable {
         let reason: CapReas
     }

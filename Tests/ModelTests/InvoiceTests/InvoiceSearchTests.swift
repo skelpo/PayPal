@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class InvoiceSearchTests: XCTestCase {
+public final class InvoiceSearchTests: XCTestCase {
     let now = Date()
     let later = (Date() + 60 * 60 * 24 * 60)
     

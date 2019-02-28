@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias ID = FraudManagementFilter.ID
 
-final class FraudManagementFilterIDTests: XCTestCase {
+public final class FraudManagementFilterIDTests: XCTestCase {
     private struct Filter: Codable {
         let id: ID
     }

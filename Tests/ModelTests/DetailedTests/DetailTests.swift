@@ -2,7 +2,7 @@ import XCTest
 @testable import PayPal
 
 @available(OSX 10.12, *)
-final class DetailTests: XCTestCase {
+public final class DetailTests: XCTestCase {
     let now = Date().iso8601
     let later = Date.distantFuture.iso8601
     let oneYear = (Date() + (60 * 60 * 24 * 365)).iso8601

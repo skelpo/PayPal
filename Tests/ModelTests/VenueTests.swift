@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class VenueTests: XCTestCase {
+public final class VenueTests: XCTestCase {
     struct Prod: Codable {
         let venue: Venue
     }

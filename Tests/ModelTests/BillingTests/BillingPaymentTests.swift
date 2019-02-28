@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class BillingPaymentTests: XCTestCase {
+public final class BillingPaymentTests: XCTestCase {
     func testInit()throws {
         let payment = try BillingPayment(
             name: .init("Service Membership"),
@@ -92,7 +92,7 @@ final class BillingPaymentTests: XCTestCase {
         try XCTAssertThrowsError(decoder.decode(BillingPayment<CurrencyCodeAmount>.self, from: cyclesError))
     }
     
-    static var allTests: [(String, (BillingPaymentTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BillingPaymentTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

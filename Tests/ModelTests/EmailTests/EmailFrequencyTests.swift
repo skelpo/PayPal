@@ -3,7 +3,7 @@ import XCTest
 
 typealias EmailFrequency =  NotificationOptions.EmailFrequency
 
-final class EmailFrequencyTests: XCTestCase {
+public final class EmailFrequencyTests: XCTestCase {
     struct Email: Codable {
         let frequency: NotificationOptions.EmailFrequency
     }

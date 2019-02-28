@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class AccountRelationTests: XCTestCase {
+public final class AccountRelationTests: XCTestCase {
     func testInit()throws {
         let relation = AccountRelation(type: .partner, payer: "0F1B22C3-C58C-4CC8-AF83-85659455F85F")
         
@@ -30,7 +30,7 @@ final class AccountRelationTests: XCTestCase {
         try XCTAssertEqual(relation, decoder.decode(AccountRelation.self, from: json))
     }
     
-    static var allTests: [(String, (AccountRelationTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (AccountRelationTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

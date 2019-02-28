@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class RelatedResourceCaptureTests: XCTestCase {
+public final class RelatedResourceCaptureTests: XCTestCase {
     func testInit()throws {
         let capture = try RelatedResource.Capture(
             amount: DetailedAmount(currency: .usd, total: 67.23, details: nil),

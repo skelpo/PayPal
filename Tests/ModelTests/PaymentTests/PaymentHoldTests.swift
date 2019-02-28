@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias Hold = Payment.HoldReason
 
-final class PaymentHoldTests: XCTestCase {
+public final class PaymentHoldTests: XCTestCase {
     private struct Pay: Codable {
         let hold: Hold
     }

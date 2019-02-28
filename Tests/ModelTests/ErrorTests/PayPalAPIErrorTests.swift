@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class PayPalAPIErrorTests: XCTestCase {
+public final class PayPalAPIErrorTests: XCTestCase {
     let error = PayPalAPIError(
         identifier: "INVALID_REQUEST",
         reason: "Validation for request data failed",

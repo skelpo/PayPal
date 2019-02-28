@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class TrackingTests: XCTestCase {
+public final class TrackingTests: XCTestCase {
     func testInit()throws {
         let tracking = Tracking(carrier: .usps, other: nil, url: "https://whoshippedit.com/shippment/9163524667210796186056", number: "9163524667210796186056")
         

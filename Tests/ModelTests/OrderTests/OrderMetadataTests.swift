@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class OrderMetadataTests: XCTestCase {
+public final class OrderMetadataTests: XCTestCase {
     func testInit()throws {
         let metadata = Order.Metadata(data: ["name": "value"])
         XCTAssertEqual(metadata.data, ["name": "value"])

@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class CreditCardTokenTests: XCTestCase {
+public final class CreditCardTokenTests: XCTestCase {
     func testInit()throws {
         let token = CreditCard.Token(creditCard: "94935F7A-395B-4CAF-AC29-DD6728C55FE6", payer: "93A20FF4-D73D-4F76-B591-932D4B6CA3E1")
         

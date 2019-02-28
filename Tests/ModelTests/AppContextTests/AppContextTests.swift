@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class AppContextTests: XCTestCase {
+public final class AppContextTests: XCTestCase {
     func testInit()throws {
         let context = try AppContext(
             brand: .init("Example Inc."),
@@ -94,7 +94,7 @@ final class AppContextTests: XCTestCase {
         ))
     }
     
-    static var allTests: [(String, (AppContextTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (AppContextTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class DisplayPhoneTests: XCTestCase {
+public final class DisplayPhoneTests: XCTestCase {
     func testInit()throws {
         let phone = DisplayPhone(country: .unitedStates, number: "245364984688834")
         

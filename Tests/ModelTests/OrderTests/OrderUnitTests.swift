@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class OrderUnitTests: XCTestCase {
+public final class OrderUnitTests: XCTestCase {
     func testInit()throws {
         let payee = Payee(email: "payee@example.com", merchant: "AEDCA9E0-5442-41EF-978A-DEE6DF7DFDA8", metadata: nil)
         let address = Address(

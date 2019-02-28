@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class RefundDetailTests: XCTestCase {
+public final class RefundDetailTests: XCTestCase {
     let now = Date()
     
     func testInit()throws {

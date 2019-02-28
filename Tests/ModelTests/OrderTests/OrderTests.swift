@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class OrderTests: XCTestCase {
+public final class OrderTests: XCTestCase {
     func testInit()throws {
         let order = Order(
             intent: .sale,

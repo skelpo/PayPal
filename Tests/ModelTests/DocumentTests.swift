@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class DocumentTests: XCTestCase {
+public final class DocumentTests: XCTestCase {
     func testInit()throws {
         let document = Document(name: "README.md", size: "65kb")
         

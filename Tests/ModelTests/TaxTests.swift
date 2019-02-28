@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class TaxTests: XCTestCase {
+public final class TaxTests: XCTestCase {
     func testInit()throws {
         let tax = try Tax(name: .init("Sales"), percent: .init(10), amount: CurrencyAmount(currency: .usd, value: 0.59))
         

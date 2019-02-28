@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class AddressTests: XCTestCase {
+public final class AddressTests: XCTestCase {
     func testInit()throws {
         let address = Address(
             recipientName: "Puffin Billy",
@@ -113,7 +113,7 @@ final class AddressTests: XCTestCase {
         )
     }
     
-    static var allTests: [(String, (AddressTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (AddressTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

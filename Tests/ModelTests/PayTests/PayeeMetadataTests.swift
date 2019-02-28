@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class PayeeMetadataTests: XCTestCase {
+public final class PayeeMetadataTests: XCTestCase {
     func testInit()throws {
         let metadata = try Payee.Metadata(
             email: .init("payee@example.com"),

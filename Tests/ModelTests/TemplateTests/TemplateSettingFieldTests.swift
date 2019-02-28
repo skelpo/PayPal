@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class TemplateSettingFieldTests: XCTestCase {
+public final class TemplateSettingFieldTests: XCTestCase {
     struct Settings: Codable {
         let field: Template.Settings.Field
     }

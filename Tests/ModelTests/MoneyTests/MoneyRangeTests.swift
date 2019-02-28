@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class MoneyRangeTests: XCTestCase {
+public final class MoneyRangeTests: XCTestCase {
     func testInit()throws {
         let range0 = MoneyRange(min: CurrencyCodeAmount(currency: .usd, value: 12.25), max: CurrencyCodeAmount(currency: .usd, value: 50.00))
         XCTAssertEqual(range0.minimum, CurrencyCodeAmount(currency: .usd, value: 12.25))

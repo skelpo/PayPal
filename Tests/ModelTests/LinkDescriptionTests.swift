@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class LinkDescriptionTests: XCTestCase {
+public final class LinkDescriptionTests: XCTestCase {
     func testInit()throws {
         let link = LinkDescription(href: "https://choosealicense.com/licenses/mit/", rel: "license", method: .GET)
         

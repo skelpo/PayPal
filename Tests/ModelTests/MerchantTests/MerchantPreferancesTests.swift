@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class MerchantPreferancesTests: XCTestCase {
+public final class MerchantPreferancesTests: XCTestCase {
     func testInit()throws {
         let preferances = MerchantPreferances(
             setupFee: CurrencyCodeAmount(currency: .usd, value: 0),

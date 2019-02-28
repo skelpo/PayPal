@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class TemplateSettingsTests: XCTestCase {
+public final class TemplateSettingsTests: XCTestCase {
     func testInit()throws {
         let settings = Template.Settings(field: .itemsDescription, preference: .init(hidden: true))
         

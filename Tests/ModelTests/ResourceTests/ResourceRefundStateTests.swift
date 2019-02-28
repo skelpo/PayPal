@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias State = RelatedResource.Refund.State
 
-final class ResourceRefundStateTests: XCTestCase {
+public final class ResourceRefundStateTests: XCTestCase {
     private struct Order: Codable {
         let state: State
     }

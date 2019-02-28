@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class ChargeTests: XCTestCase {
+public final class ChargeTests: XCTestCase {
     func testInit()throws {
         let charge = Charge(type: .shipping, amount: CurrencyCodeAmount(currency: .usd, value: 314.15))
         

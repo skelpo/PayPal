@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias Advice = RelatedResource.ProcessorResponse.AdviceCode
 
-final class ResourceProcessorAdviceTests: XCTestCase {
+public final class ResourceProcessorAdviceTests: XCTestCase {
     private struct Processor: Codable {
         let advice: Advice
     }

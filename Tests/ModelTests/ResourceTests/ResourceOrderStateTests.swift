@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias State = RelatedResource.Order.State
 
-final class ResourceOrderStateTests: XCTestCase {
+public final class ResourceOrderStateTests: XCTestCase {
     private struct Order: Codable {
         let state: State
     }

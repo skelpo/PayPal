@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class SignupOptionsTests: XCTestCase {
+public final class SignupOptionsTests: XCTestCase {
     let web = WebExperiencePreference(
         partnerLogo: nil,
         returnURL: nil,

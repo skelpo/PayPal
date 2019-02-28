@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class AccountPermissionTests: XCTestCase {
+public final class AccountPermissionTests: XCTestCase {
     func testInit()throws {
         let permission = AccountPermission(thirdParty: "FDF4D16C-11C0-4792-A956-6A3A9D8B49C2", permissions: [.directPayment])
         
@@ -32,7 +32,7 @@ final class AccountPermissionTests: XCTestCase {
         try XCTAssertEqual(permission, decoder.decode(AccountPermission.self, from: json))
     }
     
-    static var allTests: [(String, (AccountPermissionTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (AccountPermissionTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

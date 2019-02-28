@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class EvidenceTests: XCTestCase {
+public final class EvidenceTests: XCTestCase {
     func testInit()throws {
         let evidence = try Evidence(
             type: .proofOfFulfillment,

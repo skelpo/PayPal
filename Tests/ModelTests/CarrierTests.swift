@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class CarrierTests: XCTestCase {
+public final class CarrierTests: XCTestCase {
     struct Shippment: Codable {
         let carrier: Carrier
     }

@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias Reason = RelatedResource.Authorization.Reason
 
-final class ResourceAuthorizationReasonTests: XCTestCase {
+public final class ResourceAuthorizationReasonTests: XCTestCase {
     private struct Auth: Codable {
         let reason: Reason
     }

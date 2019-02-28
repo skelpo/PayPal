@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class InitialFailActionTests: XCTestCase {
+public final class InitialFailActionTests: XCTestCase {
     struct Agreement: Codable {
         let action: InitialFailAction
     }

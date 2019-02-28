@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class EstablishmentTests: XCTestCase {
+public final class EstablishmentTests: XCTestCase {
     func testInit()throws {
         let bank = Establishment(state: .or, country: .unitedStates)
         

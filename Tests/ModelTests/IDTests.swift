@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class IDTests: XCTestCase {
+public final class IDTests: XCTestCase {
     func testInit()throws {
         let null = ID()
         let id = ID("P-52603F876DFD4C61")

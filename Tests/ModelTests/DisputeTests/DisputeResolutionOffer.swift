@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class DisputeResolutionOfferTests: XCTestCase {
+public final class DisputeResolutionOfferTests: XCTestCase {
     func testInit()throws {
         let offer = try CustomerDispute.ResolutionOffer(
             note: .init("Offer refund with replacement item."),

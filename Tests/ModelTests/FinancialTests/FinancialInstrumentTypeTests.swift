@@ -3,7 +3,7 @@ import XCTest
 
 typealias InstrumentType = FinancialInstrument.InstrumentType
 
-final class FinancialInstrumentTypeTests: XCTestCase {
+public final class FinancialInstrumentTypeTests: XCTestCase {
     struct Instrument: Codable {
         let type: InstrumentType
     }

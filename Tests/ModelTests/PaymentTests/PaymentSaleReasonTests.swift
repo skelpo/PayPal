@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias Reason = RelatedResource.Sale.Reason
 
-final class PaymentSaleReasonTests: XCTestCase {
+public final class PaymentSaleReasonTests: XCTestCase {
     private struct Sale: Codable {
         let reason: Reason
     }

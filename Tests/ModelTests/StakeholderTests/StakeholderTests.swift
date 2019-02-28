@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class StakeholderTests: XCTestCase {
+public final class StakeholderTests: XCTestCase {
     func testInit()throws {
         let holder = Business.Stakeholder(
             type: .partner,

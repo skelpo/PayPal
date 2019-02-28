@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class NotificationOptionTests: XCTestCase {
+public final class NotificationOptionTests: XCTestCase {
     func testInit()throws {
         let null = NotificationOptions()
         XCTAssertEqual(null.suppressWelcome, nil)

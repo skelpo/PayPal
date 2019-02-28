@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class AccountErrorTests: XCTestCase {
+public final class AccountErrorTests: XCTestCase {
     func testInit()throws {
         let error = AccountError(name: "invalidTimezone", message: "Chosen timezone does not appear to exist", debug: "5698", details: [])
         
@@ -41,7 +41,7 @@ final class AccountErrorTests: XCTestCase {
         XCTAssertEqual(error.information, "https://example.com/errors/5698")
     }
     
-    static var allTests: [(String, (AccountErrorTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (AccountErrorTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

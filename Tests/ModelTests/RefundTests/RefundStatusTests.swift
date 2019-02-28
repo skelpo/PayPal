@@ -3,7 +3,7 @@ import XCTest
 
 typealias RefStat = Refund.Status
 
-final class RefundStatusTests: XCTestCase {
+public final class RefundStatusTests: XCTestCase {
     struct Ref: Codable {
         let status: RefStat
     }

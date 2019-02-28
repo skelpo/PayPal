@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class PaymentTests: XCTestCase {
+public final class PaymentTests: XCTestCase {
     func testInit()throws {
         let payment = try Payment(
             intent: .order,

@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class MessagePosterTests: XCTestCase {
+public final class MessagePosterTests: XCTestCase {
     struct Wall: Codable {
         let poster: Message.Poster
     }

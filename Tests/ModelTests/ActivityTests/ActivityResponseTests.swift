@@ -2,7 +2,7 @@ import XCTest
 @testable import PayPal
 
 @available(OSX 10.12, *)
-final class ActivityResponseTests: XCTestCase {
+public final class ActivityResponseTests: XCTestCase {
     let response = Activity.Response(items: [
             Activity(
                 id: "94C67654-A41B-4421-B0D0-81E6CD587CDB",
@@ -117,7 +117,7 @@ final class ActivityResponseTests: XCTestCase {
         XCTAssertEqual(self.response, decoded)
     }
     
-    static var allTests: [(String, (ActivityResponseTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ActivityResponseTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

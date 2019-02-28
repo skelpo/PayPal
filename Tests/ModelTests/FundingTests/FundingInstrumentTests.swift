@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class FundingInstrumentTests: XCTestCase {
+public final class FundingInstrumentTests: XCTestCase {
     func testInit()throws {
         let instrument = FundingInstrument(token: .init(creditCard: "0F874884-66E4-4D45-9906-C3E9957BC1FF", payer: nil))
         

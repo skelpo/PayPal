@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class DesignationTests: XCTestCase {
+public final class DesignationTests: XCTestCase {
     func testInit()throws {
         let designation = Business.Designation(title: "CTO", area: "Software Engineering")
         

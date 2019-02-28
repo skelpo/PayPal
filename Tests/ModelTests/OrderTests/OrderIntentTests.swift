@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias Intent = Order.Intent
 
-final class OrderIntentTests: XCTestCase {
+public final class OrderIntentTests: XCTestCase {
     private struct Or: Codable {
         let intent: Intent
     }

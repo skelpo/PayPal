@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class BusinessOwnerTests: XCTestCase {
+public final class BusinessOwnerTests: XCTestCase {
     let (date, dateStr): (Date, String) = {
         let now = Date()
         let str = TimelessDate.formatter.string(from: now)

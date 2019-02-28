@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class CounterPartyTests: XCTestCase {
+public final class CounterPartyTests: XCTestCase {
     func testInit()throws {
         let party = CounterParty(email: "54north@exmaple.com", phoneNumber: "314-159-2653", name: "Jonathan Futher")
         

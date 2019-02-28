@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class KeyValueTests: XCTestCase {
+public final class KeyValueTests: XCTestCase {
     func testInit()throws {
         let strd = KeyValue(key: "key0", value: "value0")
         XCTAssertEqual(strd.key, "key0")

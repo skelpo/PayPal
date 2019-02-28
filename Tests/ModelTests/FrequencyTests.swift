@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class FrequencyTests: XCTestCase {
+public final class FrequencyTests: XCTestCase {
     struct Action: Codable {
         let frequency: Frequency
     }

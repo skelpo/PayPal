@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class InvoiceTests: XCTestCase {
+public final class InvoiceTests: XCTestCase {
     let now = Date()
     
     var dueStr: String {

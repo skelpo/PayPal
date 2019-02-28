@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class ShippingInfoTests: XCTestCase {
+public final class ShippingInfoTests: XCTestCase {
     func testInit()throws {
         let info = try ShippingInfo(
             firstName: .init("Oskar"),

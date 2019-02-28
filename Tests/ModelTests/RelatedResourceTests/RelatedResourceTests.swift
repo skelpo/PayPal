@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class RelatedResourceTests: XCTestCase {
+public final class RelatedResourceTests: XCTestCase {
     func testInit()throws {
         let resource = RelatedResource(
             sale: .init(id: "", amount: DetailedAmount(currency: .usd, total: 10.0, details: nil), state: .pending, parent: "10"),

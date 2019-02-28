@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class ExtensionsTests: XCTestCase {
+public final class ExtensionsTests: XCTestCase {
     let extensions = Extensions(
         paymentProperties: PaymentProperties(
             creditDebitCode: .credit,

@@ -3,7 +3,7 @@ import XCTest
 
 typealias StakeholderType = Business.Stakeholder.StakeholderType
 
-final class StakeholderTypeTests: XCTestCase {
+public final class StakeholderTypeTests: XCTestCase {
     struct Holder: Codable {
         let type: Business.Stakeholder.StakeholderType
     }

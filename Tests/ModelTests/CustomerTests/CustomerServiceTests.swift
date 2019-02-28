@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class CustomerServiceTests: XCTestCase {
+public final class CustomerServiceTests: XCTestCase {
     func testInit()throws {
         let service = try CustomerService(
             email: .init("address@email.com"),

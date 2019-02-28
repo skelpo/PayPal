@@ -3,7 +3,7 @@ import XCTest
 
 typealias Normalization = Address.Normalization
 
-final class AddressNormalizationTests: XCTestCase {
+public final class AddressNormalizationTests: XCTestCase {
     struct Add: Codable {
         let norm: Normalization
     }
@@ -46,7 +46,7 @@ final class AddressNormalizationTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Add.self, from: unnormalized).norm, .unnormalized)
     }
     
-    static var allTests: [(String, (AddressNormalizationTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (AddressNormalizationTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

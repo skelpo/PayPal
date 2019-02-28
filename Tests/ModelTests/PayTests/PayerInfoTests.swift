@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class PayerInfoTests: XCTestCase {
+public final class PayerInfoTests: XCTestCase {
     func testInit()throws {
         let info = PayerInfo(
             email: "payer@exmaple.com",

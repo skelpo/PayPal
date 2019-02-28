@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class QueryParamaterTests: XCTestCase {
+public final class QueryParamaterTests: XCTestCase {
     func testStringContainsCount() {
         let uno = "unodounotwounothree-fouruno"
         XCTAssert(uno.contains("uno", times: 4))

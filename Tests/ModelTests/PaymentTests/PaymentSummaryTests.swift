@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class PaymentSummaryTests: XCTestCase {
+public final class PaymentSummaryTests: XCTestCase {
     func testDecoding()throws {
         let decoder = JSONDecoder()
         

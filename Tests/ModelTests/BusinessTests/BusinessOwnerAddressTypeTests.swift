@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class BusinessOwnerAddressTypeTests: XCTestCase {
+public final class BusinessOwnerAddressTypeTests: XCTestCase {
     struct BOA: Codable {
         let type: BusinessOwner.Address.AddressType
     }

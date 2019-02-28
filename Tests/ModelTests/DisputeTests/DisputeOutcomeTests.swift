@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class DisputeOutcomeTests: XCTestCase {
+public final class DisputeOutcomeTests: XCTestCase {
     func testInit()throws {
         let outcome = CustomerDispute.Outcome(code: .buyer, refunded: CurrencyCodeAmount(currency: .usd, value: 56.72))
         

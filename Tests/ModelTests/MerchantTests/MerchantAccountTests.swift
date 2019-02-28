@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class MerchantAccountTests: XCTestCase {
+public final class MerchantAccountTests: XCTestCase {
     func testInit()throws {
         let account = try MerchantAccount(
             owner: nil,

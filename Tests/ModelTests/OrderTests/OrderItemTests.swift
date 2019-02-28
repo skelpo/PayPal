@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class OrderItemTests: XCTestCase {
+public final class OrderItemTests: XCTestCase {
     func testInit()throws {
         let item = try Order.Item(
             sku: .init("FAE11644-19BC-4643-8215-004C829B19C1"),

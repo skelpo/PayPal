@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class IdentificationTests: XCTestCase {
+public final class IdentificationTests: XCTestCase {
     func testInit()throws {
         let id = Identification(
             type: .driversLicense,

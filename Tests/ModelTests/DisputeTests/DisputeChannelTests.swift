@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class DisputeChannelTests: XCTestCase {
+public final class DisputeChannelTests: XCTestCase {
     struct Dispute: Codable {
         let channel: CustomerDispute.Channel
     }

@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class BillingInfoTests: XCTestCase {
+public final class BillingInfoTests: XCTestCase {
     func testInit()throws {
         let info = try BillingInfo(
             email: .init("ratigan@thirdceller.com"),
@@ -230,7 +230,7 @@ final class BillingInfoTests: XCTestCase {
         try XCTAssertEqual(info.phone, PhoneNumber(country: .init(1), number: .init(4586901518)))
     }
     
-    static var allTests: [(String, (BillingInfoTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BillingInfoTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

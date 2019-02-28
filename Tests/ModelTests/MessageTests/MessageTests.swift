@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class MessageTests: XCTestCase {
+public final class MessageTests: XCTestCase {
     func testInit()throws {
         let message = try Message(content: .init("A developer walks into a foo bar and orders a fizz buzz"))
         

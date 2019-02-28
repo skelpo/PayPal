@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias Status = Order.Payer.Status
 
-final class OrderPaymentStatusTests: XCTestCase {
+public final class OrderPaymentStatusTests: XCTestCase {
     private struct Pay: Codable {
         let status: Status
     }

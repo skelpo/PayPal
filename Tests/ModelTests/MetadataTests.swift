@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class MetadataTests: XCTestCase {
+public final class MetadataTests: XCTestCase {
     func testDecoding()throws {
         let decoder = JSONDecoder()
         

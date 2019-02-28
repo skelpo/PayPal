@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class RedirectsTests: XCTestCase {
+public final class RedirectsTests: XCTestCase {
     func testInit()throws {
         let redirects = Redirects(return: "https://example.com/return", cancel: "https://example.com/cancel")
         

@@ -3,7 +3,7 @@ import XCTest
 
 typealias AppShipping = AppContext.Shipping
 
-final class AppContextShippingTests: XCTestCase {
+public final class AppContextShippingTests: XCTestCase {
     struct App: Codable {
         let shipping: AppShipping
     }
@@ -45,7 +45,7 @@ final class AppContextShippingTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(App.self, from: none).shipping, .none)
     }
     
-    static var allTests: [(String, (AppContextShippingTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (AppContextShippingTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

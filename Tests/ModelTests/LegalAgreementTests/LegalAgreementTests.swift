@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class LegalAgreementTests: XCTestCase {
+public final class LegalAgreementTests: XCTestCase {
     func testInit()throws {
         let agreement = LegalAgreement(accepted: false, type: .userAgreement)
         

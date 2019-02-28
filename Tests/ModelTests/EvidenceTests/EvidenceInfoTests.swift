@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class EvidenceInfoTests: XCTestCase {
+public final class EvidenceInfoTests: XCTestCase {
     func testInit()throws {
         let evidence = Evidence.Info(
             tracking: [

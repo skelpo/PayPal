@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class InvoicePaymentTests: XCTestCase {
+public final class InvoicePaymentTests: XCTestCase {
     let now = Date()
     
     func testInit()throws {

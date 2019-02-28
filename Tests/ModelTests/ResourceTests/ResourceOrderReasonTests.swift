@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias Reason = RelatedResource.Order.Reason
 
-final class ResourceOrderReasonTests: XCTestCase {
+public final class ResourceOrderReasonTests: XCTestCase {
     private struct Order: Codable {
         let reason: Reason
     }

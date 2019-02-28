@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class TemplateSettingsMetadataTests: XCTestCase {
+public final class TemplateSettingsMetadataTests: XCTestCase {
     func testInit()throws {
         let metadata = Template.Settings.Metadata(hidden: false)
         

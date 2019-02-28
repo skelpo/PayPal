@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class PayerTests: XCTestCase {
+public final class PayerTests: XCTestCase {
     func testInit()throws {
         let payer = try Payer(
             method: .paypal,

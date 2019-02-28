@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias Type = RelatedResource.ProtectionType
 
-final class PaymentProtectionTypeTests: XCTestCase {
+public final class PaymentProtectionTypeTests: XCTestCase {
     private struct Protection: Codable {
         let type: Type
     }

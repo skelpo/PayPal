@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class AccountErrorDetailTests: XCTestCase {
+public final class AccountErrorDetailTests: XCTestCase {
     func testInit()throws {
         let details = AccountError.Details(issue: "1028", field: "property", value: "value", description: "Oops")
         
@@ -44,7 +44,7 @@ final class AccountErrorDetailTests: XCTestCase {
         try XCTAssertEqual(details, decoder.decode(AccountError.Details.self, from: json))
     }
     
-    static var allTests: [(String, (AccountErrorDetailTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (AccountErrorDetailTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

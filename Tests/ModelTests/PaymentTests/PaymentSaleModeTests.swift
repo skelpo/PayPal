@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias Mode = RelatedResource.Sale.PaymentMode
 
-final class PaymentSaleModeTests: XCTestCase {
+public final class PaymentSaleModeTests: XCTestCase {
     private struct Sale: Codable {
         let mode: Mode
     }

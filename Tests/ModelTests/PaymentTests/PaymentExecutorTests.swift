@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class PaymentExecutorTests: XCTestCase {
+public final class PaymentExecutorTests: XCTestCase {
     func testInit()throws {
         let executor = Payment.Executor(payer: "payer", amounts: [])
         

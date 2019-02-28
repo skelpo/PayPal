@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias Type = FraudManagementFilter.FilterType
 
-final class FraudManagementFilterTypeTests: XCTestCase {
+public final class FraudManagementFilterTypeTests: XCTestCase {
     private struct Instrument: Codable {
         let type: Type
     }

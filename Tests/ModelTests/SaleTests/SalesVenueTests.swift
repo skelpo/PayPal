@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class SalesVenueTests: XCTestCase {
+public final class SalesVenueTests: XCTestCase {
     func testInit()throws {
         let venue = SalesVenue(type: .ebay, ebayID: "D6013453-B76E-4CDD-A021-DFD31A4031FE", description: "Online Ebay Store")
         

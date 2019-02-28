@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class GovernmentBodyTests: XCTestCase {
+public final class GovernmentBodyTests: XCTestCase {
     func testInit()throws {
         let govt = GovernmentBody(name: "value")
         

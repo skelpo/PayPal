@@ -3,7 +3,7 @@ import XCTest
 
 typealias UnitStat = Order.Unit.Status
 
-final class OrderUnitStatusTests: XCTestCase {
+public final class OrderUnitStatusTests: XCTestCase {
     struct Unit: Codable {
         let status: UnitStat
     }

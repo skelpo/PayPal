@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class FileAttachmentTests: XCTestCase {
+public final class FileAttachmentTests: XCTestCase {
     func testInit()throws {
         let file = FileAttachment(name: "photo.jpg", url: "https://avatars3.githubusercontent.com/u/2872298?s=200&v=4")
         

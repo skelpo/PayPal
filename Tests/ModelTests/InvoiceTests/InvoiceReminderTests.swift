@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class InvoiceReminderTests: XCTestCase {
+public final class InvoiceReminderTests: XCTestCase {
     func testInit()throws {
         let reminder = Invoice.Reminder(subject: "Invoice Not Sent", note: "Please send the money", emails: [.init(email: "payer@example.com")])
         

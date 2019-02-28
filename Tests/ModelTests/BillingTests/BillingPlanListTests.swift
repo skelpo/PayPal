@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class BillingPlanListTests: XCTestCase {
+public final class BillingPlanListTests: XCTestCase {
     func testInit()throws {
         let list = try BillingPlan.List(plans: [
             BillingPlan(
@@ -135,7 +135,7 @@ final class BillingPlanListTests: XCTestCase {
         ))
     }
     
-    static var allTests: [(String, (BillingPlanListTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BillingPlanListTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

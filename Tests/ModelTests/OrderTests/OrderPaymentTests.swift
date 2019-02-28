@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class OrderPaymentTests: XCTestCase {
+public final class OrderPaymentTests: XCTestCase {
     func testInit()throws {
         let payment = Order.Payment(
             captures: [Capture(amount: nil, transaction: nil)],

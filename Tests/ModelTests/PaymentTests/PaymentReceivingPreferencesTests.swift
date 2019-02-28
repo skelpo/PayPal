@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class PaymentReceivingPreferencesTests: XCTestCase {
+public final class PaymentReceivingPreferencesTests: XCTestCase {
     func testInit()throws {
         let preference = try PaymentReceivingPreferences(
             blockUnconfirmedUSAddress: true,

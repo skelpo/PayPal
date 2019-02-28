@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias CCStaate = CreditCard.State
 
-final class CreditCardStateTests: XCTestCase {
+public final class CreditCardStateTests: XCTestCase {
     private struct CC: Codable {
         let state: CCStaate
     }

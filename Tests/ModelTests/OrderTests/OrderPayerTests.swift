@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class OrderPayerTests: XCTestCase {
+public final class OrderPayerTests: XCTestCase {
     func testInit()throws {
         let payer = Order.Payer(method: .creditCard, funding: [], info: .init(email: nil, birthdate: nil, tax: nil, taxType: nil, country: nil, billing: nil))
         

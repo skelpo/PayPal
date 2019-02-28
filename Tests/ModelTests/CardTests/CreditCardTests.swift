@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class CreditCardTests: XCTestCase {
+public final class CreditCardTests: XCTestCase {
     func testInit()throws {
         let cc = try CreditCard(
             number: "4953912847443848",

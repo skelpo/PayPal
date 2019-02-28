@@ -3,7 +3,7 @@ import XCTest
 
 typealias CapStat = Capture.Status
 
-final class CaptureStatusTests: XCTestCase {
+public final class CaptureStatusTests: XCTestCase {
     struct Cap: Codable {
         let status: CapStat
     }

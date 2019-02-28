@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class TermTests: XCTestCase {
+public final class TermTests: XCTestCase {
     func testInit()throws {
         let term = try Term(
             type: .monthly,

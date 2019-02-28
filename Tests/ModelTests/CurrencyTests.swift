@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class CurrencyTests: XCTestCase {
+public final class CurrencyTests: XCTestCase {
     struct Model: Codable, Equatable {
         var cur: Currency
     }

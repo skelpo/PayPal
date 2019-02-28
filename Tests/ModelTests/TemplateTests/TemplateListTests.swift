@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class TemplateListTests: XCTestCase {
+public final class TemplateListTests: XCTestCase {
     func testInit()throws {
         let list = Template.List(addresses: [], emails: [], phones: [], templates: [])
         

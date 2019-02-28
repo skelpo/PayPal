@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias State = Payment.RefundResult.State
 
-final class PaymentRefundStateTests: XCTestCase {
+public final class PaymentRefundStateTests: XCTestCase {
     private struct Result: Codable {
         let state: State
     }

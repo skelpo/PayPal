@@ -2,13 +2,13 @@ import XCTest
 import Vapor
 @testable import PayPal
 
-final class PaymentsTests: XCTestCase {
+public final class PaymentsTests: XCTestCase {
     
     var id: String!
     var app: Application!
     var context: PaymentTestsContext!
     
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
         setPaypalVars()
         

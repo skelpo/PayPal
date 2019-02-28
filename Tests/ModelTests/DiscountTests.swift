@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class DiscountTests: XCTestCase {
+public final class DiscountTests: XCTestCase {
     func testInit()throws {
         let discount = Discount(percent: 15, amount: CurrencyAmount(currency: .usd, value: 1.25))
         

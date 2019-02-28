@@ -3,7 +3,7 @@ import XCTest
 
 fileprivate typealias Intent = Payment.Intent
 
-final class PaymentIntentTests: XCTestCase {
+public final class PaymentIntentTests: XCTestCase {
     private struct Pay: Codable {
         let intent: Intent
     }

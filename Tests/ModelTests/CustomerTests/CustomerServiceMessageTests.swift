@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class CustomerServiceMessageTests: XCTestCase {
+public final class CustomerServiceMessageTests: XCTestCase {
     func testInit()throws {
         let message = try CustomerService.Message(
             type: .online,

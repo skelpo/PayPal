@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class CCEmailTests: XCTestCase {
+public final class CCEmailTests: XCTestCase {
     func testInit()throws {
         let email = try CCEmail(email: .init("witheringheights@exmaple.com"))
         

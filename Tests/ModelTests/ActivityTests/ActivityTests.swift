@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class ActivityTests: XCTestCase {
+public final class ActivityTests: XCTestCase {
     let activity = Activity(
         id: "94C67654-A41B-4421-B0D0-81E6CD587CDB",
         timeCreated: Date(iso8601: "2018-07-12T14:14:56Z")!,
@@ -72,7 +72,7 @@ final class ActivityTests: XCTestCase {
         XCTAssertEqual(self.activity, decoded)
     }
     
-    static var allTests: [(String, (ActivityTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ActivityTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

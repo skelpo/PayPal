@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class TimelessDateTests: XCTestCase {
+public final class TimelessDateTests: XCTestCase {
     func testInit()throws {
         let epoch = TimelessDate(date: "1970-01-01")
         let date: TimelessDate = 981_244_800.0

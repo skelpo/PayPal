@@ -3,12 +3,12 @@ import Vapor
 import SwiftGD
 @testable import PayPal
 
-final class InvoicesTests: XCTestCase {
+public final class InvoicesTests: XCTestCase {
     
     var app: Application!
     var id: String?
     
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
         setPaypalVars()
         

@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class PayPalAPIIdentityErrorTests: XCTestCase {
+public final class PayPalAPIIdentityErrorTests: XCTestCase {
     let error = PayPalAPIIdentityError(identifier: "invalid_client", reason: "Client Authentication failed")
     
     func testInit()throws {

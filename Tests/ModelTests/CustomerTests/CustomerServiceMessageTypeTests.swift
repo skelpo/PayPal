@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class CustomerServiceMessageTypeTests: XCTestCase {
+public final class CustomerServiceMessageTypeTests: XCTestCase {
     struct CSM: Codable {
         var type: CustomerService.Message.MessageType
     }

@@ -3,12 +3,12 @@ import Vapor
 @testable import NIO
 @testable import PayPal
 
-final class CustomerDisputesTests: XCTestCase {
+public final class CustomerDisputesTests: XCTestCase {
     
     var app: Application!
     var id: String?
     
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
         setPaypalVars()
         

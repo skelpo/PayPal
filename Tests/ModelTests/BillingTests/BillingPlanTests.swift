@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class BillingPlanTests: XCTestCase {
+public final class BillingPlanTests: XCTestCase {
     func testInit()throws {
         let plan = try BillingPlan(
             name: .init("Monthly Water"),
@@ -158,7 +158,7 @@ final class BillingPlanTests: XCTestCase {
         )
     }
     
-    static var allTests: [(String, (BillingPlanTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BillingPlanTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValueValidation", testValueValidation),
         ("testEncoding", testEncoding),

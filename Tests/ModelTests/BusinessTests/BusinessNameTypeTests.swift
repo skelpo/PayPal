@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class BusinessNameTypeTests: XCTestCase {
+public final class BusinessNameTypeTests: XCTestCase {
     struct BusiName: Codable {
         let type: Business.Name.NameType
     }
@@ -43,7 +43,7 @@ final class BusinessNameTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(BusiName.self, from: stockTrading).type, .stockTrading)
     }
     
-    static var allTests: [(String, (BusinessNameTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BusinessNameTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

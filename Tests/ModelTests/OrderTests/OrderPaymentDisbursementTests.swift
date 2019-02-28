@@ -3,7 +3,7 @@ import XCTest
 
 typealias Disbursement = Order.DisbursementMode
 
-final class OrderPaymentDisbursementTests: XCTestCase {
+public final class OrderPaymentDisbursementTests: XCTestCase {
     struct Or: Codable {
         let disbursement: Disbursement
     }

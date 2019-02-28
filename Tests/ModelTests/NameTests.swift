@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class NameTests: XCTestCase {
+public final class NameTests: XCTestCase {
     func testInit()throws {
         let name = try Name(
             prefix: .init("Sir"), given: .init("Walter"), surname: .init("Scott"), middle: nil, suffix: .init("auth."),

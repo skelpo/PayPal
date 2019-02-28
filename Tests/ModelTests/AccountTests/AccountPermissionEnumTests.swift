@@ -3,7 +3,7 @@ import XCTest
 
 private typealias Permission = AccountPermission.Permission
 
-final class AccountPermissionEnumTests: XCTestCase {
+public final class AccountPermissionEnumTests: XCTestCase {
     private struct Account: Codable {
         let permission: Permission
     }
@@ -60,7 +60,7 @@ final class AccountPermissionEnumTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Account.self, from: extendedProProcessing).permission, .extendedProProcessing)
     }
     
-    static var allTests: [(String, (AccountPermissionEnumTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (AccountPermissionEnumTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

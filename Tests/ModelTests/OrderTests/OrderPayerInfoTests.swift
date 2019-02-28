@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class OrderPayerInfoTests: XCTestCase {
+public final class OrderPayerInfoTests: XCTestCase {
     let birthdate = Date()
     
     func testInit()throws {

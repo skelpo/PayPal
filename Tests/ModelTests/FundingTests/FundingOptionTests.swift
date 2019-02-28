@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class FundingOptionTests: XCTestCase {
+public final class FundingOptionTests: XCTestCase {
     struct Funding: Codable {
         let option: FundingOption
     }

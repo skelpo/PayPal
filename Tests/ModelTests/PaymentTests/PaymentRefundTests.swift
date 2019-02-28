@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class PaymentRefundTests: XCTestCase {
+public final class PaymentRefundTests: XCTestCase {
     func testInit()throws {
         let refund = try Payment.Refund(
             amount: DetailedAmount(currency: .usd, total: 10.00, details: nil),

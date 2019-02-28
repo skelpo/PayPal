@@ -8,7 +8,7 @@ extension PercentRange {
     }
 }
 
-final class PercentRangeTests: XCTestCase {
+public final class PercentRangeTests: XCTestCase {
     func testInit()throws {
         let range = try PercentRange(min: .init(25), max: .init(54))
         XCTAssertEqual(range.minimum.value, 25)
