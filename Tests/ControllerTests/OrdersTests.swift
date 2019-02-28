@@ -7,7 +7,7 @@ public final class OrdersTests: XCTestCase {
     var app: Application!
     var id: String?
     
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
         setPaypalVars()
         
