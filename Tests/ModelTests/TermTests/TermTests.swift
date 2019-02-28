@@ -72,7 +72,7 @@ public final class TermTests: XCTestCase {
         )
     }
     
-    static var allTests: [(String, (TermTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TermTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

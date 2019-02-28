@@ -30,7 +30,7 @@ public final class RedirectsTests: XCTestCase {
         try XCTAssertEqual(Redirects(return: "https://example.com/return", cancel: "https://example.com/cancel"), decoder.decode(Redirects.self, from: json))
     }
     
-    static var allTests: [(String, (RedirectsTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (RedirectsTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

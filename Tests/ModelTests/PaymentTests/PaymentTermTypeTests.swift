@@ -53,7 +53,7 @@ public final class PaymentTermTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Term.self, from: noDueDate).type, .noDueDate)
     }
     
-    static var allTests: [(String, (PaymentTermTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PaymentTermTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

@@ -141,7 +141,7 @@ public final class RelatedResourceSaleTests: XCTestCase {
         XCTAssertEqual(sale.amount, DetailedAmount(currency: .usd, total: 42.31, details: nil))
     }
     
-    static var allTests: [(String, (RelatedResourceSaleTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (RelatedResourceSaleTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

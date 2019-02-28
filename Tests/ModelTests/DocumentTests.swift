@@ -29,7 +29,7 @@ public final class DocumentTests: XCTestCase {
         try XCTAssertEqual(Document(name: "README.md", size: "65kb"), decoder.decode(Document.self, from: json))
     }
     
-    static var allTests: [(String, (DocumentTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (DocumentTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

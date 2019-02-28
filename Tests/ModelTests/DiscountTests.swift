@@ -33,7 +33,7 @@ public final class DiscountTests: XCTestCase {
         try XCTAssertEqual(discount, decoder.decode(Discount<CurrencyAmount>.self, from: json))
     }
     
-    static var allTests: [(String, (DiscountTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (DiscountTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

@@ -27,7 +27,7 @@ public final class IdentityTests: XCTestCase {
         XCTAssertNotNil(info.id)
     }
     
-    static var allTests: [(String, (IdentityTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (IdentityTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testInfoEndpoint", testInfoEndpoint)
     ]

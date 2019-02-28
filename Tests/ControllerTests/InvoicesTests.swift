@@ -296,7 +296,7 @@ public final class InvoicesTests: XCTestCase {
         XCTAssertEqual(empty.invoices?.count, 0)
     }
     
-    static var allTests: [(String, (InvoicesTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (InvoicesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testListEndpoint", testListEndpoint),

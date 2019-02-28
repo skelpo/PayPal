@@ -44,7 +44,7 @@ public final class DisputeLifeCycleTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Dispute.self, from: arbitration).stage, .arbitration)
     }
     
-    static var allTests: [(String, (DisputeLifeCycleTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (DisputeLifeCycleTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

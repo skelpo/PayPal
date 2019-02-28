@@ -52,7 +52,7 @@ public final class StakeholderTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Holder.self, from: beneficialOwnerBusiness).type, .beneficialOwnerBusiness)
     }
     
-    static var allTests: [(String, (StakeholderTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (StakeholderTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

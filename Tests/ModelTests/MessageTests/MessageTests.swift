@@ -61,7 +61,7 @@ public final class MessageTests: XCTestCase {
         XCTAssertEqual(message.content, "🦄")
     }
     
-    static var allTests: [(String, (MessageTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (MessageTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidation", testValidation),
         ("testEncoding", testEncoding),

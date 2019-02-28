@@ -44,7 +44,7 @@ public final class CreditCardStateTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(CC.self, from: expired).state, .expired)
     }
     
-    static var allTests: [(String, (CreditCardStateTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CreditCardStateTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

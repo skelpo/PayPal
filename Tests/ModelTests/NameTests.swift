@@ -103,7 +103,7 @@ public final class NameTests: XCTestCase {
         try XCTAssertThrowsError(decoder.decode(Name.self, from: prefix))
     }
     
-    static var allTests: [(String, (NameTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (NameTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

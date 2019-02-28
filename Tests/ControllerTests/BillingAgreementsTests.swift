@@ -153,7 +153,7 @@ public final class BillingAgreementsTests: XCTestCase {
         XCTAssertNotEqual(details.id, id)
     }
     
-    static var allTests: [(String, (BillingAgreementsTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BillingAgreementsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testUpdateEndpoint", testUpdateEndpoint),

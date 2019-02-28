@@ -42,7 +42,7 @@ public final class ChargeTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Model.self, from: ship).type, .shipping)
     }
     
-    static var allTests: [(String, (ChargeTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ChargeTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

@@ -175,7 +175,7 @@ public final class CarrierTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Shippment.self, from: usps).carrier, .usps)
     }
     
-    static var allTests: [(String, (CarrierTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CarrierTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

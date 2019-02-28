@@ -46,7 +46,7 @@ public final class CounterPartyTests: XCTestCase {
         )
     }
     
-    static var allTests: [(String, (CounterPartyTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CounterPartyTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

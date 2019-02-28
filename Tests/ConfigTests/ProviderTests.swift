@@ -43,7 +43,7 @@ public final class ProviderTests: XCTestCase {
         self.environment = .testing
     }
     
-    static var allTests: [(String, (ProviderTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ProviderTests) -> ()throws -> ())] = [
         ("testBootSucceeds", testBootSucceeds),
         ("testConfigurationRegistered", testConfigurationRegistered),
         ("testConfigurationHasExpectedValues", testConfigurationHasExpectedValues)

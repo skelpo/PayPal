@@ -69,7 +69,7 @@ public final class PaymentRefundResultTests: XCTestCase {
         XCTAssertEqual(refund.custom.value, String(repeating: "c", count: 127))
     }
     
-    static var allTests: [(String, (PaymentRefundResultTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PaymentRefundResultTests) -> ()throws -> ())] = [
         ("testDecoding", testDecoding)
     ]
 }

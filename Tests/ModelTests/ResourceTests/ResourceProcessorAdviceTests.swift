@@ -51,7 +51,7 @@ public final class ResourceProcessorAdviceTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Processor.self, from: dontTry).advice, .dontTry)
     }
     
-    static var allTests: [(String, (ResourceProcessorAdviceTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ResourceProcessorAdviceTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

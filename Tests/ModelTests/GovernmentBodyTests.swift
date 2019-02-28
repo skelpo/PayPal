@@ -26,7 +26,7 @@ public final class GovernmentBodyTests: XCTestCase {
         try XCTAssertEqual(GovernmentBody(name: "value"), decoder.decode(GovernmentBody.self, from: json))
     }
     
-    static var allTests: [(String, (GovernmentBodyTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (GovernmentBodyTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

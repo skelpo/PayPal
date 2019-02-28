@@ -56,7 +56,7 @@ public final class PayeeTests: XCTestCase {
         try XCTAssertEqual(metadata, decoder.decode(Payee.Metadata.self, from: json))
     }
     
-    static var allTests: [(String, (PayeeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PayeeTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

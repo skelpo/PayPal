@@ -53,7 +53,7 @@ public final class TransactionInfoStatusTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(TI.self, from: reversed).status, .reversed)
     }
     
-    static var allTests: [(String, (TransactionInfoStatusTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TransactionInfoStatusTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

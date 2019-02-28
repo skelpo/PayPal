@@ -50,7 +50,7 @@ public final class MoneyTests: XCTestCase {
         try XCTAssertEqual(CurrencyCodeAmount(currency: .usd, value: 33), decoder.decode(CurrencyCodeAmount.self, from: valueParse))
     }
     
-    static var allTests: [(String, (MoneyTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (MoneyTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

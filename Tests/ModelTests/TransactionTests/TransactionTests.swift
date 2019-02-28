@@ -98,7 +98,7 @@ public final class TransactionTests: XCTestCase {
         XCTAssertEqual(transaction.net, CurrencyCodeAmount(currency: .usd, value: 72.00))
     }
     
-    static var allTests: [(String, (TransactionTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TransactionTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

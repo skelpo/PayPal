@@ -82,7 +82,7 @@ public final class InvoiceSearchTests: XCTestCase {
         try XCTAssertEqual(search, decoder.decode(Invoice.Search.self, from: json))
     }
     
-    static var allTests: [(String, (InvoiceSearchTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (InvoiceSearchTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

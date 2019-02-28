@@ -60,7 +60,7 @@ public final class KeyValueTests: XCTestCase {
         try XCTAssertEqual(nv, decoder.decode(NameValue.self, from: njson))
     }
     
-    static var allTests: [(String, (KeyValueTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (KeyValueTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

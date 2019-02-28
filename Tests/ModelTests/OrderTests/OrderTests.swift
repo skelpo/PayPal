@@ -87,7 +87,7 @@ public final class OrderTests: XCTestCase {
         XCTAssertEqual(order.context, AppContext())
     }
     
-    static var allTests: [(String, (OrderTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (OrderTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

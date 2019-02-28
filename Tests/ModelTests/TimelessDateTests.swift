@@ -35,7 +35,7 @@ public final class TimelessDateTests: XCTestCase {
         try XCTAssertEqual(date, decoder.decode(TimelessDate.self, from: json))
     }
     
-    static var allTests: [(String, (TimelessDateTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TimelessDateTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

@@ -54,7 +54,7 @@ public final class SellerTests: XCTestCase {
         )
     }
     
-    static var allTests: [(String, (SellerTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (SellerTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

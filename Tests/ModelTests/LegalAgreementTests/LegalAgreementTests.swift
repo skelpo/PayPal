@@ -31,7 +31,7 @@ public final class LegalAgreementTests: XCTestCase {
         )
     }
     
-    static var allTests: [(String, (LegalAgreementTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (LegalAgreementTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

@@ -61,7 +61,7 @@ public final class BusinessOwnerIDTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(ID.self, from: valueAddedTaxID).type, .valueAddedTaxID)
     }
     
-    static var allTests: [(String, (BusinessOwnerIDTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BusinessOwnerIDTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

@@ -47,7 +47,7 @@ public final class InvoiceReminderTests: XCTestCase {
         try XCTAssertEqual(reminder, decoder.decode(Invoice.Reminder.self, from: json))
     }
     
-    static var allTests: [(String, (InvoiceReminderTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (InvoiceReminderTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

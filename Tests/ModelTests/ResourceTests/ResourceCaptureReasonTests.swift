@@ -58,7 +58,7 @@ public final class ResourceCaptureReasonTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Capture.self, from: refund).reason, .refund)
     }
     
-    static var allTests: [(String, (ResourceCaptureReasonTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ResourceCaptureReasonTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

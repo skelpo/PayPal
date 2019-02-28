@@ -45,7 +45,7 @@ public final class DetailedAmountTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(DetailedAmount.self, from: json), amount)
     }
     
-    static var allTests: [(String, (DetailedAmountTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (DetailedAmountTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

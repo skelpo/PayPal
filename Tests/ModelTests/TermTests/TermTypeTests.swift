@@ -43,7 +43,7 @@ public final class TermTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(TaC.self, from: yearly).type, .yearly)
     }
     
-    static var allTests: [(String, (TermTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TermTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

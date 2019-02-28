@@ -62,7 +62,7 @@ public final class FraudManagementFilterIDTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Filter.self, from: securityCodeMismatch).id, .securityCodeMismatch)
     }
     
-    static var allTests: [(String, (FraudManagementFilterIDTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (FraudManagementFilterIDTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

@@ -49,7 +49,7 @@ public final class ResourceOrderReasonTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Order.self, from: regulatory).reason, .regulatory)
     }
     
-    static var allTests: [(String, (ResourceOrderReasonTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ResourceOrderReasonTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

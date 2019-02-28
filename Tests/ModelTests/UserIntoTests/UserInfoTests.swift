@@ -54,7 +54,7 @@ public final class UserInfoTests: XCTestCase {
         XCTAssertEqual(info.payerID, "P-BCFC8B5AD16874F7")
     }
     
-    static var allTests: [(String, (UserInfoTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (UserInfoTests) -> ()throws -> ())] = [
         ("testDecoding", testDecoding)
     ]
 }

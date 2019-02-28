@@ -82,7 +82,7 @@ public final class PaymentRefundTests: XCTestCase {
         try XCTAssertEqual(refund, decoder.decode(Payment.Refund.self, from: json))
     }
     
-    static var allTests: [(String, (PaymentRefundTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PaymentRefundTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

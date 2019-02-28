@@ -46,7 +46,7 @@ public final class BuyerTests: XCTestCase {
         try XCTAssertEqual(Buyer(email: .init("witheringheights@exmaple.com"), name: "Leeli Wingfeather"), decoder.decode(Buyer.self, from: json))
     }
     
-    static var allTests: [(String, (BuyerTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BuyerTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

@@ -43,7 +43,7 @@ public final class CCEmailTests: XCTestCase {
         try XCTAssertEqual(CCEmail(email: .init("witheringheights@exmaple.com")), decoder.decode(CCEmail.self, from: json))
     }
     
-    static var allTests: [(String, (CCEmailTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CCEmailTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

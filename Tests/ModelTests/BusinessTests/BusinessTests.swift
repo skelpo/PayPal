@@ -211,7 +211,7 @@ public final class BusinessTests: XCTestCase {
         )
     }
     
-    static var allTests: [(String, (BusinessTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BusinessTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValueValidation", testValueValidation),
         ("testEncoding", testEncoding),

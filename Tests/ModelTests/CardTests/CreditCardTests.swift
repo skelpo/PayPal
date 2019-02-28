@@ -191,7 +191,7 @@ public final class CreditCardTests: XCTestCase {
         try XCTAssertEqual(cc, decoder.decode(CreditCard.self, from: valid))
     }
     
-    static var allTests: [(String, (CreditCardTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CreditCardTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

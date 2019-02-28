@@ -161,7 +161,7 @@ public final class TemplatesTests: XCTestCase {
         XCTAssertEqual(details.id, id)
     }
     
-    static var allTests: [(String, (TemplatesTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TemplatesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testListEndpoint", testListEndpoint),

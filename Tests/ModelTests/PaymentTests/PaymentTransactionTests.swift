@@ -133,7 +133,7 @@ public final class PaymentTransactionTests: XCTestCase {
         XCTAssertEqual(transaction.itemList, .init(items: nil, address: nil, phoneNumber: nil))
     }
     
-    static var allTests: [(String, (PaymentTransactionTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PaymentTransactionTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

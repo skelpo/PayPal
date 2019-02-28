@@ -102,7 +102,7 @@ public final class CustomerDisputeListTests: XCTestCase {
         )
     }
     
-    static var allTests: [(String, (CustomerDisputeListTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CustomerDisputeListTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

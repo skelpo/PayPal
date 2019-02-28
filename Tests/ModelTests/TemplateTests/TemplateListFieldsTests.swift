@@ -42,7 +42,7 @@ public final class TemplateListFieldsTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(List.self, from: all).field, .all)
     }
     
-    static var allTests: [(String, (TemplateListFieldsTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TemplateListFieldsTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

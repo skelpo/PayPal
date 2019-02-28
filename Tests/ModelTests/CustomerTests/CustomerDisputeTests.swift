@@ -139,7 +139,7 @@ public final class CustomerDisputeTests: XCTestCase {
         XCTAssertEqual(dispute.channel, .internal)
     }
     
-    static var allTests: [(String, (CustomerDisputeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CustomerDisputeTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

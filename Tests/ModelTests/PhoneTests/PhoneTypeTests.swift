@@ -48,7 +48,7 @@ public final class PhoneTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Phone.self, from: work).type, .work)
     }
     
-    static var allTests: [(String, (PhoneTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PhoneTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

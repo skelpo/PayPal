@@ -44,7 +44,7 @@ public final class LegalAgreementTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Agreement.self, from: financialAuthority).type, .financialAuthority)
     }
     
-    static var allTests: [(String, (LegalAgreementTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (LegalAgreementTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

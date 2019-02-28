@@ -51,7 +51,7 @@ public final class CreditCardTokenTests: XCTestCase {
         XCTAssertEqual(token.expireYear, 2022)
     }
     
-    static var allTests: [(String, (CreditCardTokenTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CreditCardTokenTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

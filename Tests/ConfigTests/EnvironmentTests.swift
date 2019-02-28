@@ -17,7 +17,7 @@ public final class EnvironmentTests: XCTestCase {
         XCTAssertEqual(Environment.allCases, [.sandbox, .production])
     }
     
-    static var allTests: [(String, (EnvironmentTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (EnvironmentTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testCaseDomains", testCaseDomains),
         ("testAllCase", testAllCase)

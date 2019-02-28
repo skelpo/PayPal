@@ -32,7 +32,7 @@ public final class APITests: XCTestCase {
         XCTAssertNotNil(info.token)
     }
     
-    static var allTests: [(String, (APITests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (APITests) -> ()throws -> ())] = [
         ("testQueryStringEncoding", testQueryStringEncoding),
         ("testAPIHelper", testAPIHelper)
     ]

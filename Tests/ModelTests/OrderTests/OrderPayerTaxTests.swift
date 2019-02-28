@@ -44,7 +44,7 @@ public final class OrderPayerTaxTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Pay.self, from: cnpj).tax, .cnpj)
     }
     
-    static var allTests: [(String, (OrderPayerTaxTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (OrderPayerTaxTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

@@ -58,7 +58,7 @@ public final class OverrideChargeTests: XCTestCase {
         )
     }
     
-    static var allTests: [(String, (OverrideChargeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (OverrideChargeTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

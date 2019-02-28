@@ -37,7 +37,7 @@ public final class OrderPayerTests: XCTestCase {
         XCTAssertEqual(payer.info, .init(email: nil, birthdate: nil, tax: nil, taxType: nil, country: nil, billing: nil))
     }
     
-    static var allTests: [(String, (OrderPayerTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (OrderPayerTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

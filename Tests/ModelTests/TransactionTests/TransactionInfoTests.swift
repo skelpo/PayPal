@@ -100,7 +100,7 @@ public final class TransactionInfoTests: XCTestCase {
         try XCTAssertEqual(transaction, decoder.decode(TransactionInfo.self, from: json))
     }
     
-    static var allTests: [(String, (TransactionInfoTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TransactionInfoTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

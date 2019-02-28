@@ -42,7 +42,7 @@ public final class InitialFailActionTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Agreement.self, from: cont).action, .continue)
     }
     
-    static var allTests: [(String, (InitialFailActionTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (InitialFailActionTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

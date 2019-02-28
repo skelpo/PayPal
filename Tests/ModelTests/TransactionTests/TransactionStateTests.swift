@@ -45,7 +45,7 @@ public final class TransactionStateTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(BillingTransaction.self, from: denied).state, .denied)
     }
     
-    static var allTests: [(String, (TransactionStateTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TransactionStateTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

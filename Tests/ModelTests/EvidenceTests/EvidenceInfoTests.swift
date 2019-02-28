@@ -67,7 +67,7 @@ public final class EvidenceInfoTests: XCTestCase {
         try XCTAssertEqual(evidence, decoder.decode(Evidence.Info.self, from: json))
     }
     
-    static var allTests: [(String, (EvidenceInfoTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (EvidenceInfoTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

@@ -33,7 +33,7 @@ public final class DisputeOutcomeTests: XCTestCase {
         try XCTAssertEqual(outcome, decoder.decode(CustomerDispute.Outcome.self, from: json))
     }
     
-    static var allTests: [(String, (DisputeOutcomeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (DisputeOutcomeTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

@@ -20,7 +20,7 @@ public final class FraudManagementFilterTests: XCTestCase {
         XCTAssertEqual(filter.description, "Descripted")
     }
     
-    static var allTests: [(String, (FraudManagementFilterTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (FraudManagementFilterTests) -> ()throws -> ())] = [
         ("testDecoding", testDecoding)
     ]
 }

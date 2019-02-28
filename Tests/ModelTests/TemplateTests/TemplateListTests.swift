@@ -43,7 +43,7 @@ public final class TemplateListTests: XCTestCase {
         try XCTAssertEqual(list, decoder.decode(Template.List.self, from: json))
     }
     
-    static var allTests: [(String, (TemplateListTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TemplateListTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

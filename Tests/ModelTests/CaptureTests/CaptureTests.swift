@@ -57,7 +57,7 @@ public final class CaptureTests: XCTestCase {
         XCTAssertEqual(capture.transaction, CurrencyAmount(currency: .usd, value: 1.00))
     }
     
-    static var allTests: [(String, (CaptureTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CaptureTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

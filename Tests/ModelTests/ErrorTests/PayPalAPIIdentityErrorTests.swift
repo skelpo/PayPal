@@ -36,7 +36,7 @@ public final class PayPalAPIIdentityErrorTests: XCTestCase {
         try XCTAssertEqual(self.error, decoder.decode(PayPalAPIIdentityError.self, from: valid))
     }
     
-    static var allTests: [(String, (PayPalAPIIdentityErrorTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PayPalAPIIdentityErrorTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

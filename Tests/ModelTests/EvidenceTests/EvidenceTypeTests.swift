@@ -66,7 +66,7 @@ public final class EvidenceTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Evid.self, from: proofOfDeliverySignature).type, .proofOfDeliverySignature)
     }
     
-    static var allTests: [(String, (EvidenceTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (EvidenceTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

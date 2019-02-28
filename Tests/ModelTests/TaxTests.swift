@@ -57,7 +57,7 @@ public final class TaxTests: XCTestCase {
         try XCTAssertEqual(Tax(name: .init("Sales"), percent: .init(10), amount: nil), decoder.decode(Tax.self, from: json))
     }
     
-    static var allTests: [(String, (TaxTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TaxTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

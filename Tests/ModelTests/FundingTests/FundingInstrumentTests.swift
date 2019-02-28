@@ -30,7 +30,7 @@ public final class FundingInstrumentTests: XCTestCase {
         try XCTAssertEqual(instrument, decoder.decode(FundingInstrument.self, from: json))
     }
     
-    static var allTests: [(String, (FundingInstrumentTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (FundingInstrumentTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

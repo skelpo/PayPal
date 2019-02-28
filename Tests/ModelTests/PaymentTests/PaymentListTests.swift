@@ -25,7 +25,7 @@ public final class PaymentListTests: XCTestCase {
         XCTAssertEqual(list.count.value, 20)
     }
     
-    static var allTests: [(String, (PaymentListTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PaymentListTests) -> ()throws -> ())] = [
         ("testDecoding", testDecoding)
     ]
 }

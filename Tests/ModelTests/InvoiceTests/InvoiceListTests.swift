@@ -105,7 +105,7 @@ public final class InvoiceListTests: XCTestCase {
         try XCTAssertEqual(list, decoder.decode(InvoiceList.self, from: json))
     }
     
-    static var allTests: [(String, (InvoiceListTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (InvoiceListTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

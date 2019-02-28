@@ -35,7 +35,7 @@ public final class LinkDescriptionTests: XCTestCase {
         )
     }
     
-    static var allTests: [(String, (LinkDescriptionTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (LinkDescriptionTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

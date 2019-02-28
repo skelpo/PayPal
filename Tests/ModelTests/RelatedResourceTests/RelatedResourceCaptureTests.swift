@@ -130,7 +130,7 @@ public final class RelatedResourceCaptureTests: XCTestCase {
         
     }
     
-    static var allTests: [(String, (RelatedResourceCaptureTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (RelatedResourceCaptureTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

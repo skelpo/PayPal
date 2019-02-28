@@ -57,7 +57,7 @@ public final class PatchTests: XCTestCase {
         try XCTAssertEqual(patchArr, decoder.decode(Patch.self, from: arrJson))
     }
     
-    static var allTests: [(String, (PatchTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PatchTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

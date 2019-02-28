@@ -259,7 +259,7 @@ public final class PaymentsTests: XCTestCase {
         XCTAssertEqual(refund.id, id)
     }
     
-    static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testListEndpoint", testListEndpoint),

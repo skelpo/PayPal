@@ -44,7 +44,7 @@ public final class RoleTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(User.self, from: payer).role, .payer)
     }
     
-    static var allTests: [(String, (RoleTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (RoleTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

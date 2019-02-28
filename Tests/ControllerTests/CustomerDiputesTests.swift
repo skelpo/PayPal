@@ -209,7 +209,7 @@ public final class CustomerDisputesTests: XCTestCase {
         return File(data: data, filename: name)
     }
     
-    static var allTests: [(String, (CustomerDisputesTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CustomerDisputesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testListEndpoint", testListEndpoint),
         ("testDetailsEndpoint", testDetailsEndpoint),

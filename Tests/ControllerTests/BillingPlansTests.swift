@@ -99,7 +99,7 @@ public final class BillingPlansTests: XCTestCase {
         XCTAssertEqual(status, .ok)
     }
     
-    static var allTests: [(String, (BillingPlansTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BillingPlansTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testListEndpoint", testListEndpoint),

@@ -46,7 +46,7 @@ public final class OrderStatusTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Or.self, from: failed).status, .failed)
     }
     
-    static var allTests: [(String, (OrderStatusTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (OrderStatusTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

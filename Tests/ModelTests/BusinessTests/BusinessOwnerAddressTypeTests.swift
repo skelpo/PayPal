@@ -45,7 +45,7 @@ public final class BusinessOwnerAddressTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(BOA.self, from: home).type, .home)
     }
     
-    static var allTests: [(String, (BusinessOwnerAddressTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BusinessOwnerAddressTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

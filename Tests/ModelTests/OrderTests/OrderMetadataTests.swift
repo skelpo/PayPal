@@ -32,7 +32,7 @@ public final class OrderMetadataTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Order.Metadata.self, from: json), Order.Metadata(data: ["name": "value"]))
     }
     
-    static var allTests: [(String, (OrderMetadataTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (OrderMetadataTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

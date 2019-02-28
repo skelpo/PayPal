@@ -82,7 +82,7 @@ public final class QueryParamaterTests: XCTestCase {
         }
     }
     
-    static var allTests: [(String, (QueryParamaterTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (QueryParamaterTests) -> ()throws -> ())] = [
         ("testStringContainsCount", testStringContainsCount),
         ("testEncoding", testEncoding),
         ("testEncodingSpeed", testEncodingSpeed)

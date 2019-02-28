@@ -248,7 +248,7 @@ public final class ManagedAccountsTests: XCTestCase {
         XCTAssertGreaterThan(instruments.instruments?.count ?? 0, 0)
     }
     
-    static var allTests: [(String, (ManagedAccountsTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ManagedAccountsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testPatchEndpoint", testPatchEndpoint),

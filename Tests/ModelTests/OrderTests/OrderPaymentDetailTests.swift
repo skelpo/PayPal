@@ -15,7 +15,7 @@ public final class OrderPaymentDetailTests: XCTestCase {
         XCTAssertEqual(details.disbursement, .instant)
     }
     
-    static var allTests: [(String, (OrderPaymentDetailTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (OrderPaymentDetailTests) -> ()throws -> ())] = [
         ("testDecoding", testDecoding)
     ]
 }

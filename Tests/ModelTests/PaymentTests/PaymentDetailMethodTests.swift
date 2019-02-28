@@ -48,7 +48,7 @@ public final class PaymentDetailMethodTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Detail.self, from: debitCard).method, .debitCard)
     }
     
-    static var allTests: [(String, (PaymentDetailMethodTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PaymentDetailMethodTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

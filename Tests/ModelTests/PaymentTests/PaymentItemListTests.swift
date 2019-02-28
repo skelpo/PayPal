@@ -88,7 +88,7 @@ public final class PaymentItemListTests: XCTestCase {
         try XCTAssertThrowsError(decoder.decode(Payment.ItemList.self, from: phone))
     }
     
-    static var allTests: [(String, (PaymentItemListTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PaymentItemListTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

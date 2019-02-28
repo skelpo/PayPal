@@ -35,7 +35,7 @@ public final class AuthenticationTests: XCTestCase {
         XCTAssertEqual(auth.tokenExpired, false)
     }
     
-    static var allTests: [(String, (AuthenticationTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (AuthenticationTests) -> ()throws -> ())] = [
         ("testTokenExpired", testTokenExpired),
         ("testAPIAuthentication", testAPIAuthentication)
     ]

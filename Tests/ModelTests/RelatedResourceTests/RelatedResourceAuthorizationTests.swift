@@ -117,7 +117,7 @@ public final class RelatedResourceAuthorizationTests: XCTestCase {
         XCTAssertEqual(auth.amount, DetailedAmount(currency: .usd, total: 42.31, details: nil))
     }
     
-    static var allTests: [(String, (RelatedResourceAuthorizationTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (RelatedResourceAuthorizationTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

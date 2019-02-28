@@ -116,7 +116,7 @@ public final class DisputeResolutionOfferTests: XCTestCase {
         ))
     }
     
-    static var allTests: [(String, (DisputeResolutionOfferTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (DisputeResolutionOfferTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

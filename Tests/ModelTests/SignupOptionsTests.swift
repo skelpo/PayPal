@@ -48,7 +48,7 @@ public final class SignupOptionsTests: XCTestCase {
         try XCTAssertEqual(options, decoder.decode(SignupOptions.self, from: json))
     }
     
-    static var allTests: [(String, (SignupOptionsTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (SignupOptionsTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

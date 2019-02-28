@@ -40,7 +40,7 @@ public final class OrderPaymentTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Order.Payment.self, from: json), Order.Payment(captures: [], refunds: [], sales: [], authorizations: []))
     }
     
-    static var allTests: [(String, (OrderPaymentTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (OrderPaymentTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

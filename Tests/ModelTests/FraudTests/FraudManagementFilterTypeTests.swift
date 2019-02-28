@@ -46,7 +46,7 @@ public final class FraudManagementFilterTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Instrument.self, from: report).type, .report)
     }
     
-    static var allTests: [(String, (FraudManagementFilterTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (FraudManagementFilterTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

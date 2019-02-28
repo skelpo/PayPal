@@ -44,7 +44,7 @@ public final class FrequencyTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Action.self, from: year).frequency, .year)
     }
     
-    static var allTests: [(String, (FrequencyTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (FrequencyTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

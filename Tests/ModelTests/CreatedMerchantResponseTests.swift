@@ -23,7 +23,7 @@ public final class CreatedMerchantResponseTests: XCTestCase {
         try XCTAssertEqual(response.authCode, .init("6C0AB2D4-5668-42E6-B943-9FF9956D860B"))
     }
     
-    static var allTests: [(String, (CreatedMerchantResponseTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CreatedMerchantResponseTests) -> ()throws -> ())] = [
         ("testDecoding", testDecoding)
     ]
 }

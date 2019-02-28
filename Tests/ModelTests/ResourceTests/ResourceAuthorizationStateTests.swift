@@ -48,7 +48,7 @@ public final class ResourceAuthorizationStateTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Auth.self, from: captured).state, .captured)
     }
     
-    static var allTests: [(String, (ResourceAuthorizationStateTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ResourceAuthorizationStateTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

@@ -75,7 +75,7 @@ public final class ProductGrantedPermissionTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Product.self, from: accountManagementPermission).permission, .accountManagementPermission)
     }
     
-    static var allTests: [(String, (ProductGrantedPermissionTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ProductGrantedPermissionTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

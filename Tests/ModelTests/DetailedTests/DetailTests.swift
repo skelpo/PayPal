@@ -101,7 +101,7 @@ public final class DetailTests: XCTestCase {
         XCTAssertEqual(details, decoded)
     }
     
-    static var allTests: [(String, (DetailTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (DetailTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

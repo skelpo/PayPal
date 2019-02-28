@@ -100,7 +100,7 @@ public final class PaymentReceivingPreferencesTests: XCTestCase {
         try XCTAssertEqual(preference, decoder.decode(PaymentReceivingPreferences.self, from: json))
     }
     
-    static var allTests: [(String, (PaymentReceivingPreferencesTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PaymentReceivingPreferencesTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

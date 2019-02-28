@@ -44,7 +44,7 @@ public final class EmailFrequencyTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Email.self, from: `default`).frequency, .default)
     }
     
-    static var allTests: [(String, (EmailFrequencyTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (EmailFrequencyTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

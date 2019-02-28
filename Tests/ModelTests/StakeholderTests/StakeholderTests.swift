@@ -85,7 +85,7 @@ public final class StakeholderTests: XCTestCase {
         try XCTAssertEqual(holder, decoder.decode(Business.Stakeholder.self, from: json))
     }
     
-    static var allTests: [(String, (StakeholderTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (StakeholderTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

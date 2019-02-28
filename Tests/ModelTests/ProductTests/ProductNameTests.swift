@@ -67,7 +67,7 @@ public final class ProductNameTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Product.self, from: hostedSoleSolution).name, .hostedSoleSolution)
     }
     
-    static var allTests: [(String, (ProductNameTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ProductNameTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

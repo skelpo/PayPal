@@ -45,7 +45,7 @@ public final class OrderIntentTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Or.self, from: authorize).intent, .authorize)
     }
     
-    static var allTests: [(String, (OrderIntentTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (OrderIntentTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

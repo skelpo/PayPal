@@ -43,7 +43,7 @@ public final class InvoiceMeasureTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Inv.self, from: quantity).measure, .quantity)
     }
     
-    static var allTests: [(String, (InvoiceMeasureTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (InvoiceMeasureTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

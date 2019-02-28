@@ -30,7 +30,7 @@ public final class FileAttachmentTests: XCTestCase {
         try XCTAssertEqual(file, decoder.decode(FileAttachment.self, from: ext))
     }
     
-    static var allTests: [(String, (FileAttachmentTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (FileAttachmentTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

@@ -100,7 +100,7 @@ public final class CustomerServiceMessageTests: XCTestCase {
         try XCTAssertEqual(message, decoder.decode(CustomerService.Message.self, from: json))
     }
     
-    static var allTests: [(String, (CustomerServiceMessageTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CustomerServiceMessageTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

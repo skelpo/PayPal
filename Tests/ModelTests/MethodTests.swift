@@ -49,7 +49,7 @@ public final class MethodTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Request.self, from: delete).method, .DELETE)
     }
     
-    static var allTests: [(String, (MethodTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (MethodTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

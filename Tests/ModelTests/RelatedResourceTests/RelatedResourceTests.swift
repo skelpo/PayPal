@@ -91,7 +91,7 @@ public final class RelatedResourceTests: XCTestCase {
         try XCTAssertEqual(resource, decoder.decode(RelatedResource.self, from: json))
     }
     
-    static var allTests: [(String, (RelatedResourceTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (RelatedResourceTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

@@ -224,7 +224,7 @@ public final class OrderUnitTests: XCTestCase {
         
     }
     
-    static var allTests: [(String, (OrderUnitTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (OrderUnitTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

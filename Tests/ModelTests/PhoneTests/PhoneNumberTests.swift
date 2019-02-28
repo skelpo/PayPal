@@ -49,7 +49,7 @@ public final class PhoneNumberTests: XCTestCase {
         try XCTAssertEqual(PhoneNumber(country: .init(1), number: .init(9963191901)), decoder.decode(PhoneNumber.self, from: json))
     }
     
-    static var allTests: [(String, (PhoneNumberTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PhoneNumberTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

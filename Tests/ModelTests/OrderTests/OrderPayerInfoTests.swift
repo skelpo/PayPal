@@ -129,7 +129,7 @@ public final class OrderPayerInfoTests: XCTestCase {
         ))
     }
     
-    static var allTests: [(String, (OrderPayerInfoTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (OrderPayerInfoTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

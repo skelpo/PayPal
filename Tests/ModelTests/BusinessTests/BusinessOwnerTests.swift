@@ -166,7 +166,7 @@ public final class BusinessOwnerTests: XCTestCase {
         try XCTAssertThrowsError(decoder.decode(BusinessOwner.self, from: birthdate))
     }
     
-    static var allTests: [(String, (BusinessOwnerTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BusinessOwnerTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValueValidation", testValueValidation),
         ("testEncoding", testEncoding),

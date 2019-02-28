@@ -292,7 +292,7 @@ public final class TemplateDataTests: XCTestCase {
         ))
     }
     
-    static var allTests: [(String, (TemplateDataTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TemplateDataTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

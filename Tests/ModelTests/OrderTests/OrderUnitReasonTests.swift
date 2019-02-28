@@ -50,7 +50,7 @@ public final class OrderUnitReasonTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Unit.self, from: regulatory).reason, .regulatory)
     }
     
-    static var allTests: [(String, (OrderUnitReasonTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (OrderUnitReasonTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

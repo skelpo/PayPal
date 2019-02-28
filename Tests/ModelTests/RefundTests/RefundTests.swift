@@ -51,7 +51,7 @@ public final class RefundTests: XCTestCase {
         XCTAssertEqual(refund.amount, DetailedAmount(currency: .usd, total: 10.00, details: nil))
     }
     
-    static var allTests: [(String, (RefundTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (RefundTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

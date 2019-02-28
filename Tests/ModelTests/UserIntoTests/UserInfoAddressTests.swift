@@ -21,7 +21,7 @@ public final class UserInfoAddressTests: XCTestCase {
         XCTAssertEqual(address.country, .switzerland)
     }
     
-    static var allTests: [(String, (UserInfoAddressTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (UserInfoAddressTests) -> ()throws -> ())] = [
         ("testDecoding", testDecoding)
     ]
 }

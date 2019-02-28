@@ -114,7 +114,7 @@ public final class RelatedResourceRefundTests: XCTestCase {
         
     }
     
-    static var allTests: [(String, (RelatedResourceRefundTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (RelatedResourceRefundTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

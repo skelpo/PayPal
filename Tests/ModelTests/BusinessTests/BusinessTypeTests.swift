@@ -63,7 +63,7 @@ public final class BusinessTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Busi.self, from: otherCorporate).type, .otherCorporate)
     }
     
-    static var allTests: [(String, (BusinessTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BusinessTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

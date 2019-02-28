@@ -41,7 +41,7 @@ public final class MoneyRangeTests: XCTestCase {
         try XCTAssertEqual(range, decoder.decode(MoneyRange.self, from: json))
     }
     
-    static var allTests: [(String, (MoneyRangeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (MoneyRangeTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

@@ -36,7 +36,7 @@ public final class TemplateSettingsMetadataTests: XCTestCase {
         try XCTAssertEqual(metadata, decoder.decode(Template.Settings.Metadata.self, from: json))
     }
     
-    static var allTests: [(String, (TemplateSettingsMetadataTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TemplateSettingsMetadataTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

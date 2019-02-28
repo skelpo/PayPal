@@ -42,7 +42,7 @@ public final class CustomerServiceMessageTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(CSM.self, from: retail).type, .retail)
     }
     
-    static var allTests: [(String, (CustomerServiceMessageTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CustomerServiceMessageTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

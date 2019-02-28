@@ -52,7 +52,7 @@ public final class BusinessSubTypeTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Busi.self, from: govtEstdStTr).type, .govtEstdStTr)
     }
     
-    static var allTests: [(String, (BusinessSubTypeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BusinessSubTypeTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

@@ -39,7 +39,7 @@ public final class NotificationOptionTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(NotificationOptions.self, from: json), options)
     }
     
-    static var allTests: [(String, (NotificationOptionTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (NotificationOptionTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

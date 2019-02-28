@@ -56,7 +56,7 @@ public final class CurrencyTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Model.self, from: existing), Model(cur: .zwl))
     }
     
-    static var allTests: [(String, (CurrencyTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CurrencyTests) -> ()throws -> ())] = [
         ("testFindByCode", testFindByCode),
         ("testAllCasesSpeed", testAllCasesSpeed),
         ("testEncoding", testEncoding),

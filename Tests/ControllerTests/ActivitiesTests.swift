@@ -30,7 +30,7 @@ public final class ActivitiesTests: XCTestCase {
         XCTAssertLessThanOrEqual(queried.items?.count ?? 0, 5)
     }
     
-    static var allTests: [(String, (ActivitiesTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ActivitiesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testActivitiesEndpoint", testActivitiesEndpoint)
     ]

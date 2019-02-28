@@ -36,7 +36,7 @@ public final class TrackingTests: XCTestCase {
         try XCTAssertEqual(tracking, decoder.decode(Tracking.self, from: json))
     }
     
-    static var allTests: [(String, (TrackingTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TrackingTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

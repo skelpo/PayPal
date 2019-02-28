@@ -362,7 +362,7 @@ public final class InvoiceTests: XCTestCase {
         ))
     }
     
-    static var allTests: [(String, (InvoiceTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (InvoiceTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

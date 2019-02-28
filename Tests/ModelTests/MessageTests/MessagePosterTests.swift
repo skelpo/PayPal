@@ -42,7 +42,7 @@ public final class MessagePosterTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Wall.self, from: seller).poster, .seller)
     }
     
-    static var allTests: [(String, (MessagePosterTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (MessagePosterTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

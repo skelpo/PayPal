@@ -54,7 +54,7 @@ public final class TypedPhoneNumberTests: XCTestCase {
         )
     }
     
-    static var allTests: [(String, (TypedPhoneNumberTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TypedPhoneNumberTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

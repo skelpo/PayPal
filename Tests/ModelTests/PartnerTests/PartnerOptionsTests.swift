@@ -42,7 +42,7 @@ public final class PartnerOptionsTests: XCTestCase {
         try XCTAssertEqual(options, decoder.decode(PartnerOptions.self, from: mit))
     }
     
-    static var allTests: [(String, (PartnerOptionsTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PartnerOptionsTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

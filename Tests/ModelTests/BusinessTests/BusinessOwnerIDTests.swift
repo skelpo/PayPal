@@ -92,7 +92,7 @@ public final class IdentificationTests: XCTestCase {
         try XCTAssertThrowsError(decoder.decode(Identification.self, from: country))
     }
     
-    static var allTests: [(String, (IdentificationTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (IdentificationTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

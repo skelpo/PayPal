@@ -42,7 +42,7 @@ public final class DisputeChannelTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Dispute.self, from: external).channel, .external)
     }
     
-    static var allTests: [(String, (DisputeChannelTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (DisputeChannelTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

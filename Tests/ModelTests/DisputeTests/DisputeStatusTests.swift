@@ -50,7 +50,7 @@ public final class DisputeStatusTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Dispute.self, from: other).status, .other)
     }
     
-    static var allTests: [(String, (DisputeStatusTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (DisputeStatusTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

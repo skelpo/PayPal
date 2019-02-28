@@ -48,7 +48,7 @@ public final class TemplateSettingFieldTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Settings.self, from: custom).field, .custom)
     }
     
-    static var allTests: [(String, (TemplateSettingFieldTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TemplateSettingFieldTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

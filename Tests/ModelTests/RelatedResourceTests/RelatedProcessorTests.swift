@@ -24,7 +24,7 @@ public final class RelatedProcessorTests: XCTestCase {
         XCTAssertEqual(processor.vpas, "3326")
     }
     
-    static var allTests: [(String, (RelatedProcessorTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (RelatedProcessorTests) -> ()throws -> ())] = [
         ("testDecoding", testDecoding)
     ]
 }
