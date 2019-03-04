@@ -8,22 +8,22 @@ public struct MerchantInfo: Content, Equatable {
     /// If you omit this value, notifications are sent from and to the primary email address but do not appear on the invoice.
     ///
     /// Maximum length: 260.
-    public var email: String?
+    public var email: Failable<String?, NotNilValidate<Length260>>
     
     /// The merchant's business name.
     ///
     /// Maximum length: 100.
-    public var business: String?
+    public var business: Failable<String?, NotNilValidate<Length100>>
     
     /// The merchant's first name.
     ///
     /// Maximum length: 256.
-    public var firstName: String?
+    public var firstName: Failable<String?, NotNilValidate<Length256>>
     
     /// The merchant's last name.
     ///
     /// Maximum length: 256.
-    public var lastName: String?
+    public var lastName: Failable<String?, NotNilValidate<Length256>>
     
     /// The merchant's address.
     public var address: Address?
@@ -37,53 +37,43 @@ public struct MerchantInfo: Content, Equatable {
     /// The merchant's website.
     ///
     /// Maximum length: 2048.
-    public var website: String?
+    public var website: Failable<String?, NotNilValidate<Length2048>>
     
     /// The merchant's tax ID.
     ///
     /// Maximum length: 100.
-    public var taxID: String?
+    public var taxID: Failable<String?, NotNilValidate<Length100>>
     
     /// Any additional information, such as business hours.
     ///
     /// Maximum length: 40.
-    public var info: String?
+    public var info: Failable<String?, NotNilValidate<Length40>>
     
     
     /// Creates a new `MerchantInfo` instance.
     ///
-    ///     MerchantInfo(
-    ///         email: "basil@baker.com",
-    ///         business: "Basil Cases and Mystery",
-    ///         firstName: "Basil",
-    ///         lastName: "Mouse",
-    ///          address: Address(
-    ///             recipientName: nil,
-    ///             defaultAddress: true,
-    ///             line1: "221B Baker Street",
-    ///             line2: nil,
-    ///             city: "London",
-    ///             state: nil,
-    ///             countryCode: "UK",
-    ///             postalCode: "42"
-    ///         ),
-    ///         phone: PhoneNumber(country: "1", number: "9963191901"),
-    ///         fax: PhoneNumber(country: "1", number: "9963191901"),
-    ///         website: nil,
-    ///         taxID: "934-00-2376",
-    ///         info: "He sells cheese. Rich cheese."
-    ///     )
+    /// - Parameters:
+    ///   - email: The merchant email address. This email must be listed in the merchant's PayPal profile.
+    ///   - business: The merchant's business name.
+    ///   - firstName: The merchant's first name.
+    ///   - lastName: The merchant's last name.
+    ///   - address: The merchant's address.
+    ///   - phone: The merchant's phone number.
+    ///   - fax: The merchant's fax number.
+    ///   - website: The merchant's website.
+    ///   - taxID: The merchant's tax ID.
+    ///   - info: Any additional information, such as business hours.
     public init(
-        email: String?,
-        business: String?,
-        firstName: String?,
-        lastName: String?,
+        email: Failable<String?, NotNilValidate<Length260>>,
+        business: Failable<String?, NotNilValidate<Length100>>,
+        firstName: Failable<String?, NotNilValidate<Length256>>,
+        lastName: Failable<String?, NotNilValidate<Length256>>,
         address: Address?,
         phone: PhoneNumber?,
         fax: PhoneNumber?,
-        website: String?,
-        taxID: String?,
-        info: String?
+        website: Failable<String?, NotNilValidate<Length2048>>,
+        taxID: Failable<String?, NotNilValidate<Length100>>,
+        info: Failable<String?, NotNilValidate<Length40>>
     )throws {
         self.email = email
         self.business = business
