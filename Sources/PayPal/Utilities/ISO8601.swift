@@ -5,17 +5,13 @@ import Foundation
 extension DateFormatter {
     
     /// A formatter for ISO 8601 dates.
-    public static let iso8601: Formatter = {
-        if #available(OSX 10.12, *) {
-            return ISO8601DateFormatter()
-        } else {
-            let formatter = DateFormatter()
-            formatter.calendar = Calendar(identifier: .iso8601)
-            formatter.locale = Locale(identifier: "en_US_POSIX")
-            formatter.timeZone = TimeZone(secondsFromGMT: 0)
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
-            return formatter
-        }
+    public static let iso8601: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+        return formatter
     }()
 }
 
@@ -30,13 +26,7 @@ extension Date {
     ///
     /// - Parameter iso8601: The string that has the date.
     public init?(iso8601: String) {
-        let converter: ((String) -> Date?)?
-        if #available(OSX 10.12, *) {
-            converter = (DateFormatter.iso8601 as? ISO8601DateFormatter)?.date
-        } else {
-            converter = (DateFormatter.iso8601 as? DateFormatter)?.date
-        }
-        guard let date = converter?(iso8601) else { return nil }
+        guard let date = DateFormatter.iso8601.date(from: iso8601) else { return nil }
         self = date
     }
 }
