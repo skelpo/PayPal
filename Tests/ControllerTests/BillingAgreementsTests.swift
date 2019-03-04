@@ -16,9 +16,9 @@ public final class BillingAgreementsTests: XCTestCase {
         
         app = try! Application.testable(services: services)
         
-        if self.id == nil {
-            try! self.testCreateEndpoint()
-        }
+//        if self.id == nil {
+//            try! self.testCreateEndpoint()
+//        }
     }
     
     func testServiceExists()throws {

@@ -2,6 +2,7 @@ import XCTest
 import Vapor
 @testable import PayPal
 
+// MARK: - Passing ✅
 public final class BillingPlansTests: XCTestCase {
     
     var app: Application!
@@ -15,17 +16,21 @@ public final class BillingPlansTests: XCTestCase {
         try! services.register(PayPalProvider())
         
         app = try! Application.testable(services: services)
-        
-        let plans = try! self.app.make(BillingPlans.self)
-        let list = try! plans.list(parameters: QueryParamaters(totalCountRequired: true)).wait()
-        self.id = list.plans?.first?.id.value
     }
     
     func testServiceExists()throws {
         _ = try app.make(BillingPlans.self)
     }
     
-    func testCreateEndpoint()throws {
+    func testEndpoints()throws {
+        try self.createEndpoint()
+        try self.listEndpoint()
+        try self.updateEndpoint()
+        try self.detailsEndpoint()
+        try self.setStateHelper()
+    }
+    
+    func createEndpoint()throws {
         let plans = try self.app.make(BillingPlans.self)
         let plan = try BillingPlan(
             name: .init("Monthly Water"),
@@ -54,19 +59,20 @@ public final class BillingPlansTests: XCTestCase {
         )
         
         let created = try plans.create(with: plan).wait()
+        self.id = created.id.value
         
         XCTAssertEqual(created.name, plan.name)
         XCTAssertNotNil(created.id)
     }
     
-    func testListEndpoint()throws {
+    func listEndpoint()throws {
         let plans = try self.app.make(BillingPlans.self)
         let list = try plans.list(parameters: QueryParamaters(totalCountRequired: true)).wait()
         
         XCTAssertNotNil(list.plans)
     }
     
-    func testUpdateEndpoint()throws {
+    func updateEndpoint()throws {
         let plans = try self.app.make(BillingPlans.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get agreement ID to get")
@@ -77,7 +83,7 @@ public final class BillingPlansTests: XCTestCase {
         XCTAssertEqual(status, .ok)
     }
     
-    func testDetailsEndpoint()throws {
+    func detailsEndpoint()throws {
         let plans = try self.app.make(BillingPlans.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get agreement ID to get")
@@ -88,7 +94,7 @@ public final class BillingPlansTests: XCTestCase {
         XCTAssert(details.id.value == id)
     }
     
-    func testSetStateHelper()throws {
+    func setStateHelper()throws {
         let plans = try self.app.make(BillingPlans.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get agreement ID to get")
@@ -101,11 +107,7 @@ public final class BillingPlansTests: XCTestCase {
     
     public static var allTests: [(String, (BillingPlansTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
-        ("testCreateEndpoint", testCreateEndpoint),
-        ("testListEndpoint", testListEndpoint),
-        ("testUpdateEndpoint", testUpdateEndpoint),
-        ("testDetailsEndpoint", testDetailsEndpoint),
-        ("testSetStateHelper", testSetStateHelper)
+        ("testEndpoints", testEndpoints)
     ]
 }
 
