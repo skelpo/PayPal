@@ -28,11 +28,7 @@ public final class ManagedAccountsTests: XCTestCase {
         _ = try app.make(ManagedAccounts.self)
     }
     
-    func testCreateEndpoint()throws {
-        guard let id = self.id else {
-            throw Abort(.internalServerError, reason: "ID is nil")
-        }
-        
+    func testCreateEndpoint()throws {        
         let paymentPref = PaymentReceivingPreferences(
             blockUnconfirmedUSAddress: true,
             blockNonUS: false,
