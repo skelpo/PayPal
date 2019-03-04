@@ -2,6 +2,7 @@ import XCTest
 import Vapor
 @testable import PayPal
 
+// MARK: - Passing ✅
 public final class AuthenticationTests: XCTestCase {
     
     var app: Application!
