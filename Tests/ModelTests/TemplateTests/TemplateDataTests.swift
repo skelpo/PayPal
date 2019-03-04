@@ -13,14 +13,14 @@ public final class TemplateDataTests: XCTestCase {
     func testInit()throws {
         let data = try Template.Data(
             merchant: MerchantInfo(
-                email: "hello@vapor.codes",
-                business: "Qutheory LLC.",
-                firstName: "Tanner",
-                lastName: "Nelson",
+                email: .init("hello@vapor.codes"),
+                business: .init("Qutheory LLC."),
+                firstName: .init("Tanner"),
+                lastName: .init("Nelson"),
                 address: nil,
                 phone: nil,
                 fax: nil,
-                website: "https://vapor.codes/",
+                website: .init("https://vapor.codes/"),
                 taxID: nil,
                 info: nil
             ),
@@ -65,14 +65,14 @@ public final class TemplateDataTests: XCTestCase {
         try XCTAssertEqual(data.custom, CustomAmount(label: nil, amount: .init(CurrencyAmount(currency: .usd, value: 10.00))))
         try XCTAssertEqual(data.cc, [.init(email: .init("collective@vapor.codes")), .init(email: .init("donator@example.com"))])
         try XCTAssertEqual(data.merchant, MerchantInfo(
-            email: "hello@vapor.codes",
-            business: "Qutheory LLC.",
-            firstName: "Tanner",
-            lastName: "Nelson",
+            email: .init("hello@vapor.codes"),
+            business: .init("Qutheory LLC."),
+            firstName: .init("Tanner"),
+            lastName: .init("Nelson"),
             address: nil,
             phone: nil,
             fax: nil,
-            website: "https://vapor.codes/",
+            website: .init("https://vapor.codes/"),
             taxID: nil,
             info: nil
         ))
@@ -101,14 +101,14 @@ public final class TemplateDataTests: XCTestCase {
         let encoder = JSONEncoder()
         let data = try Template.Data(
             merchant: MerchantInfo(
-                email: "hello@vapor.codes",
-                business: "Qutheory LLC.",
-                firstName: "Tanner",
-                lastName: "Nelson",
+                email: .init("hello@vapor.codes"),
+                business: .init("Qutheory LLC."),
+                firstName: .init("Tanner"),
+                lastName: .init("Nelson"),
                 address: nil,
                 phone: nil,
                 fax: nil,
-                website: "https://vapor.codes/",
+                website: .init("https://vapor.codes/"),
                 taxID: nil,
                 info: nil
             ),
@@ -260,14 +260,14 @@ public final class TemplateDataTests: XCTestCase {
         
         try XCTAssertEqual(data, Template.Data(
             merchant: MerchantInfo(
-                email: "hello@vapor.codes",
-                business: "Qutheory LLC.",
-                firstName: "Tanner",
-                lastName: "Nelson",
+                email: .init("hello@vapor.codes"),
+                business: .init("Qutheory LLC."),
+                firstName: .init("Tanner"),
+                lastName: .init("Nelson"),
                 address: nil,
                 phone: nil,
                 fax: nil,
-                website: "https://vapor.codes/",
+                website: .init("https://vapor.codes/"),
                 taxID: nil,
                 info: nil
             ),
