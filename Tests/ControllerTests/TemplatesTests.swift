@@ -33,14 +33,14 @@ public final class TemplatesTests: XCTestCase {
             default: true,
             data: .init(
                 merchant: MerchantInfo(
-                    email: "hello@vapor.codes",
-                    business: "Qutheory LLC.",
-                    firstName: "Tanner",
-                    lastName: "Nelson",
+                    email: .init("hello@vapor.codes"),
+                    business: .init("Qutheory LLC."),
+                    firstName: .init("Tanner"),
+                    lastName: .init("Nelson"),
                     address: nil,
                     phone: nil,
                     fax: nil,
-                    website: "https://vapor.codes/",
+                    website: .init("https://vapor.codes/"),
                     taxID: nil,
                     info: nil
                 ),
@@ -96,14 +96,14 @@ public final class TemplatesTests: XCTestCase {
             default: true,
             data: .init(
                 merchant: MerchantInfo(
-                    email: "hello@vapor.codes",
-                    business: "Qutheory LLC.",
-                    firstName: "Tanner",
-                    lastName: "Nelson",
+                    email: .init("hello@vapor.codes"),
+                    business: .init("Qutheory LLC."),
+                    firstName: .init("Tanner"),
+                    lastName: .init("Nelson"),
                     address: nil,
                     phone: nil,
                     fax: nil,
-                    website: "https://vapor.codes/",
+                    website: .init("https://vapor.codes/"),
                     taxID: nil,
                     info: nil
                 ),
