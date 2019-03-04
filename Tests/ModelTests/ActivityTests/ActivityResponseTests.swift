@@ -13,7 +13,10 @@ public final class ActivityResponseTests: XCTestCase {
                 counterparty: CounterParty(
                     email: "54north@exmaple.com",
                     phoneNumber: "314-159-2653",
-                    name: "Jonathan Futher"
+                    firstName: nil,
+                    lastName: nil,
+                    name: "Jonathan Futher",
+                    payment: nil
                 ),
                 fee: nil,
                 gross: CurrencyCodeAmount(currency: .usd, value: 19.45),
@@ -38,7 +41,10 @@ public final class ActivityResponseTests: XCTestCase {
                 counterparty: CounterParty(
                     email: "54north@exmaple.com",
                     phoneNumber: "314-159-2653",
-                    name: "Jonathan Futher"
+                    firstName: nil,
+                    lastName: nil,
+                    name: "Jonathan Futher",
+                    payment: nil
                 ),
                 fee: nil,
                 gross: CurrencyCodeAmount(currency: .usd, value: 19.45),
