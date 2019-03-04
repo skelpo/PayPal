@@ -8,7 +8,7 @@ public struct GovernmentBody: Content, Equatable {
     
     /// Creates a new `GovernmentBody` instance.
     ///
-    ///     GovernmentBody(name: "")
+    /// - parameter name: The name of enabling legislation.
     public init(name: String?) {
         self.name = name
     }
