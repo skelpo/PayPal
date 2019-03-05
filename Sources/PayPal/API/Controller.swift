@@ -50,3 +50,17 @@ extension PayPalController {
         }
     }
 }
+
+// TODO: - Renamed protocol to PayPalController.
+
+/// A controller that handles a versioned resource of the PayPal API.
+public protocol VersionedController {
+    
+    /// The `PayPalClient` instance used to send requests to the PayPal API.
+    var client: PayPalClient { get }
+    
+    /// Creates a new instance of `Self` with the `PayPalClient` instance that will be used by it.
+    ///
+    /// - Parameter client: The `PayPalClient` instance to send requests with.
+    init(client: PayPalClient)
+}
