@@ -17,7 +17,7 @@ public final class BusinessTests: XCTestCase {
             merchantCategory: .init("4653"),
             establishedDate: TimelessDate(date: "1882-05-13"),
             registrationDate: TimelessDate(date: "1975-04-22"),
-            disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
+            disputeEmail: .init("disputable@exmaple.com"),
             sales: .init(
                 price: MoneyRange(50...60, currency: .usd),
                 volume: MoneyRange(50...60, currency: .usd),
@@ -53,7 +53,7 @@ public final class BusinessTests: XCTestCase {
         XCTAssertEqual(business.establishment, Establishment(state: .ks, country: .unitedStates))
         XCTAssertEqual(business.establishedDate, TimelessDate(date: "1882-05-13"))
         XCTAssertEqual(business.registrationDate, TimelessDate(date: "1975-04-22"))
-        try XCTAssertEqual(business.disputeEmail, EmailAddress(email: .init("disputable@exmaple.com")))
+        XCTAssertEqual(business.disputeEmail.value, .init("disputable@exmaple.com"))
         try XCTAssertEqual(business.sales, Business.Sales.init(
             price: MoneyRange(50...60, currency: .usd),
             volume: MoneyRange(50...60, currency: .usd),
