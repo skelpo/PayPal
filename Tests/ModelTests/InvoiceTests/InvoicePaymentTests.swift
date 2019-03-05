@@ -18,7 +18,7 @@ public final class InvoicePaymentTests: XCTestCase {
         let payment = Invoice.Payment(method: .cash, amount: CurrencyAmount(currency: .usd, value: 20.00), date: self.now, note: "I got the payment by cash!")
         let generated = try String(data: encoder.encode(payment), encoding: .utf8)!
         let json =
-            "{\"amount\":{\"currency\":\"USD\",\"value\":\"20.00\"},\"method\":\"CASH\",\"note\":\"I got the payment by cash!\"," +
+            "{\"amount\":{\"currency\":\"USD\",\"value\":\"20\"},\"method\":\"CASH\",\"note\":\"I got the payment by cash!\"," +
             "\"date\":\"\(self.now.iso8601)\"}"
         
         var index = 0
@@ -40,7 +40,7 @@ public final class InvoicePaymentTests: XCTestCase {
             "method": "CASH",
             "amount": {
                 "currency": "USD",
-                "value": "20.00"
+                "value": "20"
             },
             "date": "\(self.now.iso8601)",
             "note": "I got the payment by cash!"

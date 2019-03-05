@@ -9,8 +9,8 @@ public final class PaymentRefundResultTests: XCTestCase {
         let json = """
         {
             "id": "5CY176817C379973E",
-            "create_time": "2018-08-15T17:11:32Z",
-            "update_time": "2018-08-15T17:11:32Z",
+            "create_time": "2018-08-15T17:11:32.000Z",
+            "update_time": "2018-08-15T17:11:32.000Z",
             "state": "completed",
             "reason": "I don't like it",
             "amount": {
@@ -42,8 +42,8 @@ public final class PaymentRefundResultTests: XCTestCase {
         var refund = try decoder.decode(Payment.RefundResult.self, from: json)
         
         XCTAssertEqual(refund.id, "5CY176817C379973E")
-        XCTAssertEqual(refund.created, Date(iso8601: "2018-08-15T17:11:32Z"))
-        XCTAssertEqual(refund.updated, Date(iso8601: "2018-08-15T17:11:32Z"))
+        XCTAssertEqual(refund.created, Date(iso8601: "2018-08-15T17:11:32.000Z"))
+        XCTAssertEqual(refund.updated, Date(iso8601: "2018-08-15T17:11:32.000Z"))
         XCTAssertEqual(refund.state, .completed)
         XCTAssertEqual(refund.reason, "I don't like it")
         XCTAssertEqual(refund.sale, "2MU78835H4515710F")

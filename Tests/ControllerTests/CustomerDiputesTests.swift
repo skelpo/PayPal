@@ -16,35 +16,45 @@ public final class CustomerDisputesTests: XCTestCase {
         try! services.register(PayPalProvider())
         
         app = try! Application.testable(services: services)
-        
-        let disputes = try! self.app.make(CustomerDisputes.self)
-        let list = try! disputes.list().wait()
-        self.id = list.items?.filter { $0.status != .resolved }.first?.id
     }
     
     func testServiceExists()throws {
         _ = try app.make(CustomerDisputes.self)
     }
     
-    func testListEndpoint()throws {
+    func testEndpoints()throws {
+        try self.listEndpoint()
+        try self.detailsEndpoint()
+        
+//        try self.appealEndpoint()
+//        try self.evidenceEndpoint()
+//        try self.escalateEndpoint()
+//        try self.offerEndpoint()
+//        try self.updateStatusEndpoint()
+//        try self.messageEndpoint()
+//        try self.acceptEndpoint()
+//        try self.settleEndpoint()
+    }
+    
+    func listEndpoint()throws {
         let disputes = try self.app.make(CustomerDisputes.self)
         let list = try disputes.list().wait()
         
+        self.id = list.items?.filter { $0.status != .resolved }.first?.id
         XCTAssertGreaterThan(list.items?.count ?? 0, 0)
     }
     
-    func testDetailsEndpoint()throws {
+    func detailsEndpoint()throws {
         let disputes = try self.app.make(CustomerDisputes.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get dispute ID")
         }
         
         let details = try disputes.details(for: id).wait()
-        
         XCTAssertEqual(details.id, id)
     }
     
-    func testAcceptEndpoint()throws {
+    func acceptEndpoint()throws {
         let disputes = try self.app.make(CustomerDisputes.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get dispute ID")
@@ -63,7 +73,7 @@ public final class CustomerDisputesTests: XCTestCase {
         XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
     }
     
-    func testSettleEndpoint()throws {
+    func settleEndpoint()throws {
         let disputes = try self.app.make(CustomerDisputes.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get dispute ID")
@@ -75,7 +85,7 @@ public final class CustomerDisputesTests: XCTestCase {
         XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
     }
     
-    func testAppealEndpoint()throws {
+    func appealEndpoint()throws {
         let disputes = try self.app.make(CustomerDisputes.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get dispute ID")
@@ -101,7 +111,7 @@ public final class CustomerDisputesTests: XCTestCase {
         XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
     }
     
-    func testEscalateEndpoint()throws {
+    func escalateEndpoint()throws {
         let disputes = try self.app.make(CustomerDisputes.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get dispute ID")
@@ -113,7 +123,7 @@ public final class CustomerDisputesTests: XCTestCase {
         XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
     }
     
-    func testOfferEndpoint()throws {
+    func offerEndpoint()throws {
         let disputes = try self.app.make(CustomerDisputes.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get dispute ID")
@@ -132,7 +142,7 @@ public final class CustomerDisputesTests: XCTestCase {
         XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
     }
     
-    func testEvidenceEndpoint()throws {
+    func evidenceEndpoint()throws {
         let disputes = try self.app.make(CustomerDisputes.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get dispute ID")
@@ -157,7 +167,7 @@ public final class CustomerDisputesTests: XCTestCase {
         XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
     }
     
-    func testUpdateStatusEndpoint()throws {
+    func updateStatusEndpoint()throws {
         let disputes = try self.app.make(CustomerDisputes.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get dispute ID")
@@ -169,7 +179,7 @@ public final class CustomerDisputesTests: XCTestCase {
         XCTAssertEqual(links.first?.href, "https://api.sandbox.paypal.com/v1/customer/disputes/" + id)
     }
     
-    func testMessageEndpoint()throws {
+    func messageEndpoint()throws {
         let disputes = try self.app.make(CustomerDisputes.self)
         guard let id = self.id else {
             throw Abort(.internalServerError, reason: "Cannot get dispute ID")
@@ -211,15 +221,6 @@ public final class CustomerDisputesTests: XCTestCase {
     
     public static var allTests: [(String, (CustomerDisputesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
-        ("testListEndpoint", testListEndpoint),
-        ("testDetailsEndpoint", testDetailsEndpoint),
-        ("testAcceptEndpoint", testAcceptEndpoint),
-        ("testSettleEndpoint", testSettleEndpoint),
-        ("testAppealEndpoint", testAppealEndpoint),
-        ("testEscalateEndpoint", testEscalateEndpoint),
-        ("testOfferEndpoint", testOfferEndpoint),
-        ("testEvidenceEndpoint", testEvidenceEndpoint),
-        ("testUpdateStatusEndpoint", testUpdateStatusEndpoint),
-        ("testMessageEndpoint", testMessageEndpoint)
+        ("testEndpoints", testEndpoints)
     ]
 }

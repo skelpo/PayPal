@@ -3,8 +3,9 @@ import XCTest
 
 public final class RelatedResourceTests: XCTestCase {
     func testInit()throws {
+        let now = Date()
         let resource = RelatedResource(
-            sale: .init(id: "", amount: DetailedAmount(currency: .usd, total: 10.0, details: nil), state: .pending, parent: "10"),
+            sale: .init(id: "", amount: DetailedAmount(currency: .usd, total: 10.0, details: nil), state: .pending, parent: "10", created: now),
             authorization: .init(amount: DetailedAmount(currency: .usd, total: 10, details: nil), fmf: nil, processor: nil),
             order: .init(amount: DetailedAmount(currency: .usd, total: 10, details: nil), fmf: nil),
             capture: .init(amount: nil, isFinal: nil, invoice: nil, transaction: nil, payerNote: nil),
@@ -17,7 +18,7 @@ public final class RelatedResourceTests: XCTestCase {
         XCTAssertEqual(resource.authorization, .init(amount: DetailedAmount(currency: .usd, total: 10, details: nil), fmf: nil, processor: nil))
         XCTAssertEqual(
             resource.sale,
-            .init(id: "", amount: DetailedAmount(currency: .usd, total: 10, details: nil), state: .pending, parent: "10")
+            .init(id: "", amount: DetailedAmount(currency: .usd, total: 10, details: nil), state: .pending, parent: "10", created: now)
         )
     }
     

@@ -135,11 +135,11 @@ public final class TemplateDataTests: XCTestCase {
         let json =
             "{\"tax_calculated_after_discount\":true,\"logo_url\":\"https:\\/\\/vapor.codes\\/dist\\/e032390c38279fbdf18ebf0e763eb44f.png\"," +
             "\"note\":\"Thanks for your donation!\",\"billing_info\":[],\"allow_partial_payment\":false," +
-            "\"minimum_amount_due\":{\"currency\":\"USD\",\"value\":\"1.00\"},\"merchant_info\":{\"email\":\"hello@vapor.codes\"" +
+            "\"minimum_amount_due\":{\"currency\":\"USD\",\"value\":\"1\"},\"merchant_info\":{\"email\":\"hello@vapor.codes\"" +
             ",\"last_name\":\"Nelson\",\"website\":\"https:\\/\\/vapor.codes\\/\",\"business_name\":\"Qutheory LLC.\",\"first_name\":\"Tanner\"}," +
             "\"cc_info\":[{\"email\":\"collective@vapor.codes\"},{\"email\":\"donator@example.com\"}],\"payment_term\":{" +
             "\"due_date\":\"\(self.timlessNow)\",\"term_type\":\"DUE_ON_RECEIPT\"}," +
-            "\"custom\":{\"amount\":{\"currency\":\"USD\",\"value\":\"10.00\"}},\"attachments\":[{\"name\":\"photo.jpg\"," +
+            "\"custom\":{\"amount\":{\"currency\":\"USD\",\"value\":\"10\"}},\"attachments\":[{\"name\":\"photo.jpg\"," +
             "\"url\":\"https:\\/\\/avatars3.githubusercontent.com\\/u\\/2872298?s=200&v=4\"}],\"reference\":\"PO number\",\"tax_inclusive\":true," +
             "\"merchant_memo\":\"Open Collective donation\"}"
         
@@ -165,7 +165,7 @@ public final class TemplateDataTests: XCTestCase {
             "billing_info": [],
             "allow_partial_payment": false,
             "minimum_amount_due": {
-                "value": "1.00",
+                "value": "1",
                 "currency": "USD"
             },
             "merchant_info": {
@@ -189,7 +189,7 @@ public final class TemplateDataTests: XCTestCase {
             },
             "custom": {
                 "amount": {
-                    "value": "10.00",
+                    "value": "10",
                     "currency": "USD"
                 }
             },

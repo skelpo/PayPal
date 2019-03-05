@@ -17,7 +17,7 @@ public final class MoneyRangeTests: XCTestCase {
         let range = MoneyRange(min: CurrencyCodeAmount(currency: .usd, value: 12.25), max: CurrencyCodeAmount(currency: .usd, value: 50.00))
         let generated = try String(data: encoder.encode(range), encoding: .utf8)
         let json =
-            "{\"minimum_amount\":{\"value\":\"12.25\",\"currency_code\":\"USD\"},\"maximum_amount\":{\"value\":\"50.00\",\"currency_code\":\"USD\"}}"
+            "{\"minimum_amount\":{\"value\":\"12.25\",\"currency_code\":\"USD\"},\"maximum_amount\":{\"value\":\"50\",\"currency_code\":\"USD\"}}"
         
         XCTAssertEqual(json, generated)
     }
@@ -27,7 +27,7 @@ public final class MoneyRangeTests: XCTestCase {
         let json = """
         {
             "maximum_amount": {
-                "value": "50.00",
+                "value": "50",
                 "currency_code": "USD"
             },
             "minimum_amount": {

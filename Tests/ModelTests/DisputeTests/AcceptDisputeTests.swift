@@ -53,7 +53,7 @@ public final class AcceptDisputeTests: XCTestCase {
         let generated = try String(data: encoder.encode(body), encoding: .utf8)!
         let json =
             "{\"accept_claim_reason\":\"COMPANY_POLICY\",\"invoice_id\":\"3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5\"," +
-            "\"note\":\"Refund to customer\",\"refund_amount\":{\"value\":\"55.50\",\"currency_code\":\"USD\"}}"
+            "\"note\":\"Refund to customer\",\"refund_amount\":{\"value\":\"55.5\",\"currency_code\":\"USD\"}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -77,7 +77,7 @@ public final class AcceptDisputeTests: XCTestCase {
         let valid = """
         {
             "refund_amount": {
-                "value": "55.50",
+                "value": "55.5",
                 "currency_code": "USD"
             },
             "invoice_id": "3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5",
@@ -88,7 +88,7 @@ public final class AcceptDisputeTests: XCTestCase {
         let noteFail = """
         {
             "refund_amount": {
-                "value": "55.50",
+                "value": "55.5",
                 "currency_code": "USD"
             },
             "invoice_id": "3EC9D031-0DBF-446F-ABC0-31B4A6E0D2B5",

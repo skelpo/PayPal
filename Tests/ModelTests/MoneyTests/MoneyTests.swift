@@ -19,9 +19,9 @@ public final class MoneyTests: XCTestCase {
         
         XCTAssertEqual(usd, "{\"value\":\"12.25\",\"currency_code\":\"USD\"}")
         XCTAssertEqual(xxx, "{\"value\":\"0\",\"currency_code\":\"XXX\"}")
-        XCTAssertEqual(eur, "{\"value\":\"4.50\",\"currency_code\":\"EUR\"}")
+        XCTAssertEqual(eur, "{\"value\":\"4.5\",\"currency_code\":\"EUR\"}")
         
-        XCTAssertEqual(usdO, "{\"value\":\"0.00\",\"currency_code\":\"USD\"}")
+        XCTAssertEqual(usdO, "{\"value\":\"0\",\"currency_code\":\"USD\"}")
     }
     
     func testDecoding()throws {

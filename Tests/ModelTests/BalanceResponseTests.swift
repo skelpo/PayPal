@@ -9,13 +9,13 @@ public final class BalanceResponseTests: XCTestCase {
             "available_balances": [
                 {
                     "currency_code": "USD",
-                    "value": "1000000.00"
+                    "value": "1000000"
                 }
             ],
             "pending_balances": [
                 {
                     "currency_code": "USD",
-                    "value": "5000.00"
+                    "value": "5000"
                 }
             ]
         }

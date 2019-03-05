@@ -60,7 +60,7 @@ public final class DisputeResolutionOfferTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(offer), encoding: .utf8)!
         let json =
-            "{\"offer_type\":\"REFUND_WITH_REPLACEMENT\",\"offer_amount\":{\"value\":\"23.00\",\"currency_code\":\"USD\"},\"note\":\"Notable note.\"}"
+            "{\"offer_type\":\"REFUND_WITH_REPLACEMENT\",\"offer_amount\":{\"value\":\"23\",\"currency_code\":\"USD\"},\"note\":\"Notable note.\"}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {

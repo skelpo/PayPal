@@ -20,8 +20,8 @@ public final class ShippingCostsTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(shipping), encoding: .utf8)!
         let json =
-            "{\"amount\":{\"currency\":\"USD\",\"value\":\"2.50\"},\"tax\":{\"name\":\"Shipping\",\"percent\":7.5,\"amount\":{\"currency\":\"USD\"," +
-            "\"value\":\"0.18\"}}}"
+            "{\"amount\":{\"currency\":\"USD\",\"value\":\"2.5\"},\"tax\":{\"name\":\"Shipping\"," +
+            "\"percent\":7.5,\"amount\":{\"currency\":\"USD\",\"value\":\"0.18\"}}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -51,7 +51,7 @@ public final class ShippingCostsTests: XCTestCase {
                 }
             },
             "amount": {
-                "value": "2.50",
+                "value": "2.5",
                 "currency": "USD"
             }
         }
