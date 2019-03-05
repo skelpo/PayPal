@@ -42,7 +42,7 @@ public final class ManagedAccountsTests: XCTestCase {
         )
         let business = try Business(
             type: .individual,
-            subType: .unselected,
+            subType: .assoIncorporated,
             government: GovernmentBody(name: ""),
             establishment: Establishment(state: .ks, country: .unitedStates),
             names: [],
@@ -53,7 +53,7 @@ public final class ManagedAccountsTests: XCTestCase {
             merchantCategory: .init("4653"),
             establishedDate: TimelessDate(date: "1882-05-13"),
             registrationDate: TimelessDate(date: "2000-04-22"),
-            disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
+            disputeEmail: .init("disputable@exmaple.com"),
             sales: .init(
                 price: MoneyRange(50...60, currency: .usd),
                 volume: MoneyRange(50...60, currency: .usd),
@@ -101,7 +101,7 @@ public final class ManagedAccountsTests: XCTestCase {
             partnerTaxReporting: false,
             signupOptions: nil,
             errors: nil,
-            financialInstruments: FinancialInstruments(instruments: [FinancialInstrument(accountType: .checking)])
+            financialInstruments: nil
         )
         
         let accounts = try self.app.make(ManagedAccounts.self)
@@ -152,7 +152,7 @@ public final class ManagedAccountsTests: XCTestCase {
             merchantCategory: .init("4653"),
             establishedDate: TimelessDate(date: "1882-05-13"),
             registrationDate: TimelessDate(date: "1975-04-22"),
-            disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
+            disputeEmail: .init("disputable@exmaple.com"),
             sales: .init(
                 price: MoneyRange(50...60, currency: .usd),
                 volume: MoneyRange(50...60, currency: .usd),
