@@ -145,7 +145,7 @@ public final class InvoicesTests: XCTestCase {
         let updated = try invoices.update(invoice: id, with: invoice).wait()
         
         XCTAssertEqual(invoice.date?.date, now)
-        XCTAssertEqual(invoice.payment?.due, now)
+        XCTAssertEqual(invoice.payment?.due, TimelessDate(now))
         XCTAssertEqual(updated.cc?.last?.email, "dont.ater@example.com")
     }
     

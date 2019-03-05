@@ -46,27 +46,25 @@ public struct TimelessDate: Content, Equatable, ExpressibleByFloatLiteral {
     
     /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
-        if let raw = try decoder.container(keyedBy: CodingKeys.self).decodeIfPresent(String.self, forKey: .date) {
+        let container = try decoder.singleValueContainer()
+        if container.decodeNil() {
+            self.timestamp = nil
+        } else {
+            let raw = try container.decode(String.self)
             guard let date = TimelessDate.formatter.date(from: raw) else {
                 throw PayPalError(status: .badRequest, identifier: "dateFormat", reason: "Expected date to be formatted as `yyyy-mm-dd`")
             }
             self.timestamp = date.timeIntervalSince1970
-        } else {
-            self.timestamp = nil
         }
     }
     
     /// See [`Encodable.encode(to:)`](https://developer.apple.com/documentation/swift/encodable/2893603-encode).
     public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
+        var container = encoder.singleValueContainer()
         if let timestamp = self.timestamp {
             let date = Date(timeIntervalSince1970: timestamp)
             let raw = TimelessDate.formatter.string(from: date)
-            try container.encode(raw, forKey: .date)
+            try container.encode(raw)
         }
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case date = "date_no_time"
     }
 }

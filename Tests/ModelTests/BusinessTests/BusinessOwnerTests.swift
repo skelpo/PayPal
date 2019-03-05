@@ -29,7 +29,7 @@ public final class BusinessOwnerTests: XCTestCase {
         XCTAssertEqual(owner.relationships, [])
         XCTAssertEqual(owner.country, .unitedKingdom)
         XCTAssertEqual(owner.addresses, [])
-        XCTAssertEqual(owner.birthdate, self.date)
+        XCTAssertEqual(owner.birthdate, TimelessDate(self.date))
         XCTAssertEqual(owner.language, .en_GB)
         XCTAssertEqual(owner.phones, [])
         XCTAssertEqual(owner.ids, [])

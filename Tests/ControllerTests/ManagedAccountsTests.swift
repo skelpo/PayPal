@@ -52,7 +52,7 @@ public final class ManagedAccountsTests: XCTestCase {
             subCategory: .init("5972"),
             merchantCategory: .init("4653"),
             establishedDate: TimelessDate(date: "1882-05-13"),
-            registrationDate: TimelessDate(date: "1975-04-22"),
+            registrationDate: TimelessDate(date: "2000-04-22"),
             disputeEmail: EmailAddress(email: "disputable@exmaple.com"),
             sales: .init(
                 price: MoneyRange(50...60, currency: .usd),
@@ -74,8 +74,7 @@ public final class ManagedAccountsTests: XCTestCase {
         let owner = try BusinessOwner(
             email: "business@example.com",
             name: Name(
-                prefix: .init("Sir"), given: .init("Walter"), surname: .init("Scott"), middle: nil, suffix: .init("Bart."),
-                full: .init("Sir Walter Scott")
+                prefix: .init("Sir"), given: .init("Walter"), surname: .init("Scott"), middle: nil, suffix: .init("Bart."), full: nil
             ),
             relationships: [],
             country: .unitedKingdom,

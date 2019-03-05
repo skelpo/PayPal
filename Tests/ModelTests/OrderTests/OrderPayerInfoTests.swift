@@ -26,7 +26,7 @@ public final class OrderPayerInfoTests: XCTestCase {
         XCTAssertNil(info.payer)
         
         XCTAssertEqual(info.email.value, "email@example.com")
-        XCTAssertEqual(info.birthdate, self.birthdate)
+        XCTAssertEqual(info.birthdate, TimelessDate(self.birthdate))
         XCTAssertEqual(info.tax.value, "85323EC0-A9114")
         XCTAssertEqual(info.taxType, .cpf)
         XCTAssertEqual(info.country, .unitedStates)
@@ -121,7 +121,7 @@ public final class OrderPayerInfoTests: XCTestCase {
         XCTAssertEqual(info.country, .unitedStates)
         XCTAssertEqual(info.taxType, .cpf)
         XCTAssertEqual(info.tax.value, "85323EC0-A9114")
-        XCTAssertEqual(info.birthdate, Date(timeIntervalSince1970: 1_536_364_800))
+        XCTAssertEqual(info.birthdate, TimelessDate(Date(timeIntervalSince1970: 1_536_364_800)))
         XCTAssertEqual(info.email.value, "email@example.com")
         XCTAssertEqual(info.billing, Address(
             recipientName: nil, defaultAddress: nil, line1: "Plum Fairy Ln.", line2: nil, city: "Ginger Planes", state: .le,
