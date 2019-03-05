@@ -71,7 +71,7 @@ extension Order.Payer {
             self.payer = nil
             
             self.email = email
-            self.birthdate = TimelessDate(birthdate)
+            self.birthdate = birthdate.map(TimelessDate.init)
             self.tax = tax
             self.taxType = taxType
             self.country = country

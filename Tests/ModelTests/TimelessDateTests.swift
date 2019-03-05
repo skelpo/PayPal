@@ -14,10 +14,10 @@ public final class TimelessDateTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let date = TimelessDate(date: "2001-02-04")!
+        let date = ["date": TimelessDate(date: "2001-02-04")!]
         
         let generated = try String(data: encoder.encode(date), encoding: .utf8)
-        let json = "{\"date_no_time\":\"2001-02-04\"}"
+        let json = "{\"date\":\"2001-02-04\"}"
         
         XCTAssertEqual(generated, json)
     }
@@ -27,12 +27,12 @@ public final class TimelessDateTests: XCTestCase {
         
         let json = """
         {
-            "date_no_time": "2001-02-04"
+            "date": "2001-02-04"
         }
         """
         
-        let date = TimelessDate(date: "2001-02-04")!
-        try XCTAssertEqual(date, decoder.decode(TimelessDate.self, from: json))
+        let date = ["date": TimelessDate(date: "2001-02-04")!]
+        try XCTAssertEqual(date, decoder.decode([String: TimelessDate].self, from: json))
     }
     
     public static var allTests: [(String, (TimelessDateTests) -> ()throws -> ())] = [

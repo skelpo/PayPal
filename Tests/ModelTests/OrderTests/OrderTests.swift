@@ -36,7 +36,9 @@ public final class OrderTests: XCTestCase {
         
         let generated = try String(data: encoder.encode(order), encoding: .utf8)!
         let json =
-            "{\"intent\":\"SALE\",\"redirect_urls\":{},\"payment_details\":{},\"purchase_units\":[],\"metadata\":{\"supplementary_data\":[]},\"application_context\":{},\"gross_total_amount\":{\"currency\":\"USD\",\"value\":\"150.78\"}}"
+            "{\"intent\":\"SALE\",\"redirect_urls\":{},\"payment_details\":{},\"purchase_units\":[]," +
+            "\"metadata\":{\"supplementary_data\":[]},\"application_context\":{}," +
+            "\"gross_total_amount\":{\"currency\":\"USD\",\"value\":\"150.78\"}}"
         
         var index = 0
         for (jsonChar, genChar) in zip(json, generated) {
@@ -66,8 +68,8 @@ public final class OrderTests: XCTestCase {
             "purchase_units": [],
             "intent": "SALE",
             "status": "CREATED",
-            "create_time": "2018-09-20T13:17:47+0000",
-            "update_time": "2018-09-20T13:18:03+0000",
+            "create_time": "2018-09-20T13:17:47.000Z",
+            "update_time": "2018-09-20T13:18:03.000Z",
             "links": []
         }
         """.data(using: .utf8)!
@@ -80,8 +82,8 @@ public final class OrderTests: XCTestCase {
         XCTAssertEqual(order.metadata, Order.Metadata(data: [:]))
         XCTAssertEqual(order.redirects, Redirects(return: nil, cancel: nil))
         XCTAssertEqual(order.status, .created)
-        XCTAssertEqual(order.created, Date(iso8601: "2018-09-20T13:17:47+0000"))
-        XCTAssertEqual(order.updated, Date(iso8601: "2018-09-20T13:18:03+0000"))
+        XCTAssertEqual(order.created, Date(iso8601: "2018-09-20T13:17:47.000Z"))
+        XCTAssertEqual(order.updated, Date(iso8601: "2018-09-20T13:18:03.000Z"))
         XCTAssertEqual(order.links, [])
         XCTAssertEqual(order.total, CurrencyAmount(currency: .usd, value: 150.78))
         XCTAssertEqual(order.context, AppContext())

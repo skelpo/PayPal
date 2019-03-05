@@ -65,6 +65,8 @@ public struct TimelessDate: Content, Equatable, ExpressibleByFloatLiteral {
             let date = Date(timeIntervalSince1970: timestamp)
             let raw = TimelessDate.formatter.string(from: date)
             try container.encode(raw)
+        } else {
+            try container.encodeNil()
         }
     }
 }

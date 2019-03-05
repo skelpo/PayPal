@@ -39,7 +39,7 @@ public final class StakeholderTests: XCTestCase {
         )
         let generated = try String(data: encoder.encode(holder), encoding: .utf8)!
         let json =
-            "{\"phones\":[],\"country_code_of_nationality\":\"US\",\"date_of_birth\":{\"date_no_time\":\"2000-06-18\"},\"addresses\":[]," +
+            "{\"phones\":[],\"country_code_of_nationality\":\"US\",\"date_of_birth\":\"2000-06-18\",\"addresses\":[]," +
             "\"identifications\":[],\"type\":\"PARTNER\",\"name\":{},\"place_of_birth\":{\"country_code\":\"US\",\"city\":\"Boston\"}}"
         
         var index = 0
@@ -64,9 +64,7 @@ public final class StakeholderTests: XCTestCase {
             "phones": [],
             "addresses": [],
             "name": {},
-            "date_of_birth": {
-                "date_no_time": "2000-06-18"
-            },
+            "date_of_birth": "2000-06-18",
             "country_code_of_nationality": "US",
             "type": "PARTNER"
         }

@@ -6,7 +6,7 @@ public final class ActivityResponseTests: XCTestCase {
     let response = Activity.Response(items: [
             Activity(
                 id: "94C67654-A41B-4421-B0D0-81E6CD587CDB",
-                timeCreated: Date(iso8601: "2018-07-12T14:14:56Z")!,
+                timeCreated: Date(iso8601: "2018-07-12T14:14:56.000Z")!,
                 type: .payment,
                 subtype: nil,
                 status: .pending,
@@ -34,7 +34,7 @@ public final class ActivityResponseTests: XCTestCase {
         XCTAssertEqual(response.items, [
             Activity(
                 id: "94C67654-A41B-4421-B0D0-81E6CD587CDB",
-                timeCreated: Date(iso8601: "2018-07-12T14:14:56Z")!,
+                timeCreated: Date(iso8601: "2018-07-12T14:14:56.000Z")!,
                 type: .payment,
                 subtype: nil,
                 status: .pending,
@@ -63,7 +63,7 @@ public final class ActivityResponseTests: XCTestCase {
         
         let generated = try String(data: encoder.encode(self.response), encoding: .utf8)!
         let json =
-            "{\"items\":[{\"status\":\"PENDING\",\"id\":\"94C67654-A41B-4421-B0D0-81E6CD587CDB\",\"time_created\":\"2018-07-12T14:14:56Z\"," +
+            "{\"items\":[{\"status\":\"PENDING\",\"id\":\"94C67654-A41B-4421-B0D0-81E6CD587CDB\",\"time_created\":\"2018-07-12T14:14:56.000Z\"," +
             "\"activity_type\":\"PAYMENT\",\"gross\":{\"value\":\"19.45\",\"currency_code\":\"USD\"}," +
             "\"counterparty\":{\"email\":\"54north@exmaple.com\",\"name\":\"Jonathan Futher\",\"phone_number\":\"314-159-2653\"}," +
             "\"net\":{\"value\":\"19.45\",\"currency_code\":\"USD\"}}],\"links\":" +
@@ -90,7 +90,7 @@ public final class ActivityResponseTests: XCTestCase {
             "items": [
                 {
                     "id": "94C67654-A41B-4421-B0D0-81E6CD587CDB",
-                    "time_created": "2018-07-12T14:14:56Z",
+                    "time_created": "2018-07-12T14:14:56.000Z",
                     "activity_type": "PAYMENT",
                     "status": "PENDING",
                     "counterparty": {
