@@ -55,15 +55,15 @@ extension PayPalClient {
     ///
     /// - Returns: A void future that can be used to get notified when the auth information has been fetched and stored.
     public func authenticate() -> Future<Void> {
-        return Future.flatMap(on: self.container) { () -> Future<Response> in
-            let config = try self.container.make(Configuration.self)
+        return Future.flatMap(on: self.client.container) { () -> Future<Response> in
+            let config = try self.client.container.make(Configuration.self)
             
             let credentials = "\(config.id):\(config.secret)"
             let encoded = Data(credentials.utf8).base64EncodedString()
             let headers: HTTPHeaders = ["Accept": "application/json", "Accept-Language": "en_US", "Authorization": "Basic \(encoded)"]
             
-            let request = try self.container.paypal(.POST, "v1/oauth2/token", headers: headers, auth: false, body: ["grant_type": "client_credentials"])
-            return try self.container.client().send(request)
+            let request = try self.request(.POST, "v1/oauth2/token", headers: headers, auth: false, body: ["grant_type": "client_credentials"])
+            return self.client.send(request)
         }.flatMap(to: AuthResponse.self) { response in
             if !(200...299).contains(response.http.status.code) {
                 return try response.content.decode(PayPalAPIIdentityError.self).map { error in throw error }
@@ -72,8 +72,7 @@ extension PayPalClient {
             return try response.content.decode(AuthResponse.self)
             
         }.map(to: Void.self) { data in
-            let auth = try self.container.make(AuthInfo.self)
-            data.populate(auth)
+            data.populate(self.auth)
         }
     }
 }

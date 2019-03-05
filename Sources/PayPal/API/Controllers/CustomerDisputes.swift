@@ -213,7 +213,7 @@ public final class CustomerDisputes: PayPalController {
     /// - Returns: An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
     ///   If an error response was sent back instead, it gets converted to a Swift error and the future wraps that instead.
     public func evidence(for disputeID: String, file: File, evidences: [Evidence]) -> Future<[LinkDescription]> {
-        return Future.flatMap(on: self.container) { () -> Future<[LinkDescription]> in
+        return self.client { client -> Future<[LinkDescription]> in
             
             guard let ext = file.ext, ext == "jpg" || ext == "gif" || ext == "png" || ext == "pdf" else {
                 throw PayPalError(status: .badRequest, identifier: "invalidExtension", reason: "File type must be JPG, GIF, PNG, or PDF")
@@ -222,7 +222,7 @@ public final class CustomerDisputes: PayPalController {
             let json = try MultipartPart(data: JSONEncoder().encode(evidences), headers: ["Content-Type": "application/json"])
             let body: [String: MultipartPartConvertible] = ["input": json, "file1": file]
             
-            let request: Request = try self.container.paypal(.POST, self.path + disputeID + "/provide-evidence", body: nil as [Int]?)
+            let request: Request = try client.request(.POST, self.path + disputeID + "/provide-evidence", body: nil as [Int]?)
             try request.content.encode(body.parts(), as: .related)
             
             let response = try self.container.client().send(request)

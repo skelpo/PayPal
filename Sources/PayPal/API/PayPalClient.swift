@@ -3,22 +3,63 @@ import Vapor
 /// An interface for the PayPal REST API.
 public final class PayPalClient: ServiceType {
     
-    /// The current container that the service instance is connected to.
-    public let container: Container
+    /// The client object used to send requests to the PayPal API.
+    internal let client: Client
+    
+    /// The data used to authenticate with the PayPal API.
+    public internal(set) var auth: AuthInfo
+    
+    /// The PayPal environment to send the requests to.
+    public internal(set) var environment: Environment
     
     /// Creates a new PayPal client with a given container.
     ///
     /// - Note: Instead of calling this initializer, you should register the
     ///   provider and call `container.make(PayPalClient.self)`.
-    public init(container: Container) {
-        self.container = container
+    public init(client: Client) {
+        self.client = client
+        self.auth = AuthInfo()
+        self.environment = .sandbox
     }
     
     /// Creates a new instance of the service for the supplied `Container`.
     ///
     /// See `ServiceFactory` for more information.
     public static func makeService(for worker: Container) throws -> Self {
-        return self.init(container: worker)
+        return try self.init(client: worker.make())
+    }
+    
+    public func request<Body>(
+        _ method: HTTPMethod,
+        _ path: String,
+        parameters: QueryParamaters = QueryParamaters(),
+        headers: HTTPHeaders = [:],
+        auth: Bool = true,
+        body: Body?
+    )throws -> Request where Body: Encodable {
+        let querystring = parameters.encode()
+        let path = self.environment.domain + "/" + path + (querystring == "" ? "" : "?" + querystring)
+        
+        let http = HTTPRequest(method: method, url: path, headers: headers)
+        let request = Request(http: http, using: self.client.container)
+        
+        if auth {
+            guard let type = self.auth.type, let token = self.auth.token else {
+                throw Abort(
+                    .internalServerError,
+                    reason: "Attempted to make a PayPal request that requires auth before authenticating."
+                )
+            }
+            
+            request.http.headers.replaceOrAdd(name: .authorization, value: type + " " + token)
+        }
+        
+        if let body = body {
+            let contentType: MediaType = auth ? .json : .urlEncodedForm
+            try request.content.encode(body, as: contentType)
+        }
+        
+        return request
     }
     
     /// Sends a request to the PayPal REST API, using the configured environment.
@@ -40,7 +81,36 @@ public final class PayPalClient: ServiceType {
         body: Body?,
         as response: Result.Type = Result.self
     ) -> Future<Result> where Body: Content, Result: Content {
-        return self.container.paypal(method, path, parameters: parameters, headers: headers, body: body, as: Result.self)
+        let authentication: EventLoopFuture<Void>
+        if self.auth.tokenExpired {
+            authentication = self.authenticate()
+        } else {
+            authentication = self.client.container.future()
+        }
+        
+        return authentication.flatMap { () -> EventLoopFuture<Response> in
+            let request = try self.request(method, path, parameters: parameters, headers: headers, auth: true, body: body)
+            return self.client.send(request)
+        }.flatMap { response -> EventLoopFuture<Result> in
+            if !(200...299).contains(response.http.status.code) {
+                guard response.http.headers.firstValue(name: .contentType) == "application/json" else {
+                    let body = response.http.body.data ?? Data()
+                    let error = String(data: body, encoding: .utf8)
+                    throw Abort(response.http.status, reason: error)
+                }
+                
+                return try response.content.decode(PayPalAPIError.self).catchFlatMap { _ in
+                    return try response.content.decode(PayPalAPIIdentityError.self).map { error in throw error }
+                    }.map { error in
+                        throw error
+                }
+            }
+            
+            if Result.self is HTTPStatus.Type {
+                return self.client.container.future(response.http.status as! Result)
+            }
+            return try response.content.decode(Result.self)
+        }
     }
     
     /// Sends a request to the PayPal REST API, using the configured environment.
@@ -59,7 +129,7 @@ public final class PayPalClient: ServiceType {
         headers: HTTPHeaders = [:],
         as response: Result.Type = Result.self
     ) -> Future<Result> where Result: Content {
-        return self.container.paypal(method, path, parameters: parameters, headers: headers, as: Result.self)
+        return self.send(method, path, parameters: parameters, headers: headers, body: nil as [String: String]?, as: Result.self)
     }
     
     /// Sends a `GET` request to the PayPal REST API, using the configured environment.
