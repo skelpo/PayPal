@@ -16,17 +16,17 @@ public final class PayPalClient: ServiceType {
     ///
     /// - Note: Instead of calling this initializer, you should register the
     ///   provider and call `container.make(PayPalClient.self)`.
-    public init(client: Client) {
+    public init(client: Client, env: Environment) {
+        self.environment = env
         self.client = client
         self.auth = AuthInfo()
-        self.environment = .sandbox
     }
     
     /// Creates a new instance of the service for the supplied `Container`.
     ///
     /// See `ServiceFactory` for more information.
     public static func makeService(for worker: Container) throws -> Self {
-        return try self.init(client: worker.make())
+        return try self.init(client: worker.make(), env: worker.make(Configuration.self).environment)
     }
     
     public func request<Body>(
