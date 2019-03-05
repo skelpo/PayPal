@@ -1,4 +1,4 @@
-import PayPal
+@_exported import PayPal
 
 extension API {
     public var v2: V2 {
