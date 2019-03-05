@@ -18,4 +18,10 @@ public struct V2 {
     internal init(client: PayPalClient) {
         self.client = client
     }
+    
+    
+    /// The controller for the `/v2/payments` resource.
+    public var payments: Payments {
+        return Payments(client: self.client)
+    }
 }
