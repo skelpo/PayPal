@@ -29,6 +29,18 @@ public final class PayPalClient: ServiceType {
         return try self.init(client: worker.make(), env: worker.make(Configuration.self).environment)
     }
     
+    /// A helper to create requests that will be sent to the PayPal REST API.
+    ///
+    /// Besides creating a `Request` instance with the data passed in, this method will also add
+    /// the authentication header if authorization in desired.
+    ///
+    /// - Parameters:
+    ///   - method: The HTTP of the request.
+    ///   - path: The resource path for the request. The domain for the client's environment is appended to
+    ///     the front of this string the create the full URL.
+    ///   - headers: Any headers to send in the request, besides the any that are automatically added.
+    ///   - auth: A boolean flag indicating whether the request should have an authorization header or not.
+    ///   - body: The body of the request.
     public func request<Body>(
         _ method: HTTPMethod,
         _ path: String,
