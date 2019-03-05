@@ -16,6 +16,8 @@ let package = Package(
     ],
     targets: [
         .target(name: "PayPal", dependencies: ["Vapor", "JSON", "Failable", "Countries"]),
+        .target(name: "PayPalV1", dependencies: ["Vapor", "PayPal"], path: "Sources/V1"),
+        .target(name: "PayPalV2", dependencies: ["Vapor", "PayPal"], path: "Sources/V2"),
         
         .target(name: "TestUtilities", dependencies: ["PayPal", "Vapor"]),
         .testTarget(name: "ConfigTests", dependencies: ["PayPal", "TestUtilities"]),
