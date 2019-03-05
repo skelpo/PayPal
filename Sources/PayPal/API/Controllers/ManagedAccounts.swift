@@ -33,7 +33,7 @@ public final class ManagedAccounts: PayPalController {
     /// See `PayPalController.init(container:)`.
     public init(container: Container) {
         self.container = container
-        self.resource = "partners/merchant-accounts"
+        self.resource = "customer/partners/merchant-accounts"
         self.version = try container.make(Configuration.self).version || .v1
     }
     
