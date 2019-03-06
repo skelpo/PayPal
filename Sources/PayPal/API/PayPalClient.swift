@@ -6,6 +6,9 @@ public final class PayPalClient: ServiceType {
     /// The client object used to send requests to the PayPal API.
     internal let client: Client
     
+    /// The root URL (domain and API version) of all API calls.
+    internal let root: String
+    
     /// The PayPal API version that the client will be used on.
     public let version: Version
     
@@ -24,6 +27,8 @@ public final class PayPalClient: ServiceType {
         self.version = version
         self.environment = env
         self.auth = AuthInfo()
+        
+        self.root = self.environment.domain + "/v" + self.version.rawValue + "/"
     }
     
     /// Creates a new instance of the service for the supplied `Container`.
@@ -55,7 +60,7 @@ public final class PayPalClient: ServiceType {
         body: Body?
     )throws -> Request where Body: Encodable {
         let querystring = parameters.encode()
-        let path = self.environment.domain + "/" + path + (querystring == "" ? "" : "?" + querystring)
+        let path = self.root + path + (querystring == "" ? "" : "?" + querystring)
         
         let http = HTTPRequest(method: method, url: path, headers: headers)
         let request = Request(http: http, using: self.client.container)
