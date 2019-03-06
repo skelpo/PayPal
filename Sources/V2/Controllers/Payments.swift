@@ -25,4 +25,24 @@ public final class Payments: VersionedController {
     public init(client: PayPalClient) {
         self.client = client
     }
+    
+    /// The controller for the `/payments/authorizations` resource.
+    public var authorizations: Authorizations {
+        return Authorizations(client: self.client)
+    }
+}
+
+extension Payments {
+    
+    /// The controller for the `/authorizations` resource of the Payments PayPal API.
+    public final class Authorizations: VersionedController {
+        
+        /// See `VersionedController.client`
+        public let client: PayPalClient
+        
+        /// See `VersionedController.init(client:)`.
+        public init(client: PayPalClient) {
+            self.client = client
+        }
+    }
 }
