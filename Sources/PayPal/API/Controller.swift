@@ -59,8 +59,19 @@ public protocol VersionedController {
     /// The `PayPalClient` instance used to send requests to the PayPal API.
     var client: PayPalClient { get }
     
+    /// The path components for the API resource that the controller interacts with.
+    var resource: [String] { get }
+    
     /// Creates a new instance of `Self` with the `PayPalClient` instance that will be used by it.
     ///
     /// - Parameter client: The `PayPalClient` instance to send requests with.
     init(client: PayPalClient)
+}
+
+extension VersionedController {
+    
+    /// The resource elements joined togeather as a URL path.
+    public var path: String {
+        return self.resource.joined(separator: "/") + "/"
+    }
 }

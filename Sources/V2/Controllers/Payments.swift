@@ -1,4 +1,5 @@
 import PayPal
+import NIO
 
 /// Call the Payments API to authorize payments, capture authorized payments, refund payments that have already been captured,
 /// and show payment information. Use the Payments API in conjunction with the
@@ -21,9 +22,13 @@ public final class Payments: VersionedController {
     /// See `VersionedController.client`
     public let client: PayPalClient
     
+    /// See `VersionedController.resource`.
+    public let resource: [String]
+    
     /// See `VersionedController.init(client:)`.
     public init(client: PayPalClient) {
         self.client = client
+        self.resource = ["payments"]
     }
     
     /// The controller for the `/payments/authorizations` resource.
@@ -40,9 +45,13 @@ extension Payments {
         /// See `VersionedController.client`
         public let client: PayPalClient
         
+        /// See `VersionedController.resource`.
+        public let resource: [String]
+        
         /// See `VersionedController.init(client:)`.
         public init(client: PayPalClient) {
             self.client = client
+            self.resource = ["payments", "authorizations"]
         }
     }
 }
