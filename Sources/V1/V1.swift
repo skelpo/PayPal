@@ -16,6 +16,7 @@ public struct V1 {
     
     /// Creates a new `V1` instance with the `PayPalClient` instance it will use.
     internal init(client: PayPalClient) {
+        assert(client.version == .v1, "Make sure your PayPalClient instance is configured with the correct API version")
         self.client = client
     }
 }
