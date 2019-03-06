@@ -6,19 +6,23 @@ public final class PayPalClient: ServiceType {
     /// The client object used to send requests to the PayPal API.
     internal let client: Client
     
-    /// The data used to authenticate with the PayPal API.
-    public internal(set) var auth: AuthInfo
+    /// The PayPal API version that the client will be used on.
+    public let version: Version
     
     /// The PayPal environment to send the requests to.
-    public internal(set) var environment: Environment
+    public let environment: Environment
+    
+    /// The data used to authenticate with the PayPal API.
+    public internal(set) var auth: AuthInfo
     
     /// Creates a new PayPal client with a given container.
     ///
     /// - Note: Instead of calling this initializer, you should register the
     ///   provider and call `container.make(PayPalClient.self)`.
-    public init(client: Client, env: Environment) {
-        self.environment = env
+    public init(client: Client, version: Version, env: Environment) {
         self.client = client
+        self.version = version
+        self.environment = env
         self.auth = AuthInfo()
     }
     
@@ -26,7 +30,8 @@ public final class PayPalClient: ServiceType {
     ///
     /// See `ServiceFactory` for more information.
     public static func makeService(for worker: Container) throws -> Self {
-        return try self.init(client: worker.make(), env: worker.make(Configuration.self).environment)
+        let config = try worker.make(Configuration.self)
+        return try self.init(client: worker.make(), version: config.version, env: config.environment)
     }
     
     /// A helper to create requests that will be sent to the PayPal REST API.
