@@ -92,7 +92,7 @@ public final class PayPalClient: ServiceType {
         headers: HTTPHeaders = [:],
         body: Body?,
         as response: Result.Type = Result.self
-    ) -> Future<Result> where Body: Content, Result: Content {
+    ) -> Future<Result> where Body: Encodable, Result: Decodable {
         let authentication: EventLoopFuture<Void>
         if self.auth.tokenExpired {
             authentication = self.authenticate()
@@ -140,7 +140,7 @@ public final class PayPalClient: ServiceType {
         parameters: QueryParamaters = QueryParamaters(),
         headers: HTTPHeaders = [:],
         as response: Result.Type = Result.self
-    ) -> Future<Result> where Result: Content {
+    ) -> Future<Result> where Result: Decodable {
         return self.send(method, path, parameters: parameters, headers: headers, body: nil as [String: String]?, as: Result.self)
     }
     
@@ -156,7 +156,7 @@ public final class PayPalClient: ServiceType {
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func get<Body, Result>(
         _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
-    ) -> Future<Result> where Body: Content, Result: Content {
+    ) -> Future<Result> where Body: Encodable, Result: Decodable {
         return self.send(.GET, path, parameters: parameters, headers: headers, body: body, as: Result.self)
     }
     
@@ -170,7 +170,7 @@ public final class PayPalClient: ServiceType {
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func get<Result>(
         _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], as response: Result.Type = Result.self
-    ) -> Future<Result> where Result: Content {
+    ) -> Future<Result> where Result: Decodable {
         return self.send(.GET, path, parameters: parameters, headers: headers, as: Result.self)
     }
     
@@ -186,7 +186,7 @@ public final class PayPalClient: ServiceType {
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func post<Body, Result>(
         _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
-    ) -> Future<Result> where Body: Content, Result: Content {
+    ) -> Future<Result> where Body: Encodable, Result: Decodable {
         return self.send(.POST, path, parameters: parameters, headers: headers, body: body, as: Result.self)
     }
     
@@ -200,7 +200,7 @@ public final class PayPalClient: ServiceType {
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func post<Result>(
         _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], as response: Result.Type = Result.self
-    ) -> Future<Result> where Result: Content {
+    ) -> Future<Result> where Result: Decodable {
         return self.send(.POST, path, parameters: parameters, headers: headers, as: Result.self)
     }
     
@@ -216,7 +216,7 @@ public final class PayPalClient: ServiceType {
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func put<Body, Result>(
         _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
-    ) -> Future<Result> where Body: Content, Result: Content {
+    ) -> Future<Result> where Body: Encodable, Result: Decodable {
         return self.send(.PUT, path, parameters: parameters, headers: headers, body: body, as: Result.self)
     }
     
@@ -230,7 +230,7 @@ public final class PayPalClient: ServiceType {
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func put<Result>(
         _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], as response: Result.Type = Result.self
-    ) -> Future<Result> where Result: Content {
+    ) -> Future<Result> where Result: Decodable {
         return self.send(.PUT, path, parameters: parameters, headers: headers, as: Result.self)
     }
     
@@ -246,7 +246,7 @@ public final class PayPalClient: ServiceType {
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func patch<Body, Result>(
         _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
-    ) -> Future<Result> where Body: Content, Result: Content {
+    ) -> Future<Result> where Body: Encodable, Result: Decodable {
         return self.send(.PATCH, path, parameters: parameters, headers: headers, body: body, as: Result.self)
     }
     
@@ -260,7 +260,7 @@ public final class PayPalClient: ServiceType {
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func patch<Result>(
         _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], as response: Result.Type = Result.self
-    ) -> Future<Result> where Result: Content {
+    ) -> Future<Result> where Result: Decodable {
         return self.send(.PATCH, path, parameters: parameters, headers: headers, as: Result.self)
     }
     
@@ -276,7 +276,7 @@ public final class PayPalClient: ServiceType {
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func delete<Body, Result>(
         _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], body: Body?, as response: Result.Type = Result.self
-    ) -> Future<Result> where Body: Content, Result: Content {
+    ) -> Future<Result> where Body: Encodable, Result: Decodable {
         return self.send(.DELETE, path, parameters: parameters, headers: headers, body: body, as: Result.self)
     }
     
@@ -290,7 +290,7 @@ public final class PayPalClient: ServiceType {
     /// - Returns: The endpoint's response, encoded to the `Result` type.
     public func delete<Result>(
         _ path: String, parameters: QueryParamaters = QueryParamaters(), headers: HTTPHeaders = [:], as response: Result.Type = Result.self
-    ) -> Future<Result> where Result: Content {
+    ) -> Future<Result> where Result: Decodable {
         return self.send(.DELETE, path, parameters: parameters, headers: headers, as: Result.self)
     }
 }
