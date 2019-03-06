@@ -11,8 +11,8 @@ public final class API {
     /// - Parameters:
     ///   - client: The `Client` instance that the `PayPalClient` instance uses to send requests.
     ///   - environment: The PayPal environment to send requests to.
-    public init(client: Client, environment: Environment) {
-        self.client = PayPalClient(client: client, env: environment)
+    public init(client: Client, version: Version, environment: Environment) {
+        self.client = PayPalClient(client: client, version: version, env: environment)
     }
     
     /// Creates a new `API` instance with the `PayPalClient` instance to use.
