@@ -123,8 +123,8 @@ public final class PayPalClient: ServiceType {
                 
                 return try response.content.decode(PayPalAPIError.self).catchFlatMap { _ in
                     return try response.content.decode(PayPalAPIIdentityError.self).map { error in throw error }
-                    }.map { error in
-                        throw error
+                }.map { error in
+                    throw error
                 }
             }
             
