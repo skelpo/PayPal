@@ -1,4 +1,6 @@
 .DS_Store
+ModelVersions.md
+
 /.build
 /Packages
 /*.xcodeproj
