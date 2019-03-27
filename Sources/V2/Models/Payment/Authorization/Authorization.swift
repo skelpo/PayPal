@@ -32,6 +32,17 @@ public struct Authorization: Codable {
     /// in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6).
     public let updated: ISO8601Date?
     
+    /// Creates a new `Authorization` instance.
+    ///
+    /// - Parameters:
+    ///   - status: The status for the authorized payment.
+    ///   - amount: The PayPal-generated ID for the authorized payment.
+    ///   - invoice: The amount for this authorized payment.
+    ///   - sellerProtection: The level of protection offered as defined by PayPal Seller Protection for Merchants.
+    ///   - expiration: The date and time when the authorized payment expires.
+    ///   - links: An array of related HATEOAS links.
+    ///   - created: The date and time when the transaction occurred.
+    ///   - updated: The date and time when the transaction was last updated.
     public init(
         status: Status?,
         amount: CurrencyCodeAmount?,
