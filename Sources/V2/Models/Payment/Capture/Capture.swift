@@ -1,7 +1,7 @@
 import PayPal
 
 /// A captured payment.
-public struct Capture {
+public struct Capture: Codable {
     /// The status for the authorized payment.
     public let status: PaymentStatus?
     
