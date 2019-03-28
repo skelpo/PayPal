@@ -16,5 +16,15 @@ extension Payments {
             self.client = client
             self.resource = ["payments", "refunds"]
         }
+        
+        /// Shows details for a refund, by ID.
+        ///
+        /// A successful request returns the HTTP 200 OK status code and a JSON response body that shows refund details.
+        ///
+        /// - Parameter refund: The PayPal-generated ID for the refund for which to show details.
+        /// - Returns: The refund for the given ID, wrapped in an `EventLoopFuture`.
+        public func get(_ refund: String) -> EventLoopFuture<Refund> {
+            return self.client.get(self.path + refund, as: Refund.self)
+        }
     }
 }
