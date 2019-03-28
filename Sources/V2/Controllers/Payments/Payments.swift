@@ -35,4 +35,9 @@ public final class Payments: VersionedController {
     public var authorizations: Authorizations {
         return Authorizations(client: self.client)
     }
+    
+    /// The controller for the `/payments/captures` resource.
+    public var captures: Captures {
+        return Captures(client: self.client)
+    }
 }
