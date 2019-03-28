@@ -51,7 +51,9 @@ public struct Capture: Codable {
     ///   - amount: The PayPal-generated ID for the authorized payment.
     ///   - invoice: The amount for this authorized payment.
     ///   - sellerProtection: The level of protection offered as defined by PayPal Seller Protection for Merchants.
-    ///   - expiration: The date and time when the authorized payment expires.
+    ///   - final: Indicates whether you can make additional captures against the authorized payment.
+    ///   - breakdown: The detailed breakdown of the captured payment.
+    ///   - disbursement: The funds that are held on behalf of the merchant.
     ///   - links: An array of related HATEOAS links.
     ///   - created: The date and time when the transaction occurred.
     ///   - updated: The date and time when the transaction was last updated.
