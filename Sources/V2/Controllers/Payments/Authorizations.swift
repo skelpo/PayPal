@@ -101,6 +101,17 @@ extension Payments {
             )
         }
         
+        /// Voids, or cancels, an authorized payment, by ID.
+        /// You cannot void an authorized payment that has been fully captured.
+        ///
+        /// A successful request returns the HTTP 204 No Content status code with no JSON response body.
+        ///
+        /// - Parameter authorization: The PayPal-generated ID for the authorized payment to void.
+        /// - Returns: An empty `EventLoopFuture` that succeedes if the API response gives a success code.
+        public func void(_ authorization: String) -> EventLoopFuture<Void> {
+            return self.client.post(self.path + authorization + "/void", as: HTTPStatus.self).transform(to: ())
+        }
+        
         /// The preferred server response upon successful completion of a request.
         public enum ResponseReturn: String {
             
