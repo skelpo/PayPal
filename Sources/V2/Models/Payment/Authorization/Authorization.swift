@@ -1,7 +1,7 @@
 /// The details of an authorized payment.
 public struct Authorization: Codable {
     /// The status for the authorized payment.
-    public let status: Status?
+    public let status: PaymentStatus?
     
     /// The PayPal-generated ID for the authorized payment.
     public let id: String?
@@ -44,7 +44,7 @@ public struct Authorization: Codable {
     ///   - created: The date and time when the transaction occurred.
     ///   - updated: The date and time when the transaction was last updated.
     public init(
-        status: Status?,
+        status: PaymentStatus?,
         amount: CurrencyCodeAmount?,
         invoice: String?,
         sellerProtection: SellerProtection?,
