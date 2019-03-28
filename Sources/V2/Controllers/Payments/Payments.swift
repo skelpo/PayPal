@@ -41,6 +41,11 @@ public final class Payments: VersionedController {
         return Captures(client: self.client)
     }
     
+    /// The controller for the `/payments/refunds` resource.
+    public var refunds: Refunds {
+        return Refunds(client: self.client)
+    }
+    
     /// The preferred server response upon successful completion of a request.
     public enum ResponseReturn: String {
         
