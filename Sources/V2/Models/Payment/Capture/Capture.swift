@@ -31,7 +31,7 @@ public struct Capture: Codable {
     public let breakdown: SellerReceivableBreakdown?
     
     /// The funds that are held on behalf of the merchant.
-    public let disbursement: Order.DisbursementMode?
+    public let disbursement: DisbursementMode?
     
     /// An array of related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
     public let links: [LinkDescription]?
@@ -65,11 +65,11 @@ public struct Capture: Codable {
         sellerProtection: SellerProtection?,
         `final`: Bool?,
         breakdown: SellerReceivableBreakdown?,
-        disbursement: Order.DisbursementMode?,
+        disbursement: DisbursementMode?,
         links: [LinkDescription]?,
         created: ISO8601Date?,
         updated: ISO8601Date?
-        ) {
+    ) {
         self.id = nil
         self.status = status
         self.statusDetails = statusDetails

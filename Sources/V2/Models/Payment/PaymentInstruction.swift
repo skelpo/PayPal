@@ -8,14 +8,14 @@ public struct PaymentInstruction: Codable {
     public var fees: [PlatformFee]?
     
     /// The funds that are held on behalf of the merchant.
-    public var disbursement: Order.DisbursementMode?
+    public var disbursement: DisbursementMode?
     
     /// Creates a new `PaymentInstruction` instance.
     ///
     /// - Parameters:
     ///   - fees: An array of various fees, commissions, tips, or donations.
     ///   - disbursement: The funds that are held on behalf of the merchant. Defaults to `.instant`.
-    public init(fees: [PlatformFee]?, disbursement: Order.DisbursementMode? = .instant) {
+    public init(fees: [PlatformFee]?, disbursement: DisbursementMode? = .instant) {
         self.fees = fees
         self.disbursement = disbursement
     }
