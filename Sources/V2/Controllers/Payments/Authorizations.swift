@@ -44,7 +44,7 @@ extension Payments {
         public func capture(
             _ authorization: String,
             capture: Authorization.Capture,
-            prefer: ResponseReturn = .minimal,
+            prefer: PreferResponse = .minimal,
             requestID: String? = nil
         ) -> EventLoopFuture<Capture> {
             var headers: HTTPHeaders = ["Prefer": prefer.rawValue]
@@ -85,7 +85,7 @@ extension Payments {
         public func reauthorize(
             _ authorization: String,
             amount: CurrencyCodeAmount,
-            prefer: ResponseReturn = .minimal,
+            prefer: PreferResponse = .minimal,
             requestID: String? = nil
         ) -> EventLoopFuture<Authorization> {
             var headers: HTTPHeaders = ["Prefer": prefer.rawValue]

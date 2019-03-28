@@ -44,7 +44,7 @@ extension Payments {
         public func refund(
             _ capture: String,
             refund: Capture.Refund? = nil,
-            prefer: ResponseReturn = .minimal,
+            prefer: PreferResponse = .minimal,
             requestID: String? = nil
         ) -> EventLoopFuture<Refund> {
             var headers: HTTPHeaders = ["Prefer": prefer.rawValue]
