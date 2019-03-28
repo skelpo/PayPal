@@ -16,5 +16,15 @@ extension Payments {
             self.client = client
             self.resource = ["payments", "authorizations"]
         }
+        
+        /// Shows details for an authorized payment, by ID.
+        ///
+        /// A successful request returns the HTTP 200 OK status code and a JSON response body that shows authorization details.
+        ///
+        /// - Parameter authorization: The ID of the authorized payment for which to show details.
+        /// - Returns: The authorization details for the ID passed in.
+        public func get(_ authorization: String) -> EventLoopFuture<Authorization> {
+            return self.client.get(self.path + authorization, as: Authorization.self)
+        }
     }
 }
