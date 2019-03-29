@@ -19,6 +19,7 @@ public enum PhoneType: String, Hashable, Codable, CaseIterable {
     case pager = "PAGER"
 }
 
+/// A phone number that has a specified phone type it is connected to.
 public struct TypedPhone: Codable {
     
     /// The phone type.
@@ -28,6 +29,8 @@ public struct TypedPhone: Codable {
     /// [E.164 numbering plan format](https://www.itu.int/rec/T-REC-E.164/en). The combined length of the country
     /// calling code (CC) and the national number must not be greater than 15 digits. The national number
     /// consists of a national destination code (NDC) and subscriber number (SN).
+    ///
+    /// - Note: To be compatible with the PayPal API, this value is encoded/decoded as a `String`.
     public var national: Failable<Int, Phone.NationalNumber>
     
     /// Creates a new `TypedPhone` instance.
