@@ -3,7 +3,7 @@ import PayPal
 
 extension Order {
     
-    /// https://developer.paypal.com/docs/api/orders/v2/#definition-item
+    /// An item that a customer is purchasing from a merchant.
     public struct Item: Codable {
         
         /// The item name or title.
