@@ -77,7 +77,7 @@ public struct BusinessOwner: Content, Equatable {
         self.phones = phones
         self.ids = ids
         self.occupation = occupation
-        self.birthdate = TimelessDate(birthdate)
+        self.birthdate = birthdate.map(TimelessDate.init)
     }
     
     /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).

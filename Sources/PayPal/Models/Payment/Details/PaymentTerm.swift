@@ -17,7 +17,7 @@ public struct PaymentTerm: Content, Equatable {
     ///   - due: The date when the invoice payment is due, in Internet date and time format.
     public init(type: TermType?, due: Date?) {
         self.type = type
-        self.due = TimelessDate(due)
+        self.due = due.map(TimelessDate.init)
     }
     
     /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
