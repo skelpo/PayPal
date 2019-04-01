@@ -22,7 +22,7 @@ public struct Phone: Codable {
     ///
     /// - Parameters:
     ///   - country: The country calling code (CC), in its canonical international E.164 numbering plan format.
-    ///   - national: The national number, in its canonical international E.164 numbering plan format
+    ///   - national: The national number, in its canonical international E.164 numbering plan format.
     ///   - extension: The extension number.
     public init(
         country: Failable<Int, CountryCode>,
@@ -83,5 +83,11 @@ public struct Phone: Codable {
         ///
         /// The minumum allowed value is `999,999,999,999,999`.
         public static let max: Int? = 999_999_999_999_999
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case country = "country_code"
+        case national = "national_number"
+        case `extension` = "extension_number"
     }
 }
