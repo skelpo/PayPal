@@ -3,14 +3,18 @@ import Vapor
 /// The stand-alone date, in [Internet date and time format](https://tools.ietf.org/html/rfc3339#section-5.6). To represent special legal values,
 /// such as a date of birth, you should use dates with no associated time or time-zone data. Whenever possible, use the standard `date_time` type.
 public struct TimelessDate: Content, Equatable, ExpressibleByFloatLiteral {
-    internal static let formatter: DateFormatter = {
+    internal static let threadSafeFormatter: ThreadSpecificVariable<DateFormatter> = {
         let formatter = DateFormatter()
         formatter.calendar = Calendar(identifier: .iso8601)
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
+        return ThreadSpecificVariable(value: formatter)
     }()
+    
+    internal static var formatter: DateFormatter? {
+        return self.threadSafeFormatter.currentValue
+    }
     
     /// The UNIX timestamp for the date being represented.
     ///
@@ -28,7 +32,7 @@ public struct TimelessDate: Content, Equatable, ExpressibleByFloatLiteral {
     ///
     /// - Parameter date: The date representation, formatted as `yyyy-mm-dd`.
     public init?(date: String?) {
-        guard let string = date, let date = TimelessDate.formatter.date(from: string) else { return nil }
+        guard let string = date, let date = TimelessDate.formatter?.date(from: string) else { return nil }
         self.timestamp = date.timeIntervalSince1970
     }
     
@@ -51,7 +55,7 @@ public struct TimelessDate: Content, Equatable, ExpressibleByFloatLiteral {
             self.timestamp = nil
         } else {
             let raw = try container.decode(String.self)
-            guard let date = TimelessDate.formatter.date(from: raw) else {
+            guard let date = TimelessDate.formatter?.date(from: raw) else {
                 throw PayPalError(status: .badRequest, identifier: "dateFormat", reason: "Expected date to be formatted as `yyyy-mm-dd`")
             }
             self.timestamp = date.timeIntervalSince1970
@@ -63,7 +67,7 @@ public struct TimelessDate: Content, Equatable, ExpressibleByFloatLiteral {
         var container = encoder.singleValueContainer()
         if let timestamp = self.timestamp {
             let date = Date(timeIntervalSince1970: timestamp)
-            let raw = TimelessDate.formatter.string(from: date)
+            let raw = TimelessDate.formatter?.string(from: date)
             try container.encode(raw)
         } else {
             try container.encodeNil()
