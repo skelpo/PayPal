@@ -50,6 +50,45 @@ public struct Order: Codable {
         self.links = nil
     }
     
+    /// The request structure to create a new `Order`.
+    struct Request: Codable {
+        
+        /// The intent to either capture payment immediately or authorize a payment for an order after order creation.
+        public var intent: Intent
+        
+        /// The customer who approves and pays for the order. The customer is also known as the payer.
+        public var payer: Payer?
+        
+        /// An array of purchase units. At present only 1 purchase_unit is supported. Each purchase unit establishes a
+        /// contract between a payer and the payee. Each purchase unit represents either a full or partial order that
+        /// the payer intends to purchase from the payee.
+        public var purchaseUnits: [PurchaseUnit]
+        
+        /// Customize the payer experience during the approval process for the payment with PayPal.
+        public var context: AppContext?
+        
+        /// Creates a new `Order.Request` instance.
+        ///
+        /// - Parameters:
+        ///   - intent: The intent to either capture payment immediately or
+        ///     authorize a payment for an order after order creation.
+        ///   - payer: The customer who approves and pays for the order.
+        ///   - purchaseUnits: An array of purchase units.
+        ///   - context: Customize the payer experience during the approval process for the payment with PayPal.
+        public init (intent: Intent, payer: Payer?, purchaseUnits: [PurchaseUnit], context: AppContext?) {
+            self.intent = intent
+            self.payer = payer
+            self.purchaseUnits = purchaseUnits
+            self.context = context
+        }
+        
+        enum CodingKeys: String, CodingKey {
+            case intent, payer
+            case purchaseUnits = "purchase_units"
+            case context = "application_context"
+        }
+    }
+    
     enum CodingKeys: String, CodingKey {
         case intent, payer, id, status, links
         case purchaseUnits = "purchase_units"
