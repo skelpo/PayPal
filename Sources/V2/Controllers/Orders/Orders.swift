@@ -126,4 +126,40 @@ public final class Orders: VersionedController {
         
         return self.client.post(self.path + order + "/authorize", headers: headers, body: payment, as: Order.self)
     }
+    
+    /// Captures a payment for an order.
+    ///
+    /// A successful response to a non-idempotent request returns the HTTP 201 Created status code with a JSON response body
+    /// that shows captured payment details. If a duplicate response is retried, returns the HTTP 200 OK status code.
+    /// By default, the response is minimal. If you need the complete resource representation, pass the `.representation`
+    /// value to the `prefer` parameter.
+    ///
+    /// - Parameters:
+    ///   - order: The ID of the order for which to capture a payment.
+    ///   - payment: The payment source definition.
+    ///   - request: A unique user-generated ID that you can use to enforce idempotency.
+    ///   - prefer: The preferred server response upon successful completion of the request.
+    ///   - clientMetadata: Verifies that the payment originates from a valid, user-consented device and application.
+    ///   - authAssertion: An API client-provided JSON Web Token (JWT) assertion that identifies the merchant.
+    public func capture(
+        order: String,
+        payment: PaymentSource?,
+        request: String? = nil,
+        prefer: PreferResponse = .minimal,
+        clientMetadata: String? = nil,
+        authAssertion: String? = nil
+    ) -> EventLoopFuture<Order> {
+        var headers: HTTPHeaders = ["Content-Type": MediaType.json.serialize(), "Prefer": prefer.rawValue]
+        if let req = request {
+            headers.add(name: .paypalRequest, value: req)
+        }
+        if let metadata = clientMetadata {
+            headers.add(name: .paypalMetadata, value: metadata)
+        }
+        if let auth = authAssertion {
+            headers.add(name: .paypalAuth, value: auth)
+        }
+        
+        return self.client.post(self.path + order + "/capture", headers: headers, body: payment, as: Order.self)
+    }
 }
