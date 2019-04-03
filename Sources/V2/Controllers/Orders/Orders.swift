@@ -76,4 +76,14 @@ public final class Orders: VersionedController {
     public func update(order: String, with patches: [Patch]) -> EventLoopFuture<Void> {
         return self.client.post(self.path + order, body: patches, as: HTTPStatus.self).transform(to: ())
     }
+    
+    /// Shows details for an order, by ID.
+    ///
+    /// A successful request returns the HTTP 200 OK status code and a JSON response body that shows order details.
+    ///
+    /// - Parameter order: The ID of the order for which to show details.
+    /// - Returns: The order object for the given ID, wrapped in an `EventLoopFuture`.
+    public func get(order: String) -> EventLoopFuture<Order> {
+        return self.client.get(self.path + order, as: Order.self)
+    }
 }
