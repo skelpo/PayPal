@@ -43,4 +43,37 @@ public final class Orders: VersionedController {
         
         return self.client.post(self.path, headers: headers, body: order, as: Order.self)
     }
+    
+    /// Updates an order with the `CREATED` or `APPROVED` status. You cannot update an order with the `COMPLETED` status.
+    ///
+    /// To make an update, you must provide a `reference_id`. If you omit a `reference_id` for an order with one purchase unit,
+    /// PayPal defaults to a `reference_id` of `1`, which enables you to use a path:
+    ///
+    ///     "path": "/purchase_units/@reference_id=='1'/{attribute-or-object}"
+    ///
+    /// You can patch these attributes and objects to complete these operations:
+    /// - `intent` — replace.
+    /// - `purchase_units` — replace, add.
+    /// - `purchase_units[].custom_id` — replace, add, remove.
+    /// - `purchase_units[].description` — replace, add, remove.
+    /// - `purchase_units[].payee.email` — replace, add.
+    /// - `purchase_units[].shipping` — replace, add, remove.
+    /// - `purchase_units[].soft_descriptor` — replace, add, remove.
+    /// - `purchase_units[].amount` — replace.
+    /// - `purchase_units[].invoice_id` — replace, add, remove.
+    /// - `purchase_units[].payment_instruction` — replace.
+    /// - `purchase_units[].payment_instruction.disbursement_mode` — replace.
+    ///   - Note: By default, `disbursement_mode` is `INSTANT`.
+    /// - `purchase_units[].payment_instruction.platform_fees` — replace, add, remove.
+    ///
+    /// A successful request returns the HTTP 204 No Content status code with an empty object in the JSON response body.
+    ///
+    /// - Parameters:
+    ///   - order: The ID of the order to update.
+    ///   - patches: An array of JSON patch objects to apply partial updates to resources.
+    ///
+    /// - Returns: A void `EventLoopFuture` that succedes when the update completes.
+    public func update(order: String, with patches: [Patch]) -> EventLoopFuture<Void> {
+        return self.client.post(self.path + order, body: patches, as: HTTPStatus.self).transform(to: ())
+    }
 }
