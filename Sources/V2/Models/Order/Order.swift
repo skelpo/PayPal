@@ -51,7 +51,7 @@ public struct Order: Codable {
     }
     
     /// The request structure to create a new `Order`.
-    struct Request: Codable {
+    public struct Request: Codable {
         
         /// The intent to either capture payment immediately or authorize a payment for an order after order creation.
         public var intent: Intent
