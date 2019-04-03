@@ -15,10 +15,10 @@ public struct Order: Codable {
     public var purchaseUnits: [PurchaseUnit]?
     
     /// The date and time when the transaction occurred.
-    public let created: Date?
+    public let created: ISO8601Date?
     
     /// The date and time when the transaction was last updated.
-    public let updated: Date?
+    public let updated: ISO8601Date?
     
     /// The ID of the order.
     public let id: String?
