@@ -86,4 +86,44 @@ public final class Orders: VersionedController {
     public func get(order: String) -> EventLoopFuture<Order> {
         return self.client.get(self.path + order, as: Order.self)
     }
+    
+    
+    /// Authorizes payment for an order. The response shows details of authorizations.
+    /// You can make this call only if you specified the `intent` property as `AUTHORIZE` in the create order call.
+    ///
+    /// A successful response to a non-idempotent request returns the HTTP 201 Created status code with a JSON response
+    /// body that shows authorized payment details. If a duplicate response is retried, returns the HTTP 200 OK status code.
+    /// By default, the response is minimal. If you need the complete resource representation, you must pass the
+    /// `.representation` value to the `prefer` parameter.
+    ///
+    /// - Parameters:
+    ///   - order: The ID of the order for which to authorize.
+    ///   - payment: The source of payment for the order, which can be a token or a card. Use this object only if
+    ///     you have not redirected the user after order creation to approve the payment. In such cases, the
+    ///     user-selected payment method in the PayPal flow is implicitly used.
+    ///   - request: A unique user-generated ID that you can use to enforce idempotency.
+    ///   - prefer: The preferred server response upon successful completion of the request.
+    ///   - clientMetadata: Verifies that the payment originates from a valid, user-consented device and application.
+    ///   - authAssertion: An API client-provided JSON Web Token (JWT) assertion that identifies the merchant.
+    public func authorize(
+        order: String,
+        payment: PaymentSource?,
+        request: String? = nil,
+        prefer: PreferResponse = .minimal,
+        clientMetadata: String? = nil,
+        authAssertion: String? = nil
+    ) -> EventLoopFuture<Order> {
+        var headers: HTTPHeaders = ["Content-Type": MediaType.json.serialize(), "Prefer": prefer.rawValue]
+        if let req = request {
+            headers.add(name: .paypalRequest, value: req)
+        }
+        if let metadata = clientMetadata {
+            headers.add(name: .paypalMetadata, value: metadata)
+        }
+        if let auth = authAssertion {
+            headers.add(name: .paypalAuth, value: auth)
+        }
+        
+        return self.client.post(self.path + order + "/authorize", headers: headers, body: payment, as: Order.self)
+    }
 }
