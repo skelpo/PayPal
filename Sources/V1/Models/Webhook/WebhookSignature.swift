@@ -20,7 +20,7 @@ extension Webhook {
         public var webhook: String
         
         /// A webhook event notification.
-        public var event: VerifiedEvent
+        public var event: Event
         
         /// Creates a new `Webhook.Verification` instance.
         ///
@@ -34,7 +34,7 @@ extension Webhook {
             cert: String,
             transmission: Transmission,
             webhook: String,
-            event: VerifiedEvent
+            event: Event
         ) {
             self.algorithm = algorithm
             self.cert = cert
@@ -49,7 +49,7 @@ extension Webhook {
             
             self.algorithm = try container.decode(String.self, forKey: .algorithm)
             self.webhook = try container.decode(String.self, forKey: .webhook)
-            self.event = try container.decode(VerifiedEvent.self, forKey: .event)
+            self.event = try container.decode(Event.self, forKey: .event)
             self.cert = try container.decode(String.self, forKey: .cert)
             self.transmission = try Transmission(from: decoder)
         }
@@ -122,45 +122,5 @@ extension Webhook {
             case webhook = "webhook_id"
             case event = "webhook_event"
         }
-    }
-    
-    public struct VerifiedEvent: Codable {
-        
-        /// The ID of the webhook event notification.
-        public let id: String?
-        
-        /// The date and time when the webhook event notification was created.
-        public let created: ISO8601Date?
-        
-        /// The name of the resource related to the webhook notification event.
-        public let resourceType: String?
-        
-        /// The event version in the webhook notification.
-        public let version: EventType.Version?
-        
-        /// The event that triggered the webhook event notification.
-        public let type: EventType.Name?
-        
-        /// A summary description for the event notification.
-        public let summary: String?
-        
-        /// The resource version in the webhook notification.
-        public let resourceVersion: EventType.Version?
-        
-        /// The resource that triggered the webhook event notification.
-        public let resource: Resource?
-        
-        /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/hateoas-links).
-        public let links: [LinkDescription]?
-    }
-    
-    public struct Resource: Codable {
-        public let id: String?
-        public let created: ISO8601Date?
-        public let updated: ISO8601Date?
-        public let state: String?
-        public let amount: DetailedAmount?
-        public let parent: String?
-        public let validTo: ISO8601Date?
     }
 }
