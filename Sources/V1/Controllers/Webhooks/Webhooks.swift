@@ -13,6 +13,11 @@ import Vapor
 /// # Verify Webhook Signature
 ///
 /// Use the `/verify-webhook-signature` resource to verify a webhook signature.
+///
+/// # Event Type
+///
+/// Use the `/webhooks-event-types` resource to list events to which webhooks can subscribe and the
+/// `/webhooks/<webhook_id>/event-types` resource to list event subscriptions for a webhook.
 public final class Webhooks: VersionedController {
     
     /// See `VersionedController.client`
@@ -24,6 +29,11 @@ public final class Webhooks: VersionedController {
     /// The controller for the `/notifications/verify-webhook-signature` resource.
     public var verification: Verification {
         return Verification(client: self.client)
+    }
+    
+    /// The controller for the `/notifications/webhooks-event-types` resource.
+    public var eventTypes: EventTypes {
+        return EventTypes(client: self.client)
     }
     
     /// See `VersionedController.init(client:)`.
