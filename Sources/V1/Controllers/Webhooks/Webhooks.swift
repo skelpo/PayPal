@@ -44,4 +44,14 @@ public final class Webhooks: VersionedController {
         let parameters = QueryParamaters(custom: ["anchor_type": anchor.rawValue])
         return self.client.get(self.path, parameters: parameters, as: [Webhook].self)
     }
+    
+    /// Deletes a webhook, by ID.
+    ///
+    /// A successful request returns the HTTP 204 No Content status code with no JSON response body.
+    ///
+    /// - Parameter webhook: The ID of the webhook to delete.
+    /// - Returns: A void `EventLoopFuture` that succeedes when the delete completes.
+    public func delete(webhook: String) -> EventLoopFuture<Void> {
+        return self.client.delete(self.path + webhook, as: HTTPStatus.self).transform(to: ())
+    }
 }
