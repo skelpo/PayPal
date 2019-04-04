@@ -55,6 +55,20 @@ extension Webhooks {
         public func get(event: String) -> EventLoopFuture<Event> {
             return self.client.get(self.path + event, as: Event.self)
         }
+        
+        /// Resends a webhook event notification, by ID. Any pending notifications are not resent.
+        ///
+        /// A successful request returns the HTTP 202 Accepted status code and a JSON response body
+        /// that shows webhook event notification details.
+        ///
+        /// - Parameters:
+        ///   - event: The ID of the webhook event notification to resend.
+        ///   - ids: An array of webhook account IDs.
+        ///
+        /// - Returns: The `Event` object for the event that was resent, wrapped in an `EventLoopFuture`.
+        public func resend(event: String, ids: [String]) -> EventLoopFuture<Event> {
+            return self.client.post(self.path + event, body: ["webhook_ids": ids], as: Event.self)
+        }
     }
 }
 
