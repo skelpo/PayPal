@@ -22,4 +22,14 @@ public final class Webhooks: VersionedController {
         self.client = client
         self.resource = ["notifications", "webhooks"]
     }
+    
+    /// Subscribes your webhook listener to events.
+    ///
+    /// A successful request returns the HTTP 201 Created status code and a JSON response body with a
+    /// `Webhook` object that includes the webhook ID for later use.
+    ///
+    /// - Parameter webhook: The `Webhook` instance to create
+    public func create(webhook: Webhook) -> EventLoopFuture<Webhook> {
+        return self.client.post(self.path, body: webhook, as: Webhook.self)
+    }
 }
