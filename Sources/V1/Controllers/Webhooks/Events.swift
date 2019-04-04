@@ -44,6 +44,17 @@ extension Webhooks {
             
             return self.client.get(self.path, parameters: parameters, as: Event.List.self)
         }
+        
+        /// Shows details for a webhook event notification, by ID.
+        ///
+        /// A successful request returns the HTTP 200 OK status code and a JSON response body that
+        /// shows webhook event notification details
+        ///
+        /// - Parameter event: The ID of the webhook event notification for which to show details.
+        /// - Returns: The `Event` object for the given ID, wrapped in an `EventLoopFuture`.
+        public func get(event: String) -> EventLoopFuture<Event> {
+            return self.client.get(self.path + event, as: Event.self)
+        }
     }
 }
 
