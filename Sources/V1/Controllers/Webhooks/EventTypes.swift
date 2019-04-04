@@ -17,5 +17,16 @@ extension Webhooks {
             self.client = client
             self.resource = ["notifications", "webhooks-event-types"]
         }
+        
+        /// Lists available events to which any webhook can subscribe. For a list of supported events,
+        /// see [Webhook event names](https://developer.paypal.com/docs/integration/direct/webhooks/event-names/).
+        ///
+        /// A successful request returns the HTTP 200 OK status code and a JSON response body that
+        /// lists available events to which any webhook can subscribe.
+        ///
+        /// - Returns: The list of `EventType` objects, wrapped in an `EventLoopFuture`.
+        public func list() -> EventLoopFuture<[EventType]> {
+            return self.client.get("", as: [EventType].self)
+        }
     }
 }
