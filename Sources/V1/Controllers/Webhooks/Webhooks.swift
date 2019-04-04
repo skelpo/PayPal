@@ -54,4 +54,19 @@ public final class Webhooks: VersionedController {
     public func delete(webhook: String) -> EventLoopFuture<Void> {
         return self.client.delete(self.path + webhook, as: HTTPStatus.self).transform(to: ())
     }
+    
+    /// Replaces webhook fields with new values. Supports only the `replace` operation. Pass a `json_patch` object with
+    /// `replace` operation and `path`, which is `/url` for a URL or `/event_types` for events. The `value` is either
+    /// the URL or a list of events.
+    ///
+    /// A successful request returns the HTTP 200 OK status code and a JSON response body that shows webhook details.
+    ///
+    /// - Parameters:
+    ///   - webhook: The ID of the webhook to update.
+    ///   - patches: An array of JSON patch objects to apply partial updates to resources.
+    ///
+    /// - Returns: The updated `Webhook` object, wrapped in an `EventLoopFuture`.
+    public func update(webhook: String, with patches: [Patch]) -> EventLoopFuture<Webhook> {
+        return self.client.patch(self.path + webhook, body: patches, as: Webhook.self)
+    }
 }
