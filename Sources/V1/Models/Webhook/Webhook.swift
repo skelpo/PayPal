@@ -31,6 +31,16 @@ public struct Webhook: Codable {
         self.events = events
     }
     
+    /// The entity types that `Webhook` objects can be filtered by when fetched from the PayPal API.
+    public enum AnchorType: String, Hashable, CaseIterable, Codable {
+        
+        /// (Default) `APPLICATION`.
+        case application = "APPLICATION"
+        
+        /// `ACCOUNT`.
+        case account = "ACCOUNT"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id, links, url
         case events = "event_types"
