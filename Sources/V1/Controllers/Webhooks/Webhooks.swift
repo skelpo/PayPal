@@ -9,6 +9,10 @@ import Vapor
 /// # Webhooks
 ///
 /// Use the `/webhooks` resource to create, show details for, list all, update, and delete webhooks.
+///
+/// # Verify Webhook Signature
+///
+/// Use the `/verify-webhook-signature` resource to verify a webhook signature.
 public final class Webhooks: VersionedController {
     
     /// See `VersionedController.client`
@@ -68,5 +72,15 @@ public final class Webhooks: VersionedController {
     /// - Returns: The updated `Webhook` object, wrapped in an `EventLoopFuture`.
     public func update(webhook: String, with patches: [Patch]) -> EventLoopFuture<Webhook> {
         return self.client.patch(self.path + webhook, body: patches, as: Webhook.self)
+    }
+    
+    /// Shows details for a webhook, by ID.
+    ///
+    /// A successful request returns the HTTP 200 OK status code and a JSON response body that shows webhook details
+    ///
+    /// - Parameter webhook: The ID of the webhook for which to show details.
+    /// - Returns: The `Webhook` object for the given ID, wrapped in an `EventLoopFuture`.
+    public func get(webhook: String) -> EventLoopFuture<Webhook> {
+        return self.client.get(self.path + webhook, as: Webhook.self)
     }
 }
