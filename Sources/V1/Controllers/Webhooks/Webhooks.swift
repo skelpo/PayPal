@@ -36,6 +36,11 @@ public final class Webhooks: VersionedController {
         return EventTypes(client: self.client)
     }
     
+    /// The controller for the `/notifications/webhooks-events` resource.
+    public var events: Events {
+        return Events(client: self.client)
+    }
+    
     /// See `VersionedController.init(client:)`.
     public init(client: PayPalClient) {
         self.client = client
