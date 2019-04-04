@@ -98,4 +98,15 @@ public final class Webhooks: VersionedController {
     public func get(webhook: String) -> EventLoopFuture<Webhook> {
         return self.client.get(self.path + webhook, as: Webhook.self)
     }
+    
+    /// Lists event subscriptions for a webhook, by ID.
+    ///
+    /// A successful request returns the HTTP 200 OK status code and a JSON response body that lists event
+    /// subscriptions for a webhook.
+    ///
+    /// - Parameter webhook: The ID of the webhook for which to list subscriptions.
+    /// - Returns: The list of `EventType` objects for the webhook, wrapped in an `EventLoopFuture`.
+    public func eventTypes(for webhook: String) -> EventLoopFuture<[EventType]> {
+        return self.client.get(self.path + webhook + "/event-types", as: [EventType].self)
+    }
 }
