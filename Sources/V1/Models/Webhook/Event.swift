@@ -29,6 +29,20 @@ public struct Event: Codable {
     /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/hateoas-links).
     public let links: [LinkDescription]?
 
+    /// The response structure for a call to `Webhooks.Events.list(
+    public struct List: Codable {
+        
+        /// An array of webhooks events.
+        public var events: [Event]?
+        
+        /// The number of items in each range of results. Note that the response might have fewer items
+        /// than the requested `page_size` value.
+        public var count: Int?
+        
+        /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/overview/#hateoas-links).
+        public let links: [LinkDescription]?
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id, summary, resource, links
         case created = "create_time"
