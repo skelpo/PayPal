@@ -83,4 +83,18 @@ public final class Webhooks: VersionedController {
     public func get(webhook: String) -> EventLoopFuture<Webhook> {
         return self.client.get(self.path + webhook, as: Webhook.self)
     }
+    
+    /// Verifies a webhook signature.
+    ///
+    /// A successful request returns the HTTP 200 OK status code and a JSON response body that shows the verification status.
+    ///
+    /// - Parameter signature: The `Webhook` object signature that will be the request's body to be verified.
+    /// - Returns: The verification result, wrapped in an `EventLoopFuture`.
+    public func verfity(signature: Webhook) -> EventLoopFuture<Webhook.Signature.Result> {
+        return self.client.post(
+            self.client.environment.domain + "/v" + self.client.version.rawValue + "/notifications/verify-webhook-signature",
+            body: signature,
+            as: Webhook.Signature.Result.self
+        )
+    }
 }
