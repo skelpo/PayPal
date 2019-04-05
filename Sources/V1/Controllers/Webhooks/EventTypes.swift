@@ -26,7 +26,7 @@ extension Webhooks {
         ///
         /// - Returns: The list of `EventType` objects, wrapped in an `EventLoopFuture`.
         public func list() -> EventLoopFuture<[EventType]> {
-            return self.client.get("", as: [EventType].self)
+            return self.client.get(self.path, as: [EventType].self)
         }
     }
 }
