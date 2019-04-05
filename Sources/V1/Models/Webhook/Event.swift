@@ -29,6 +29,42 @@ public struct Event: Codable {
     /// An array of request-related [HATEOAS links](https://developer.paypal.com/docs/api/hateoas-links).
     public let links: [LinkDescription]?
 
+    public struct Simulated: Codable {
+        
+        /// The ID of the webhook. If omitted, the URL is required.
+        public var webhook: String?
+        
+        /// The URL for the webhook endpoint. If omitted, the webhook ID is required.
+        public var url: String?
+        
+        /// The event name. Specify one of the subscribed events. For each request, provide only one event.
+        public var type: EventType.Name
+        
+        /// The identifier for event type ex: 1.0/2.0 etc.
+        public var version: EventType.Version?
+        
+        /// Creates a new `Event.Simulated` instance.
+        ///
+        /// - Parameters:
+        ///   - webhook: The ID of the webhook. If omitted, the URL is required.
+        ///   - url:  The URL for the webhook endpoint. If omitted, the webhook ID is required.
+        ///   - type:  The event name. Specify one of the subscribed events.
+        ///   - version: The identifier for event type ex: 1.0/2.0 etc.
+        public init(webhook: String?, url: String?, type: EventType.Name, version: EventType.Version?) {
+            self.webhook = webhook
+            self.url = url
+            self.type = type
+            self.version = version
+        }
+        
+        enum CodingKeys: String, CodingKey {
+            case webhook = "webhook_id"
+            case url
+            case type = "event_type"
+            case version = "resource_version"
+        }
+    }
+    
     /// The response structure for a call to `Webhooks.Events.list(
     public struct List: Codable {
         
