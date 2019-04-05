@@ -18,6 +18,14 @@ import Vapor
 ///
 /// Use the `/webhooks-event-types` resource to list events to which webhooks can subscribe and the
 /// `/webhooks/<webhook_id>/event-types` resource to list event subscriptions for a webhook.
+///
+/// # Simulate Event
+///
+/// Use the `/simulate-event` resource to use a sample payload to simulate a webhook event. The events that this call
+/// generates only serve to validate the connection to the listener URL and to show how webhook events look.
+///
+/// - Note: You can also use the [Webhooks simulator](https://developer.paypal.com/docs/integration/direct/webhooks/simulator/)
+///   to simulate webhook events.
 public final class Webhooks: VersionedController {
     
     /// See `VersionedController.client`
@@ -39,6 +47,11 @@ public final class Webhooks: VersionedController {
     /// The controller for the `/notifications/webhooks-events` resource.
     public var events: Events {
         return Events(client: self.client)
+    }
+    
+    /// The controller for the `/notifications/simulate-event` resource.
+    public var simulateEvents: SimulateEvents {
+        return SimulateEvents(client: self.client)
     }
     
     /// See `VersionedController.init(client:)`.
