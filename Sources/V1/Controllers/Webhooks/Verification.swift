@@ -26,12 +26,7 @@ extension Webhooks {
         /// - Parameter signature: The `Webhook` object signature that will be the request's body to be verified.
         /// - Returns: The verification result, wrapped in an `EventLoopFuture`.
         public func verify(signature: Webhook.Signature) -> EventLoopFuture<Webhook.Signature.Result> {
-            let root = self.client.environment.domain + "/v" + self.client.version.rawValue
-            return self.client.post(
-                root + "/notifications/verify-webhook-signature",
-                body: signature,
-                as: Webhook.Signature.Result.self
-            )
+            return self.client.post(self.path, body: signature, as: Webhook.Signature.Result.self)
         }
     }
 }
