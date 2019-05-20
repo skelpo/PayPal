@@ -110,9 +110,9 @@ extension Valut {
         /// A successful request returns the HTTP 204 No Content status code with no JSON response body.
         ///
         /// - Parameter id: The ID of the vaulted credit card to delete.
-        /// - Returns: The HTTP status code of the response, wrapped in an `EventLoopFuture`.
-        public func delete(card id: String) -> EventLoopFuture<HTTPStatus> {
-            return self.client.delete(self.path + id)
+        /// - Returns: An empty `EventLoopFuture` that succeeds when the deletion completes.
+        public func delete(card id: String) -> EventLoopFuture<Void> {
+            return self.client.delete(self.path + id, as: HTTPStatus.self).transform(to: ())
         }
     }
 }
