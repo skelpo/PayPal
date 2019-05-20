@@ -91,5 +91,18 @@ extension Valut {
         public func list(parameters: QueryParamaters = QueryParamaters()) -> EventLoopFuture<CreditCard.List> {
             return self.client.get(self.path, parameters: parameters, as: CreditCard.List.self)
         }
+
+        /// Updates information for a vaulted credit card, by ID. In the JSON request body, specify the values to update.
+        ///
+        /// A successful request returns the HTTP 200 OK status code and a JSON response body that shows card details.
+        ///
+        /// - Parameters:
+        ///   - id: The ID of the vaulted credit card to update.
+        ///   - patches: An array of JSON patch objects to apply partial updates to resources.
+        ///
+        /// - Returns: The updated credit card information, wrapped in an `EventLoopFuture`.
+        public func update(card id: String, with patches: [Patch]) -> EventLoopFuture<CreditCard> {
+            return self.client.patch(self.path + id, body: patches, as: CreditCard.self)
+        }
     }
 }
