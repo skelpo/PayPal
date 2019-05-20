@@ -68,5 +68,28 @@ extension Valut {
         public func store(_ card: CreditCard) -> EventLoopFuture<CreditCard> {
             return self.client.post(self.path, body: card, as: CreditCard.self)
         }
+
+        /// Lists vaulted credit cards. To filter the cards in the response, specify one or more optional query parameters.
+        ///
+        /// A successful request returns the HTTP 200 OK status code and a JSON response body that includes an array of
+        /// vaulted cards. Each item in the array shows card details.
+        ///
+        /// - Parameter parameters: The query parameters that will be sent with the request to the PayPal API.
+        ///   The supported query keys are:
+        ///   - `page_size`
+        ///   - `page`
+        ///   - `start_time`
+        ///   - `end_time`
+        ///   - `sort_order`
+        ///   - `sort_by`
+        ///   - `merchant_id`
+        ///   - `external_card_id`
+        ///   - `external_customer_id`
+        ///   - `total_required`
+        ///
+        /// - Returns: A paginated list of the credit cards in the customer's vault.
+        public func list(parameters: QueryParamaters = QueryParamaters()) -> EventLoopFuture<CreditCard.List> {
+            return self.client.get(self.path, parameters: parameters, as: CreditCard.List.self)
+        }
     }
 }
