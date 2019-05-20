@@ -114,5 +114,17 @@ extension Valut {
         public func delete(card id: String) -> EventLoopFuture<Void> {
             return self.client.delete(self.path + id, as: HTTPStatus.self).transform(to: ())
         }
+
+        /// Shows details for a vaulted credit card, by ID.
+        ///
+        /// A successful request returns the HTTP 200 OK status code and a JSON response body with card details.
+        ///
+        /// - Parameter id: The ID of the vaulted credit card for which to show details.
+        ///   This ID is returned when you store the credit card in the PayPal vault.
+        ///
+        /// - Returns: The credit card information for the ID passed in, wrapped in an `EventLoopFuture`.
+        public func get(card id: String) -> EventLoopFuture<CreditCard> {
+            return self.client.get(self.path + id, as: CreditCard.self)
+        }
     }
 }
