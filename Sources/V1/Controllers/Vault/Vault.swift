@@ -104,5 +104,15 @@ extension Valut {
         public func update(card id: String, with patches: [Patch]) -> EventLoopFuture<CreditCard> {
             return self.client.patch(self.path + id, body: patches, as: CreditCard.self)
         }
+
+        /// Deletes a vaulted credit card, by ID.
+        ///
+        /// A successful request returns the HTTP 204 No Content status code with no JSON response body.
+        ///
+        /// - Parameter id: The ID of the vaulted credit card to delete.
+        /// - Returns: The HTTP status code of the response, wrapped in an `EventLoopFuture`.
+        public func delete(card id: String) -> EventLoopFuture<HTTPStatus> {
+            return self.client.delete(self.path + id)
+        }
     }
 }
