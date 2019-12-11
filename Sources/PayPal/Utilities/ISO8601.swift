@@ -21,10 +21,16 @@ extension DateFormatter {
 
 extension Date {
     
-    /// Converts a `Date` instance to an ISO 8601 string.
-    public var iso8601: String {
-        return DateFormatter.iso8601.string(for: self) ?? self.description
-    }
+	/// Converts a `Date` instance to an ISO 8601 string.
+	public var iso8601: String {
+		if #available(OSX 10.12, *) {
+			return ISO8601DateFormatter().string(from: self)
+		} else if let fmt = DateFormatter.iso8601 as? DateFormatter {
+			return fmt.string(from: self)
+		}
+
+		return self.description
+	}
     
     /// Creates a `Date` instance from a string which contains an ISO 8601 dats.
     ///
