@@ -1,6 +1,6 @@
 import XCTest
 @testable import PayPal
 
-final class PayPalTests: XCTestCase {
-    static var allTests: [(String, (PayPalTests) -> ()throws -> ())] = []
+public final class PayPalTests: XCTestCase {
+    public static var allTests: [(String, (PayPalTests) -> ()throws -> ())] = []
 }

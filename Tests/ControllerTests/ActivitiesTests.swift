@@ -2,11 +2,12 @@ import XCTest
 import Vapor
 @testable import PayPal
 
-final class ActivitiesTests: XCTestCase {
+// MARK: - Passing ✅
+public final class ActivitiesTests: XCTestCase {
     
     var app: Application!
     
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
         setPaypalVars()
         
@@ -30,7 +31,7 @@ final class ActivitiesTests: XCTestCase {
         XCTAssertLessThanOrEqual(queried.items?.count ?? 0, 5)
     }
     
-    static var allTests: [(String, (ActivitiesTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ActivitiesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testActivitiesEndpoint", testActivitiesEndpoint)
     ]

@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class TimelessDateTests: XCTestCase {
+public final class TimelessDateTests: XCTestCase {
     func testInit()throws {
         let epoch = TimelessDate(date: "1970-01-01")
         let date: TimelessDate = 981_244_800.0
@@ -14,10 +14,10 @@ final class TimelessDateTests: XCTestCase {
     
     func testEncoding()throws {
         let encoder = JSONEncoder()
-        let date = TimelessDate(date: "2001-02-04")!
+        let date = ["date": TimelessDate(date: "2001-02-04")!]
         
         let generated = try String(data: encoder.encode(date), encoding: .utf8)
-        let json = "{\"date_no_time\":\"2001-02-04\"}"
+        let json = "{\"date\":\"2001-02-04\"}"
         
         XCTAssertEqual(generated, json)
     }
@@ -27,15 +27,15 @@ final class TimelessDateTests: XCTestCase {
         
         let json = """
         {
-            "date_no_time": "2001-02-04"
+            "date": "2001-02-04"
         }
         """
         
-        let date = TimelessDate(date: "2001-02-04")!
-        try XCTAssertEqual(date, decoder.decode(TimelessDate.self, from: json))
+        let date = ["date": TimelessDate(date: "2001-02-04")!]
+        try XCTAssertEqual(date, decoder.decode([String: TimelessDate].self, from: json))
     }
     
-    static var allTests: [(String, (TimelessDateTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TimelessDateTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

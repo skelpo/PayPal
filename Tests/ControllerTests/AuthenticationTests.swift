@@ -2,11 +2,12 @@ import XCTest
 import Vapor
 @testable import PayPal
 
-final class AuthenticationTests: XCTestCase {
+// MARK: - Passing ✅
+public final class AuthenticationTests: XCTestCase {
     
     var app: Application!
     
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
         setPaypalVars()
         
@@ -35,7 +36,7 @@ final class AuthenticationTests: XCTestCase {
         XCTAssertEqual(auth.tokenExpired, false)
     }
     
-    static var allTests: [(String, (AuthenticationTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (AuthenticationTests) -> ()throws -> ())] = [
         ("testTokenExpired", testTokenExpired),
         ("testAPIAuthentication", testAPIAuthentication)
     ]

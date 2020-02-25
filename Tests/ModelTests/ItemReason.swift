@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class ItemReasonTests: XCTestCase {
+public final class ItemReasonTests: XCTestCase {
     struct IT: Codable {
         let reason: Item.Reason
     }
@@ -53,7 +53,7 @@ final class ItemReasonTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(IT.self, from: reacurringCancelled).reason, .reacurringCancelled)
     }
     
-    static var allTests: [(String, (ItemReasonTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ItemReasonTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

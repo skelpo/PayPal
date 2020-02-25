@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class DiscountTests: XCTestCase {
+public final class DiscountTests: XCTestCase {
     func testInit()throws {
         let discount = Discount(percent: 15, amount: CurrencyAmount(currency: .usd, value: 1.25))
         
@@ -33,7 +33,7 @@ final class DiscountTests: XCTestCase {
         try XCTAssertEqual(discount, decoder.decode(Discount<CurrencyAmount>.self, from: json))
     }
     
-    static var allTests: [(String, (DiscountTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (DiscountTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

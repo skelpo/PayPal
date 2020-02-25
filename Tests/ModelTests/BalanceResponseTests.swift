@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class BalanceResponseTests: XCTestCase {
+public final class BalanceResponseTests: XCTestCase {
     func testDecoding()throws {
         let json = """
         {
@@ -9,13 +9,13 @@ final class BalanceResponseTests: XCTestCase {
             "available_balances": [
                 {
                     "currency_code": "USD",
-                    "value": "1000000.00"
+                    "value": "1000000"
                 }
             ],
             "pending_balances": [
                 {
                     "currency_code": "USD",
-                    "value": "5000.00"
+                    "value": "5000"
                 }
             ]
         }
@@ -27,7 +27,7 @@ final class BalanceResponseTests: XCTestCase {
         XCTAssertEqual(response.pending, [CurrencyCodeAmount(currency: .usd, value: 5000.00)])
     }
     
-    static var allTests: [(String, (BalanceResponseTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BalanceResponseTests) -> ()throws -> ())] = [
         ("testDecoding", testDecoding)
     ]
 }

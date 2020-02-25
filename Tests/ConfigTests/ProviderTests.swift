@@ -2,11 +2,11 @@ import XCTest
 import Vapor
 @testable import PayPal
 
-final class ProviderTests: XCTestCase {
+public final class ProviderTests: XCTestCase {
     var environment: Vapor.Environment = .testing
     var app: Application!
     
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
         setPaypalVars()
         
@@ -43,7 +43,7 @@ final class ProviderTests: XCTestCase {
         self.environment = .testing
     }
     
-    static var allTests: [(String, (ProviderTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ProviderTests) -> ()throws -> ())] = [
         ("testBootSucceeds", testBootSucceeds),
         ("testConfigurationRegistered", testConfigurationRegistered),
         ("testConfigurationHasExpectedValues", testConfigurationHasExpectedValues)

@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class DisplayPhoneTests: XCTestCase {
+public final class DisplayPhoneTests: XCTestCase {
     func testInit()throws {
         let phone = DisplayPhone(country: .unitedStates, number: "245364984688834")
         
@@ -44,7 +44,7 @@ final class DisplayPhoneTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(DisplayPhone.self, from: json), DisplayPhone(country: .unitedStates, number: "245364984688834"))
     }
     
-    static var allTests: [(String, (DisplayPhoneTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (DisplayPhoneTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class ExtensionsTests: XCTestCase {
+public final class ExtensionsTests: XCTestCase {
     let extensions = Extensions(
         paymentProperties: PaymentProperties(
             creditDebitCode: .credit,
@@ -86,7 +86,7 @@ final class ExtensionsTests: XCTestCase {
         try XCTAssertEqual(self.extensions, decoder.decode(Extensions.self, from: ext))
     }
     
-    static var allTests: [(String, (ExtensionsTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ExtensionsTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

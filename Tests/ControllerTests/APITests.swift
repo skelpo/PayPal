@@ -2,11 +2,12 @@ import XCTest
 import Vapor
 @testable import PayPal
 
-final class APITests: XCTestCase {
+// MARK: - Passing ✅
+public final class APITests: XCTestCase {
     
     var app: Application!
     
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
         setPaypalVars()
         
@@ -32,7 +33,7 @@ final class APITests: XCTestCase {
         XCTAssertNotNil(info.token)
     }
     
-    static var allTests: [(String, (APITests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (APITests) -> ()throws -> ())] = [
         ("testQueryStringEncoding", testQueryStringEncoding),
         ("testAPIHelper", testAPIHelper)
     ]

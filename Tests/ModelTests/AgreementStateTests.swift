@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class AgreementStateTests: XCTestCase {
+public final class AgreementStateTests: XCTestCase {
     struct Agree: Codable {
         let state: AgreementState
     }
@@ -45,7 +45,7 @@ final class AgreementStateTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Agree.self, from: expired).state, .expired)
     }
     
-    static var allTests: [(String, (AgreementStateTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (AgreementStateTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

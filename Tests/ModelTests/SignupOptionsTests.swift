@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class SignupOptionsTests: XCTestCase {
+public final class SignupOptionsTests: XCTestCase {
     let web = WebExperiencePreference(
         partnerLogo: nil,
         returnURL: nil,
@@ -48,7 +48,7 @@ final class SignupOptionsTests: XCTestCase {
         try XCTAssertEqual(options, decoder.decode(SignupOptions.self, from: json))
     }
     
-    static var allTests: [(String, (SignupOptionsTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (SignupOptionsTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

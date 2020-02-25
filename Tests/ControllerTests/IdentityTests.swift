@@ -2,11 +2,12 @@ import XCTest
 import Vapor
 @testable import PayPal
 
-final class IdentityTests: XCTestCase {
+// MARK: - Passing ✅
+public final class IdentityTests: XCTestCase {
     
     var app: Application!
     
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
         setPaypalVars()
         
@@ -27,7 +28,7 @@ final class IdentityTests: XCTestCase {
         XCTAssertNotNil(info.id)
     }
     
-    static var allTests: [(String, (IdentityTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (IdentityTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testInfoEndpoint", testInfoEndpoint)
     ]

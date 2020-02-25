@@ -52,7 +52,7 @@ public struct Business: Content, Equatable {
     
     /// The email address to which to send disputes, in [Simple Mail Transfer Protocol](https://www.ietf.org/rfc/rfc5321.txt) as defined in RFC 5321
     /// or in [Internet Message Format](https://www.ietf.org/rfc/rfc5322.txt) as defined in RFC 5322. Does not support Unicode email addresses.
-    public var disputeEmail: EmailAddress?
+    public var disputeEmail: Failable<String?, NotNilValidate<EmailString>>
     
     /// The details of business sales.
     public var sales: Sales?
@@ -112,7 +112,7 @@ public struct Business: Content, Equatable {
         merchantCategory: Failable<String?, NotNilValidate<Count4<String>>>,
         establishedDate: TimelessDate?,
         registrationDate: TimelessDate?,
-        disputeEmail: EmailAddress?,
+        disputeEmail: Failable<String?, NotNilValidate<EmailString>>,
         sales: Sales?,
         customerService: CustomerService?,
         addresses: [Address],

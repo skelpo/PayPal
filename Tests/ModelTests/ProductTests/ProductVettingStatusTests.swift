@@ -3,7 +3,7 @@ import XCTest
 
 private typealias Status = Product.VettingStatus
 
-final class ProductVettingStatusTests: XCTestCase {
+public final class ProductVettingStatusTests: XCTestCase {
     private struct Product: Codable {
         let status: Status
     }
@@ -45,7 +45,7 @@ final class ProductVettingStatusTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Product.self, from: approved).status, .approved)
     }
     
-    static var allTests: [(String, (ProductVettingStatusTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (ProductVettingStatusTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testAllCase", testAllCase),
         ("testEncoding", testEncoding),

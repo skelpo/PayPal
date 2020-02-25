@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class CurrencyTests: XCTestCase {
+public final class CurrencyTests: XCTestCase {
     struct Model: Codable, Equatable {
         var cur: Currency
     }
@@ -56,7 +56,7 @@ final class CurrencyTests: XCTestCase {
         try XCTAssertEqual(decoder.decode(Model.self, from: existing), Model(cur: .zwl))
     }
     
-    static var allTests: [(String, (CurrencyTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (CurrencyTests) -> ()throws -> ())] = [
         ("testFindByCode", testFindByCode),
         ("testAllCasesSpeed", testAllCasesSpeed),
         ("testEncoding", testEncoding),

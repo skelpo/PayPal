@@ -2,7 +2,7 @@ import XCTest
 import JSON
 @testable import PayPal
 
-final class PatchTests: XCTestCase {
+public final class PatchTests: XCTestCase {
     func testInit()throws {
         let patchStr = try Patch(operation: .move, path: "/name", value: "Oskar Reteep", from: "/full_name")
         
@@ -57,7 +57,7 @@ final class PatchTests: XCTestCase {
         try XCTAssertEqual(patchArr, decoder.decode(Patch.self, from: arrJson))
     }
     
-    static var allTests: [(String, (PatchTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PatchTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

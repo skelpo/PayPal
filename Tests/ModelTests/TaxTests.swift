@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class TaxTests: XCTestCase {
+public final class TaxTests: XCTestCase {
     func testInit()throws {
         let tax = try Tax(name: .init("Sales"), percent: .init(10), amount: CurrencyAmount(currency: .usd, value: 0.59))
         
@@ -57,7 +57,7 @@ final class TaxTests: XCTestCase {
         try XCTAssertEqual(Tax(name: .init("Sales"), percent: .init(10), amount: nil), decoder.decode(Tax.self, from: json))
     }
     
-    static var allTests: [(String, (TaxTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TaxTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class EnvironmentTests: XCTestCase {
+public final class EnvironmentTests: XCTestCase {
     func testCaseRawValues() {
         XCTAssertEqual(Environment.production.rawValue, "production")
         XCTAssertEqual(Environment.sandbox.rawValue, "sandbox")
@@ -17,7 +17,7 @@ final class EnvironmentTests: XCTestCase {
         XCTAssertEqual(Environment.allCases, [.sandbox, .production])
     }
     
-    static var allTests: [(String, (EnvironmentTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (EnvironmentTests) -> ()throws -> ())] = [
         ("testCaseRawValues", testCaseRawValues),
         ("testCaseDomains", testCaseDomains),
         ("testAllCase", testAllCase)

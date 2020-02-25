@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class NameTests: XCTestCase {
+public final class NameTests: XCTestCase {
     func testInit()throws {
         let name = try Name(
             prefix: .init("Sir"), given: .init("Walter"), surname: .init("Scott"), middle: nil, suffix: .init("auth."),
@@ -103,7 +103,7 @@ final class NameTests: XCTestCase {
         try XCTAssertThrowsError(decoder.decode(Name.self, from: prefix))
     }
     
-    static var allTests: [(String, (NameTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (NameTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

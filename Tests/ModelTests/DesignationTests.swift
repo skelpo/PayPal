@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class DesignationTests: XCTestCase {
+public final class DesignationTests: XCTestCase {
     func testInit()throws {
         let designation = Business.Designation(title: "CTO", area: "Software Engineering")
         
@@ -38,7 +38,7 @@ final class DesignationTests: XCTestCase {
         try XCTAssertEqual(designation, decoder.decode(Business.Designation.self, from: json))
     }
     
-    static var allTests: [(String, (DesignationTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (DesignationTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

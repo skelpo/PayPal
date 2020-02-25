@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class BuyerTests: XCTestCase {
+public final class BuyerTests: XCTestCase {
     func testInit()throws {
         let buyer = try Buyer(email: .init("witheringheights@exmaple.com"), name: "Leeli Wingfeather")
         
@@ -46,7 +46,7 @@ final class BuyerTests: XCTestCase {
         try XCTAssertEqual(Buyer(email: .init("witheringheights@exmaple.com"), name: "Leeli Wingfeather"), decoder.decode(Buyer.self, from: json))
     }
     
-    static var allTests: [(String, (BuyerTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BuyerTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

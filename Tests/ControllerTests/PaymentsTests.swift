@@ -2,13 +2,13 @@ import XCTest
 import Vapor
 @testable import PayPal
 
-final class PaymentsTests: XCTestCase {
+public final class PaymentsTests: XCTestCase {
     
     var id: String!
     var app: Application!
     var context: PaymentTestsContext!
     
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
         setPaypalVars()
         
@@ -259,7 +259,7 @@ final class PaymentsTests: XCTestCase {
         XCTAssertEqual(refund.id, id)
     }
     
-    static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (PaymentsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testListEndpoint", testListEndpoint),

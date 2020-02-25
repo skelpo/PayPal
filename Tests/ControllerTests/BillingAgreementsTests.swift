@@ -2,12 +2,12 @@ import XCTest
 import Vapor
 @testable import PayPal
 
-final class BillingAgreementsTests: XCTestCase {
+public final class BillingAgreementsTests: XCTestCase {
     
     var app: Application!
     var id: String?
     
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
         setPaypalVars()
         
@@ -16,9 +16,9 @@ final class BillingAgreementsTests: XCTestCase {
         
         app = try! Application.testable(services: services)
         
-        if self.id == nil {
-            try! self.testCreateEndpoint()
-        }
+//        if self.id == nil {
+//            try! self.testCreateEndpoint()
+//        }
     }
     
     func testServiceExists()throws {
@@ -153,7 +153,7 @@ final class BillingAgreementsTests: XCTestCase {
         XCTAssertNotEqual(details.id, id)
     }
     
-    static var allTests: [(String, (BillingAgreementsTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (BillingAgreementsTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testUpdateEndpoint", testUpdateEndpoint),

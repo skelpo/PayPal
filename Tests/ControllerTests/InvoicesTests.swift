@@ -3,12 +3,12 @@ import Vapor
 import SwiftGD
 @testable import PayPal
 
-final class InvoicesTests: XCTestCase {
+public final class InvoicesTests: XCTestCase {
     
     var app: Application!
     var id: String?
     
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
         setPaypalVars()
         
@@ -33,14 +33,14 @@ final class InvoicesTests: XCTestCase {
         let invoice = try Invoice(
             number: nil,
             merchant: MerchantInfo(
-                email: "dispute@skelpo.com",
-                business: "Qutheory LLC.",
-                firstName: "Tanner",
-                lastName: "Nelson",
+                email: .init("dispute@skelpo.com"),
+                business: .init("Qutheory LLC."),
+                firstName: .init("Tanner"),
+                lastName: .init("Nelson"),
                 address: nil,
                 phone: nil,
                 fax: nil,
-                website: "https://vapor.codes/",
+                website: .init("https://vapor.codes/"),
                 taxID: nil,
                 info: nil
             ),
@@ -109,14 +109,14 @@ final class InvoicesTests: XCTestCase {
         let invoice = try Invoice(
             number: nil,
             merchant: MerchantInfo(
-                email: "hello@vapor.codes",
-                business: "Qutheory LLC.",
-                firstName: "Tanner",
-                lastName: "Nelson",
+                email: .init("hello@vapor.codes"),
+                business: .init("Qutheory LLC."),
+                firstName: .init("Tanner"),
+                lastName: .init("Nelson"),
                 address: nil,
                 phone: nil,
                 fax: nil,
-                website: "https://vapor.codes/",
+                website: .init("https://vapor.codes/"),
                 taxID: nil,
                 info: nil
             ),
@@ -145,7 +145,7 @@ final class InvoicesTests: XCTestCase {
         let updated = try invoices.update(invoice: id, with: invoice).wait()
         
         XCTAssertEqual(invoice.date?.date, now)
-        XCTAssertEqual(invoice.payment?.due, now)
+        XCTAssertEqual(invoice.payment?.due, TimelessDate(now))
         XCTAssertEqual(updated.cc?.last?.email, "dont.ater@example.com")
     }
     
@@ -296,7 +296,7 @@ final class InvoicesTests: XCTestCase {
         XCTAssertEqual(empty.invoices?.count, 0)
     }
     
-    static var allTests: [(String, (InvoicesTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (InvoicesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testListEndpoint", testListEndpoint),

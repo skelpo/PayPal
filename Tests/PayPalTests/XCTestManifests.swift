@@ -1,4 +1,7 @@
 import XCTest
+import ModelTests
+import ConfigTests
+import ControllerTests
 
 #if !os(macOS)
 public func allTests() -> [XCTestCaseEntry] {
@@ -242,6 +245,8 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(ProductNameTests.allCases),
         testCase(ProductVettingStatusTests.allCases),
         testCase(ProductGrantedPermissionTests.allCases),
+        testCase(MerchantInfoTests.allTests),
+        testCase(BusinessSalesTests.allTests),
         
         // Controller Tests
         testCase(APITests.allTests),

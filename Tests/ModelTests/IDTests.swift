@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class IDTests: XCTestCase {
+public final class IDTests: XCTestCase {
     func testInit()throws {
         let null = ID()
         let id = ID("P-52603F876DFD4C61")
@@ -30,7 +30,7 @@ final class IDTests: XCTestCase {
         try XCTAssertEqual("P-52603F876DFD4C61", decoder.decode(ID.self, from: mit))
     }
     
-    static var allTests: [(String, (IDTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (IDTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

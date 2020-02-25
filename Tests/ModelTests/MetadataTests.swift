@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class MetadataTests: XCTestCase {
+public final class MetadataTests: XCTestCase {
     func testDecoding()throws {
         let decoder = JSONDecoder()
         
@@ -38,7 +38,7 @@ final class MetadataTests: XCTestCase {
         XCTAssertEqual(metadata.payerView, "https://vapor.com/invoices/2620EF1C-4F5D-4479-8657-4DA21B56D023")
     }
     
-    static var allTests: [(String, (MetadataTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (MetadataTests) -> ()throws -> ())] = [
         ("testDecoding", testDecoding)
     ]
 }

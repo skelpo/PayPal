@@ -2,12 +2,12 @@ import XCTest
 import Vapor
 @testable import PayPal
 
-final class TemplatesTests: XCTestCase {
+public final class TemplatesTests: XCTestCase {
     
     var app: Application!
     var id: String?
     
-    override func setUp() {
+    override public func setUp() {
         super.setUp()
         setPaypalVars()
         
@@ -33,14 +33,14 @@ final class TemplatesTests: XCTestCase {
             default: true,
             data: .init(
                 merchant: MerchantInfo(
-                    email: "hello@vapor.codes",
-                    business: "Qutheory LLC.",
-                    firstName: "Tanner",
-                    lastName: "Nelson",
+                    email: .init("hello@vapor.codes"),
+                    business: .init("Qutheory LLC."),
+                    firstName: .init("Tanner"),
+                    lastName: .init("Nelson"),
                     address: nil,
                     phone: nil,
                     fax: nil,
-                    website: "https://vapor.codes/",
+                    website: .init("https://vapor.codes/"),
                     taxID: nil,
                     info: nil
                 ),
@@ -96,14 +96,14 @@ final class TemplatesTests: XCTestCase {
             default: true,
             data: .init(
                 merchant: MerchantInfo(
-                    email: "hello@vapor.codes",
-                    business: "Qutheory LLC.",
-                    firstName: "Tanner",
-                    lastName: "Nelson",
+                    email: .init("hello@vapor.codes"),
+                    business: .init("Qutheory LLC."),
+                    firstName: .init("Tanner"),
+                    lastName: .init("Nelson"),
                     address: nil,
                     phone: nil,
                     fax: nil,
-                    website: "https://vapor.codes/",
+                    website: .init("https://vapor.codes/"),
                     taxID: nil,
                     info: nil
                 ),
@@ -161,7 +161,7 @@ final class TemplatesTests: XCTestCase {
         XCTAssertEqual(details.id, id)
     }
     
-    static var allTests: [(String, (TemplatesTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (TemplatesTests) -> ()throws -> ())] = [
         ("testServiceExists", testServiceExists),
         ("testCreateEndpoint", testCreateEndpoint),
         ("testListEndpoint", testListEndpoint),

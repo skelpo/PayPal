@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class OverrideChargeTests: XCTestCase {
+public final class OverrideChargeTests: XCTestCase {
     func testInit()throws {
         let id = UUID().uuidString
         let charge = OverrideCharge(id: id, amount: CurrencyCodeAmount(currency: .usd, value: 314.15))
@@ -58,7 +58,7 @@ final class OverrideChargeTests: XCTestCase {
         )
     }
     
-    static var allTests: [(String, (OverrideChargeTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (OverrideChargeTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)

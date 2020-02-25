@@ -29,7 +29,7 @@ extension Order.Payer {
         public var email: Optional127String
         
         /// The birth date of the payer, in [Internet date format](https://tools.ietf.org/html/rfc3339#section-5.6).
-        public var birthdate: Date?
+        public var birthdate: TimelessDate?
         
         /// The payer's tax ID. Supported for the PayPal payment method only.
         ///
@@ -71,7 +71,7 @@ extension Order.Payer {
             self.payer = nil
             
             self.email = email
-            self.birthdate = birthdate
+            self.birthdate = birthdate.map(TimelessDate.init)
             self.tax = tax
             self.taxType = taxType
             self.country = country
@@ -82,15 +82,7 @@ extension Order.Payer {
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
-            if
-                let string = try container.decodeIfPresent(String.self, forKey: .birthdate),
-                let date = TimelessDate.formatter.date(from: string)
-            {
-                self.birthdate = date
-            } else {
-                self.birthdate = nil
-            }
-            
+            self.birthdate = try container.decodeIfPresent(TimelessDate.self, forKey: .birthdate)
             self.salutation = try container.decodeIfPresent(String.self, forKey: .salutation)
             self.firstname = try container.decodeIfPresent(String.self, forKey: .firstname)
             self.middlename = try container.decodeIfPresent(String.self, forKey: .middlename)
@@ -108,10 +100,7 @@ extension Order.Payer {
         public func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: CodingKeys.self)
             
-            if let date = self.birthdate {
-                try container.encode(TimelessDate.formatter.string(from: date), forKey: .birthdate)
-            }
-            
+            try container.encodeIfPresent(self.birthdate, forKey: .birthdate)
             try container.encodeIfPresent(self.salutation, forKey: .salutation)
             try container.encodeIfPresent(self.firstname, forKey: .firstname)
             try container.encodeIfPresent(self.middlename, forKey: .middlename)

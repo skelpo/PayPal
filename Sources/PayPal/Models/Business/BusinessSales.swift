@@ -6,10 +6,10 @@ extension Business {
     public struct Sales: Content, Equatable {
         
         /// The average transaction price.
-        public var price: MoneyRange<CurrencyAmount>?
+        public var price: MoneyRange<CurrencyCodeAmount>?
         
         /// The average volume of monthly sales.
-        public var volume: MoneyRange<CurrencyAmount>?
+        public var volume: MoneyRange<CurrencyCodeAmount>?
         
         /// An array of sales venues for the business.
         public var venues: [SalesVenue]?
@@ -32,8 +32,8 @@ extension Business {
         ///   - website: The primary URL of the business.
         ///   - online: The percentage of revenue attributable to online sales.
         public init(
-            price: MoneyRange<CurrencyAmount>?,
-            volume: MoneyRange<CurrencyAmount>?,
+            price: MoneyRange<CurrencyCodeAmount>?,
+            volume: MoneyRange<CurrencyCodeAmount>?,
             venues: [SalesVenue]?,
             website: Failable<String?, NotNilValidate<Length255>>,
             online: PercentRange?

@@ -27,7 +27,7 @@ public struct BusinessOwner: Content, Equatable {
     
     /// The account holder's date of birth, in [Internet date and time `full-date` format](https://tools.ietf.org/html/rfc3339#section-5.6).
     /// Supports `YYYY-MM-dd`. Not required for all countries.
-    public var birthdate: Date?
+    public var birthdate: TimelessDate?
     
     /// The [language code](https://developer.paypal.com/docs/integration/direct/rest/locale-codes/) for the account holder's preferred language.
     public var language: Language?
@@ -77,25 +77,14 @@ public struct BusinessOwner: Content, Equatable {
         self.phones = phones
         self.ids = ids
         self.occupation = occupation
-        
-        if let date = birthdate {
-            self.birthdate = TimelessDate.formatter.date(from: TimelessDate.formatter.string(from: date))
-        } else {
-            self.birthdate = nil
-        }
+        self.birthdate = birthdate.map(TimelessDate.init)
     }
     
     /// See [`Decodable.init(from:)`](https://developer.apple.com/documentation/swift/decodable/2894081-init).
     public init(from decoder: Decoder)throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        if
-            let birthdate = try container.decodeIfPresent(String.self, forKey: .birthdate),
-            let date = TimelessDate.formatter.date(from: birthdate)
-        {
-            self.birthdate = date
-        }
-        
+        self.birthdate = try container.decodeIfPresent(TimelessDate.self, forKey: .birthdate)
         self.email = try container.decode(Failable<String, EmailString>.self, forKey: .email)
         self.country = try container.decode(Country.self, forKey: .country)
         self.name = try container.decode(Name.self, forKey: .name)
@@ -111,14 +100,11 @@ public struct BusinessOwner: Content, Equatable {
     public func encode(to encoder: Encoder)throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        if let date = self.birthdate {
-            try container.encode(TimelessDate.formatter.string(from: date), forKey: .birthdate)
-        }
-        
         try container.encode(self.email, forKey: .email)
         try container.encode(self.country, forKey: .country)
         try container.encode(self.name, forKey: .name)
         try container.encode(self.addresses, forKey: .addresses)
+        try container.encodeIfPresent(self.birthdate, forKey: .birthdate)
         try container.encodeIfPresent(self.relationships, forKey: .relationships)
         try container.encodeIfPresent(self.language, forKey: .language)
         try container.encodeIfPresent(self.phones, forKey: .phones)

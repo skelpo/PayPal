@@ -2,7 +2,7 @@ import XCTest
 import Failable
 @testable import PayPal
 
-final class InvoiceParticipantTests: XCTestCase {
+public final class InvoiceParticipantTests: XCTestCase {
     func testInit()throws {
         let participant = try Invoice.Participant(email: .init("participant@example.com"))
         
@@ -38,7 +38,7 @@ final class InvoiceParticipantTests: XCTestCase {
         try XCTAssertEqual(Invoice.Participant(email: .init("participant@example.com")), decoder.decode(Invoice.Participant.self, from: json))
     }
     
-    static var allTests: [(String, (InvoiceParticipantTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (InvoiceParticipantTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testValidations", testValidations),
         ("testEncoding", testEncoding),

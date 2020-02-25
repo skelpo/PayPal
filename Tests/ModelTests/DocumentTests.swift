@@ -1,7 +1,7 @@
 import XCTest
 @testable import PayPal
 
-final class DocumentTests: XCTestCase {
+public final class DocumentTests: XCTestCase {
     func testInit()throws {
         let document = Document(name: "README.md", size: "65kb")
         
@@ -29,7 +29,7 @@ final class DocumentTests: XCTestCase {
         try XCTAssertEqual(Document(name: "README.md", size: "65kb"), decoder.decode(Document.self, from: json))
     }
     
-    static var allTests: [(String, (DocumentTests) -> ()throws -> ())] = [
+    public static var allTests: [(String, (DocumentTests) -> ()throws -> ())] = [
         ("testInit", testInit),
         ("testEncoding", testEncoding),
         ("testDecoding", testDecoding)
